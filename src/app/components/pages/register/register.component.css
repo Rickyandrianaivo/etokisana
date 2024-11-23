@@ -1,0 +1,43 @@
+.file-input{
+    display: none;
+}
+.client-register{
+    width: 55%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-evenly;
+}
+.seller{
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+}
+.register-form-style{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-evenly;
+}
+.buttonContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-evenly;
+}
+.options{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+mat-checkbox{
+    margin : auto 0;
+}
+.mat-mdc-form-field-icon-suffix, [dir=rtl] .mat-mdc-form-field-icon-prefix {
+    padding: 0px 22px 13px 0px !important;
+}
+/* mat-datepicker-toggle{
+    margin: 0 -19px -10px 0;
+} */

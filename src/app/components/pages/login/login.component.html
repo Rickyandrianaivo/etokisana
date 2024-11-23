@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="details">
+        <h3 style="color:rgb(0, 0, 0)">Authentification</h3>
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+            <text-input
+            [control]="fc['email']"
+            [showErrorsWhen]="isSubmitted"
+            label="Email">
+            </text-input>
+            <text-input
+            [control]="fc['password']"
+            [showErrorsWhen]="isSubmitted"
+            label="Mot de passe"
+            type = "password">
+            </text-input>
+            <a>Mot de passe oublié?</a>
+            <div class="buttonContainer">
+                <app-default-button text="Se connecter" type="submit"></app-default-button>
+                <!-- <app-default-button text="Register" routerLink="/register" type="button"></app-default-button> -->
+            </div>
+        </form>
+    </div>
+</div>

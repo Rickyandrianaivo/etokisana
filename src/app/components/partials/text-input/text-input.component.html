@@ -1,0 +1,17 @@
+<!-- <input-container [label]="label">
+    <input [type]="type" [placeholder]="label" [formControl]="formControl"/>
+    <input-validation
+        [control]="control"
+        [showErrorsWhen]="showErrorsWhen">
+    </input-validation>
+</input-container> -->
+<input-container [label]="label" [style.fontSize.px]="10">
+    <mat-form-field appearance="outline">
+        <mat-label >{{ label }}</mat-label>
+        <input  matInput [placeholder]="label" [formControl]="formControl"/>
+        <input-validation
+            [control]="control"
+            [showErrorsWhen]="showErrorsWhen">
+        </input-validation>
+    </mat-form-field>
+</input-container>

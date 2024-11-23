@@ -1,0 +1,65 @@
+<header>
+    <div class="container">
+        
+        <div class="header-top">
+            <div class="logo"><img src="newlogo.png" alt="Logo etokisana"></div>
+            <!-- <div class="search-bar"> Recherche</div> -->
+             <app-search></app-search>
+            <nav class="right-nav">
+                <ul>
+                    <li><a href="/register" routerlink="/register" class="register-btn">S'inscrire</a></li>
+                    <li><a href="/login" routerlink="/login" class="login-btn">Se Connecter</a></li>
+                    <!-- <li><a href="/home" routerlink="/home" class="logo">Mes tâches</a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div *ngIf="isLoged">
+        <div class="header-menu">
+            <ul>
+                <li><a href="/home" routerlink="/home" class="logo">Accueil</a></li>
+                <li class="menu-container">
+                    <a routerLink="/vente">Faire mes courses</a>
+                    <div class="menu">
+                        <a routerLink="facture-vente">Factures Vente</a>
+                        <a routerLink="">CA par Famille</a>
+                        <a routerLink="">CA par Article</a>
+                    </div>
+                </li>
+                <li class="menu-container">
+                    <a routerLink="/dashboard">Enchère</a>
+                    <div class="menu">
+                        <a routerLink="facture-fournisseur">Factures</a>
+                        <a routerLink="">CA par Famille</a>
+                        <a routerLink="">CA par Article</a>
+                    </div>
+                </li>
+                <li class="menu-container">
+                    <a routerLink="/dashboard">Appel d'offre</a>
+                    <div class="menu">
+                        <a routerLink="inventaires">Inventaire</a>
+                        <a routerLink="bon-entrees">Bons d'entrées</a>
+                        <a routerLink="bon-sorties">Bons de sorties</a>
+                        <a routerLink="mouvement-stock">Mouvement stock</a>
+                        <a routerLink="etat-stock">Etats de stock</a>
+                    </div>
+                </li>
+                <li class="menu-container">
+                    <a routerLink="/dashboard">Transporteur</a>
+                    <div class="menu">
+                        <a routerLink="article">Articles</a>
+                        <a routerLink="">Fournisseurs</a>
+                        <a routerLink="clients">Clients</a>
+                        <a routerLink="famille-article">Familles</a>
+                    </div>
+                </li>
+                <!-- <li class="menu-container"> <a routerLink="print">print</a></li> -->
+                <li>
+                    <a routerLink="/contact">contact</a>
+                </li>
+                <li *ngIf="!isLoged"><a href="/home" routerlink="/home" class="logo">Mes informations</a></li>
+                <li *ngIf="!isLoged"><a href="/home" routerlink="/home" class="logo">Mes tâches</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
