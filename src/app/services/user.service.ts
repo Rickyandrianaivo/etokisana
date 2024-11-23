@@ -37,8 +37,8 @@ export class UserService {
     this.router.navigateByUrl('/');
    }
 
-  registerSeller(registerSellerData : IUserRegister){
-    return this.http.post<User>(USER_REGISTER_URL,registerSellerData)
+  registerUser(registerUserData : IUserRegister){
+    return this.http.post<User>(USER_REGISTER_URL,registerUserData)
   }
   uploadFile(formData:FormData){
     console.log("image uploaded !! ")

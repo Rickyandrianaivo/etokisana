@@ -85,8 +85,8 @@ body{
   }
   /** header **/
   h3{
-    background-color: rgba(24, 119, 242);
-    color:white;
+    background-color: rgba(123, 180, 255, 0);
+    color:rgb(104, 182, 255);
     border-radius:5px 5px 0px 0px;
     margin-bottom:0;
     text-align: center;
@@ -113,8 +113,8 @@ body{
   /*  Button */
   div button{
     color: grey;
-    height: 2.5rem;
-    width: 5rem;
+    /* height: 2.5rem;
+    width: 5rem; */
     font-size: .8rem;
     border-radius: 0.5rem;
     border: none;
@@ -123,16 +123,23 @@ body{
     opacity: .8;
     outline: none;
   }
-  
+  .material-icons{
+    font-size: 14px;
+  }
+  .mat-icon{
+    height: auto;
+    width: auto;
+  }
   button{
     background-color: rgb(24, 119, 242);
     color: white;
-    height: 2.5rem;
+    /* height: 2.5rem; */
+    padding: 5px;
     border: none;
     outline: none;
     font-weight: 100;
     border-radius: 0.5rem;
-    margin:1rem auto;
+    margin:.3rem auto;
     opacity:0.8;
     width: fit-content;
     outline: none;
@@ -283,4 +290,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .mat-mdc-form-field-icon-suffix, [dir=rtl] .mat-mdc-form-field-icon-prefix {
   padding: 0px 22px 13px 0px ;
+}
+.mat-icons{
+  height: auto;
 }

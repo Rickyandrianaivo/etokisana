@@ -1,7 +1,7 @@
 <div class="container">
     <app-header></app-header>
     <div class="inner-container">
-        <h3>Register</h3>
+        <h3>Inscritpion</h3>
         <input type="file" class="file-input" (change)="onFileSelected($event)" #pdpUpload>
         <input type="file" class="file-input" (change)="onFileSelected($event)" #logoUpload>
         <div class="options">
@@ -59,7 +59,7 @@
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth">
                 <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-19px;margin-left: -10px;"></mat-datepicker-toggle>
+                <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             <!-- <text-input
@@ -97,7 +97,7 @@
                 [showErrorsWhen]="isSubmitted"
                 label="Logo">
                 </text-input> -->
-                <div class="file-upload">
+                <div class="file-upload seller-file">
                     {{ fileName || "Votre logo ?"}}
                     <button class="upload-btn" (click)="logoUpload.click()"><mat-icon >attach_file</mat-icon></button>
                 </div>

@@ -9,11 +9,12 @@ import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { HttpClient } from '@angular/common/http';
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [TextInputComponent,DefaultButtonComponent,FormsModule,ReactiveFormsModule],
+  imports: [TextInputComponent,DefaultButtonComponent,FormsModule,ReactiveFormsModule,HeaderComponent],
   providers : [HttpClient],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -23,7 +24,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   isSubmitted : boolean = false;
   isLoged : boolean = false;
-  url : string = 'menu';
+  url : string = 'client-area';
   user ?: User;
 
   constructor(
@@ -42,7 +43,7 @@ export class LoginComponent {
     });
     if (this.user?.userEmail) {
       // console.log(this.user)
-      this.router.navigateByUrl('vente')
+      this.router.navigateByUrl('client-area')
     }
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }

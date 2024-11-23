@@ -122,11 +122,11 @@ export class RegisterComponent {
     userAddress         : fv.userAddress ,
     userIdentityCode    : fv.userIdentityCode , // A voir comment le remplir
     };
-    console.log(this.user);
-    // this.userService.registerSeller(this.user).subscribe(_ => {
-    //   alert("registered successfully!");
-    //   this.router.navigateByUrl("/");
-    // })
+    // console.log(this.user);
+    this.userService.registerUser(this.user).subscribe(_ => {
+      alert("registered successfully!");
+      this.router.navigateByUrl("login");
+    })
   }
   uploadClick(){
 

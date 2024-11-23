@@ -22,9 +22,10 @@
     align-content: space-evenly;
 }
 .buttonContainer{
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-content: space-evenly;
 }
 .options{
@@ -41,3 +42,6 @@ mat-checkbox{
 /* mat-datepicker-toggle{
     margin: 0 -19px -10px 0;
 } */
+.seller-file{
+    width: 100%;
+ }
