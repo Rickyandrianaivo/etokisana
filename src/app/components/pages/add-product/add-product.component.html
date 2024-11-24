@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="inner-container">
+        <h3>Inscritpion</h3>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #productUpload>
+        <div class="options">
+            <div class="file-upload">
+                {{ fileName || "Photo de profil"}}
+                <button class="upload-btn" (click)="productUpload.click()"><mat-icon >attach_file</mat-icon></button>
+            </div>
+        </div>
+        <form class="register-form-style" [formGroup]="addProductForm"  (ngSubmit)="submit()">
+            <div class="client-register">
+            <text-input
+            [control]="fc.productName"
+            [showErrorsWhen]="isSubmitted"
+            label="Nom du produit">
+            </text-input>
+            <text-input
+            [control]="fc.productDescription"
+            [showErrorsWhen]="isSubmitted"
+            label="Description">
+            </text-input>
+            <text-input
+            [control]="fc.productPrice"
+            [showErrorsWhen]="isSubmitted"
+            label="Prix unitaire">
+            </text-input>
+            <text-input
+            [control]="fc.category"
+            [showErrorsWhen]="isSubmitted"
+            label="Catégorie">
+            </text-input>
+            
+              <text-input
+            [control]="fc.productUnite"
+            [showErrorsWhen]="isSubmitted"
+            label="Unité de mesure">
+            </text-input> 
+            <text-input
+            [control]="fc.productStock"
+            [showErrorsWhen]="isSubmitted"
+            label="Quantité disponible">
+            </text-input>
+            <text-input
+            [control]="fc.productSource"
+            [showErrorsWhen]="isSubmitted"
+            label="Provenance">
+            </text-input> 
+            </div>
+            <div class="buttonContainer">
+                <app-default-button text="Annuler" type="button"></app-default-button>
+                <app-default-button text="Valider" routerLink="/user-products" type="submit"></app-default-button>
+            </div>
+        </form>
+    </div>
+</div>

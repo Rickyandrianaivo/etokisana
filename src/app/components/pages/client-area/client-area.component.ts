@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { ClientAreaItemsComponent } from '../../partials/client-area-items/client-area-items.component';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-client-area',
@@ -13,5 +14,13 @@ import { ClientAreaItemsComponent } from '../../partials/client-area-items/clien
   styleUrl: './client-area.component.css'
 })
 export class ClientAreaComponent {
-
+  user:any;
+  constructor(
+    private userService:UserService,
+  ){
+    this.user = this.userService.getUserFromLocalStorage();
+  }
+  ngOnInit():void{
+    
+  }
 }

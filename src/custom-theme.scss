@@ -48,9 +48,12 @@ $etokisana-theme: mat.define-theme((
   --mat-datepicker-calendar-header-text-weight: 500;
   --mat-datepicker-calendar-container-shape: 0px;
   --mat-datepicker-calendar-container-touch-shape: 10px;
-  --mdc-icon-button-state-layer-size: 1px;
+  --mdc-icon-button-state-layer-size: 1.2rem;
   --mdc-icon-button-icon-size: 1.2rem;
   --mdc-outlined-text-field-label-text-size: .7rem;
+  --mdc-radio-state-layer-size: 15px;
+  --mat-radio-label-text-line-height: 1rem;
+  --mat-radio-label-text-size: 0.7rem;
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

@@ -5,7 +5,7 @@
     width: 55%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: space-evenly;
 }
 .seller{
@@ -18,7 +18,7 @@
 .register-form-style{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: space-evenly;
 }
 .buttonContainer{
@@ -45,3 +45,4 @@ mat-checkbox{
 .seller-file{
     width: 100%;
  }
+ 

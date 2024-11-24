@@ -1,0 +1,15 @@
+.item{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom : 1px solid black;
+}
+.left-side{
+    width: 49%;
+    float: left;
+}
+.right-side{
+    width: 49%;
+    float: right;
+}

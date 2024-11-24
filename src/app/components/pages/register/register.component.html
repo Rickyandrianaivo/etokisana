@@ -1,5 +1,4 @@
 <div class="container">
-    <app-header></app-header>
     <div class="inner-container">
         <h3>Inscritpion</h3>
         <input type="file" class="file-input" (change)="onFileSelected($event)" #pdpUpload>
@@ -43,8 +42,8 @@
             [showErrorsWhen]="isSubmitted"
             label="Gender">
             </text-input> -->
-            <div>
-                <label>Genre: </label>
+            <div class="radio-gender">
+                <!-- <label>Genre: </label> -->
                 <mat-radio-group [formControl]="userGender">
                   <mat-radio-button value="homme">Monsieur</mat-radio-button>
                   <mat-radio-button value="femme">Madame</mat-radio-button>
@@ -75,6 +74,11 @@
                 </mat-select>
                 <mat-label><em> Document d'identification</em></mat-label>
               </mat-form-field>
+              <text-input
+            [control]="fc.userPassword"
+            [showErrorsWhen]="isSubmitted"
+            label="Mot de passe">
+            </text-input> 
             <text-input
             [control]="fc.identityCardNumber"
             [showErrorsWhen]="isSubmitted"
@@ -85,11 +89,7 @@
             [showErrorsWhen]="isSubmitted"
             label="Address">
             </text-input> 
-            <text-input
-            [control]="fc.userPassword"
-            [showErrorsWhen]="isSubmitted"
-            label="Mot de passe">
-            </text-input> 
+            
             </div>
             <div class="seller" *ngIf="showSellerForm()">
                 <!-- <text-input

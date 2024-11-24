@@ -292,5 +292,35 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 0px 22px 13px 0px ;
 }
 .mat-icons{
-  height: auto;
+  height: auto !important;
+}
+.mat-mdc-radio-button .mdc-radio__native-control  .mat-mdc-radio-button .mdc-radio{
+  height: 15px !important;
+  width: 15px !important;
+}
+.mat-mdc-radio-button .mdc-radio__background,.mat-mdc-radio-button .mat-accent .mat-mdc-radio-checked {
+  height: 15px !important;
+  width: 15px !important;
+}
+.mat-mdc-radio-button .mdc-radio{
+  height: 15px !important;
+  width: 15px !important;
+}
+.mat-mdc-radio-touch-target{
+  height: 15px !important;
+  width: 15px !important;
+  right: 5px;
+}
+/* .mdc-radio__inner-circle{
+  left: -1.05px !important;
+  top: -2.0px !important;
+} */
+.mat-internal-form-field>label{
+  padding-right: 10px !important;
+}
+.mat-mdc-radio-button .mdc-radio__inner-circle{
+  border-width: 7px !important;
+}
+.radio-gender{
+  max-height: 1.5rem;
 }

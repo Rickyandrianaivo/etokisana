@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="main-content">
+        <div class="profile-entete">
+            <div class="image-profile-container">
+                <img src="default.jpg" alt="">
+            </div>
+            <div class="client-name">
+                <h1>Bonjour {{user.userFirstname}} {{user.userName}} </h1>
+                <h3>Solde : {{user.userTotalSolde}} </h3>
+            </div>  
+        </div>
+        <div class="body-content">
+            <app-profile-item label="Email" value="{{user.userEmail}}"></app-profile-item>
+            <app-profile-item label="Téléphone" value="{{user.userPhone}}"></app-profile-item>
+            <app-profile-item label="Adresse" value="{{user.userAddress}}"></app-profile-item>
+            <app-profile-item label="Manager" value="{{user.userManager}}"></app-profile-item>
+            <app-profile-item label="Statut" value="{{user.userStatut}}"></app-profile-item>
+            <app-profile-item label="NIF" value="{{user.userNif}}"></app-profile-item>
+            <app-profile-item label="RC" value="{{user.userRC}}"></app-profile-item>
+            <app-profile-item label="Description" value="{{user.userDescritpion}}"></app-profile-item>
+        </div>
+    </div>
+</div>

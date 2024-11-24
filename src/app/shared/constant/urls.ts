@@ -2,11 +2,15 @@
 const BASE_URL = 'http://localhost:443';
 // const BASE_URL = 'https://gescombackend.onrender.com';
 
-export const ARTICLES_URL                   = BASE_URL + '/api/articles/';
-export const ARTICLES_BY_REFERENCE_URL      = ARTICLES_URL + 'reference/';
-export const ARTICLES_BY_FAMILLE_URL        = ARTICLES_URL + 'famille/';
-export const ARTICLES_BY_SEARCH_URL         = ARTICLES_URL + 'search/';
-export const ARTICLES_BY_ID_URL             = ARTICLES_URL + 'id/'
+export const PRODUCT_URL                   = BASE_URL + '/api/product/';
+export const PRODUCT_BY_ID_URL             = PRODUCT_URL + 'id/';
+export const PRODUCT_ADD_URL               = PRODUCT_URL + 'add/';
+export const PRODUCT_UPDATE_URL            = PRODUCT_URL + 'update/';
+export const PRODUCT_REMOVE_URL            = PRODUCT_URL + 'remove/';
+export const PRODUCT_BY_SEARCH_URL         = PRODUCT_URL + 'search/';
+export const PRODUCT_UPLOAD_IMAGE_URL      = PRODUCT_URL + 'upload/';
+export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
+export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
 
 export const POINTDEVENTE_URL               = BASE_URL + '/api/pointDeVente/';
 export const POINTDEVENTE_UPDATE_URL        = POINTDEVENTE_URL + 'update';
@@ -19,6 +23,7 @@ export const FACTURE_VENTE_DETAILS_URL      = BASE_URL + '/api/facture-vente-det
 export const FACTURE_VENTE_DETAILS_ADD_URL  = FACTURE_VENTE_DETAILS_URL + 'create' ;
 
 export const USER_URL                       = BASE_URL + '/api/users/';
+export const USER_BY_EMAIL_URL              = USER_URL + 'email/';
 export const USER_UPDATE_URL                = USER_URL + 'update/';
 export const USER_LOGIN_URL                 = USER_URL + 'login';
 export const USER_REGISTER_URL              = USER_URL + 'register';

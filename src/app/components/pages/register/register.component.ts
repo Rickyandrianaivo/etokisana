@@ -66,20 +66,12 @@ export class RegisterComponent {
       userEmail:['',Validators.required,Validators.email],
       userPhone:[''],
       userDescritpion:[''],
-      // userImage:['',[Validators.required]],
-      // userEnabled:['',[Validators.required]],
-      // userDateOfBirth:[''],
-      // userTotalSolde:['',[Validators.required]],
-      // userLogo:['',[Validators.required]],
       userStatut:[''],
       userManager:[''],
       userNif:[''],
       userRC:[''],
-      // identityDocumentType:[''],
       identityCardNumber:[''],
-      // userAdmin:['',[Validators.required]],
       userAddress:[''],
-      // userIdentityCode:['',[Validators.required]],
     });
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }

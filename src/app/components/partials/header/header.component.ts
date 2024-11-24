@@ -14,29 +14,29 @@ import { SearchComponent } from '../search/search.component';
 })
 export class HeaderComponent {
 // subscriptions : Subscription[] = [];
-
-  // @Input()
-  isLoged : boolean = true;
-  user?:User;
-
+  isLoged : boolean = false;
+  isUser?:User;
+  user : User = new User();
   constructor(
     private userService : UserService,
     private router:Router
     ) { 
-    this.user = this.userService.getUserFromLocalStorage()
-    // if (!this.user.name || !this.user.password) {
-    //   this.isLoged = false;
-    // }
-    if(this.user){
+    this.isUser = this.userService.getUserFromLocalStorage()
+    if(this.isUser.userName){
+      this.userService.getUserByEmail(this.isUser.userEmail).subscribe(userReq => {
+        this.user = userReq;
+      })
       this.isLoged = true;
+    }else{
+      this.isLoged = false;
     }
   }
 
   ngOnInit(): void {
-    if (!this.user) {
-      this.router.navigateByUrl('/login');
+    if(this.isUser?.userName){
+      this.isLoged = true;
     }else{
-      this.isLoged = true
+      this.isLoged = false;
     }
   }
 
