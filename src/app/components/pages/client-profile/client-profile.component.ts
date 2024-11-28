@@ -9,7 +9,7 @@ import { ProfileItemComponent } from '../../partials/profile-item/profile-item.c
 @Component({
   selector: 'app-client-profile',
   standalone: true,
-  imports: [HeaderComponent,MatFormFieldModule,MatInputModule,ProfileItemComponent],
+  imports: [MatFormFieldModule,MatInputModule,ProfileItemComponent],
   templateUrl: './client-profile.component.html',
   styleUrl: './client-profile.component.css'
 })

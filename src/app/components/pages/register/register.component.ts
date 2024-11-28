@@ -8,7 +8,6 @@ import { DefaultButtonComponent } from '../../partials/default-button/default-bu
 import { MatIcon } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../partials/header/header.component';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +15,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+// import {nodemailer} from 'nodemailer';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +28,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatInputModule,
     MatSelectModule,
-    HeaderComponent,
     MatCheckboxModule,
     MatFormFieldModule,
     TextInputComponent,
@@ -150,16 +149,19 @@ export class RegisterComponent {
   //       pass: "xtjmyjwqkgfnqlfd",
   //     },
   //   });
-    
+  //   const html = 
+  //     "<h1>Bonjour</h1>"
+  //     "Pour finaliser vote inscription veuillez cliquer sur le lien suivant"
+
   //   // async..await is not allowed in global scope, must use a wrapper
   //   async function main(user: User) {
   //     // send mail with defined transport object
   //     const info = await transporter.sendMail({
   //       from: '"Etokisana" <rickyandrianaivo@gmail.com>', // sender address
-  //       to: user.email, // list of receivers
-  //       subject: "Hello ✔", // Subject line
+  //       to: user.userEmail, // list of receivers
+  //       subject: "Bienvenue sur Etokisana", // Subject line
   //       text: "Hello world?", // plain text body
-  //       html: "<b>Hello world?</b>", // html body
+  //       html: "<h1>Bonjour" + user.userName+"</h1>", // html body
   //     });
     
   //     console.log("Message sent: %s", info.messageId);

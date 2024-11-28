@@ -5,6 +5,9 @@ import { ClientAreaComponent } from './components/pages/client-area/client-area.
 import { ClientProfileComponent } from './components/pages/client-profile/client-profile.component';
 import { UserProductsComponent } from './components/pages/user-products/user-products.component';
 import { AddProductComponent } from './components/pages/add-product/add-product.component';
+import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './components/pages/password-reset/password-reset.component';
+import { EmailVerificationComponent } from './components/pages/email-verification/email-verification.component';
 
 export const routes: Routes = [
     {path : '', component: RegisterComponent},
@@ -14,4 +17,7 @@ export const routes: Routes = [
     {path : 'client-profile/:id', component: ClientProfileComponent},
     {path : 'user-products', component: UserProductsComponent},
     {path : 'add-product', component: AddProductComponent},
+    {path : 'forgot-password', component: ForgotPasswordComponent},
+    {path : 'password-reset', component: PasswordResetComponent},
+    {path : 'email-verification', component: EmailVerificationComponent},
 ];

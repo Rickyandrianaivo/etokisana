@@ -23,12 +23,15 @@ export const FACTURE_VENTE_DETAILS_URL      = BASE_URL + '/api/facture-vente-det
 export const FACTURE_VENTE_DETAILS_ADD_URL  = FACTURE_VENTE_DETAILS_URL + 'create' ;
 
 export const USER_URL                       = BASE_URL + '/api/users/';
+export const USER_BY_ID_URL              = USER_URL + 'id/';
 export const USER_BY_EMAIL_URL              = USER_URL + 'email/';
 export const USER_UPDATE_URL                = USER_URL + 'update/';
 export const USER_LOGIN_URL                 = USER_URL + 'login';
 export const USER_REGISTER_URL              = USER_URL + 'register';
 export const USER_UPLOAD_PDP_URL            = USER_URL + 'uploads'
 export const RESET_TABLES_URL               = USER_URL + 'resetTable';
+export const USER_RESETPASSWORD_URL         = USER_URL + 'resetPwd';
+export const USER_REQUESTRESETPASSWORD_URL  = USER_URL + 'requestResetPwd';
 
 export const BON_ENTREE_URL                 = BASE_URL + '/api/bon-entrees/';
 export const BON_ENTREE_ADD_URL             = BON_ENTREE_URL + 'create';

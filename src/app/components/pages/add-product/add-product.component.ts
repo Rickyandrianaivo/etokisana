@@ -8,6 +8,7 @@ import { ProductService } from '../../../services/product.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Product } from '../../../shared/models/Product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -25,7 +26,8 @@ export class AddProductComponent {
 
   constructor(
     private productService:ProductService,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private router:Router,
   ){
 
   }
@@ -77,14 +79,14 @@ export class AddProductComponent {
       productCategory   :fv.productCategory,
       productUnite      :fv.productUnite,
       productStock      :fv.productStock,
-      productState      :fv.productState,
+      productState      :"en attente",
       productSource     :fv.productSource,
-      productImage      :"",
+      productImage      :this.fileName,
     };
     // console.log(this.user);
     this.productService.addProduct(this.product).subscribe(_ => {
       alert("adding product successfully!");
-      // this.router.navigateByUrl("login");
+      this.router.navigateByUrl("user-products");
     })
   }
 }

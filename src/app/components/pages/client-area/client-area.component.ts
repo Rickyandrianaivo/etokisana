@@ -7,7 +7,6 @@ import { UserService } from '../../../services/user.service';
   selector: 'app-client-area',
   standalone: true,
   imports: [
-    HeaderComponent,
     ClientAreaItemsComponent,
   ],
   templateUrl: './client-area.component.html',
