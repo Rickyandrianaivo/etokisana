@@ -15,7 +15,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-// import {nodemailer} from 'nodemailer';
+import * as nodemailer from 'nodemailer';
 
 @Component({
   selector: 'app-register',
@@ -116,6 +116,7 @@ export class RegisterComponent {
     // console.log(this.user);
     this.userService.registerUser(this.user).subscribe(_ => {
       alert("registered successfully!");
+      // this.sendEmail();
       this.router.navigateByUrl("login");
     })
   }
@@ -140,6 +141,7 @@ export class RegisterComponent {
 }
 
   // public sendEmail(e: Event) {
+  //   // public sendEmail() {
   //   const transporter = nodemailer.createTransport({
   //     host: "smtp.gmail.email",
   //     port: 465,
@@ -149,19 +151,21 @@ export class RegisterComponent {
   //       pass: "xtjmyjwqkgfnqlfd",
   //     },
   //   });
-  //   const html = 
-  //     "<h1>Bonjour</h1>"
-  //     "Pour finaliser vote inscription veuillez cliquer sur le lien suivant"
+  // //   const html = `<h1>Bonjour</h1>
+  // //   <p>"Pour finaliser vote inscription veuillez cliquer sur le lien suivant"</p>`
+      
 
-  //   // async..await is not allowed in global scope, must use a wrapper
+  // //   // async..await is not allowed in global scope, must use a wrapper
   //   async function main(user: User) {
   //     // send mail with defined transport object
   //     const info = await transporter.sendMail({
   //       from: '"Etokisana" <rickyandrianaivo@gmail.com>', // sender address
-  //       to: user.userEmail, // list of receivers
+  //       // to: user.userEmail, // list of receivers
+  //       to: "randrianaivo.dominique@gmail.com", // list of receivers
   //       subject: "Bienvenue sur Etokisana", // Subject line
   //       text: "Hello world?", // plain text body
   //       html: "<h1>Bonjour" + user.userName+"</h1>", // html body
+  //       // html:html,
   //     });
     
   //     console.log("Message sent: %s", info.messageId);
