@@ -41,7 +41,7 @@
             "outputPath": "dist/etokisana/",
             "baseHref": ".",
             "index": "src/index.html",
-            "main": "src/main.js",
+            "main": "main.js",
             "polyfills": [
               "zone.js"
             ],
