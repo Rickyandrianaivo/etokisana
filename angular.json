@@ -39,9 +39,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/etokisana/",
-            "baseHref": ".",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "",
             "polyfills": [
               "zone.js"
             ],
