@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../partials/header/header.component';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,6 +24,7 @@ export class ClientProfileComponent {
     // this.user = this.userService.getUserFromLocalStorage()
 
     this.userService.getUserByEmail(userLocal.userEmail).subscribe(reqUser=>{
+      console.log(this.user);
       this.user = reqUser;
     })
   }

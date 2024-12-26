@@ -12,6 +12,11 @@ export const PRODUCT_UPLOAD_IMAGE_URL      = PRODUCT_URL + 'upload/';
 export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
 export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
 
+export const CATEGORY_URL                  = BASE_URL +'api/category/';
+export const CATEGORY_ADD_URL              = CATEGORY_URL + 'add/';
+export const CATEGORY_UPDATE_URL              = CATEGORY_URL + 'update/';
+export const CATEGORY_REMOVE_URL              = CATEGORY_URL + 'remove/';
+
 export const POINTDEVENTE_URL               = BASE_URL + '/api/pointDeVente/';
 export const POINTDEVENTE_UPDATE_URL        = POINTDEVENTE_URL + 'update';
 

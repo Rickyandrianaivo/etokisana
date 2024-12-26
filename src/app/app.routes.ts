@@ -8,15 +8,23 @@ import { AddProductComponent } from './components/pages/add-product/add-product.
 import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
 import { PasswordResetComponent } from './components/pages/password-reset/password-reset.component';
 import { EmailVerificationComponent } from './components/pages/email-verification/email-verification.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { ContactComponent } from './components/pages/contact/contact.component';
+import { AchatComponent } from './components/pages/achat/achat.component';
+import { PanierComponent } from './components/pages/panier/panier.component';
 
 export const routes: Routes = [
-    {path : '', component: RegisterComponent},
+    {path : '', component: LoginComponent},
+    {path : 'home', component: HomeComponent},
+    {path : 'achat', component: AchatComponent},
     {path : 'login', component: LoginComponent},
+    {path : 'panier', component: PanierComponent},
+    {path : 'contact', component: ContactComponent},
     {path : 'register', component: RegisterComponent},
     {path : 'client-area', component: ClientAreaComponent},
-    {path : 'client-profile/:id', component: ClientProfileComponent},
-    {path : 'user-products', component: UserProductsComponent},
     {path : 'add-product', component: AddProductComponent},
+    {path : 'client-profile', component: ClientProfileComponent},
+    {path : 'user-products', component: UserProductsComponent},
     {path : 'forgot-password', component: ForgotPasswordComponent},
     {path : 'password-reset', component: PasswordResetComponent},
     {path : 'email-verification', component: EmailVerificationComponent},

@@ -1,0 +1,37 @@
+<!-- <mat-sidenav-container>
+    <mat-sidenav opened position="start">
+         <app-category-list></app-category-list>
+     </mat-sidenav>
+     <mat-sidenav opened position="end">
+        <h1>Offre spéciale</h1>
+        <app-product-list state="Offre speciale" category=""></app-product-list>
+     </mat-sidenav>
+     <mat-sidenav-content>
+        <h1>Nos {{category}}</h1>
+        <app-product-list state="" [category]="category"></app-product-list>
+    </mat-sidenav-content>
+</mat-sidenav-container> -->
+<mat-drawer-container>
+    <mat-drawer mode="side" opened>
+        <!-- <app-category-list></app-category-list> -->
+        <!-- <app-category-list></app-category-list> -->
+         <ul >
+            <li *ngFor="let category of categoryList"><button (click)="setCategory(category.CatName)">{{category.CatName}}</button></li>
+         </ul>
+    </mat-drawer>
+    <mat-drawer-content>
+        <h1>Nos {{categoryName}}</h1>
+        <!-- <app-product-list state="" [(category)]="categoryName"   ></app-product-list> -->
+         <ul>
+            <li *ngFor="let product of productList"> <app-product-item imageUrl="{{product.productImage}}" productName="{{product.productName}}"></app-product-item></li>
+         </ul>
+    </mat-drawer-content>
+    <mat-drawer mode="side" opened position="end">
+        <h1>Nos offres spéciales</h1>
+        <!-- <app-product-list state="Offre speciale" category=""></app-product-list> -->
+         <ul>
+            <li *ngFor="let offreSpeciale of offreSpecialeList"><app-product-item imageUrl="{{offreSpeciale.productImage}}" productName="{{offreSpeciale.productName}}"></app-product-item></li>
+         </ul>
+    </mat-drawer>
+</mat-drawer-container>
+

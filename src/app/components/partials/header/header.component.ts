@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { User } from '../../../shared/models/User';
 import { UserService } from '../../../services/user.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,SearchComponent],
+  imports: [CommonModule,SearchComponent,RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

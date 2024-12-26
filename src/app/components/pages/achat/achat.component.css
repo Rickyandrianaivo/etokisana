@@ -1,0 +1,7 @@
+mat-drawer-content{
+    min-height: 100vh ;
+}
+mat-drawer-content ul {
+    display: flex;
+    flex-wrap: wrap;
+}

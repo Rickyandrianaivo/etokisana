@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'text-input',
+  selector: 'app-textarea',
   standalone: true,
   imports: [
     InputValidationComponent,
@@ -14,12 +14,11 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    
   ],
-  templateUrl: './text-input.component.html',
-  styleUrl: './text-input.component.css'
+  templateUrl: './textarea.component.html',
+  styleUrl: './textarea.component.css'
 })
-export class TextInputComponent {
+export class TextareaComponent {
   @Input()
   control!:AbstractControl;
   @Input()
@@ -27,11 +26,9 @@ export class TextInputComponent {
   @Input()
   label!: string;
   @Input()
-  type: 'text' |'password' |'email' = 'text' ;
+  type: 'text'='text';
   
   get formControl(){
     return this.control as FormControl;
-  }
-  ngOnInit(): void {
   }
 }

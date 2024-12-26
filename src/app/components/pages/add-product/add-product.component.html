@@ -1,7 +1,7 @@
 <div class="container">
     <div class="inner-container">
-        <h3>Inscritpion</h3>
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #productUpload>
+        <h3>Ajouter un produit</h3>
+        <input type="file"  name="productImageFile" class="file-input" (change)="onFileSelected($event)" #productUpload>
         <div class="options">
             <div class="file-upload">
                 {{ fileName || "Photo de profil"}}
