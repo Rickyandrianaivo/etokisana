@@ -85,6 +85,7 @@ export class ContactComponent {
       .then(
         () => {
           console.log('SUCCESS!');
+          this.router.navigateByUrl('/');
         },
         (error) => {
           console.log('FAILED...',(error as EmailJSResponseStatus).text);

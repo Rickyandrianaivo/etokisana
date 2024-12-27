@@ -27,7 +27,9 @@ export class ProductListComponent {
   }
   ngOnInit(){
     if (this.state == "") {
-      this.productList = this.productService.getAll()
+      this.productService.getAll().subscribe(products=>{
+        this.productList = products
+      })
     }
     if (this.state == "Offre speciale" && this.category=="") {
       this.productList = this.productService.getOffreSpecial()
@@ -36,7 +38,9 @@ export class ProductListComponent {
       this.productList = this.productService.getByCat(this.category)
     }
     if(this.category == ""){
-      this.productList = this.productService.getAll();
+      this.productService.getAll().subscribe(products=>{
+        this.productList = products
+      });
     }
   }
   CatSelection(selectedCat:string){

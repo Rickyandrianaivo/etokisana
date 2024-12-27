@@ -5,7 +5,7 @@
         <div class="options">
             <div class="file-upload">
                 {{ fileName || "Photo de profil"}}
-                <button class="upload-btn" (click)="productUpload.click()"><mat-icon >Choisir un fichier</mat-icon></button>
+                <button class="upload-btn" (click)="productUpload.click()"><mat-icon >Changer l'aperçu</mat-icon></button>
             </div>
         </div>
         <form class="register-form-style" [formGroup]="addProductForm"  (ngSubmit)="submit()">

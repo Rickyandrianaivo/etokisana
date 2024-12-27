@@ -1,18 +1,16 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product-item',
   standalone: true,
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './product-item.component.html',
   styleUrl: './product-item.component.css'
 })
 export class ProductItemComponent {
-  @Input()
-  imageUrl: string = "default.jpg";
-  @Input()
-  productName:string="";
-  @Input()
-  productPrice!:number;
+  @Input()  imageUrl: string = "default.jpg";
+  @Input()  productName: string="";
+  @Input()  productPrice: number=0;
 
 }

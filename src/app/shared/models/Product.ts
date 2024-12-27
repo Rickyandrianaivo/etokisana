@@ -8,4 +8,5 @@ export class Product{
     productState!:string;
     productSource!:string;
     productImage!:string;
+    productOwner!:string;
 }

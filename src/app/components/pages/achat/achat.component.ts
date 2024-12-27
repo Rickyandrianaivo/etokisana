@@ -38,7 +38,9 @@ export class AchatComponent {
   }
   ngOnInit(){
     this.categoryList=this.categoryService.getAll();
-    this.productList = this.productService.getAll();
+    this.productService.getAll().subscribe(products=>{
+      this.productList = products
+    });
     this.offreSpecialeList = this.productService.getOffreSpecial();
   }
   setCategory(category :string){

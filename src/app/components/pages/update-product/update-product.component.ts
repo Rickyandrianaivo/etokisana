@@ -1,21 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductService } from '../../../services/product.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Product } from '../../../shared/models/Product';
-import { Router } from '@angular/router';
+import { ProductService } from '../../../services/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-add-product',
+  selector: 'app-update-product',
   standalone: true,
-  imports: [
-    MatFormFieldModule,
+  imports: [MatFormFieldModule,
     MatInputModule,
     TextInputComponent,
     DefaultButtonComponent,
@@ -23,37 +22,48 @@ import { UserService } from '../../../services/user.service';
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule],
-  templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.css'
+  templateUrl: './update-product.component.html',
+  styleUrl: './update-product.component.css'
 })
-export class AddProductComponent {
-  readonly productCategory = new FormControl();
+export class UpdateProductComponent implements OnInit{
+readonly productCategory = new FormControl();
   fileName = "";
   addProductForm!: FormGroup;
   isSubmitted = false;
   product : Product = new Product();
-  currentUserEmail: string =""
-
+  currentUserEmail: string ="";
+  productID!:string;
+  selectedProduct!:Product
   constructor(
     private productService:ProductService,
     private formBuilder:FormBuilder,
     private router:Router,
-    private userService:UserService
+    private userService:UserService,
+    private activatedRoute:ActivatedRoute
   ){
+    this.activatedRoute.params.subscribe((params)=>{
+      this.productID=params['id']
+      console.log(this.productID)
+      if (this.productID) {
+        this.productService.getProductById(this.productID).subscribe(theproduct=>{
+          this.selectedProduct = theproduct;
+          console.log(this.selectedProduct)
+        })
+      }
+    })
     this.currentUserEmail  = this.userService.getUserFromLocalStorage().userEmail;
-    
   }
 
   ngOnInit() : void {
     this.addProductForm = this.formBuilder.group({
-      productName:['',Validators.required],
-      productDescription:['',Validators.required],
-      productPrice:['',Validators.required],
-      productCategory:[''],
-      productUnite:[''],
-      productStock:[''],
-      productState:[''],
-      productSource:[''],
+      productName:[this.selectedProduct.productName,Validators.required],
+      productDescription:[this.selectedProduct.productDescription,Validators.required],
+      productPrice:[this.selectedProduct.productPrice,Validators.required],
+      productCategory:[this.selectedProduct.productCategory],
+      productUnite:[this.selectedProduct.productUnite],
+      productStock:[this.selectedProduct.productStock],
+      productState:[this.selectedProduct.productState],
+      productSource:[this.selectedProduct.productSource],
     })
   }
 
@@ -83,7 +93,7 @@ export class AddProductComponent {
       }
     
     const fv = this.addProductForm.value;
-    console.log(fv.userName);
+    // console.log(fv.userName);
     this.product = {
       productName       :fv.productName,
       productDescription:fv.productDescription,
@@ -97,8 +107,8 @@ export class AddProductComponent {
       productOwner      :this.currentUserEmail,
     };
     // console.log(this.user);
-    this.productService.addProduct(this.product).subscribe(_ => {
-      alert("adding product successfully!");
+    this.productService.updateProduct(this.product).subscribe(_ => {
+      alert("Produit mis à jour avec succés!");
       this.router.navigateByUrl("user-products");
     })
   }
