@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProductListComponent } from '../../partials/product-list/product-list.component';
 // import { CategoryListComponent } from '../../partials/category-list/category-list.component';
 import {MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenavModule} from '@angular/material/sidenav';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { CategoryService } from '../../../services/category.service';
 import { ProductCategory } from '../../../shared/models/ProductCategory';
 import { Route, Router } from '@angular/router';
@@ -14,20 +14,22 @@ import { ProductItemComponent } from "../../partials/product-item/product-item.c
   selector: 'app-achat',
   standalone: true,
   imports: [
-    // ProductListComponent,
     MatSidenavModule,
     MatDrawerContainer, MatDrawerContent, MatDrawer,
-    // CategoryListComponent,
     NgFor,
+    NgIf,
     ProductItemComponent
 ],
   templateUrl: './achat.component.html',
   styleUrl: './achat.component.css'
 })
 export class AchatComponent {
-  categoryName:string ="Vehicule";
+  categoryTout:boolean = true;
+  categoryName:string ="Tout";
   categoryList:ProductCategory[]=[];
+  sampleProductList:Product[]=[];
   productList: Product[]=[];
+  productAll:Product[]=[];
   offreSpecialeList:Product[]=[];
   constructor(
     private categoryService:CategoryService,
@@ -39,13 +41,21 @@ export class AchatComponent {
   ngOnInit(){
     this.categoryList=this.categoryService.getAll();
     this.productService.getAll().subscribe(products=>{
-      this.productList = products
+      this.productAll = products;
+      this.productList = this.productAll;
     });
+    this.sampleProductList = this.productService.getSample()
     this.offreSpecialeList = this.productService.getOffreSpecial();
   }
   setCategory(category :string){
     this.categoryName = category;
     this.productList= this.productService.getByCat(category);
+    this.categoryTout = false;
+
+  }
+  categoryAll(){
+    this.categoryTout=true;
+    this.productList = this.productAll;
   }
 
 }

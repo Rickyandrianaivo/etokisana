@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../shared/models/Product';
-import { PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_EMAIL_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
+import { PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_EMAIL_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { sample_products } from '../../../data';
@@ -14,9 +14,9 @@ export class ProductService {
     private http:HttpClient,
   ) { }
 
-  // getAll(){
-  //   return sample_products;
-  // }
+  getSample(){
+    return sample_products;
+  }
   getOffreSpecial(){
     const offreSpecial = sample_products.filter((product:Product)=>product.productState == "Speciale")
     return offreSpecial;
@@ -28,6 +28,7 @@ export class ProductService {
   getAll() : Observable<Product[]>{
     return this.http.get<Product[]>(PRODUCT_URL);
   }
+
 
   getProductById(id:string) : Observable<Product>{
     return this.http.get<Product>(PRODUCT_URL+id);
@@ -49,6 +50,9 @@ export class ProductService {
   }
   uploadFile(formData:FormData){
     console.log("image uploaded !! ")
-    return this.http.post(PRODUCT_UPLOAD_IMAGE_URL, formData)
+    return this.http.post(PRODUCT_UPLOAD_IMAGE_URL, formData);
+  }
+  deleteProduct(productId:string){
+    return this.http.delete(PRODUCT_REMOVE_URL+productId);
   }
 }

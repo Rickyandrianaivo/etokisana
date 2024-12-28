@@ -15,14 +15,21 @@
     <mat-drawer mode="side" opened>
          <h1>Categories</h1>
          <ul >
+            <li><button (click)="categoryAll()">Tout</button></li>
             <li *ngFor="let category of categoryList"><button (click)="setCategory(category.CatName)">{{category.CatName}}</button></li>
          </ul>
     </mat-drawer>
     <mat-drawer-content>
-        <h1>Nos {{categoryName}}</h1>
+        <h1 *ngIf="!categoryTout">Nos {{categoryName}}</h1>
         <!-- <app-product-list state="" [(category)]="categoryName"   ></app-product-list> -->
+         <!-- <ul >
+            <li *ngFor="let product of productWithCategoryList"> <app-product-item [imageUrl]="product.productImage" [productName]="product.productName" [productPrice]="product.productPrice"></app-product-item></li>
+         </ul> -->
          <ul>
             <li *ngFor="let product of productList"> <app-product-item [imageUrl]="product.productImage" [productName]="product.productName" [productPrice]="product.productPrice"></app-product-item></li>
+         </ul>
+         <ul *ngIf="categoryTout">
+            <li *ngFor="let product of sampleProductList"> <app-product-item [imageUrl]="product.productImage" [productName]="product.productName" [productPrice]="product.productPrice"></app-product-item></li>
          </ul>
     </mat-drawer-content>
     <mat-drawer mode="side" opened position="end">

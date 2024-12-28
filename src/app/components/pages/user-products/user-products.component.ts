@@ -3,7 +3,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Product } from '../../../shared/models/Product';
 import { ProductService } from '../../../services/product.service';
 import { UserService } from '../../../services/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -23,6 +23,7 @@ export class UserProductsComponent implements OnInit{
   constructor(
     private productService:ProductService,
     private userService :UserService,
+    private router:Router
   ){
     this.currentUserEmail =this.userService.getUserFromLocalStorage().userEmail;
   }
@@ -30,5 +31,11 @@ export class UserProductsComponent implements OnInit{
     this.productService.getProductByOwner(this.currentUserEmail).subscribe(productFromServer=>{
       this.dataSource = productFromServer;
     })
+  }
+  deleteProduct(productId:string){
+    this.productService.deleteProduct(productId).subscribe(_=>{
+      alert("Produit retirer avec succés !")
+      this.router.navigateByUrl('user-products')
+    });
   }
 }
