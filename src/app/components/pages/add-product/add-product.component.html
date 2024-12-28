@@ -15,11 +15,11 @@
             [showErrorsWhen]="isSubmitted"
             label="Nom du produit">
             </text-input>
-            <text-input
+            <app-textarea
             [control]="fc.productDescription"
             [showErrorsWhen]="isSubmitted"
             label="Description">
-            </text-input>
+            </app-textarea>
             <text-input
             [control]="fc.productPrice"
             [showErrorsWhen]="isSubmitted"
@@ -51,5 +51,6 @@
                 <app-default-button text="Valider" routerLink="/user-products" type="submit"></app-default-button>
             </div>
         </form>
+        
     </div>
 </div>

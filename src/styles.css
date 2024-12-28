@@ -1,6 +1,6 @@
 
 body{
-  font-size: 0.7rem;
+  font-size: 1rem;
     margin : 0px;
   }
   app-sidebar{
@@ -323,6 +323,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .radio-gender{
   max-height: 1.5rem;
+  margin: auto auto 15px auto;
 }
 ul{
   list-style: none;

@@ -5,7 +5,7 @@ import {MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenavModule} from 
 import { NgFor, NgIf } from '@angular/common';
 import { CategoryService } from '../../../services/category.service';
 import { ProductCategory } from '../../../shared/models/ProductCategory';
-import { Route, Router } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../shared/models/Product';
 import { ProductItemComponent } from "../../partials/product-item/product-item.component";
@@ -18,6 +18,7 @@ import { ProductItemComponent } from "../../partials/product-item/product-item.c
     MatDrawerContainer, MatDrawerContent, MatDrawer,
     NgFor,
     NgIf,
+    RouterLink,
     ProductItemComponent
 ],
   templateUrl: './achat.component.html',
@@ -28,8 +29,8 @@ export class AchatComponent {
   categoryName:string ="Tout";
   categoryList:ProductCategory[]=[];
   sampleProductList:Product[]=[];
-  productList: Product[]=[];
-  productAll:Product[]=[];
+  productList: any[]=[];
+  productAll:any[]=[];
   offreSpecialeList:Product[]=[];
   constructor(
     private categoryService:CategoryService,

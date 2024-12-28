@@ -1,1 +1,14 @@
-<p>product-page works!</p>
+<div class="container">
+    <div class="image-container">
+        <img src="{{theProduct.productImage}}"/>
+    </div>
+    <div class="content-container">
+        <h1>{{theProduct.productName}}</h1>
+        <h3> {{theProduct.productPrice | currency}} </h3>
+        <p> {{theProduct.productDescription}} </p>
+        <p> {{theProduct.productSource}} </p>
+    </div>
+<br>
+    <app-default-button (click)="addtoCart()" text="Ajouter au panier"></app-default-button>
+</div>
+

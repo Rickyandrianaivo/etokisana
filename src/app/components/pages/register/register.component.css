@@ -1,20 +1,27 @@
+.form-line{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 .file-input{
     display: none;
 }
 .client-register{
-    width: 55%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    flex-direction: column;
     align-content: space-evenly;
 }
-.seller{
+/* .seller{
     width: 40%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-content: flex-start;
-}
+
+    align-content: center;
+} */
 .register-form-style{
     display: flex;
     flex-wrap: wrap;

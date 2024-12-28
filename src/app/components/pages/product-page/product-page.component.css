@@ -1,0 +1,7 @@
+img{
+    max-height: 150px;
+}
+.container{
+    display:flex;
+    justify-content: center;
+}

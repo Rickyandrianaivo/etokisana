@@ -55,4 +55,7 @@ export class ProductService {
   deleteProduct(productId:string){
     return this.http.delete(PRODUCT_REMOVE_URL+productId);
   }
+  freeimagehostupload(formData:FormData){
+    return this.http.post("freeimage.host/api/1/upload/?key=6d207e02198a847aa98d0a2a901485a5",formData)
+  }
 }

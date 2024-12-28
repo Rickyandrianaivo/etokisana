@@ -16,12 +16,13 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import * as nodemailer from 'nodemailer';
+import { TextareaComponent } from '../../partials/textarea/textarea.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    MatIcon,
+    // MatIcon,
     MatLabel,
     FormsModule,
     CommonModule,
@@ -31,6 +32,7 @@ import * as nodemailer from 'nodemailer';
     MatCheckboxModule,
     MatFormFieldModule,
     TextInputComponent,
+    TextareaComponent,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatButtonToggleModule,
@@ -61,7 +63,7 @@ export class RegisterComponent {
     this.registerForm = this.formBuilder.group({
       userName:['',Validators.required],
       userFirstname:['',Validators.required],
-      userPassword:['',Validators.required],
+      userPassword:['',Validators.required,],
       userEmail:['',Validators.required,Validators.email],
       userPhone:[''],
       userDescritpion:[''],
@@ -69,8 +71,8 @@ export class RegisterComponent {
       userManager:[''],
       userNif:[''],
       userRC:[''],
-      identityCardNumber:[''],
-      userAddress:[''],
+      // identityCardNumber:[''],
+      // userAddress:[''],
     });
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
@@ -91,8 +93,8 @@ export class RegisterComponent {
     const fv = this.registerForm.value;
     console.log(fv.userName);
     this.user = {
-    userName          : fv.userName ,         
-    userFirstname     : fv.userFirstname ,  
+    userName            : fv.userName ,         
+    userFirstname       : fv.userFirstname ,  
     userPassword        : fv.userPassword ,     
     userEmail           : fv.userEmail ,     
     userPhone           : fv.userPhone ,      

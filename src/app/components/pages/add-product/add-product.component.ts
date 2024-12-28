@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Product } from '../../../shared/models/Product';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { TextareaComponent } from '../../partials/textarea/textarea.component';
 
 @Component({
   selector: 'app-add-product',
@@ -18,6 +19,7 @@ import { UserService } from '../../../services/user.service';
     MatFormFieldModule,
     MatInputModule,
     TextInputComponent,
+    TextareaComponent,
     DefaultButtonComponent,
     FormsModule,
     ReactiveFormsModule,
