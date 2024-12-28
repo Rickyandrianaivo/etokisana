@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
   addProductForm!: FormGroup;
   isSubmitted = false;
   product : Product = new Product();
-  currentUserEmail: string =""
+  currentUser :any;
 
   constructor(
     private productService:ProductService,
@@ -40,8 +40,7 @@ export class AddProductComponent implements OnInit {
     private router:Router,
     private userService:UserService
   ){
-    this.currentUserEmail  = this.userService.getUserFromLocalStorage().userEmail;
-    
+    this.currentUser  = this.userService.getUserFromLocalStorage();
   }
 
   ngOnInit() : void {
@@ -94,7 +93,7 @@ export class AddProductComponent implements OnInit {
       productState      :"en attente",
       productSource     :fv.productSource,
       productImage      :this.fileName,
-      productOwner      :this.currentUserEmail,
+      productOwner      :this.currentUser._id,
     };
     // console.log(this.user);
     this.productService.addProduct(this.product).subscribe(_ => {

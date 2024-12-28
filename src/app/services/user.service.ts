@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/Interfaces/IUserLogin';
 import { IUserRegister } from '../shared/Interfaces/IUserRegister';
+import { IUserToken } from '../shared/Interfaces/IUserToken';
 
 
 const USER_KEY = "User";
