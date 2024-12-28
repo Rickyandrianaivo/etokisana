@@ -5,7 +5,7 @@ export interface IUserRegister{
     userEmail           : string;
     userPhone           : string;
     userDescritpion     : string
-    userGender          : string
+    userType            : string
     userImage           : string
     userEnabled         : boolean;
     userDateOfBirth     : Date;

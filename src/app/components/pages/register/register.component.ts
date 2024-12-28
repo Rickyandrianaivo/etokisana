@@ -1,7 +1,7 @@
 import { Component,signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../../../shared/models/User';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
@@ -23,16 +23,17 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
   standalone: true,
   imports: [
     // MatIcon,
-    MatLabel,
+    // MatLabel,
+    RouterLink,
     FormsModule,
     CommonModule,
     MatRadioModule,
     MatInputModule,
     MatSelectModule,
+    TextareaComponent,
     MatCheckboxModule,
     MatFormFieldModule,
     TextInputComponent,
-    TextareaComponent,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatButtonToggleModule,
@@ -43,7 +44,7 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  readonly userGender = new FormControl();
+  readonly userType = new FormControl();
   readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
@@ -99,7 +100,7 @@ export class RegisterComponent {
     userEmail           : fv.userEmail ,     
     userPhone           : fv.userPhone ,      
     userDescritpion     : fv.userDescritpion ,   
-    userGender          : this.userGender.value ,  
+    userType            : this.userType.value ,  
     userImage           : fv.userImage ,  
     userEnabled         : false ,  
     userDateOfBirth     : this.dateOfBirth.value,  

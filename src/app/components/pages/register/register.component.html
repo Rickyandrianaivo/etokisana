@@ -8,146 +8,79 @@
                 {{ fileName || "Photo de profil"}}
                 <button class="upload-btn" (click)="pdpUpload.click()"><mat-icon >attach_file</mat-icon></button>
             </div> -->
-            <mat-checkbox
-                [checked]="showSellerForm()"
-                (change)="toggleSellerForm()">
-                Entreprise
-            </mat-checkbox>
         </div>
         <form class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submit()">
             <div class="client-register">
-                <div class="form-line">
-                    <text-input
-                        [control]="fc.userName"
-                        [showErrorsWhen]="isSubmitted"
-                        label="Nom">
-                        </text-input>
-                        <text-input
-                        [control]="fc.userFirstname"
-                        [showErrorsWhen]="isSubmitted"
-                        label="Prénom">
-                    </text-input>
-                </div>
-                <div class="form-line">
-            <text-input
-            [control]="fc.userEmail"
-            [showErrorsWhen]="isSubmitted"
-            label="Email">
-            </text-input>
-            <text-input
-            [control]="fc.userPhone"
-            [showErrorsWhen]="isSubmitted"
-            label="Téléphone">
-            </text-input>
-            </div>
-            <!-- <text-input
-            [control]="fc.userGender"
-            [showErrorsWhen]="isSubmitted"
-            label="Gender">
-            </text-input> -->
-            <div class="form-line">
                 <div class="radio-gender">
-                <!-- <label>Genre: </label> -->
-                <mat-radio-group [formControl]="userGender">
-                  <mat-radio-button value="homme">Monsieur</mat-radio-button>
-                  <mat-radio-button value="femme">Madame</mat-radio-button>
-                </mat-radio-group>
-            </div>
-            <!-- <text-input
-            [control]="fc.userDateOfBirth"
-            [showErrorsWhen]="isSubmitted"
-            label="Date de naissance">
-            </text-input> -->
-            <mat-form-field appearance="outline" >
-                <mat-label>Date de naissance</mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth">
-                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-                <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-            
-            <!-- <text-input
-            [control]="fc.identityDocumentType"
-            [showErrorsWhen]="isSubmitted"
-            label="Type de document">
-            </text-input> -->
-            <!-- <mat-form-field appearance="outline">
-                <mat-select required [(value)]="identityDocumentType.value">
-                  <mat-option value="CIN">Carte d'identité</mat-option>
-                  <mat-option value="Permis">Permis de conduire</mat-option>
-                  <mat-option value="Passeport">Passeport</mat-option>
-                </mat-select>
-                <mat-label><em> Document d'identification</em></mat-label>
-              </mat-form-field> -->
-              <div class="form-line">
+                    <mat-radio-group [formControl]="userType">
+                      <mat-radio-button value="particulier">Particulier</mat-radio-button>
+                      <mat-radio-button value="entreprise">Entreprise</mat-radio-button>
+                    </mat-radio-group>
+                </div>
                 <text-input
-            [control]="fc.userPassword"
-            [showErrorsWhen]="isSubmitted"
-            label="Mot de passe"
-            type='password'>
-            </text-input> 
-            <!-- <text-input
-            [control]="fc.identityCardNumber"
-            [showErrorsWhen]="isSubmitted"
-            label="Numero Document">
-            </text-input> -->
-
-            <text-input
-            [control]="fc.userAddress"
-            [showErrorsWhen]="isSubmitted"
-            label="Address">
-            </text-input>
-              </div>
-               
-            
-            
+                    [control]="fc.userName"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Nom">
+                </text-input>
+                <text-input
+                    [control]="fc.userFirstname"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Prénom">
+                </text-input>                
+                <text-input
+                    [control]="fc.userEmail"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Email">
+                </text-input>
+                <text-input
+                    [control]="fc.userPhone"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Téléphone">
+                </text-input>
+                <text-input
+                    [control]="fc.userPassword"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Mot de passe"
+                    type='password'>
+                </text-input> 
+                <text-input
+                    [control]="fc.userAddress"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Address">
+                </text-input>
             <div class="seller" *ngIf="showSellerForm()">
-                <!-- <text-input
-                [control]="fc.userLogo"
-                [showErrorsWhen]="isSubmitted"
-                label="Logo">
-                </text-input> -->
-                <!-- <div class="file-upload seller-file">
-                    {{ fileName || "Votre logo ?"}}
-                    <button class="upload-btn" (click)="logoUpload.click()"><mat-icon >attach_file</mat-icon></button>
-                </div> -->
-                <div class="form-line">
-                    <text-input
+                <text-input
                     [control]="fc.userManager"
                     [showErrorsWhen]="isSubmitted"
                     label="Manager">
-                    </text-input>
-                    <text-input
+                </text-input>
+                <text-input
                     [control]="fc.userStatut"
                     [showErrorsWhen]="isSubmitted"
                     label="Statut">
-                    </text-input>
-                </div>
-                
-                <div class="form-line">
-                    <text-input
+                </text-input>
+                <text-input
                     [control]="fc.userNif"
                     [showErrorsWhen]="isSubmitted"
                     label="NIF">
-                    </text-input>
-                    <text-input
+                </text-input>
+                <text-input
                     [control]="fc.userRC"
                     [showErrorsWhen]="isSubmitted"
                     label="RC">
-                    </text-input>
-                </div>
+                </text-input>
                 <app-textarea
-            [control]="fc.userDescritpion"
-            [showErrorsWhen]="isSubmitted"
-            label="Descritpion">
+                    [control]="fc.userDescritpion"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Descritpion">
                 </app-textarea>
             </div>
         </div>
             <div class="buttonContainer">
                 <!-- <app-default-button text="S'INSCRIRE" type="submit" (onClick)="sendEmail($event)"></app-default-button> -->
                 <app-default-button text="S'INSCRIRE" type="submit" ></app-default-button>
-                <app-default-button text="SE CONNECTER" routerLink="/login" type="button"></app-default-button>
+                <!-- <app-default-button text="SE CONNECTER" routerLink="/login" type="button"></app-default-button> -->
+                 <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
             </div>
         </form>
     </div>
