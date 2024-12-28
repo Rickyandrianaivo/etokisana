@@ -4,8 +4,8 @@
         <input type="file"  name="file" class="file-input" (change)="onFileSelected($event)" #productUpload>
         <div class="options">
             <div class="file-upload">
-                {{ fileName || "Photo de profil"}}
-                <button class="upload-btn" (click)="productUpload.click()"><mat-icon >Changer l'aperçu</mat-icon></button>
+                {{ fileName || "Changer l'image du produit"}}
+                <button class="upload-btn" (click)="productUpload.click()"><mat-icon >attachement</mat-icon></button>
             </div>
         </div>
         <form class="register-form-style" [formGroup]="addProductForm"  (ngSubmit)="submit()">
@@ -15,11 +15,11 @@
             [showErrorsWhen]="isSubmitted"
             label="Nom du produit">
             </text-input>
-            <text-input
+            <app-textarea
             [control]="fc.productDescription"
             [showErrorsWhen]="isSubmitted"
             label="Description">
-            </text-input>
+            </app-textarea>
             <text-input
             [control]="fc.productPrice"
             [showErrorsWhen]="isSubmitted"

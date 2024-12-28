@@ -12,8 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatTableModule,
     RouterLink,
     MatIconModule],
-  templateUrl: './user-products.component.html',
-  styleUrl: './user-products.component.css'
+  templateUrl: 'user-products.component.html',
+  styleUrl: 'user-products.component.css'
 })
 export class UserProductsComponent implements OnInit{
   displayedColumns: string[] = ['Thumbnail','Nom', 'Description', 'Unité', 'Stock','Prix Unitaire','Action'];

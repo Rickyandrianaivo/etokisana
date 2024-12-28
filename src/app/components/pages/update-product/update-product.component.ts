@@ -10,6 +10,7 @@ import { Product } from '../../../shared/models/Product';
 import { ProductService } from '../../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { TextareaComponent } from '../../partials/textarea/textarea.component';
 
 @Component({
   selector: 'app-update-product',
@@ -17,18 +18,19 @@ import { UserService } from '../../../services/user.service';
   imports: [MatFormFieldModule,
     MatInputModule,
     TextInputComponent,
+    TextareaComponent,
     DefaultButtonComponent,
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule],
-  templateUrl: './update-product.component.html',
-  styleUrl: './update-product.component.css'
+  templateUrl: 'update-product.component.html',
+  styleUrl: 'update-product.component.css'
 })
 export class UpdateProductComponent implements OnInit{
 readonly productCategory = new FormControl();
   fileName = "";
-  addProductForm!: FormGroup;
+  addProductForm: FormGroup = new FormGroup({});
   isSubmitted = false;
   product : Product = new Product();
   currentUserEmail: string ="";
@@ -47,7 +49,17 @@ readonly productCategory = new FormControl();
       if (this.productID) {
         this.productService.getProductById(this.productID).subscribe(theproduct=>{
           this.selectedProduct = theproduct;
-          console.log(this.selectedProduct)
+          console.log(this.selectedProduct);
+          this.addProductForm = this.formBuilder.group({
+            productName:[this.selectedProduct.productName,Validators.required],
+            productDescription:[this.selectedProduct.productDescription,Validators.required],
+            productPrice:[this.selectedProduct.productPrice,Validators.required],
+            productCategory:[this.selectedProduct.productCategory],
+            productUnite:[this.selectedProduct.productUnite],
+            productStock:[this.selectedProduct.productStock],
+            productState:[this.selectedProduct.productState],
+            productSource:[this.selectedProduct.productSource],
+          })
         })
       }
     })
@@ -55,16 +67,7 @@ readonly productCategory = new FormControl();
   }
 
   ngOnInit() : void {
-    this.addProductForm = this.formBuilder.group({
-      productName:[this.selectedProduct.productName,Validators.required],
-      productDescription:[this.selectedProduct.productDescription,Validators.required],
-      productPrice:[this.selectedProduct.productPrice,Validators.required],
-      productCategory:[this.selectedProduct.productCategory],
-      productUnite:[this.selectedProduct.productUnite],
-      productStock:[this.selectedProduct.productStock],
-      productState:[this.selectedProduct.productState],
-      productSource:[this.selectedProduct.productSource],
-    })
+    
   }
 
   onFileSelected(event:Event) {
@@ -107,7 +110,7 @@ readonly productCategory = new FormControl();
       productOwner      :this.currentUserEmail,
     };
     // console.log(this.user);
-    this.productService.updateProduct(this.product).subscribe(_ => {
+    this.productService.updateProduct(this.productID,this.product).subscribe(_ => {
       alert("Produit mis à jour avec succés!");
       this.router.navigateByUrl("user-products");
     })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
@@ -26,7 +26,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit {
   readonly productCategory = new FormControl();
   fileName = "";
   addProductForm!: FormGroup;

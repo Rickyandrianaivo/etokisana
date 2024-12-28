@@ -44,8 +44,8 @@ export class ProductService {
   addProduct(productData:Product):Observable<Product>{
     return this.http.post<Product>(PRODUCT_ADD_URL,productData);
   }
-  updateProduct(newProductData:Product):Observable<Product>{
-    return this.http.put<Product>(PRODUCT_UPDATE_URL,newProductData);
+  updateProduct( productID:string,newProductData:Product):Observable<Product>{
+    return this.http.put<Product>(PRODUCT_UPDATE_URL+productID,newProductData);
   }
   uploadFile(formData:FormData){
     console.log("image uploaded !! ")
