@@ -1,4 +1,4 @@
-import { Component,signal } from '@angular/core';
+import { Component,OnInit,signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
@@ -43,7 +43,7 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   readonly userType = new FormControl();
   readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();

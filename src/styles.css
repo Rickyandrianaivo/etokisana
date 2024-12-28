@@ -48,7 +48,7 @@ body{
     border: none;
     height: 0.1rem;
     padding: 1rem;
-    font-size: .6rem;
+    font-size: .8rem;
     font-weight: 500;
     outline: none;
     margin: 0.3rem 0.3rem;
@@ -317,6 +317,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 } */
 .mat-internal-form-field>label{
   padding-right: 10px !important;
+  width: 100%;
 }
 .mat-mdc-radio-button .mdc-radio__inner-circle{
   border-width: 7px !important;
@@ -327,4 +328,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 ul{
   list-style: none;
+}
+mat-form-field{
+  width: 100%;
 }

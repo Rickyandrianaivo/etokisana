@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   templateUrl: './password-reset.component.html',
   styleUrl: './password-reset.component.css'
 })
-export class PasswordResetComponent {
+export class PasswordResetComponent implements OnInit{
   resetPasswordFrom!:FormGroup;
   isSubmitted : boolean = false;
   constructor(

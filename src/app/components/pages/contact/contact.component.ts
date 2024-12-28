@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../shared/models/Product';
@@ -30,7 +30,7 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit{
   readonly productCategory = new FormControl();
   message = new FormControl()
   fileName = "";

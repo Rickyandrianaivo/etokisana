@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../../shared/models/Product';
 import { NgFor } from '@angular/common';
 import { ProductItemComponent } from '../product-item/product-item.component';
@@ -11,7 +11,7 @@ import { ProductService } from '../../../services/product.service';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit{
   productList:Product[] = []
 
   @Input()  state:string="";
@@ -25,7 +25,7 @@ export class ProductListComponent {
   ){
     
   }
-  ngOnInit(){
+  ngOnInit(): void {
     if (this.state == "") {
       this.productService.getAll().subscribe(products=>{
         this.productList = products

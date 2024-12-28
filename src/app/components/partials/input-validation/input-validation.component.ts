@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChanges } from '@angular/core';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const VALIDATORS_MESSAGES:any = {
   required :'Should not be empty',
@@ -12,34 +12,37 @@ const VALIDATORS_MESSAGES:any = {
 @Component({
   selector: 'input-validation',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
   templateUrl: './input-validation.component.html',
   styleUrl: './input-validation.component.css'
 })
-export class InputValidationComponent {
+export class InputValidationComponent implements OnChanges,OnInit{
   @Input()
   control!:AbstractControl;
   @Input()
   showErrorsWhen:boolean = true;
   errorMessages:string[] = [];
 
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
-    this.control.statusChanges.subscribe(() =>{
-      this.checkValidation();
-    });
-    this.control.valueChanges.subscribe(()=> {
-      this.checkValidation();
-    })
-    /**
-      */
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.control.statusChanges.subscribe(_ =>{
+      this.checkValidation();
+    });
+    this.control.valueChanges.subscribe(_=> {
+      this.checkValidation();
+    })
     this.checkValidation();
-    /**
-      */
   }
   checkValidation():void{
     const errors = this.control.errors;

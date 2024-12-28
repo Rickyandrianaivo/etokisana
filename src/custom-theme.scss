@@ -27,13 +27,14 @@ $etokisana-theme: mat.define-theme((
 :root {
   @include mat.all-component-themes($etokisana-theme);
   --mat-form-field-container-text-line-height: auto;
-  --mat-form-field-container-text-size: .7rem;
+  --mat-form-field-container-text-size: 1rem;
   --mat-form-field-container-text-tracking: 0.031rem;
   --mat-form-field-container-text-weight: 400;
   --mat-form-field-subscript-text-line-height: auto;
   --mat-form-field-subscript-text-size: 0.75rem;
   --mat-form-field-subscript-text-tracking: 0.025rem;
-  --mat-form-field-container-height: 30px;
+  --mat-form-field-container-height: 50px;
+  --mat-form-field-container-width: 100%;
   --mat-form-field-filled-with-label-container-padding-top: 5%;
   --mat-form-field-filled-with-label-container-padding-bottom: 5%;
   --mat-form-field-container-vertical-padding: 10px;

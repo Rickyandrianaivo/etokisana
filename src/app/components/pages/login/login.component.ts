@@ -3,18 +3,23 @@ import { Component } from '@angular/core';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IUserLogin } from '../../../shared/Interfaces/IUserLogin';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { HttpClient } from '@angular/common/http';
-import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [TextInputComponent,DefaultButtonComponent,FormsModule,ReactiveFormsModule,HeaderComponent],
+  imports: [
+    TextInputComponent,
+    DefaultButtonComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   providers : [HttpClient],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -42,10 +47,8 @@ export class LoginComponent {
       
     });
     if (this.user?.userEmail) {
-      // console.log(this.user)
       this.router.navigateByUrl('client-area')
     }
-    // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
   get fc(){
     return this.loginForm.controls;

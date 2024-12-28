@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +12,7 @@ import { ProfileItemComponent } from '../../partials/profile-item/profile-item.c
   templateUrl: './client-profile.component.html',
   styleUrl: './client-profile.component.css'
 })
-export class ClientProfileComponent {
+export class ClientProfileComponent implements OnInit{
   user !: User;
   constructor(
     private userService:UserService,

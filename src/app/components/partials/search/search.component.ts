@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
 import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit{
   @Input()
   url!:string;
   @Input()
@@ -29,8 +29,6 @@ export class SearchComponent {
     activatedRoute:ActivatedRoute, 
     private router:Router,
     private searchService : SearchService){
-    // this.url = activatedRoute.snapshot.url.toString();
-    // console.log(this.url);
     activatedRoute.params.subscribe((params) => {
       if(params.searchTerm) this.searchTerm = params.searchTerm;
     });
