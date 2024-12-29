@@ -1,5 +1,5 @@
 form{
-    width: 50%;
+    width: auto;
     max-width: 1080px;
     margin: auto;
 }
@@ -8,4 +8,7 @@ a {
     color: blue;
     text-align: center;
     margin: auto;
+}
+.details{
+    margin: auto 35%;
 }

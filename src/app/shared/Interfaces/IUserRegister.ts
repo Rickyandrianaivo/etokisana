@@ -4,20 +4,20 @@ export interface IUserRegister{
     userPassword        : string;
     userEmail           : string;
     userPhone           : string;
-    userDescritpion     : string
-    userType            : string
-    userImage           : string
-    userEnabled         : boolean;
-    userDateOfBirth     : Date;
     userTotalSolde      : number;
-    userLogo            : string;
-    userStatut          : string
-    userManager         : string;
-    userNif             : string;
-    userRC              : string;
-    identityDocumentType: string
-    identityCardNumber  : string
-    userAdmin           : boolean;
-    userAddress          : string;
-    userIdentityCode    : string;
+    // userDescritpion     : string
+    // userType            : string
+    // userImage           : string
+    // userEnabled         : boolean;
+    // userDateOfBirth     : Date;
+    // userLogo            : string;
+    // userStatut          : string
+    // userManager         : string;
+    // userNif             : string;
+    // userRC              : string;
+    // identityDocumentType: string
+    // identityCardNumber  : string
+    // userAdmin           : boolean;
+    // userAddress          : string;
+    // userIdentityCode    : string;
 }

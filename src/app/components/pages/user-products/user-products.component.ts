@@ -19,18 +19,23 @@ export class UserProductsComponent implements OnInit{
   displayedColumns: string[] = ['Thumbnail','Nom', 'Description', 'Unité', 'Stock','Prix Unitaire','Action'];
   dataSource : Product[] = [];
   currentUserEmail!:string ;
+  OwnerId!:string
 
   constructor(
     private productService:ProductService,
     private userService :UserService,
-    private router:Router
+    private router:Router,
+    // private activated
   ){
     this.currentUserEmail =this.userService.getUserFromLocalStorage().userEmail;
-  }
-  ngOnInit(){
-    this.productService.getProductByOwner(this.currentUserEmail).subscribe(productFromServer=>{
+    this.userService.getUserByEmail(this.currentUserEmail).subscribe((userServer:any) =>{
+      this.OwnerId = userServer._id
+      this.productService.getProductByOwner(this.OwnerId).subscribe(productFromServer=>{
       this.dataSource = productFromServer;
     })
+    })
+  }
+  ngOnInit(){
   }
   deleteProduct(productId:string){
     this.productService.deleteProduct(productId).subscribe(_=>{

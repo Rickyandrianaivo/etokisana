@@ -32,6 +32,11 @@
                     [showErrorsWhen]="isSubmitted"
                     label="Email">
                 </text-input>
+                <!-- <text-input
+                    [control]="fc.userAdresse"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Adresse">
+                </text-input> -->
                 <text-input
                     [control]="fc.userPhone"
                     [showErrorsWhen]="isSubmitted"
@@ -43,11 +48,7 @@
                     label="Mot de passe"
                     type='password'>
                 </text-input> 
-                <text-input
-                    [control]="fc.userAddress"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Address">
-                </text-input>
+                
             <div class="seller" *ngIf="showSellerForm()">
                 <text-input
                     [control]="fc.userManager"
@@ -69,11 +70,11 @@
                     [showErrorsWhen]="isSubmitted"
                     label="RC">
                 </text-input>
-                <app-textarea
+                <!-- <app-textarea
                     [control]="fc.userDescritpion"
                     [showErrorsWhen]="isSubmitted"
                     label="Descritpion">
-                </app-textarea>
+                </app-textarea> -->
             </div>
         </div>
             <div class="buttonContainer">

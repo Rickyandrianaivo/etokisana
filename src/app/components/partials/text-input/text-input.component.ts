@@ -27,7 +27,7 @@ export class TextInputComponent {
   @Input()
   label!: string;
   @Input()
-  type: 'text' |'password' |'email' = 'text' ;
+  type:string='texte' ;
   
   get formControl(){
     return this.control as FormControl;
