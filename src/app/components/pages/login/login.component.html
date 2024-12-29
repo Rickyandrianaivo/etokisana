@@ -7,12 +7,13 @@
             [showErrorsWhen]="isSubmitted"
             label="Email">
             </text-input>
-            <text-input
+            <app-password-input
             [control]="fc['password']"
             [showErrorsWhen]="isSubmitted"
             label="Mot de passe"
-            type = "password">
-            </text-input>
+            passwordVisibe="">
+            </app-password-input>
+            
             <!-- <div style="display: flex;justify-content: center;"><a href="/forgot-password" style="margin: auto;">Mot de passe oublié?</a></div> -->
             <div class="buttonContainer">
                 <app-default-button text="Se connecter" type="submit"></app-default-button>

@@ -94,7 +94,7 @@ export class AddProductComponent implements OnInit {
       productStock      :fv.productStock,
       productState      :"en attente",
       productSource     :fv.productSource,
-      productImage      :this.fileName,
+      productImage      :"default.jpg",
       productOwner      :this.currentUser._id,
     };
     // console.log(this.user);

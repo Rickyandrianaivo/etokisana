@@ -27,6 +27,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: space-evenly;
+    margin: auto 30%;
 }
 .buttonContainer{
     width: 100%;

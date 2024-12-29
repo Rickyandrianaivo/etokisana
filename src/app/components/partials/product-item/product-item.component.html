@@ -4,6 +4,7 @@
     </div>
     <div class="product-description-container">
         <h4> {{productName}} </h4>
-        <p> {{productPrice | currency}} </p>
+        <!-- <p> {{formatPrice(productPrice,'AR')}} </p> -->
+        <p> {{productPrice| currency:'AR':'symbol':'4.2-2'}} </p>
     </div>
 </div>

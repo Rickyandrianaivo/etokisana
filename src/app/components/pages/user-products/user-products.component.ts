@@ -20,10 +20,12 @@ export class UserProductsComponent implements OnInit{
   dataSource : Product[] = [];
   currentUserEmail!:string ;
 
+
   constructor(
     private productService:ProductService,
     private userService :UserService,
-    private router:Router
+    private router:Router,
+    // private activated
   ){
     this.currentUserEmail =this.userService.getUserFromLocalStorage().userEmail;
   }
@@ -31,6 +33,7 @@ export class UserProductsComponent implements OnInit{
     this.productService.getProductByOwner(this.currentUserEmail).subscribe(productFromServer=>{
       this.dataSource = productFromServer;
     })
+    // this.productService.getProductById(this)
   }
   deleteProduct(productId:string){
     this.productService.deleteProduct(productId).subscribe(_=>{

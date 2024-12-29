@@ -9,17 +9,21 @@ import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { HttpClient } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { PasswordInputComponent } from "../../partials/password-input/password-input.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
+    MatIconModule,
     TextInputComponent,
     DefaultButtonComponent,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink
-  ],
+    RouterLink,
+    PasswordInputComponent
+],
   providers : [HttpClient],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -31,6 +35,8 @@ export class LoginComponent {
   isLoged : boolean = false;
   url : string = 'client-area';
   user ?: User;
+  passwordVisible:boolean = false;
+  
 
   constructor(
     private userService     : UserService,
