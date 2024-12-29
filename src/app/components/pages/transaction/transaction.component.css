@@ -1,0 +1,24 @@
+mat-drawer-container{
+    min-height: 100%;
+}
+.left-side{
+    background-color: black;
+    height: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    width: fit-content;
+    min-width: 150px;
+}
+button{
+    width: 100%;
+    background: none;
+    /* border-bottom:1px solid; */
+    border-radius:0;
+}
+button:focus{
+    width: 100%;
+    background: gray;
+    /* border-bottom:1px solid; */
+    border-radius:0;
+    color: rgb(255, 255, 255);
+}

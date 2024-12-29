@@ -1,12 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [],
+  imports: [
+    MatDrawer,
+    MatDrawerContainer,
+    MatDrawerContent,
+  ],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
-export class TransactionComponent {
-
+export class TransactionComponent implements OnInit{
+  userCurrent:any;
+  isDepot!:boolean;
+  isRetrait!:boolean;
+  isAchat!:boolean;
+  isVente!:boolean;
+  isHistorique!:boolean;
+constructor(
+  private userService:UserService,
+  private router:Router
+){
+  
+}
+ngOnInit(): void {
+  this.userCurrent = this.userService.getUserFromLocalStorage()
+  if (!this.userCurrent) {
+    this.router.navigateByUrl('/login')
+  }  
+}
+affiche(titre:string){
+  
+}
 }

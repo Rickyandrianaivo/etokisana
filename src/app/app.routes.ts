@@ -14,6 +14,7 @@ import { AchatComponent } from './components/pages/achat/achat.component';
 import { PanierComponent } from './components/pages/panier/panier.component';
 import { ProductPageComponent } from './components/pages/product-page/product-page.component';
 import { UpdateProductComponent } from './components/pages/update-product/update-product.component';
+import { TransactionComponent } from './components/pages/transaction/transaction.component';
 
 export const routes: Routes = [
     {path : '', component: LoginComponent},
@@ -24,6 +25,7 @@ export const routes: Routes = [
     {path : 'contact', component: ContactComponent},
     {path : 'register', component: RegisterComponent},
     {path : 'client-area', component: ClientAreaComponent},
+    {path : 'transactions', component: TransactionComponent},
     {path : 'user-products', component: UserProductsComponent},
     {path : 'password-reset', component: PasswordResetComponent},
     {path : 'client-profile', component: ClientProfileComponent},

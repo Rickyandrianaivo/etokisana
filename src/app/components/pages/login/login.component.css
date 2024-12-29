@@ -8,6 +8,9 @@ a {
     color: blue;
     text-align: center;
     margin: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
 }
 .details{
     margin: auto 35%;
