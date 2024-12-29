@@ -17,6 +17,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import * as nodemailer from 'nodemailer';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
+import { PasswordInputComponent } from '../../partials/password-input/password-input.component';
 
 @Component({
   selector: 'app-register',
@@ -38,6 +39,7 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
     MatDatepickerModule,
     MatButtonToggleModule,
     DefaultButtonComponent,
+    PasswordInputComponent
   ],
   providers :[provideNativeDateAdapter()],
   templateUrl: './register.component.html',

@@ -13,7 +13,7 @@
             <div class="client-register">
                 <div class="radio-gender">
                     <mat-radio-group [formControl]="userType">
-                      <mat-radio-button value="particulier">Particulier</mat-radio-button>
+                      <mat-radio-button value="particulier" aria-selected="true">Particulier</mat-radio-button>
                       <mat-radio-button value="entreprise">Entreprise</mat-radio-button>
                     </mat-radio-group>
                 </div>
@@ -42,12 +42,11 @@
                     [showErrorsWhen]="isSubmitted"
                     label="Téléphone">
                 </text-input>
-                <text-input
-                    [control]="fc.userPassword"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Mot de passe"
-                    type='password'>
-                </text-input> 
+                <app-password-input
+            [control]="fc.userPassword"
+            [showErrorsWhen]="isSubmitted"
+            label="Mot de passe">
+            </app-password-input>
                 
             <div class="seller" *ngIf="showSellerForm()">
                 <text-input
