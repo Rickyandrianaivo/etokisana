@@ -11,6 +11,7 @@ import { Product } from '../../../shared/models/Product';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-add-product',
@@ -24,7 +25,8 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatIconModule],
+    MatIconModule,
+  HeaderComponent],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })

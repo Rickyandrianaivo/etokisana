@@ -9,6 +9,7 @@ import { Route, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../shared/models/Product';
 import { ProductItemComponent } from "../../partials/product-item/product-item.component";
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-achat',
@@ -19,7 +20,8 @@ import { ProductItemComponent } from "../../partials/product-item/product-item.c
     NgFor,
     NgIf,
     RouterLink,
-    ProductItemComponent
+    ProductItemComponent,
+    HeaderComponent
 ],
   templateUrl: './achat.component.html',
   styleUrl: './achat.component.css'

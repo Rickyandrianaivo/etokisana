@@ -1,3 +1,4 @@
+<app-header></app-header>
 <!-- <mat-sidenav-container>
     <mat-sidenav opened position="start">
          <app-category-list></app-category-list>
@@ -13,7 +14,7 @@
 </mat-sidenav-container> -->
 <mat-drawer-container>
     <mat-drawer mode="side" opened class="left-side">
-         <h1>Categories</h1>
+         <h3>Categories</h3>
          <ul >
             <li><button (click)="categoryAll()">Tout</button></li>
             <li *ngFor="let category of categoryList"><button (click)="setCategory(category.CatName)">{{category.CatName}}</button></li>
@@ -33,7 +34,7 @@
          </ul>
     </mat-drawer-content>
     <mat-drawer mode="side" opened position="end" class="right-side">
-        <h1>Nos offres spéciales</h1>
+        <h3>Nos offres spéciales</h3>
         <!-- <app-product-list state="Offre speciale" category=""></app-product-list> -->
          <ul>
             <li *ngFor="let offreSpeciale of offreSpecialeList"><app-product-item [imageUrl]="offreSpeciale.productImage" [productName]="offreSpeciale.productName" [productPrice]="offreSpeciale.productPrice"></app-product-item></li>

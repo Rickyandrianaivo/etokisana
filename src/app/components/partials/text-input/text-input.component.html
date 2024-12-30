@@ -8,7 +8,7 @@
 <input-container [label]="label" [style.fontSize.px]="10">
     <mat-form-field appearance="outline">
         <mat-label >{{ label }}</mat-label>
-        <input  matInput [placeholder]="label" [formControl]="formControl"/>
+        <input  matInput [placeholder]="label" [formControl]="formControl" [type]="type"/>
         <input-validation
             [control]="control"
             [showErrorsWhen]="showErrorsWhen">

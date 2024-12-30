@@ -1,5 +1,5 @@
 import { Component,OnInit,signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../../shared/models/User';
@@ -18,6 +18,9 @@ import { MatSelectModule } from '@angular/material/select';
 import * as nodemailer from 'nodemailer';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { PasswordInputComponent } from '../../partials/password-input/password-input.component';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
+import { HeaderComponent } from '../../partials/header/header.component';
+
 
 @Component({
   selector: 'app-register',
@@ -25,6 +28,8 @@ import { PasswordInputComponent } from '../../partials/password-input/password-i
   imports: [
     // MatIcon,
     // MatLabel,
+    FormsModule,
+    ReactiveFormsModule,
     RouterLink,
     FormsModule,
     CommonModule,
@@ -39,14 +44,16 @@ import { PasswordInputComponent } from '../../partials/password-input/password-i
     MatDatepickerModule,
     MatButtonToggleModule,
     DefaultButtonComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    HeaderComponent
+    // NgxSpinner,
   ],
   providers :[provideNativeDateAdapter()],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
-  readonly userType = new FormControl();
+  userType = new FormControl('',Validators.required)
   readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
@@ -58,17 +65,38 @@ export class RegisterComponent implements OnInit{
   constructor(
     private userService     : UserService,
     private formBuilder     : FormBuilder,
-    private router          : Router
+    private router          : Router,
+    private spinner         : NgxSpinnerService
   ){
 
   }
+  customeEmailValidator(control:AbstractControl){
+    const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,20}$/;
+    const value = control.value;
+    if (!pattern.test(value) && control.touched)
+      return{
+        emailError:true
+      }
+      else return null;
+  }
+  getError(control:any):string{
+    if (control.errors?.required && control.touched)  
+      return 'Ce champ est obligatoire';
+    else if(control.errors?.emailError && control.touched)
+      return 'Please enter valid email address!';
+    else return '';
+  }
+
   ngOnInit(): void {
+    const pattern:RegExp = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
     this.registerForm = this.formBuilder.group({
       userName:['',Validators.required],
       userFirstname:['',Validators.required],
       userPassword:['',Validators.required,],
-      userEmail:['',Validators.required,Validators.email],
-      userPhone:[''],
+      userEmail:['',Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')],
+      userPhone:['',Validators.pattern("^[0-9]*$")],
+      // 
+
       // userDescritpion:[''],
       // userStatut:[''],
       // userManager:[''],
@@ -76,6 +104,8 @@ export class RegisterComponent implements OnInit{
       // userRC:[''],
       // identityCardNumber:[''],
       // userAddress:[''],
+      
+      //
     });
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
@@ -91,7 +121,10 @@ export class RegisterComponent implements OnInit{
     if (this.registerForm.invalid){ 
         console.log(this.registerForm.getError);
         return;
-      }
+    }
+    if(this.userType.value == ""){
+        alert("Veuillez renseigner si vous êtes particulier ou une entreprise")
+    }
     
     const fv = this.registerForm.value;
     console.log(fv.userName);
@@ -101,7 +134,7 @@ export class RegisterComponent implements OnInit{
     userPassword        : fv.userPassword ,     
     userEmail           : fv.userEmail ,     
     userPhone           : fv.userPhone ,      
-    userType            : this.userType.value ,  
+    userType            : this.userType.value? this.userType.value : "particulier",  
     userTotalSolde      : 0 ,  
     // userDescritpion     : fv.userDescritpion ,   
     // userImage           : fv.userImage ,  
@@ -118,17 +151,24 @@ export class RegisterComponent implements OnInit{
     // userAddress         : fv.userAddress ,
     // userIdentityCode    : fv.userIdentityCode , // A voir comment le remplir
     };
-    // console.log(this.user);
-    this.userService.registerUser(this.user).subscribe(_ => {
-      alert("registered successfully!");
-      // this.sendEmail();
-      this.router.navigateByUrl("login");
+    this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
+      if (useralreadyexist) {
+        alert("Utilisateur déjà existant !")
+        this.router.navigateByUrl("login");
+        return;
+      }
+      if(!useralreadyexist){
+        this.userService.registerUser(this.user).subscribe(_ => {
+          alert("Inscription réussie!");
+          // this.sendEmail();
+          this.router.navigateByUrl("login");
+        })
+      }
     })
   }
   uploadClick(){
 
   }
-
   onFileSelected(event:Event) {
     let htmlInputElement = <HTMLInputElement>event.target!;
     const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
@@ -144,7 +184,6 @@ export class RegisterComponent implements OnInit{
         this.userService.uploadFile(formData).subscribe();
     }
 }
-
   // public sendEmail(e: Event) {
   //   // public sendEmail() {
   //   const transporter = nodemailer.createTransport({

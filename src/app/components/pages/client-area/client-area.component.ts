@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [
     ClientAreaItemsComponent,
-    
+    HeaderComponent
   ],
   templateUrl: './client-area.component.html',
   styleUrl: './client-area.component.css'

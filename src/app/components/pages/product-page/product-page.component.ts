@@ -3,11 +3,14 @@ import { ActivatedRoute, Route } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CurrencyPipe } from '@angular/common';
 import { DefaultButtonComponent } from "../../partials/default-button/default-button.component";
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [CurrencyPipe, DefaultButtonComponent],
+  imports: [CurrencyPipe, DefaultButtonComponent,
+    HeaderComponent
+  ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
 })

@@ -11,6 +11,7 @@ import { TextInputComponent } from '../../partials/text-input/text-input.compone
 import { HttpClient } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { PasswordInputComponent } from "../../partials/password-input/password-input.component";
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ import { PasswordInputComponent } from "../../partials/password-input/password-i
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-    PasswordInputComponent
+    PasswordInputComponent,
+    HeaderComponent
 ],
   providers : [HttpClient],
   templateUrl: './login.component.html',

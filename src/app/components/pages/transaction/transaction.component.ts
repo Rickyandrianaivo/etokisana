@@ -3,6 +3,7 @@ import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/materi
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-transaction',
@@ -11,7 +12,8 @@ import { MatTableModule } from '@angular/material/table';
     MatDrawer,
     MatDrawerContainer,
     MatDrawerContent,
-    MatTableModule
+    MatTableModule,
+    HeaderComponent
   ],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'

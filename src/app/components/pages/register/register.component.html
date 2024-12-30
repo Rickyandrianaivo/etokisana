@@ -1,6 +1,7 @@
+<app-header></app-header>
 <div class="container">
     <div class="inner-container">
-        <h1>Inscription</h1>
+        <h3>Inscription</h3>
         <input type="file" class="file-input" (change)="onFileSelected($event)" #pdpUpload>
         <input type="file" class="file-input" (change)="onFileSelected($event)" #logoUpload>
         <div class="options">
@@ -13,7 +14,7 @@
             <div class="client-register">
                 <div class="radio-gender">
                     <mat-radio-group [formControl]="userType">
-                      <mat-radio-button value="particulier" aria-selected="true">Particulier</mat-radio-button>
+                      <mat-radio-button value="particulier" checked="checked">Particulier</mat-radio-button>
                       <mat-radio-button value="entreprise">Entreprise</mat-radio-button>
                     </mat-radio-group>
                 </div>
@@ -30,7 +31,8 @@
                 <text-input
                     [control]="fc.userEmail"
                     [showErrorsWhen]="isSubmitted"
-                    label="Email">
+                    label="Email"
+                    [type]="'email'">
                 </text-input>
                 <!-- <text-input
                     [control]="fc.userAdresse"
@@ -43,10 +45,10 @@
                     label="Téléphone">
                 </text-input>
                 <app-password-input
-            [control]="fc.userPassword"
-            [showErrorsWhen]="isSubmitted"
-            label="Mot de passe">
-            </app-password-input>
+                    [control]="fc.userPassword"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Mot de passe">
+                </app-password-input>
                 
             <div class="seller" *ngIf="showSellerForm()">
                 <text-input
@@ -78,8 +80,15 @@
         </div>
             <div class="buttonContainer">
                 <!-- <app-default-button text="S'INSCRIRE" type="submit" (onClick)="sendEmail($event)"></app-default-button> -->
-                <app-default-button text="S'INSCRIRE" type="submit" ></app-default-button>
                 <!-- <app-default-button text="SE CONNECTER" routerLink="/login" type="button"></app-default-button> -->
+                 <div *ngIf="!isSubmitted">
+                    <app-default-button text="S'INSCRIRE" type="submit" ></app-default-button>
+                 </div>
+                 <div *ngIf="isSubmitted">
+                    <app-default-button text="S'INSCRIRE" bgColor='#cccccc'></app-default-button>
+                 </div>
+
+                
                  <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
             </div>
         </form>

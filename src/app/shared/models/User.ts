@@ -5,7 +5,7 @@ export class User{
     userPassword        !: string;
     userEmail           !: string;
     userPhone           : string = "";
-    userType            !:string;
+    userType            : string="particulier";
     userTotalSolde      : number = 0;
     // userDescritpion     : string ="";
     // userType          : string ="";

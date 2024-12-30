@@ -64,6 +64,8 @@ export class UserService {
           // this.toastrService.success(`Successful login ! Welcome ${user.name}`)
         },
         error:(errorResponse) => {
+          alert("Identifiant ou mot de passe incorrecte")
+          console.log(errorResponse.error)
           // this.toastrService.error(errorResponse, 'Login failed')
         }
       })

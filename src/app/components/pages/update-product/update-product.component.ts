@@ -8,14 +8,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Product } from '../../../shared/models/Product';
 import { ProductService } from '../../../services/product.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-update-product',
   standalone: true,
-  imports: [MatFormFieldModule,
+  imports: [
+    RouterLink,
+    MatFormFieldModule,
     MatInputModule,
     TextInputComponent,
     TextareaComponent,
@@ -23,7 +26,8 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatIconModule],
+    MatIconModule,
+  HeaderComponent],
   templateUrl: 'update-product.component.html',
   styleUrl: 'update-product.component.css'
 })

@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
+import { HeaderComponent } from '../../partials/header/header.component';
 
 
 @Component({
@@ -25,7 +26,8 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    HeaderComponent
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'

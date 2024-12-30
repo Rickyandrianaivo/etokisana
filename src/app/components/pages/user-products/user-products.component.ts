@@ -5,13 +5,15 @@ import { ProductService } from '../../../services/product.service';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from '../../partials/header/header.component';
 
 @Component({
   selector: 'app-user-products',
   standalone: true,
   imports: [MatTableModule,
     RouterLink,
-    MatIconModule],
+    MatIconModule,
+  HeaderComponent],
   templateUrl: 'user-products.component.html',
   styleUrl: 'user-products.component.css'
 })
