@@ -16,9 +16,9 @@ import { ProductPageComponent } from './components/pages/product-page/product-pa
 import { UpdateProductComponent } from './components/pages/update-product/update-product.component';
 import { TransactionComponent } from './components/pages/transaction/transaction.component';
 
-export const routes: Routes = [
-    {path : '', component: LoginComponent},
-    {path : 'home', component: HomeComponent},
+const routes: Routes = [
+    {path : '', component: HomeComponent},
+    // {path : '', component: LoginComponent},
     {path : 'achat', component: AchatComponent},
     {path : 'login', component: LoginComponent},
     {path : 'panier', component: PanierComponent},
@@ -34,4 +34,8 @@ export const routes: Routes = [
     {path : 'user-products/update/:id',component: UpdateProductComponent},
     {path : 'forgot-password', component: ForgotPasswordComponent},
     {path : 'email-verification', component: EmailVerificationComponent},
+    {path : '**', component: LoginComponent},
+
 ];
+
+export default routes;
