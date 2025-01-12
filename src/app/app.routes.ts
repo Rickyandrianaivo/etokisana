@@ -34,6 +34,7 @@ const routes: Routes = [
     {path : 'user-products/update/:id',component: UpdateProductComponent},
     {path : 'forgot-password', component: ForgotPasswordComponent},
     {path : 'email-verification', component: EmailVerificationComponent},
+    {path : 'user/confirmation/:token/:id', component: EmailVerificationComponent},
     {path : '**', component: LoginComponent},
 
 ];
