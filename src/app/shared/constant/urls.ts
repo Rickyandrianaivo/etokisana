@@ -37,7 +37,8 @@ export const USER_UPLOAD_PDP_URL            = USER_URL + 'uploads'
 export const RESET_TABLES_URL               = USER_URL + 'resetTable';
 export const USER_RESETPASSWORD_URL         = USER_URL + 'resetPwd';
 export const USER_REQUESTRESETPASSWORD_URL  = USER_URL + 'requestResetPwd';
-export const USER_EMAIL_CONFIRMATION_URL    = USER_URL + 'confirmation/';
+export const USER_EMAIL_CONFIRMATION_URL    = USER_URL + 'user-confirmation/';
+export const USER_TOKEN_VERIFICATION_URL    = USER_URL + 'token/';
 
 export const BON_ENTREE_URL                 = BASE_URL + '/api/bon-entrees/';
 export const BON_ENTREE_ADD_URL             = BON_ENTREE_URL + 'create';

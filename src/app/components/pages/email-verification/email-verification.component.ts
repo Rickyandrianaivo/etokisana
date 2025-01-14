@@ -18,10 +18,11 @@ export class EmailVerificationComponent implements OnInit{
     private userService: UserService,
   ){
     this.activatedRoute.queryParams.subscribe(params=>{
-      this.userId=params['id'];
       this.userToken=params['token'];
-      this.userService.confirmationEmail(this.userToken,this.userId).subscribe(_=>{
-        
+      this.userService.idByToken(this.userToken).subscribe(userId=>{
+        this.userService.confirmationEmail(this.userToken,userId).subscribe(_=>{
+          
+        })
       })
     })
   }

@@ -136,31 +136,29 @@ export class RegisterComponent implements OnInit{
     userPhone           : fv.userPhone ,      
     userType            : this.userType.value? this.userType.value : "particulier",  
     userTotalSolde      : 0 ,  
-    // userDescritpion     : fv.userDescritpion ,   
-    // userImage           : fv.userImage ,  
-    // userEnabled         : false ,  
-    // userDateOfBirth     : this.dateOfBirth.value,  
-    // userLogo            : fv.userLogo ,  
-    // userStatut          : fv.userStatut ,  
-    // userManager         : fv.userManager ,  
-    // userNif             : fv.userNif ,  
-    // userRC              : fv.userRC ,  
-    // identityDocumentType: this.identityDocumentType.value,
-    // identityCardNumber  : fv.identityCardNumber ,
-    // userAdmin           : false ,
-    // userAddress         : fv.userAddress ,
-    // userIdentityCode    : fv.userIdentityCode , // A voir comment le remplir
+    userDescritpion     : fv.userDescritpion ,   
+    userImage           : fv.userImage ,  
+    userEnabled         : false ,  
+    userDateOfBirth     : this.dateOfBirth.value,  
+    userLogo            : fv.userLogo ,  
+    userStatut          : fv.userStatut ,  
+    userManager         : fv.userManager ,  
+    userNif             : fv.userNif ,  
+    userRC              : fv.userRC ,  
+    identityDocumentType: this.identityDocumentType.value,
+    identityCardNumber  : fv.identityCardNumber ,
+    userAdmin           : false ,
+    userAddress         : fv.userAddress ,
+    userIdentityCode    : fv.userIdentityCode , // A voir comment le remplir
     };
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {
         alert("Utilisateur déjà existant !")
         this.router.navigateByUrl("login");
         return;
-      }
-      if(!useralreadyexist){
+      }else{
         this.userService.registerUser(this.user).subscribe(_ => {
           alert("Inscription réussie!");
-          // this.sendEmail();
           this.router.navigateByUrl("login");
         })
       }
@@ -183,39 +181,5 @@ export class RegisterComponent implements OnInit{
 
         this.userService.uploadFile(formData).subscribe();
     }
-}
-  // public sendEmail(e: Event) {
-  //   // public sendEmail() {
-  //   const transporter = nodemailer.createTransport({
-  //     host: "smtp.gmail.email",
-  //     port: 465,
-  //     secure: true, // true for port 465, false for other ports
-  //     auth: {
-  //       user: "rickyandrianaivo@gmail.email",
-  //       pass: "xtjmyjwqkgfnqlfd",
-  //     },
-  //   });
-  // //   const html = `<h1>Bonjour</h1>
-  // //   <p>"Pour finaliser vote inscription veuillez cliquer sur le lien suivant"</p>`
-      
-
-  // //   // async..await is not allowed in global scope, must use a wrapper
-  //   async function main(user: User) {
-  //     // send mail with defined transport object
-  //     const info = await transporter.sendMail({
-  //       from: '"Etokisana" <rickyandrianaivo@gmail.com>', // sender address
-  //       // to: user.userEmail, // list of receivers
-  //       to: "randrianaivo.dominique@gmail.com", // list of receivers
-  //       subject: "Bienvenue sur Etokisana", // Subject line
-  //       text: "Hello world?", // plain text body
-  //       html: "<h1>Bonjour" + user.userName+"</h1>", // html body
-  //       // html:html,
-  //     });
-    
-  //     console.log("Message sent: %s", info.messageId);
-  //     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-  //   }
-    
-  //   main(this.user).catch(console.error);
-  // }
+  }
 }
