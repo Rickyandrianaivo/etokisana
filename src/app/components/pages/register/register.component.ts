@@ -36,7 +36,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
     MatRadioModule,
     MatInputModule,
     MatSelectModule,
-    // TextareaComponent,
+    TextareaComponent,
     MatCheckboxModule,
     MatFormFieldModule,
     TextInputComponent,
@@ -46,7 +46,6 @@ import { HeaderComponent } from '../../partials/header/header.component';
     DefaultButtonComponent,
     PasswordInputComponent,
     HeaderComponent
-    // NgxSpinner,
   ],
   providers :[provideNativeDateAdapter()],
   templateUrl: './register.component.html',
@@ -66,7 +65,6 @@ export class RegisterComponent implements OnInit{
     private userService     : UserService,
     private formBuilder     : FormBuilder,
     private router          : Router,
-    private spinner         : NgxSpinnerService
   ){
 
   }
@@ -95,15 +93,13 @@ export class RegisterComponent implements OnInit{
       userPassword:['',Validators.required,],
       userEmail:['',Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')],
       userPhone:['',Validators.pattern("^[0-9]*$")],
-      // 
-
-      // userDescritpion:[''],
-      // userStatut:[''],
-      // userManager:[''],
-      // userNif:[''],
-      // userRC:[''],
-      // identityCardNumber:[''],
-      // userAddress:[''],
+      userDescritpion:[''],
+      userStatut:[''],
+      userManager:[''],
+      userNif:[''],
+      userRC:[''],
+      identityCardNumber:[''],
+      userAddress:[''],
       
       //
     });
@@ -127,7 +123,7 @@ export class RegisterComponent implements OnInit{
     }
     
     const fv = this.registerForm.value;
-    console.log(fv.userName);
+    // console.log(fv.userName);
     this.user = {
     userName            : fv.userName ,         
     userFirstname       : fv.userFirstname ,  

@@ -44,6 +44,7 @@ export class UserService {
     return this.http.post(USER_REQUESTRESETPASSWORD_URL,token);
   }
   idByToken(token : any){
+    console.log(token);
     return this.http.get<string>(USER_TOKEN_VERIFICATION_URL+token);
   }
 
@@ -77,8 +78,8 @@ export class UserService {
     );
   }
 
-  confirmationEmail(token:string,id:string){
-    return this.http.get<User>(USER_EMAIL_CONFIRMATION_URL + token +'/'+id);
+  confirmationEmail(token:string){
+    return this.http.get(USER_EMAIL_CONFIRMATION_URL + token);
   }
 
   update(updateData : IUserRegister, userId : string){

@@ -17,14 +17,15 @@ export class EmailVerificationComponent implements OnInit{
     private activatedRoute:ActivatedRoute,
     private userService: UserService,
   ){
-    this.activatedRoute.queryParams.subscribe(params=>{
-      this.userToken=params['token'];
-      this.userService.idByToken(this.userToken).subscribe(userId=>{
-        this.userService.confirmationEmail(this.userToken,userId).subscribe(_=>{
+    this.activatedRoute.params.subscribe(params=>{
+      this.userToken = params['token'];
+    //   this.userService.idByToken(this.userToken).subscribe(userId=>{
+    //     this.userService.confirmationEmail(this.userToken,).subscribe(_=>{
           
-        })
-      })
+    //     })
+    //   })
     })
+    this.userService.confirmationEmail(this.userToken).subscribe(_=>{})
   }
   ngOnInit(): void {
     

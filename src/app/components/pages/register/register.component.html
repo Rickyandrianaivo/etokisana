@@ -52,12 +52,13 @@
             <mat-form-field appearance="outline" >
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth"> 
-                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                 <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
             </mat-form-field>
                 
-            <!--<div class="seller" *ngIf="showSellerForm()">
+            <!-- <div class="seller" *ngIf="showSellerForm()"> -->
+                <div class="seller" >
                 <text-input
                     [control]="fc.userManager"
                     [showErrorsWhen]="isSubmitted"
@@ -82,10 +83,10 @@
                     [control]="fc.userDescritpion"
                     [showErrorsWhen]="isSubmitted"
                     label="Descritpion">
-                </app-textarea> -->
-            <!-- </div> -->
-        </div>
-            <div class="buttonContainer">
+                </app-textarea>
+            </div>
+        <!--</div>
+            <div class="buttonContainer">-->
                 <!-- <app-default-button text="S'INSCRIRE" type="submit" (onClick)="sendEmail($event)"></app-default-button> -->
                 <!-- <app-default-button text="SE CONNECTER" routerLink="/login" type="button"></app-default-button> -->
                  <div *ngIf="!isSubmitted">
