@@ -82,6 +82,9 @@ export class UserService {
     return this.http.get(USER_EMAIL_CONFIRMATION_URL + token);
   }
 
+  activateUser(updateData : IUserRegister, userId : string){
+    return this.http.put<User>(USER_UPDATE_URL + userId, updateData)
+  }
   update(updateData : IUserRegister, userId : string){
     return this.http.put<User>(USER_UPDATE_URL + userId, updateData)
   }
