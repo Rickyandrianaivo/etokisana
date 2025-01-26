@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { RESET_TABLES_URL, USER_BY_EMAIL_URL, USER_EMAIL_CONFIRMATION_URL, USER_LOGIN_URL, USER_REGISTER_URL, USER_REQUESTRESETPASSWORD_URL, USER_RESETPASSWORD_URL, USER_TOKEN_VERIFICATION_URL, USER_UPDATE_URL, USER_UPLOAD_PDP_URL, USER_URL } from '../shared/constant/urls';
+import { RESET_TABLES_URL, USER_BY_EMAIL_URL, USER_BY_ID_URL, USER_EMAIL_CONFIRMATION_URL, USER_LOGIN_URL, USER_REGISTER_URL, USER_REQUESTRESETPASSWORD_URL, USER_RESETPASSWORD_URL, USER_TOKEN_VERIFICATION_URL, USER_UPDATE_URL, USER_UPLOAD_PDP_URL, USER_URL } from '../shared/constant/urls';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../shared/models/User';
 import { IUserLogin } from '../shared/Interfaces/IUserLogin';
@@ -34,7 +34,8 @@ export class UserService {
     return this.http.get<User[]>(USER_URL);
   }
   getUserById(userId :string) : Observable<User>{
-    return this.http.get<User>(USER_URL+ userId);
+    console.log(USER_BY_ID_URL+userId)
+    return this.http.get<User>(USER_BY_ID_URL+ userId);
   }
   getUserByEmail(userEmail :string) : Observable<User>{
     return this.http.get<User>(USER_BY_EMAIL_URL + userEmail);
@@ -45,7 +46,7 @@ export class UserService {
   }
   idByToken(token : any){
     console.log(token);
-    return this.http.get<string>(USER_TOKEN_VERIFICATION_URL+token);
+    return this.http.get(USER_TOKEN_VERIFICATION_URL+token);
   }
 
   logout(){

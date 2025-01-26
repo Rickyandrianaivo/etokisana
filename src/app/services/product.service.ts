@@ -46,6 +46,7 @@ export class ProductService {
     return this.http.post<Product>(PRODUCT_ADD_URL,productData);
   }
   updateProduct( productID:string,newProductData:Product):Observable<Product>{
+    console.log(newProductData);
     return this.http.put<Product>(PRODUCT_UPDATE_URL+productID,newProductData);
   }
   uploadFile(formData:FormData){

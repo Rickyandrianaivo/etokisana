@@ -14,47 +14,52 @@ import { User } from '../../../shared/models/User';
 export class EmailVerificationComponent implements OnInit{
   userId : string ="";
   userToken : string ="";
+  userToBeVerified !: any;
   constructor( 
     private activatedRoute:ActivatedRoute,
     private userService: UserService,
   ){
-    this.activatedRoute.params.subscribe(params=>{
-      this.userToken = params['token'];
-      this.userService.idByToken(this.userToken).subscribe(userId=>{
-        this.userService.getUserById(this.userId).subscribe(user=>{
-          const activatedUser :any = {
-            userName: user.userName,
-            userFirstname:user.userFirstname,
-            userDateOfBirth:user.userDateOfBirth,
-            userAddress:user.userAddress,
-            userEmail:user.userEmail,
-            userAdmin:user.userAdmin,
-            userDescritpion:user.userDescritpion,
-            userEnabled:true,
-            userIdentityCode:user.userIdentityCode,
-            userImage:user.userImage,
-            userLogo:user.userLogo,
-            userPassword:user.userPassword,
-            userManager:user.userManager,
-            userNif : user.userNif,
-            userStatut: user.userStatut,
-            userTotalSolde:user.userTotalSolde,
-            userRC : user.userRC,
-            userPhone:user.userPhone,
-            userType:user.userType,
-            identityDocumentType: user.identityDocumentType,
-            identityCardNumber  : user.identityCardNumber
-          }
-          this.userService.activateUser(activatedUser,userId).subscribe(_=>{
-            alert("Utilisateur vérifié ! ")
-            this.userService.confirmationEmail(this.userToken).subscribe(_=>{})
-          })
-        })
-      })
-    })
-  }
-  ngOnInit(): void {
+  //   this.activatedRoute.params.subscribe(params=>{
+  //     this.userToken = params['token'];
+  //     this.userService.idByToken(this.userToken).subscribe(user=>{
+  //       this.userToBeVerified = user;
+  //       const activatedUser :any = {
+  //       userName: this.userToBeVerified.userName,
+  //       userFirstname:this.userToBeVerified.userFirstname,
+  //       userDateOfBirth:this.userToBeVerified.userDateOfBirth,
+  //       userAddress:this.userToBeVerified.userAddress,
+  //       userEmail:this.userToBeVerified.userEmail,
+  //       userAdmin:this.userToBeVerified.userAdmin,
+  //       userDescritpion:this.userToBeVerified.userDescritpion,
+  //       userEnabled:true,
+  //       userIdentityCode:this.userToBeVerified.userIdentityCode,
+  //       userImage:this.userToBeVerified.userImage,
+  //       userLogo:this.userToBeVerified.userLogo,
+  //       userPassword:this.userToBeVerified.userPassword,
+  //       userManager:this.userToBeVerified.userManager,
+  //       userNif : this.userToBeVerified.userNif,
+  //       userStatut: this.userToBeVerified.userStatut,
+  //       userTotalSolde:this.userToBeVerified.userTotalSolde,
+  //       userRC : this.userToBeVerified.userRC,
+  //       userPhone:this.userToBeVerified.userPhone,
+  //       userType:this.userToBeVerified.userType,
+  //       identityDocumentType: this.userToBeVerified.identityDocumentType,
+  //       identityCardNumber  : this.userToBeVerified.identityCardNumber
+  //     }
+  //     console.log(activatedUser)
+  //     this.userService.update(activatedUser,this.userToBeVerified._id).subscribe(_=>{
+  //       alert("Utilisateur vérifié ! ")
+  //       this.userService.confirmationEmail(this.userToken).subscribe(_=>{})
+  //     })
+  //   })
     
+  // })
+  this.activatedRoute.params.subscribe(params=>{
+        this.userToken = params['token'];
+        this.userService.confirmationEmail(this.userToken).subscribe(_=>{alert("Confirmation successfull!")})
+      })
+}
+  ngOnInit(): void {
+      
   }
-
 }

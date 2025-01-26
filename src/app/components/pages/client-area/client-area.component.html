@@ -1,6 +1,9 @@
 <app-header></app-header>
 <div class="container">
     <div class="main-content">
+        <div class="email-confirmation" *ngIf="!verifiedUser">
+            Veuillez consulter vos Email pour finaliser votre inscription.
+        </div>
         <!-- <app-client-area-items title="Address" imageUrl=""></app-client-area-items> -->
         <app-client-area-items title="Mon compte" imageUrl="clientArea/bloc2.svg" link="/client-profile"></app-client-area-items>
         <app-client-area-items title="Mes demandes" imageUrl="clientArea/bloc3.svg" link=""></app-client-area-items>

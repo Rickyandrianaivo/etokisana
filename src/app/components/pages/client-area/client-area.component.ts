@@ -3,13 +3,15 @@ import { HeaderComponent } from '../../partials/header/header.component';
 import { ClientAreaItemsComponent } from '../../partials/client-area-items/client-area-items.component';
 import { UserService } from '../../../services/user.service';
 import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-client-area',
   standalone: true,
   imports: [
     ClientAreaItemsComponent,
-    HeaderComponent
+    HeaderComponent,
+    NgIf
   ],
   templateUrl: './client-area.component.html',
   styleUrl: './client-area.component.css'
@@ -17,10 +19,14 @@ import { RouterLink } from '@angular/router';
 export class ClientAreaComponent implements OnInit{
   user:any;
   link!:string;
+  verifiedUser:boolean = false;
   constructor(
     private userService:UserService,
   ){
     this.user = this.userService.getUserFromLocalStorage();
+    this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
+      this.verifiedUser = user.userEnabled;
+    })
   }
   ngOnInit():void{
     
