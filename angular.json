@@ -47,11 +47,11 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/web.config",
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/web.config"
             ],
             "styles": [
               "src/custom-theme.scss",
