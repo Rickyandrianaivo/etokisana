@@ -5,7 +5,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { loadingInterceptor } from './interceptors/loading.interceptor';
-
+import { LocationStrategy,HashLocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([loadingInterceptor])),
-    importProvidersFrom([BrowserAnimationsModule,RouterModule.forRoot(routes)])
+    importProvidersFrom([BrowserAnimationsModule,RouterModule.forRoot(routes)]),
+    {provide: LocationStrategy, useClass: HashLocationStrategy }
   ]
 }
