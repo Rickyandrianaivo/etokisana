@@ -82,6 +82,7 @@ export class AddProductComponent implements OnInit {
     this.isSubmitted =true;
     if (this.addProductForm.invalid){ 
         console.log(this.addProductForm.getError);
+        alert("Veuillez remplir correctement les champs obligatoires!");
         return;
       }
     

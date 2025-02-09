@@ -120,6 +120,7 @@ export class RegisterComponent implements OnInit{
     }
     if(this.userType.value == ""){
         alert("Veuillez renseigner si vous êtes particulier ou une entreprise")
+        return;
     }
     
     const fv = this.registerForm.value;
