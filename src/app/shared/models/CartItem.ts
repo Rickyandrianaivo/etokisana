@@ -1,8 +1,7 @@
-import { Product } from "./Product";
 
 export class CartItem{
-    CartItemProduct!:Product;
+    CartItemProduct!:any;
     CartItemImage!:string;
-    CartItemPrice!:string;
-    CartItemQuantity!:string;
+    CartItemPrice!:number;
+    CartItemQuantity!:number;
 }

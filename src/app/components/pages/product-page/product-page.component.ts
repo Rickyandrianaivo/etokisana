@@ -4,6 +4,7 @@ import { ProductService } from '../../../services/product.service';
 import { CurrencyPipe } from '@angular/common';
 import { DefaultButtonComponent } from "../../partials/default-button/default-button.component";
 import { HeaderComponent } from '../../partials/header/header.component';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product-page',
@@ -16,11 +17,14 @@ import { HeaderComponent } from '../../partials/header/header.component';
 })
 export class ProductPageComponent implements OnInit{
   theProduct:any;
+  productId!:string;
   constructor(
     private productService:ProductService,
+    private cartService : CartService,
     private activatedRoute:ActivatedRoute,
   ){
     this.activatedRoute.params.subscribe(params=>{
+      this.productId = params['id'];
       this.productService.getProductById(params['id']).subscribe(productDist =>{
         this.theProduct=productDist;
       })
@@ -30,7 +34,21 @@ export class ProductPageComponent implements OnInit{
   ngOnInit(): void {
     
   }
-  addtoCart(){
-
+  addtoCart(productId:string){
+    productId = this.productId;
+    this.theProduct ={
+      id: this.productId,
+      productName:this.theProduct.productName,
+      productDescription: this.theProduct.productDescription,
+      productPrice: this.theProduct.productPrice,
+      productCategory: this.theProduct.productCategory,
+      productUnite: this.theProduct.productUnite,
+      productStock: this.theProduct.productStock,
+      productState: this.theProduct.productState,
+      productSource: this.theProduct.productSource,
+      productImage: this.theProduct.productImage,
+      productOwner: this.theProduct.productOwner,
+    }
+    this.cartService.addToCart(this.theProduct)
   }
 }

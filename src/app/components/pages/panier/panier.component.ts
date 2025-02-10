@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-panier',
@@ -9,5 +10,11 @@ import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/materi
   styleUrl: './panier.component.css'
 })
 export class PanierComponent {
+  cartItemList:any[] = [];
+  constructor(
+    private cartService:CartService,
+  ){
+    this.cartService.getCart();
+  }
 
 }
