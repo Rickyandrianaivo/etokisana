@@ -20,6 +20,7 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { PasswordInputComponent } from '../../partials/password-input/password-input.component';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { HeaderComponent } from '../../partials/header/header.component';
+import { PassworMatchValidator } from 'src/app/shared/validators/password_match_validator';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class RegisterComponent implements OnInit{
   fileName = "";
   registerForm!: FormGroup;
   isSubmitted = false;
-  user : User = new User();
+  user : any;
 
   constructor(
     private userService     : UserService,
@@ -91,6 +92,7 @@ export class RegisterComponent implements OnInit{
       userName:['',Validators.required],
       userFirstname:['',Validators.required],
       userPassword:['',Validators.required,],
+      confirmPassword:['',Validators.required,],
       userEmail:['',Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')],
       userPhone:['',Validators.pattern("^[0-9]*$")],
       userDescritpion:[''],
@@ -99,9 +101,10 @@ export class RegisterComponent implements OnInit{
       userNif:[''],
       userRC:[''],
       identityCardNumber:[''],
-      userAddress:[''],
-      
+      userAddress:[''],     
       //
+    },{
+      validators: PassworMatchValidator('password','confirmPassword')
     });
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
@@ -128,7 +131,7 @@ export class RegisterComponent implements OnInit{
     this.user = {
     userName            : fv.userName ,         
     userFirstname       : fv.userFirstname ,  
-    userPassword        : fv.userPassword ,     
+    userPassword        : fv.userPassword ,  
     userEmail           : fv.userEmail ,     
     userPhone           : fv.userPhone ,      
     userType            : this.userType.value? this.userType.value : "particulier",  

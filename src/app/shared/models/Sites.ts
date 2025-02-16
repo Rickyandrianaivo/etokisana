@@ -1,6 +1,7 @@
 export class Site{
     siteName!:string;
-    siteLong!:string;
-    siteLat!:string;
+    siteAddress!:string;
+    siteLng!:number;
+    siteLat!:number;
     siteUserId!:string;
 }

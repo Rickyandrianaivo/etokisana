@@ -15,6 +15,7 @@ import { PanierComponent } from './components/pages/panier/panier.component';
 import { ProductPageComponent } from './components/pages/product-page/product-page.component';
 import { UpdateProductComponent } from './components/pages/update-product/update-product.component';
 import { TransactionComponent } from './components/pages/transaction/transaction.component';
+import { UserSitesComponent } from './components/pages/user-sites/user-sites.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
@@ -31,6 +32,7 @@ const routes: Routes = [
     {path : 'client-profile', component: ClientProfileComponent},
     {path : 'product-page/:id', component: ProductPageComponent},
     {path : 'user-products/add', component: AddProductComponent},
+    {path : 'user-site', component: UserSitesComponent},
     {path : 'user-products/update/:id',component: UpdateProductComponent},
     {path : 'forgot-password', component: ForgotPasswordComponent},
     {path : 'email-verification', component: EmailVerificationComponent},

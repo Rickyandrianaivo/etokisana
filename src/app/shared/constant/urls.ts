@@ -12,16 +12,17 @@ export const PRODUCT_UPLOAD_IMAGE_URL      = PRODUCT_URL + 'upload/';
 export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
 export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
 
-export const SITE_URL                   = BASE_URL + '/api/site';
-export const SITE_BY_ID_URL             = SITE_URL + 'id/';
-export const SITE_ADD_URL               = SITE_URL + 'add/';
-export const SITE_UPDATE_URL            = SITE_URL + 'update/';
-export const SITE_REMOVE_URL            = SITE_URL + 'delete/';
+export const SITE_URL                      = BASE_URL + '/api/site';
+export const SITE_BY_ID_URL                = SITE_URL + '/';
+export const SITE_BY_USERID_URL            = SITE_URL + '/user/';
+export const SITE_ADD_URL                  = SITE_URL + '/add';
+export const SITE_UPDATE_URL               = SITE_URL + '/update';
+export const SITE_REMOVE_URL               = SITE_URL + '/delete';
 
 export const CATEGORY_URL                  = BASE_URL +'api/category/';
 export const CATEGORY_ADD_URL              = CATEGORY_URL + 'add/';
-export const CATEGORY_UPDATE_URL              = CATEGORY_URL + 'update/';
-export const CATEGORY_REMOVE_URL              = CATEGORY_URL + 'remove/';
+export const CATEGORY_UPDATE_URL           = CATEGORY_URL + 'update/';
+export const CATEGORY_REMOVE_URL           = CATEGORY_URL + 'remove/';
 
 export const POINTDEVENTE_URL               = BASE_URL + '/api/pointDeVente/';
 export const POINTDEVENTE_UPDATE_URL        = POINTDEVENTE_URL + 'update';
