@@ -54,7 +54,6 @@ export class UserService {
     localStorage.removeItem(USER_KEY);
     this.router.navigateByUrl('/');
    }
-
   registerUser(registerUserData : IUserRegister){
     return this.http.post<User>(USER_REGISTER_URL,registerUserData)
   }

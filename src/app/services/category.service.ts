@@ -3,7 +3,7 @@ import { sample_categories } from '../../../data';
 import { HttpClient } from '@angular/common/http';
 import { ProductCategory } from '../shared/models/ProductCategory';
 import { Observable } from 'rxjs';
-import { CATEGORY_URL } from '../shared/constant/urls';
+import { CATEGORY_ADD_URL, CATEGORY_REMOVE_URL, CATEGORY_URL } from '../shared/constant/urls';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,16 @@ export class CategoryService {
     private http : HttpClient
   ) { }
 
+  addCat(categoryData:any){
+    return this.http.post(CATEGORY_ADD_URL,categoryData);
+  }
   getAll(){
     return sample_categories;
   }
   getAllCategory() : Observable<ProductCategory[]>{
     return this.http.get<ProductCategory[]>(CATEGORY_URL);
+  }
+  deleteCat(catId:string){
+    return this.http.delete(CATEGORY_REMOVE_URL);
   }
 }

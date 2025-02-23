@@ -1,0 +1,11 @@
+.head-content{
+    width: 100%;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+}
+button{
+    background-color: rgba(255, 255, 255, 0.007);
+    border:1px solid blue;
+}

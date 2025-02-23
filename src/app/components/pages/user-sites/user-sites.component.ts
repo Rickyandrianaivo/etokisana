@@ -35,9 +35,9 @@ export class UserSitesComponent implements OnInit{
   newSite:any;
   currentUser:any;
   sites:any[]=[];
-  latitude:string="";
-  longitude:string="";
-
+  latitude:number=0;
+  longitude:number=0;
+  siteId:string|undefined;
   // display: any;
   // center: google.maps.LatLngLiteral = { lat: -18.809381, lng: 47.560713};
   // markerLatLong: google.maps.LatLngLiteral[] = [
@@ -120,11 +120,19 @@ export class UserSitesComponent implements OnInit{
       siteUserId      :this.currentUser._id,
     };
     // console.log(this.user);
-    this.siteService.addSite(this.newSite).subscribe(serverSite => {
-      console.log(serverSite);
-      alert("Ajout d'un site avec succès!");
-      this.router.navigateByUrl("/user-Sites");
-    })
+    if (!this.siteId) {
+      this.siteService.addSite(this.newSite).subscribe(serverSite => {
+        console.log(serverSite);
+        alert("Ajout d'un site avec succès!");
+        this.router.navigateByUrl("/user-Sites");
+      })      
+    }else{
+      this.siteService.update(this.newSite,this.siteId).subscribe(serverSite =>{
+        console.log(serverSite);
+        alert("Site mis à jour !");
+        this.router.navigateByUrl("/user-Sites");
+      })
+    }
   }
   // moveMap(event: google.maps.MapMouseEvent) {
   //   if (event.latLng != null) this.center = 
@@ -135,18 +143,34 @@ export class UserSitesComponent implements OnInit{
   //   (event.latLng.toJSON());
   // };
   deleteSite(siteId:string){
+    console.log(siteId)
     this.siteService.deleteSite(siteId).subscribe(_=>{
       alert("Site retirer avec succès !")
     })
   }
   setDataToModify(siteId:string){
+    this.siteId = siteId;
+    console.log(this.siteId)
     this.siteService.getSiteById(siteId).subscribe(siteToModify=>{
       this.siteToUpdate = siteToModify
-      console.log(siteToModify)
-      const fv = this.addSiteForm.value;
-      
+      this.addSiteForm = this.formBuilder.group({
+        siteName:[siteToModify.siteName],
+        siteAddress:[siteToModify.siteAddress],
+      })
       if (siteToModify) {
-        // l.marker([siteToModify.siteLat,siteToModify.siteLng]).addTo(this.map);
+        this.latitude = siteToModify.siteLat;
+        this.longitude = siteToModify.siteLng;
+        let marker = l.marker([siteToModify.siteLat,siteToModify.siteLng]).addTo(this.map);
+        this.map.on('click', (event:any)=>{
+          // console.log(event)
+
+          if(marker !==null){
+            this.map.removeLayer(marker);
+          }
+          marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
+          this.latitude=event.latlng.lat;
+          this.longitude=event.latlng.lng;
+        })
       }
     })
   }

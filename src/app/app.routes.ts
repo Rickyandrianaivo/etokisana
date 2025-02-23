@@ -16,10 +16,17 @@ import { ProductPageComponent } from './components/pages/product-page/product-pa
 import { UpdateProductComponent } from './components/pages/update-product/update-product.component';
 import { TransactionComponent } from './components/pages/transaction/transaction.component';
 import { UserSitesComponent } from './components/pages/user-sites/user-sites.component';
+import { BoLoginComponent } from './components/pages/bo/bo-login/bo-login.component';
+import { DashboardComponent } from './components/pages/bo/dashboard/dashboard.component';
+import { UsersComponent } from './components/pages/bo/users/users.component';
+import { ProductsComponent } from './components/pages/bo/products/products.component';
+import { CategoriesComponent } from './components/pages/bo/categories/categories.component';
+import { NotFoundComponent } from './components/pages/not-found/not-found.component';
+import { CategoryAddComponent } from './components/pages/bo/category-add/category-add.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
-    // {path : '', component: LoginComponent},
+    {path : 'home', component: HomeComponent},
     {path : 'achat', component: AchatComponent},
     {path : 'login', component: LoginComponent},
     {path : 'panier', component: PanierComponent},
@@ -33,11 +40,17 @@ const routes: Routes = [
     {path : 'product-page/:id', component: ProductPageComponent},
     {path : 'user-products/add', component: AddProductComponent},
     {path : 'user-site', component: UserSitesComponent},
+    {path : 'dashboard', component: DashboardComponent},
+    {path : 'users', component: UsersComponent},
+    {path : 'products', component: ProductsComponent},
+    {path : 'categories', component: CategoriesComponent},
+    {path : 'category-add', component: CategoryAddComponent},
     {path : 'user-products/update/:id',component: UpdateProductComponent},
     {path : 'forgot-password', component: ForgotPasswordComponent},
     {path : 'email-verification', component: EmailVerificationComponent},
     {path : 'user-confirmation/:token', component: EmailVerificationComponent},
-    {path : '**', component: LoginComponent},
+    {path : 'admin', component: BoLoginComponent},    
+    {path : '**', component: NotFoundComponent},
 
 ];
 

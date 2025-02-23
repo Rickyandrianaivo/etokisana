@@ -3,7 +3,7 @@
 
     <h4>Mes sites</h4>
         <ul>
-            <li *ngFor="let site of sites">{{site.siteName}} -  {{site.siteAddress}} 
+            <li *ngFor="let site of sites">{{site.siteName}} -  {{site.siteAddress}} - {{ site.siteLat}} - {{ site.siteLng}}
                 <button (click)="setDataToModify(site._id)"> <mat-icon>brush</mat-icon></button>
                 <!-- <a routerLink="update/{{site._id}}"><button> <mat-icon>brush</mat-icon></button></a> -->
                 <button (click)="deleteSite(site._id)"> <mat-icon>delete</mat-icon></button>
@@ -52,7 +52,7 @@
         </div>
         <div class="buttonContainer">
             <app-default-button text="Annuler" routerLink="/user-Sites" type="button"></app-default-button>
-            <app-default-button text="Valider" routerLink="/user-Sites" type="submit"></app-default-button>
+            <app-default-button text="Valider" type="submit"></app-default-button>
         </div>
     </form>     
     

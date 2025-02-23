@@ -3,14 +3,14 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../../../shared/models/User';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
-import { SearchComponent } from '../search/search.component';
+// import { SearchComponent } from '../search/search.component';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule,
-    SearchComponent,
+    // SearchComponent,
     RouterLink,
     MatIconModule
   ],

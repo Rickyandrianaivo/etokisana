@@ -72,7 +72,13 @@ export class LoginComponent {
       userPassword  : fv.password
     };
     this.userService.login(user).subscribe(_=>{
-      this.router.navigateByUrl(this.url) ;
+      this.userService.getUserByEmail(user.userEmail).subscribe(userComplete=>{
+        if(userComplete.userType != "admin"){
+          this.router.navigateByUrl("/dashboard");
+        }else{
+          this.router.navigateByUrl(this.url);
+        }
+      })
       
     })
   }
