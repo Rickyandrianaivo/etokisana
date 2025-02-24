@@ -12,6 +12,7 @@ import { GoogleMapsModule} from '@angular/google-maps';
 import { NgFor } from '@angular/common';
 import * as l from 'leaflet' ;
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-user-sites',
@@ -23,9 +24,10 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     ReactiveFormsModule,
     GoogleMapsModule,
-    NgFor,
+    MatTableModule,
     RouterLink,
-  MatIconModule],
+    MatIconModule,
+  ],
   templateUrl: './user-sites.component.html',
   styleUrl: './user-sites.component.css'
 })
@@ -38,6 +40,7 @@ export class UserSitesComponent implements OnInit{
   latitude:number=0;
   longitude:number=0;
   siteId:string|undefined;
+  displayedColumns: string[] = ['Nom du Site','Adresse', 'Latitude', 'Longitude','Action'];
   // display: any;
   // center: google.maps.LatLngLiteral = { lat: -18.809381, lng: 47.560713};
   // markerLatLong: google.maps.LatLngLiteral[] = [
@@ -124,13 +127,13 @@ export class UserSitesComponent implements OnInit{
       this.siteService.addSite(this.newSite).subscribe(serverSite => {
         console.log(serverSite);
         alert("Ajout d'un site avec succès!");
-        this.router.navigateByUrl("/user-Sites");
+        this.router.navigateByUrl("/user-site");
       })      
     }else{
       this.siteService.update(this.newSite,this.siteId).subscribe(serverSite =>{
-        console.log(serverSite);
+        console.log(serverSite)
         alert("Site mis à jour !");
-        this.router.navigateByUrl("/user-Sites");
+        window.location.reload();
       })
     }
   }
@@ -143,10 +146,11 @@ export class UserSitesComponent implements OnInit{
   //   (event.latLng.toJSON());
   // };
   deleteSite(siteId:string){
-    console.log(siteId)
-    this.siteService.deleteSite(siteId).subscribe(_=>{
-      alert("Site retirer avec succès !")
-    })
+    this.siteService.deleteSite(siteId).subscribe(vide =>{
+      console.log(vide)
+      alert("site supprimé");
+      window.location.reload();
+    });
   }
   setDataToModify(siteId:string){
     this.siteId = siteId;

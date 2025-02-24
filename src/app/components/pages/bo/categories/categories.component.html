@@ -13,20 +13,20 @@
               
                 <ng-container matColumnDef="Miniature">
                   <th mat-header-cell *matHeaderCellDef> Miniature </th>
-                  <td mat-cell *matCellDef="let element"><img src="{{element.productImage}}"/> </td>
+                  <td mat-cell *matCellDef="let element"><img src="{{element.CatMiniatureUrl}}"/> </td>
                 </ng-container>
             
             
                 <!-- Position Column -->
                 <ng-container matColumnDef="Nom">
                   <th mat-header-cell *matHeaderCellDef> Nom </th>
-                  <td mat-cell *matCellDef="let element"> {{element.productName }}</td>
+                  <td mat-cell *matCellDef="let element"> {{element.CatName }}</td>
                 </ng-container>
               
                 <!-- Name Column -->
                 <ng-container matColumnDef="Description">
                   <th mat-header-cell *matHeaderCellDef> Descritpion </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.productDescription }} </td>
+                  <td mat-cell *matCellDef="let element"> {{ element.CatDescription }} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="Action">

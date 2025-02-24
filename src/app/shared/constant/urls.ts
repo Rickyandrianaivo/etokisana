@@ -19,8 +19,8 @@ export const SITE_ADD_URL                  = SITE_URL + 'add';
 export const SITE_UPDATE_URL               = SITE_URL + 'update/';
 export const SITE_REMOVE_URL               = SITE_URL + 'delete/';
 
-export const CATEGORY_URL                  = BASE_URL +'api/category/';
-export const CATEGORY_ADD_URL              = CATEGORY_URL + 'add/';
+export const CATEGORY_URL                  = BASE_URL +'/api/category/';
+export const CATEGORY_ADD_URL              = CATEGORY_URL + 'add';
 export const CATEGORY_UPDATE_URL           = CATEGORY_URL + 'update/';
 export const CATEGORY_REMOVE_URL           = CATEGORY_URL + 'remove/';
 

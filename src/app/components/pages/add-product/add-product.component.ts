@@ -26,7 +26,8 @@ import { HeaderComponent } from '../../partials/header/header.component';
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
-  HeaderComponent],
+    HeaderComponent,
+],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
@@ -71,7 +72,7 @@ export class AddProductComponent implements OnInit {
         const formData = new FormData();
 
         formData.append("file", file);
-
+        // console.log(formData)
         this.productService.uploadFile(formData).subscribe();
     }
   }

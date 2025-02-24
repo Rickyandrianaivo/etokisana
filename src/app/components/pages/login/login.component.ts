@@ -73,7 +73,7 @@ export class LoginComponent {
     };
     this.userService.login(user).subscribe(_=>{
       this.userService.getUserByEmail(user.userEmail).subscribe(userComplete=>{
-        if(userComplete.userType != "admin"){
+        if(userComplete.userType == "admin"){
           this.router.navigateByUrl("/dashboard");
         }else{
           this.router.navigateByUrl(this.url);

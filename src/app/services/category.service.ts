@@ -15,7 +15,7 @@ export class CategoryService {
   ) { }
 
   addCat(categoryData:any){
-    return this.http.post(CATEGORY_ADD_URL,categoryData);
+    return this.http.post<ProductCategory>(CATEGORY_ADD_URL,categoryData);
   }
   getAll(){
     return sample_categories;

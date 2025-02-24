@@ -6,6 +6,7 @@ import { TextInputComponent } from 'src/app/components/partials/text-input/text-
 import { TextareaComponent } from 'src/app/components/partials/textarea/textarea.component';
 import { CategoryService } from 'src/app/services/category.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-add',
@@ -30,6 +31,7 @@ export class CategoryAddComponent implements OnInit{
   constructor(
     private categoryService : CategoryService,
     private formBuilder : FormBuilder,
+    private router : Router,
   ){
 
   }
@@ -58,6 +60,24 @@ export class CategoryAddComponent implements OnInit{
     return this.addCatForm.controls;
   }
   submit(){
-
+    this.isSubmitted =true;
+    if (this.addCatForm.invalid){ 
+        console.log(this.addCatForm.getError);
+        alert("Veuillez remplir correctement les champs obligatoires!");
+        return;
+      }
+    
+    const fv = this.addCatForm.value;
+    console.log(fv.CatName);
+    this.category = {
+      CatMiniatureUrl : "",
+      CatName         :fv.CatName,
+      CatDescription  :fv.CatDescription,
+    };
+    // console.log(this.user);
+    this.categoryService.addCat(this.category).subscribe(_ => {
+      alert("Nouvelle catégorie ajoutée!");
+      this.router.navigateByUrl("/categories");
+    })
   }
 }

@@ -14,7 +14,7 @@
             <text-input
             [control]="fc.CatName"
             [showErrorsWhen]="isSubmitted"
-            label="Nom du produit">
+            label="Nom de la catégie">
             </text-input>
             <app-textarea
             [control]="fc.CatDescription"
@@ -24,7 +24,7 @@
              </div>
             <div class="buttonContainer">
                 <app-default-button text="Annuler" routerLink="/user-products" type="button"></app-default-button>
-                <app-default-button text="Valider" routerLink="/user-products" type="submit"></app-default-button>
+                <app-default-button text="Valider" type="submit"></app-default-button>
             </div>
         </form>        
     </div>

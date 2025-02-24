@@ -26,7 +26,6 @@ export class SideBarComponent {
     if (!this.user.userName)  {
       this.router.navigateByUrl("/home")      
     }
-    console.log(this.user)
     // this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
     // })
   }
