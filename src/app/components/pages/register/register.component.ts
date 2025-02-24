@@ -1,4 +1,4 @@
-import { Component,OnInit,signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component,computed,inject,OnInit,signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerIntl,MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -21,6 +21,8 @@ import { PasswordInputComponent } from '../../partials/password-input/password-i
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { PassworMatchValidator } from 'src/app/shared/validators/password_match_validator';
+import { MatButtonModule } from '@angular/material/button';
+import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 
 
 @Component({
@@ -46,9 +48,20 @@ import { PassworMatchValidator } from 'src/app/shared/validators/password_match_
     MatButtonToggleModule,
     DefaultButtonComponent,
     PasswordInputComponent,
-    HeaderComponent
-  ],
-  providers :[provideNativeDateAdapter()],
+    HeaderComponent,
+    MatFormFieldModule, 
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers :[// The locale would typically be provided on the root module of your application. We do it at
+    // the component level here, due to limitations of our example generation script.
+    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+
+    // Moment can be provided globally to your app by adding `provideMomentDateAdapter`
+    // to your app config. We provide it at the component level here, due to limitations
+    // of our example generation script.
+    provideNativeDateAdapter(),],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -62,12 +75,33 @@ export class RegisterComponent implements OnInit{
   isSubmitted = false;
   user : any;
 
+  private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
+  private readonly _intl = inject(MatDatepickerIntl);
+  private readonly _locale = signal(inject<unknown>(MAT_DATE_LOCALE));
+  readonly dateFormatString = computed(() => {
+    if (this._locale() === 'ja-JP') {
+      return 'YYYY/MM/DD';
+    } else if (this._locale() === 'fr') {
+      return 'DD/MM/YYYY';
+    }
+    return '';
+  });
+
   constructor(
     private userService     : UserService,
     private formBuilder     : FormBuilder,
     private router          : Router,
   ){
 
+  }
+  french() {
+    this._locale.set('fr');
+    this._adapter.setLocale(this._locale());
+    this.updateCloseButtonLabel('Fermer le calendrier');
+  }
+  updateCloseButtonLabel(label: string) {
+    this._intl.closeCalendarLabel = label;
+    this._intl.changes.next();
   }
   customeEmailValidator(control:AbstractControl){
     const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,20}$/;
@@ -87,6 +121,8 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.updateCloseButtonLabel('カレンダーを閉じる');
+
     const pattern:RegExp = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
     this.registerForm = this.formBuilder.group({
       userName:['',Validators.required],

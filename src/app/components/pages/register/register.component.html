@@ -54,14 +54,23 @@
                     [showErrorsWhen]="isSubmitted"
                     label="Confirmation mot de passe">
                 </app-password-input>
-            <mat-form-field appearance="outline" >
+            <!-- <mat-form-field appearance="outline" >
                 <mat-label>Date de naissance</mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth"> 
+                <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth" type="date"> 
+                <mat-hint>{{dateFormatString()}}</mat-hint>
                 <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <mat-datepicker #picker></mat-datepicker> -->
                 <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-            </mat-form-field>
-                
+            <!-- </mat-form-field>
+            <button mat-button (click)="french()">Dynamically switch to French</button> -->
+            <mat-form-field appearance="outline">
+                <mat-label>Date de naissance</mat-label>
+                <input matInput [matDatepicker]="dp" [formControl]="dateOfBirth" type="date"/>
+                <mat-hint>{{dateFormatString()}}</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+              </mat-form-field>
+              <button mat-button (click)="french()">Dynamically switch to French</button>
             <!-- <div class="seller" *ngIf="showSellerForm()"> -->
                 <div class="seller" >
                 <text-input
@@ -100,8 +109,6 @@
                  <div *ngIf="isSubmitted">
                     <app-default-button text="S'inscrire" bgColor='#cccccc'></app-default-button>
                  </div>
-
-                
                  <a routerLink="/login"><p style="text-align: center;">Se connecter</p></a>
             </div>
         </form>
