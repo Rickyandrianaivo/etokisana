@@ -1,4 +1,4 @@
-mat-drawer-container{
+at-drawer-container{
     min-height: 100%;
 }
 .left-side{
@@ -11,6 +11,11 @@ mat-drawer-container{
 }
 button{
     width: 100%;
+    /* border-bottom:1px solid; */
+    border-radius:0;
+}
+button.icon,li button{
+    width: 100%;
     background: none;
     /* border-bottom:1px solid; */
     border-radius:0;
@@ -20,5 +25,17 @@ button:focus{
     background: gray;
     /* border-bottom:1px solid; */
     border-radius:0;
-    color: rgb(255, 255, 255);
+    color: #4591f5;
+}
+.icon-operation{
+    color : #4591f5;
+    font-size: 100px;
+    width: fit-content;
+}
+mat-icon.icon-operation{
+    height: 100px;
+    width: 100px;
+}
+.container-operation{
+    display: flex;
 }

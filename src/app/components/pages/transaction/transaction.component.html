@@ -12,7 +12,13 @@
     <mat-drawer-content>
         <div class="container">
             <h1> Mes transactions</h1>
-            <a routerLink="add"><button>Ajouter un produit</button></a>
+            <!-- <a routerLink="add"><button>Ajouter un produit</button></a> --> 
+             <div class="container-operation">
+                <button class="icon"><mat-icon class="icon-operation">open_in_browser</mat-icon><br><p style="color: black;">Dépôt</p></button>
+                <button class="icon"><mat-icon class="icon-operation">open_in_new</mat-icon><br><p style="color: black;">Retrait</p></button>
+                <button class="icon"><mat-icon class="icon-operation">swap_vert</mat-icon><br><p style="color: black;">Historique</p></button>
+            </div>
+            
             <table mat-table [dataSource]="depotList" class="mat-elevation-z8">
             
                 <!--- Note that these columns can be defined in any order.

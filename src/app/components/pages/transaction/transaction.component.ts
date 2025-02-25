@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { HeaderComponent } from '../../partials/header/header.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-transaction',
@@ -13,7 +14,8 @@ import { HeaderComponent } from '../../partials/header/header.component';
     MatDrawerContainer,
     MatDrawerContent,
     MatTableModule,
-    HeaderComponent
+    HeaderComponent,
+    MatIconModule,
   ],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
