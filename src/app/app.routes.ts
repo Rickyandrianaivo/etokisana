@@ -23,6 +23,8 @@ import { ProductsComponent } from './components/pages/bo/products/products.compo
 import { CategoriesComponent } from './components/pages/bo/categories/categories.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { CategoryAddComponent } from './components/pages/bo/category-add/category-add.component';
+import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
+import { DepositComponent } from './components/pages/deposit/deposit.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
@@ -40,8 +42,10 @@ const routes: Routes = [
     {path : 'product-page/:id', component: ProductPageComponent},
     {path : 'user-products/add', component: AddProductComponent},
     {path : 'user-site', component: UserSitesComponent},
+    {path : 'cart-page', component: CartPageComponent},
     {path : 'dashboard', component: DashboardComponent},
     {path : 'users', component: UsersComponent},
+    {path : 'deposit', component: DepositComponent},
     {path : 'products', component: ProductsComponent},
     {path : 'categories', component: CategoriesComponent},
     {path : 'category-add', component: CategoryAddComponent},

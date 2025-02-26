@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CurrencyPipe } from '@angular/common';
 import { DefaultButtonComponent } from "../../partials/default-button/default-button.component";
@@ -22,6 +22,7 @@ export class ProductPageComponent implements OnInit{
     private productService:ProductService,
     private cartService : CartService,
     private activatedRoute:ActivatedRoute,
+    private router : Router,
   ){
     this.activatedRoute.params.subscribe(params=>{
       this.productId = params['id'];
@@ -49,6 +50,7 @@ export class ProductPageComponent implements OnInit{
       productImage: this.theProduct.productImage,
       productOwner: this.theProduct.productOwner,
     }
-    this.cartService.addToCart(this.theProduct)
+    this.cartService.addToCart(this.theProduct);
+    this.router.navigateByUrl('/cart-page');
   }
 }

@@ -1,7 +1,13 @@
+import { Product } from "./Product";
 
 export class CartItem{
+    constructor(product:Product){
+        this.CartItemProduct = product;
+    }
     CartItemProduct!:any;
-    CartItemImage!:string;
-    CartItemPrice!:number;
     CartItemQuantity!:number;
+
+    get CartItemPrice():number{
+        return this.CartItemProduct.productPrice * this.CartItemQuantity;
+    }
 }

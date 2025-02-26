@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
 import { UserService } from '../../../services/user.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     HeaderComponent,
     MatIconModule,
+    RouterModule
   ],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
