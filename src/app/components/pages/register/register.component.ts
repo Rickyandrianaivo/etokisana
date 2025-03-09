@@ -20,9 +20,10 @@ import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { PasswordInputComponent } from '../../partials/password-input/password-input.component';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { HeaderComponent } from '../../partials/header/header.component';
-import { PassworMatchValidator } from 'src/app/shared/validators/password_match_validator';
+import { PasswordMatchValidator } from 'src/app/shared/validators/password_match_validator';
 import { MatButtonModule } from '@angular/material/button';
 import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
+import { RadioInputComponent } from '../../partials/radio-input/radio-input.component';
 
 
 @Component({
@@ -52,7 +53,9 @@ import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
     MatFormFieldModule, 
     MatInputModule,
     MatDatepickerModule,
-    MatButtonModule],
+    MatButtonModule,
+    RadioInputComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
@@ -66,13 +69,14 @@ import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
-  userType = new FormControl('',Validators.required)
-  readonly identityDocumentType = new FormControl();
-  readonly dateOfBirth = new FormControl();
-  showSellerForm = signal(false);
-  fileName = "";
   registerForm!: FormGroup;
   isSubmitted = false;
+  userType!:AbstractControl;
+
+  // readonly identityDocumentType = new FormControl();
+  // readonly dateOfBirth = new FormControl();
+  showSellerForm = signal(false);
+  fileName = "";
   user : any;
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
@@ -88,11 +92,14 @@ export class RegisterComponent implements OnInit{
   });
 
   constructor(
-    private userService     : UserService,
     private formBuilder     : FormBuilder,
+    private userService     : UserService,
     private router          : Router,
   ){
 
+  }
+  get formControl(){
+    return this.userType as FormControl;
   }
   french() {
     this._locale.set('fr');
@@ -121,29 +128,34 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.french();
     this.updateCloseButtonLabel('カレンダーを閉じる');
 
     const pattern:RegExp = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
     this.registerForm = this.formBuilder.group({
+      userType :['',[Validators.required]],
       userName:['',Validators.required],
       userFirstname:['',Validators.required],
-      userPassword:['',Validators.required,],
-      confirmPassword:['',Validators.required,],
-      userEmail:['',Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')],
-      userPhone:['',Validators.pattern("^[0-9]*$")],
-      userDescritpion:[''],
-      userStatut:[''],
-      userManager:[''],
-      userNif:[''],
-      userRC:[''],
-      identityCardNumber:[''],
-      userAddress:[''],     
-      //
+      userEmail:['',[Validators.required,Validators.email]],
+      userPassword:['',Validators.required],
+      confirmPassword:['',[Validators.required,PasswordMatchValidator]],
+      userPhone:[''],
+      // // userPhone:['',Validators.pattern("^[0-9]*$")],
+      // userDateOfBirth:[],
+      // userDescritpion:[''],
+      // userStatut:[''],
+      // userManager:[''],
+      // userNif:[''],
+      // userRC:[''],
+      // identityCardNumber:[''],
+      // userAddress:[''],     
     },{
-      validators: PassworMatchValidator('password','confirmPassword')
-    });
+      validators : PasswordMatchValidator("userPassword","confirmPassword"),
+    }
+  );
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
+
   toggleSellerForm(){
     this.showSellerForm.update(value =>!value)
   }
@@ -153,17 +165,12 @@ export class RegisterComponent implements OnInit{
   
   submit(){
     this.isSubmitted =true;
-    if (this.registerForm.invalid){ 
+    if (!this.registerForm.valid){ 
         console.log(this.registerForm.getError);
-        return;
-    }
-    if(this.userType.value == ""){
-        alert("Veuillez renseigner si vous êtes particulier ou une entreprise")
         return;
     }
     
     const fv = this.registerForm.value;
-    // console.log(fv.userName);
     this.user = {
     userName            : fv.userName ,         
     userFirstname       : fv.userFirstname ,  
@@ -172,20 +179,20 @@ export class RegisterComponent implements OnInit{
     userPhone           : fv.userPhone ,      
     userType            : this.userType.value? this.userType.value : "particulier",  
     userTotalSolde      : 0 ,  
-    userDescritpion     : fv.userDescritpion ,   
-    userImage           : fv.userImage ,  
     userEnabled         : false ,  
-    userDateOfBirth     : this.dateOfBirth.value,  
-    userLogo            : fv.userLogo ,  
-    userStatut          : fv.userStatut ,  
-    userManager         : fv.userManager ,  
-    userNif             : fv.userNif ,  
-    userRC              : fv.userRC ,  
-    identityDocumentType: this.identityDocumentType.value,
-    identityCardNumber  : fv.identityCardNumber ,
     userAdmin           : false ,
-    userAddress         : fv.userAddress ,
-    userIdentityCode    : fv.userIdentityCode , // A voir comment le remplir
+    // userDescritpion     : fv.userDescritpion ,   
+    // userImage           : fv.userImage ,  
+    // userDateOfBirth     : this.dateOfBirth.value,  
+    // userLogo            : fv.userLogo ,  
+    // userStatut          : fv.userStatut ,  
+    // userManager         : fv.userManager ,  
+    // userNif             : fv.userNif ,  
+    // userRC              : fv.userRC ,  
+    // identityDocumentType: this.identityDocumentType.value,
+    // identityCardNumber  : fv.identityCardNumber ,
+    // userAddress         : fv.userAddress ,
+    // userIdentityCode    : fv.userIdentityCode ,
     };
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {

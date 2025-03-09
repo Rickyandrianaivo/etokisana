@@ -3,10 +3,10 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const VALIDATORS_MESSAGES:any = {
-  required :'Should not be empty',
-  email:'Should be an email',
-  minlength: 'field is too short',
-  notMatch:'Password and confirm does not match'
+  required :'Ne doit pas être vide',
+  email:'Entrer un email valid',
+  minlength: 'trop court',
+  notMatch:'les mots de passe ne correspondent pas'
 }
 
 @Component({

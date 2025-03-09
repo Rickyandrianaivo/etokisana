@@ -12,12 +12,10 @@
         </div>
         <form class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submit()">
             <div class="client-register">
-                <div class="radio-gender">
-                    <mat-radio-group [formControl]="userType">
-                      <mat-radio-button value="particulier" checked="checked">Particulier</mat-radio-button>
-                      <mat-radio-button value="entreprise">Entreprise</mat-radio-button>
-                    </mat-radio-group>
-                </div>
+                <app-radio-input
+                [control]="fc.userType"
+                [showErrorsWhen]="isSubmitted"
+                ></app-radio-input>
                 <text-input
                     [control]="fc.userName"
                     [showErrorsWhen]="isSubmitted"
@@ -63,16 +61,16 @@
                 <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
             <!-- </mat-form-field>
             <button mat-button (click)="french()">Dynamically switch to French</button> -->
-            <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="outline">
                 <mat-label>Date de naissance</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="dateOfBirth" type="date"/>
+                <input matInput [matDatepicker]="dp" [formControl]="dateOfBirth" type="datetime" [value]="dateOfBirth"/>
                 <mat-hint>{{dateFormatString()}}</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp></mat-datepicker>
-              </mat-form-field>
-              <button mat-button (click)="french()">Dynamically switch to French</button>
+              </mat-form-field> -->
+              <!-- <button mat-button (click)="french()">Dynamically switch to French</button> -->
             <!-- <div class="seller" *ngIf="showSellerForm()"> -->
-                <div class="seller" >
+                <!-- <div class="seller" >
                 <text-input
                     [control]="fc.userManager"
                     [showErrorsWhen]="isSubmitted"
@@ -98,18 +96,16 @@
                     [showErrorsWhen]="isSubmitted"
                     label="Descritpion">
                 </app-textarea>
-            </div>
-        <!--</div>
-            <div class="buttonContainer">-->
+            </div> -->
+        </div>
+            <div class="buttonContainer">
                 <!-- <app-default-button text="S'INSCRIRE" type="submit" (onClick)="sendEmail($event)"></app-default-button> -->
                 <!-- <app-default-button text="SE CONNECTER" routerLink="/login" type="button"></app-default-button> -->
-                 <div *ngIf="!isSubmitted">
-                    <app-default-button text="S'inscrire" type="submit" ></app-default-button>
+                 <div>
+                    <!-- <app-default-button text="S'inscrire" type="submit" [disabled]="!registerForm.valid" ></app-default-button> -->
+                     <app-default-button text="S'inscrire" type="submit"></app-default-button>
                  </div>
-                 <div *ngIf="isSubmitted">
-                    <app-default-button text="S'inscrire" bgColor='#cccccc'></app-default-button>
-                 </div>
-                 <a routerLink="/login"><p style="text-align: center;">Se connecter</p></a>
+                 <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
             </div>
         </form>
     </div>

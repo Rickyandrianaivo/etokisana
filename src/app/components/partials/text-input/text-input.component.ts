@@ -20,14 +20,10 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
   styleUrl: './text-input.component.css'
 })
 export class TextInputComponent {
-  @Input()
-  control!:AbstractControl;
-  @Input()
-  showErrorsWhen:boolean = true;
-  @Input()
-  label!: string;
-  @Input()
-  type:'texte'|'password'|'email' ="texte" ;
+  @Input()  control!:AbstractControl;
+  @Input()  showErrorsWhen:boolean = true;
+  @Input()  label!: string;
+  @Input()  type:'texte'|'password'|'email' ="texte" ;
   
   get formControl(){
     return this.control as FormControl;

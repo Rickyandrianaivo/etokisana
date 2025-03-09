@@ -9,18 +9,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './default-button.component.css'
 })
 export class DefaultButtonComponent {
-  @Input()
-  type: 'submit' | 'button' = 'submit';
-  @Input()
-  text:string = 'Submit';
-  @Input()
-  bgColor = '#1877f2';
-  @Input()
-  color = 'white';
-  @Input()
-  fontSizeRem = 1;
-  @Input()
-  widthRem = 10;
-  @Output()
-  onClick = new EventEmitter();
+  @Input()  type: 'submit' | 'button' = 'submit';
+  @Input()  text:string = 'Submit';
+  @Input()  bgColor = '#1877f2';
+  @Input()  color = 'white';
+  @Input()  fontSizeRem = 1;
+  @Input()  widthRem = 10;
+  @Input()  disabled = false;
+  @Output() onClick = new EventEmitter();
 }
