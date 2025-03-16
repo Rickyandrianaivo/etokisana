@@ -5,10 +5,10 @@ export interface IUserRegister{
     userEmail           : string;
     userPhone           : string;
     userTotalSolde      : number;
+    userType            : string
+    userEnabled         : boolean;
     // userDescritpion     : string
-    // userType            : string
     // userImage           : string
-    // userEnabled         : boolean;
     // userDateOfBirth     : Date;
     // userLogo            : string;
     // userStatut          : string

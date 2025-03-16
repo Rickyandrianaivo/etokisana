@@ -45,6 +45,7 @@ constructor(
   } 
   this.transactionService.getTransactionByUserId(this.userCurrent._id).subscribe(depotListServer=>{
     this.depotList = depotListServer;
+    console.log(this.depotList)
   })
 }
 ngOnInit(): void {

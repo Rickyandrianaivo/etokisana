@@ -11,6 +11,7 @@ import { Transaction } from 'src/app/shared/models/Transaction';
 import { Product } from 'src/app/shared/models/Product';
 import { ProductService } from 'src/app/services/product.service';
 import { NgIf } from '@angular/common';
+import { IUserRegister } from 'src/app/shared/Interfaces/IUserRegister';
 
 @Component({
   selector: 'app-deposit',
@@ -57,7 +58,7 @@ export class DepositComponent {
   ngOnInit() : void {
       this.addFundForm = this.formBuilder.group({
         libelle:['',Validators.required],
-        valeur:['',Validators.required],
+        montant:['',Validators.required],
       })
     }
     
@@ -73,7 +74,7 @@ export class DepositComponent {
       }
     
     const fv = this.addFundForm.value;
-    console.log(fv.Montant);
+    console.log(fv.montant);
     this.entry = {
       userId          : this.user._id,      
       libelle         : fv.libelle,
@@ -88,7 +89,17 @@ export class DepositComponent {
     this.transactionservice.addTransaction(this.entry).subscribe(_=>{
 
     })
-    this.userService.update(this.user,this.user._id).subscribe(_ => {
+    let updatedUser : IUserRegister = {
+      userName            : this.user.userName,
+      userFirstname       : this.user.userFirstname,
+      userPassword        : this.user.userPassword,
+      userEmail           : this.user.userEmail,
+      userPhone           : this.user.userPhone,
+      userTotalSolde      : this.user.userTotalSolde + fv.montant,
+      userType            : this.user.userType,
+      userEnabled         : this.user.userEnabled,
+    }
+    this.userService.update(updatedUser,this.user._id).subscribe(_ => {
       alert("Dépôt de fonds effectué");
       // this.router.navigateByUrl("user-products");
     })
