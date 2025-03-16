@@ -3,10 +3,9 @@ export class Transaction{
     tiersId !: string;
     codeProduit !: string;
     typeES!:string;
-    idProduit !: string;
-    unite !: string;
+    produitId !: string;
     libelle !: string;
     montant !: number;
-    Statut!:string;
-    depotId: string="";
+    statut!:string;
+    siteId!: string;
 }

@@ -9,4 +9,5 @@ export class Product{
     productSource!:string;
     productImage!:string;
     productOwner!:string;
+    codeProduct !: string;
 }

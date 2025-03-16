@@ -1,8 +1,7 @@
 <app-header></app-header>
 <div class="container">
     <div class="inner-container">
-        <h3>Faire un dépôt</h3>
-        
+        <h3>Faire un dépôt de <span *ngIf="product">{{ product.productName }}</span>chez <span *ngIf="prestataire">{{ prestataire.userName }}</span> </h3>
         <form class="register-form-style" [formGroup]="addFundForm"  (ngSubmit)="submit()">
             <div class="client-register">
             <text-input
@@ -10,16 +9,6 @@
             [showErrorsWhen]="isSubmitted"
             label="Libellé">
         </text-input>
-        <text-input
-        [control]="fc.codeProduit"
-        [showErrorsWhen]="isSubmitted"
-        label="Code produit">
-        </text-input>
-            <text-input
-            [control]="fc.destinataire"
-            [showErrorsWhen]="isSubmitted"
-            label="Destinataire">
-            </text-input>
             <text-input
             [control]="fc.valeur"
             [showErrorsWhen]="isSubmitted"

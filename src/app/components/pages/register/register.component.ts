@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatDatepickerIntl,MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBar, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -54,7 +55,8 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
     MatInputModule,
     MatDatepickerModule,
     MatButtonModule,
-    RadioInputComponent
+    RadioInputComponent,
+    MatSnackBarModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -69,6 +71,9 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
+  
+  simpleSb !: MatSnackBarRef<SimpleSnackBar>;
+
   registerForm!: FormGroup;
   isSubmitted = false;
   userType!:AbstractControl;
@@ -95,8 +100,9 @@ export class RegisterComponent implements OnInit{
     private formBuilder     : FormBuilder,
     private userService     : UserService,
     private router          : Router,
+    private _snackBar        : MatSnackBar,
   ){
-
+    
   }
   get formControl(){
     return this.userType as FormControl;
@@ -196,13 +202,17 @@ export class RegisterComponent implements OnInit{
     };
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {
-        alert("Utilisateur déjà existant !")
-        this.router.navigateByUrl("login");
+        this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
+        this.simpleSb.onAction().subscribe(() =>{
+          this.router.navigateByUrl("login");
+        })
         return;
       }else{
-        this.userService.registerUser(this.user).subscribe(_ => {
-          alert("Inscription réussie!");
+        this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+        this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
+        })
+        this.userService.registerUser(this.user).subscribe(_ =>{
         })
       }
     })

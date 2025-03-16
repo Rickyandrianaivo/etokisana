@@ -15,7 +15,10 @@ body{
   }
   .content{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     padding:20px;
   }
   .left-side{

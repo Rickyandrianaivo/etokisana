@@ -38,4 +38,5 @@ mat-icon.icon-operation{
 }
 .container-operation{
     display: flex;
+    justify-content: space-evenly;
 }

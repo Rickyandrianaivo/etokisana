@@ -32,7 +32,7 @@ export class TransactionComponent implements OnInit{
   venteList   :any[]=[];
   depotList   :any[]=[];
   retraitList :any[]=[];
-  displayedColumns: string[] = ['Date','Situation', 'Type', 'Montant','Methode'];
+  displayedColumns: string[] = ['Date','Situation', 'Type', 'Montant','Methode','Dépôt'];
 constructor(
   private userService:UserService,
   private router:Router

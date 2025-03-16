@@ -100,6 +100,7 @@ export class AddProductComponent implements OnInit {
       productSource     :fv.productSource,
       productImage      :"default.jpg",
       productOwner      :this.currentUser._id,
+      codeProduct       :"",
     };
     // console.log(this.user);
     this.productService.addProduct(this.product).subscribe(_ => {

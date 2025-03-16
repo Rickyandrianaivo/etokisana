@@ -112,6 +112,7 @@ readonly productCategory = new FormControl();
       productSource     :fv.productSource,
       productImage      :this.fileName,
       productOwner      :this.currentUserEmail,
+      codeProduct       :"",
     };
     // console.log(this.user);
     this.productService.updateProduct(this.productID,this.product).subscribe(_ => {

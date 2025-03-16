@@ -25,6 +25,8 @@ import { NotFoundComponent } from './components/pages/not-found/not-found.compon
 import { CategoryAddComponent } from './components/pages/bo/category-add/category-add.component';
 import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
 import { DepositComponent } from './components/pages/deposit/deposit.component';
+import { ChoixDepotComponent } from './components/pages/choix-depot/choix-depot.component';
+import { ChoixProduitComponent } from './components/pages/choix-produit/choix-produit.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
@@ -45,7 +47,7 @@ const routes: Routes = [
     {path : 'cart-page', component: CartPageComponent},
     {path : 'dashboard', component: DashboardComponent},
     {path : 'users', component: UsersComponent},
-    {path : 'deposit', component: DepositComponent},
+    {path : 'deposit/:depotId/:productId', component: DepositComponent},
     {path : 'products', component: ProductsComponent},
     {path : 'categories', component: CategoriesComponent},
     {path : 'category-add', component: CategoryAddComponent},
@@ -53,7 +55,9 @@ const routes: Routes = [
     {path : 'forgot-password', component: ForgotPasswordComponent},
     {path : 'email-verification', component: EmailVerificationComponent},
     {path : 'user-confirmation/:token', component: EmailVerificationComponent},
-    {path : 'admin', component: BoLoginComponent},    
+    {path : 'admin', component: BoLoginComponent},
+    {path : 'choix-depot' , component:ChoixDepotComponent},
+    {path : 'choix-produit/:id' , component:ChoixProduitComponent},
     {path : '**', component: NotFoundComponent},
 
 ];

@@ -128,6 +128,7 @@ export class UserSitesComponent implements OnInit{
         console.log(serverSite);
         alert("Ajout d'un site avec succès!");
         this.router.navigateByUrl("/user-site");
+        location.reload();
       })      
     }else{
       this.siteService.update(this.newSite,this.siteId).subscribe(serverSite =>{

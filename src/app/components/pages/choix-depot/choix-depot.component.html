@@ -1,0 +1,10 @@
+<app-header></app-header>
+<div class="container">
+    <div class="content">
+        <h1>Choix prestataire</h1>
+        <ul>
+            <li>Moi même <button (click)="choixPrestataire(currentUser._id)">Choisir</button></li>
+            <li *ngFor="let user of usersList"> {{ user.userName }} {{ user.userFirstname }} <button (click)="choixPrestataire(user._id)">Choisir</button></li>
+        </ul>
+    </div>
+</div>

@@ -5,6 +5,12 @@ import { TextInputComponent } from '../../partials/text-input/text-input.compone
 import { HeaderComponent } from '../../partials/header/header.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Journal } from 'src/app/shared/models/Journal';
+import { Transaction } from 'src/app/shared/models/Transaction';
+import { Product } from 'src/app/shared/models/Product';
+import { ProductService } from 'src/app/services/product.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-deposit',
@@ -14,6 +20,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
     TextInputComponent,
     DefaultButtonComponent,
     ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './deposit.component.html',
   styleUrl: './deposit.component.css'
@@ -22,21 +29,34 @@ export class DepositComponent {
   isSubmitted:boolean=false;
   addFundForm!: FormGroup;
   user!:any;
-  entry!:any;
+  entry!:Transaction;
+  prestataireId!:string;
+  productId !: string;
+  product!:Product;
+  prestataire:any;
   constructor(
     private userService:UserService,
     private transactionservice:TransactionService,
-    private formBuilder : FormBuilder, 
+    private formBuilder : FormBuilder,
+    private activatedRoute : ActivatedRoute, 
+    private productService : ProductService,
   ){
+    this.activatedRoute.params.subscribe(params=>{
+      this.prestataireId = params["depotId"];
+      this.productId = params["productId"];
+    })    
     this.user = this.userService.getUserFromLocalStorage()
-    this.userService
+    this.userService.getUserById(this.prestataireId).subscribe((prestataire)=>{
+      this.prestataire = prestataire;
+    })
+    this.productService.getProductById(this.productId).subscribe(productById=>{
+      this.product = productById;
+    })
   }
 
   ngOnInit() : void {
       this.addFundForm = this.formBuilder.group({
         libelle:['',Validators.required],
-        codeProduit:['',Validators.required],
-        destinataire:['',Validators.required],
         valeur:['',Validators.required],
       })
     }
@@ -55,24 +75,19 @@ export class DepositComponent {
     const fv = this.addFundForm.value;
     console.log(fv.Montant);
     this.entry = {
-      userId :          this.user._id,
-    // tiersId !: string;
-    // codeProduit !: string;
-    // typeES!:string;
-    // idProduit !: string;
-    // unite !: string;
-    // libelle !: string;
-    // montant !: number;
-    // Statut!:string;
-    // depotId: string="";
-      
-      libelle            : this.user.userName,
-      codeProduit       : this.user.userFirstname,
-      productId        : this.user.userPassword,
-      desitantaire           : this.user.userEmail,
-      valeur           : this.user.userPhone,
-      userTotalSolde      : this.user.userTotalSolde + parseInt(fv.Montant),
+      userId          : this.user._id,      
+      libelle         : fv.libelle,
+      codeProduit     : this.product.codeProduct,
+      produitId       : this.productId,
+      tiersId         : this.prestataire._id,
+      montant         : fv.montant,
+      statut          : "encours de validation",
+      siteId          : this.prestataireId,
+      typeES          : "Dépôt",
     };
+    this.transactionservice.addTransaction(this.entry).subscribe(_=>{
+
+    })
     this.userService.update(this.user,this.user._id).subscribe(_ => {
       alert("Dépôt de fonds effectué");
       // this.router.navigateByUrl("user-products");

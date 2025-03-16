@@ -55,7 +55,14 @@ export class UserService {
     this.router.navigateByUrl('/');
    }
   registerUser(registerUserData : IUserRegister){
-    return this.http.post<User>(USER_REGISTER_URL,registerUserData)
+    return this.http.post<User>(USER_REGISTER_URL,registerUserData).pipe(
+      tap({
+        next: () =>{
+          alert("Inscription réussi !");
+          this.router.navigateByUrl("login");
+        }
+      })
+    )
   }
   uploadFile(formData:FormData){
     console.log("image uploaded !! ")
