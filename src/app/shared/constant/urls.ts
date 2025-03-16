@@ -19,7 +19,7 @@ export const SITE_ADD_URL                  = SITE_URL + 'add';
 export const SITE_UPDATE_URL               = SITE_URL + 'update/';
 export const SITE_REMOVE_URL               = SITE_URL + 'delete/';
 
-export const TRANSACTION_URL                      = BASE_URL + '/api/site/';
+export const TRANSACTION_URL                      = BASE_URL + '/api/transaction/';
 export const TRANSACTION_BY_ID_URL                = TRANSACTION_URL + '/';
 export const TRANSACTION_BY_USERID_URL            = TRANSACTION_URL + 'user/';
 export const TRANSACTION_ADD_URL                  = TRANSACTION_URL + 'add';

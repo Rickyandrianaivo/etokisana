@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-transaction',
@@ -35,15 +36,19 @@ export class TransactionComponent implements OnInit{
   displayedColumns: string[] = ['Date','Situation', 'Type', 'Montant','Methode','Dépôt'];
 constructor(
   private userService:UserService,
-  private router:Router
+  private router:Router,
+  private transactionService : TransactionService,
 ){
-  
-}
-ngOnInit(): void {
   this.userCurrent = this.userService.getUserFromLocalStorage()
   if (!this.userCurrent) {
     this.router.navigateByUrl('/login')
-  }  
+  } 
+  this.transactionService.getTransactionByUserId(this.userCurrent._id).subscribe(depotListServer=>{
+    this.depotList = depotListServer;
+  })
+}
+ngOnInit(): void {
+   
 }
 affiche(titre:string){
   
