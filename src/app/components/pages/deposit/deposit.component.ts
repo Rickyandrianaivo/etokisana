@@ -22,6 +22,7 @@ export class DepositComponent {
   isSubmitted:boolean=false;
   addFundForm!: FormGroup;
   user!:any;
+  entry!:any;
   constructor(
     private userService:UserService,
     private transactionservice:TransactionService,
@@ -33,7 +34,10 @@ export class DepositComponent {
 
   ngOnInit() : void {
       this.addFundForm = this.formBuilder.group({
-        Montant:['',Validators.required],
+        libelle:['',Validators.required],
+        codeProduit:['',Validators.required],
+        destinataire:['',Validators.required],
+        valeur:['',Validators.required],
       })
     }
     
@@ -50,12 +54,23 @@ export class DepositComponent {
     
     const fv = this.addFundForm.value;
     console.log(fv.Montant);
-    this.user = {
-      userName            : this.user.userName,
-      userFirstname       : this.user.userFirstname,
-      userPassword        : this.user.userPassword,
-      userEmail           : this.user.userEmail,
-      userPhone           : this.user.userPhone,
+    this.entry = {
+      userId :          this.user._id,
+    // tiersId !: string;
+    // codeProduit !: string;
+    // typeES!:string;
+    // idProduit !: string;
+    // unite !: string;
+    // libelle !: string;
+    // montant !: number;
+    // Statut!:string;
+    // depotId: string="";
+      
+      libelle            : this.user.userName,
+      codeProduit       : this.user.userFirstname,
+      productId        : this.user.userPassword,
+      desitantaire           : this.user.userEmail,
+      valeur           : this.user.userPhone,
       userTotalSolde      : this.user.userTotalSolde + parseInt(fv.Montant),
     };
     this.userService.update(this.user,this.user._id).subscribe(_ => {

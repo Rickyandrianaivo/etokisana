@@ -1,4 +1,4 @@
-export class Transaction{
+export class Journal {
     userId !:string;
     tiersId !: string;
     codeProduit !: string;
@@ -7,6 +7,4 @@ export class Transaction{
     unite !: string;
     libelle !: string;
     montant !: number;
-    Statut!:string;
-    depotId: string="";
 }

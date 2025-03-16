@@ -6,9 +6,24 @@
         <form class="register-form-style" [formGroup]="addFundForm"  (ngSubmit)="submit()">
             <div class="client-register">
             <text-input
-            [control]="fc.Montant"
+            [control]="fc.libelle"
             [showErrorsWhen]="isSubmitted"
-            label="Montant">
+            label="Libellé">
+        </text-input>
+        <text-input
+        [control]="fc.codeProduit"
+        [showErrorsWhen]="isSubmitted"
+        label="Code produit">
+        </text-input>
+            <text-input
+            [control]="fc.destinataire"
+            [showErrorsWhen]="isSubmitted"
+            label="Destinataire">
+            </text-input>
+            <text-input
+            [control]="fc.valeur"
+            [showErrorsWhen]="isSubmitted"
+            label="Valeur">
             </text-input>
             </div>
             <div class="buttonContainer">

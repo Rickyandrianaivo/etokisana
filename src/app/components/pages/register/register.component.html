@@ -12,11 +12,14 @@
         </div>
         <form class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submit()">
             <div class="client-register">
-                <app-radio-input
-                [control]="fc.userType"
-                [showErrorsWhen]="isSubmitted"
-                ></app-radio-input>
-                <text-input
+                <div class="row">
+                    <app-radio-input
+                    [control]="fc.userType"
+                    [showErrorsWhen]="isSubmitted"
+                    ></app-radio-input>
+                </div>
+                <div class="row">
+                    <text-input
                     [control]="fc.userName"
                     [showErrorsWhen]="isSubmitted"
                     label="Nom">
@@ -25,33 +28,38 @@
                     [control]="fc.userFirstname"
                     [showErrorsWhen]="isSubmitted"
                     label="Prénom">
-                </text-input>                
-                <text-input
-                    [control]="fc.userEmail"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Email"
-                    [type]="'email'">
                 </text-input>
-                <!-- <text-input
-                    [control]="fc.userAdresse"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Adresse">
-                </text-input> -->
-                <text-input
-                    [control]="fc.userPhone"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Téléphone">
-                </text-input>
-                <app-password-input
-                    [control]="fc.userPassword"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Mot de passe">
-                </app-password-input>
-                <app-password-input
-                    [control]="fc.confirmPassword"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Confirmation mot de passe">
-                </app-password-input>
+                </div>
+                <div class="row">
+                    <text-input
+                        [control]="fc.userEmail"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Email"
+                        [type]="'email'">
+                    </text-input>
+                    <!-- <text-input
+                        [control]="fc.userAdresse"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Adresse">
+                    </text-input> -->
+                    <text-input
+                        [control]="fc.userPhone"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Téléphone">
+                    </text-input>
+                </div> 
+                <div class="row">
+                    <app-password-input
+                        [control]="fc.userPassword"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Mot de passe">
+                    </app-password-input>
+                    <app-password-input
+                        [control]="fc.confirmPassword"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Confirmation mot de passe">
+                    </app-password-input>
+                </div>            
             <!-- <mat-form-field appearance="outline" >
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth" type="date"> 
