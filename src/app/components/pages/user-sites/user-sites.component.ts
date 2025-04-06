@@ -8,7 +8,7 @@ import { SiteService } from 'src/app/services/site.service';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Site } from 'src/app/shared/models/Sites';
-import { GoogleMapsModule} from '@angular/google-maps';
+import { GoogleMapsModule, MapMarkerClusterer} from '@angular/google-maps';
 import { NgFor } from '@angular/common';
 import * as l from 'leaflet' ;
 import { MatIconModule } from '@angular/material/icon';
@@ -39,7 +39,7 @@ export class UserSitesComponent implements OnInit{
   sites:any[]=[];
   latitude:number=0;
   longitude:number=0;
-  siteId:string|undefined;
+  siteId!:string;
   displayedColumns: string[] = ['Nom du Site','Adresse', 'Latitude', 'Longitude','Action'];
   // display: any;
   // center: google.maps.LatLngLiteral = { lat: -18.809381, lng: 47.560713};
@@ -51,6 +51,7 @@ export class UserSitesComponent implements OnInit{
 
   // leafletmap
   map:any;
+  marker:any = null;
 
   siteToUpdate:any;
 
@@ -78,7 +79,12 @@ export class UserSitesComponent implements OnInit{
     this.addSiteForm = this.formBuilder.group({
       siteName:[''],
       siteAddress:['',Validators.required],
+      siteLat:[''],
+      siteLng:[''],
     })
+  }
+  get fc(){
+    return this.addSiteForm.controls;
   }
   configMap(){
     this.map = l.map('map',{
@@ -90,21 +96,24 @@ export class UserSitesComponent implements OnInit{
       attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19,
     }).addTo(this.map)
-    let marker :any  = null
+    // let marker :any  = null
     this.map.on('click', (event:any)=>{
-      // console.log(event)
-
-      if(marker !==null){
-        this.map.removeLayer(marker);
+      if(this.marker !==null){
+        this.map.removeLayer(this.marker);
       }
-      marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
+      this.marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
       this.latitude=event.latlng.lat;
       this.longitude=event.latlng.lng;
+      const fv = this.addSiteForm.value;
+      this.addSiteForm.setValue({
+        "siteName": fv.siteName,
+        "siteAddress":fv.siteAddress,
+        "siteLat":event.latlng.lat,
+        "siteLng":event.latlng.lng,
+      });
     })
   }
-  get fc(){
-    return this.addSiteForm.controls;
-  }
+  
   submit(){
     this.isSubmitted =true;
     if (this.addSiteForm.invalid){ 
@@ -118,8 +127,8 @@ export class UserSitesComponent implements OnInit{
     this.newSite = {
       siteName        :fv.siteName,
       siteAddress     :fv.siteAddress,
-      siteLat         :this.latitude,
-      siteLng         :this.longitude,
+      siteLat         :fv.siteLat,
+      siteLng         :fv.siteLng,
       siteUserId      :this.currentUser._id,
     };
     // console.log(this.user);
@@ -161,22 +170,37 @@ export class UserSitesComponent implements OnInit{
       this.addSiteForm = this.formBuilder.group({
         siteName:[siteToModify.siteName],
         siteAddress:[siteToModify.siteAddress],
+        siteLat : [siteToModify.siteLat],
+        siteLng : [siteToModify.siteLng]
       })
       if (siteToModify) {
         this.latitude = siteToModify.siteLat;
         this.longitude = siteToModify.siteLng;
-        let marker = l.marker([siteToModify.siteLat,siteToModify.siteLng]).addTo(this.map);
-        this.map.on('click', (event:any)=>{
-          // console.log(event)
 
-          if(marker !==null){
-            this.map.removeLayer(marker);
+          if(this.marker){
+            this.map.removeLayer(this.marker);
           }
-          marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
-          this.latitude=event.latlng.lat;
-          this.longitude=event.latlng.lng;
-        })
+          this.marker = l.marker([siteToModify.siteLat,siteToModify.siteLng]).addTo(this.map);
+          // marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
+          // this.latitude=event.latlng.lat;
+          // this.longitude=event.latlng.lng;
+          // const fv = this.addSiteForm.value;
+          // this.addSiteForm.setValue({
+          //   "siteName": fv.siteName,
+          //   "siteAddress":fv.siteAddress,
+          //   "siteLat":siteToModify.siteLat,
+          //   "siteLng":event.latlng.lng,
+          // });
+        // })
       }
     })
+  }
+  refreshMapMarker(){
+    const fv = this.addSiteForm.value;
+    console.log(this.marker)
+    if (this.marker !== null) {
+      this.map.removeLayer(this.marker)
+    }
+    this.marker = l.marker([fv.siteLat,fv.siteLng]).addTo(this.map);
   }
 }

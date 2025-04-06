@@ -59,8 +59,20 @@
         <div class="map-container">
             <div id="map"></div>
         </div>
-        <input type="text" value="{{latitude}}">
-        <input type="text" value="{{longitude}}">
+        <text-input
+        [control]="fc.siteLng"
+        [showErrorsWhen]="isSubmitted"
+        label="Longitude"
+        ></text-input>
+        <text-input
+        [control]="fc.siteLat"
+        [showErrorsWhen]="isSubmitted"
+        label="Latitude"
+        ></text-input>
+        <app-default-button text ="localiser sur la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
+
+        <!-- <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()">
+        <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()"> -->
         <!-- <google-map height="50vh"
                 width="100%"
                 [center]="center"
