@@ -24,6 +24,6 @@ export class ChoixDepotComponent {
     })
   }
   choixPrestataire(prestataireId : string){
-    this.router.navigateByUrl("/choix-produit/"+prestataireId)
+    this.router.navigateByUrl("/depot-sites/"+prestataireId)
   }
 }

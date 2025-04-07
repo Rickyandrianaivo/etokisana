@@ -8,7 +8,6 @@ import { Product } from 'src/app/shared/models/Product';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
-import { NgIf } from '@angular/common';
 import { IUserRegister } from 'src/app/shared/Interfaces/IUserRegister';
 import { Transaction } from 'src/app/shared/models/Transaction';
 
@@ -20,7 +19,6 @@ import { Transaction } from 'src/app/shared/models/Transaction';
     TextInputComponent,
     DefaultButtonComponent,
     ReactiveFormsModule,
-    NgIf
   ],
   templateUrl: './retrait.component.html',
   styleUrl: './retrait.component.css'
@@ -34,6 +32,7 @@ export class RetraitComponent {
   product!:Product;
   prestataire:any;
   user!:any;
+  fullUser:any;
 constructor(
     private userService:UserService,
     private transactionservice:TransactionService,
@@ -45,17 +44,20 @@ constructor(
       this.prestataireId = params["depotId"];
       this.productId = params["productId"];
     })    
-    this.user = this.userService.getUserFromLocalStorage()
-    this.userService.getUserById(this.prestataireId).subscribe((prestataire)=>{
-      this.prestataire = prestataire;
+    this.user = this.userService.getUserFromLocalStorage();
+    this.userService.getUserById(this.user._id).subscribe(fullUser =>{
+      this.fullUser = fullUser;
     })
-    this.productService.getProductById(this.productId).subscribe(productById=>{
-      this.product = productById;
-    })
+    // this.userService.getUserById(this.prestataireId).subscribe((prestataire)=>{
+    //   this.prestataire = prestataire;
+    // })
+    // this.productService.getProductById(this.productId).subscribe(productById=>{
+    //   this.product = productById;
+    // })
   }
   ngOnInit() : void {
         this.withdrawFundForm = this.formBuilder.group({
-          libelle:['',Validators.required],
+          description:[''],
           montant:['',Validators.required],
         })
       }
@@ -71,16 +73,15 @@ constructor(
         }
       
       const fv = this.withdrawFundForm.value;
-      console.log(fv.montant);
       this.entry = {
         userId          : this.user._id,      
         libelle         : fv.libelle,
-        codeProduit     : this.product.codeProduct,
-        produitId       : this.productId,
-        tiersId         : this.prestataire._id,
+        codeProduit     : "argent",
+        produitId       : "argent",
+        tiersId         : "moi-même",
         montant         : fv.montant,
         statut          : "encours de validation",
-        siteId          : this.prestataireId,
+        siteId          : "moi-même",
         typeES          : "Retrait",
       };
       this.transactionservice.addTransaction(this.entry).subscribe(_=>{
@@ -92,7 +93,7 @@ constructor(
         userPassword        : this.user.userPassword,
         userEmail           : this.user.userEmail,
         userPhone           : this.user.userPhone,
-        userTotalSolde      : this.user.userTotalSolde - fv.montant,
+        userTotalSolde      : parseInt(this.fullUser.userTotalSolde)-parseInt(fv.montant),
         userType            : this.user.userType,
         userEnabled         : this.user.userEnabled,
       }

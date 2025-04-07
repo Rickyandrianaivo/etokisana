@@ -1,18 +1,19 @@
 <app-header></app-header>
 <div class="container">
     <div class="inner-container">
-        <h3>Faire un dépôt de <span *ngIf="product">{{ product.productName }}</span>chez <span *ngIf="prestataire">{{ prestataire.userName }}</span> </h3>
+        <!-- <h3>Faire un retrait de <span *ngIf="product">{{ product.productName }}</span>chez <span *ngIf="prestataire">{{ prestataire.userName }}</span> </h3> -->
+        <h3>Faire un retrait</h3>
         <form class="register-form-style" [formGroup]="withdrawFundForm"  (ngSubmit)="submit()">
             <div class="client-register">
             <text-input
-            [control]="fc.libelle"
+            [control]="fc.description"
             [showErrorsWhen]="isSubmitted"
-            label="Libellé">
+            label="Descritpion">
         </text-input>
             <text-input
             [control]="fc.montant"
             [showErrorsWhen]="isSubmitted"
-            label="Valeur">
+            label="Montant">
             </text-input>
             </div>
             <div class="buttonContainer">

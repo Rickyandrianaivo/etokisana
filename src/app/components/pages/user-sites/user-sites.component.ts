@@ -9,7 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Site } from 'src/app/shared/models/Sites';
 import { GoogleMapsModule, MapMarkerClusterer} from '@angular/google-maps';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import * as l from 'leaflet' ;
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -27,12 +27,14 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule,
     RouterLink,
     MatIconModule,
+    NgIf
   ],
   templateUrl: './user-sites.component.html',
   styleUrl: './user-sites.component.css'
 })
 export class UserSitesComponent implements OnInit{
   isSubmitted = false;
+  update:boolean = false;
   addSiteForm!: FormGroup;
   newSite:any;
   currentUser:any;
@@ -41,15 +43,6 @@ export class UserSitesComponent implements OnInit{
   longitude:number=0;
   siteId!:string;
   displayedColumns: string[] = ['Nom du Site','Adresse', 'Latitude', 'Longitude','Action'];
-  // display: any;
-  // center: google.maps.LatLngLiteral = { lat: -18.809381, lng: 47.560713};
-  // markerLatLong: google.maps.LatLngLiteral[] = [
-  //   { lat: 23.0557, lng: 72.4687 },
-  //   { lat: 23.0504, lng: 72.4991 },
-  // ];
-  // zoom = 6;
-
-  // leafletmap
   map:any;
   marker:any = null;
 
@@ -79,8 +72,8 @@ export class UserSitesComponent implements OnInit{
     this.addSiteForm = this.formBuilder.group({
       siteName:[''],
       siteAddress:['',Validators.required],
-      siteLat:[''],
-      siteLng:[''],
+      siteLat:['',Validators.required],
+      siteLng:['',Validators.required],
     })
   }
   get fc(){
@@ -88,9 +81,9 @@ export class UserSitesComponent implements OnInit{
   }
   configMap(){
     this.map = l.map('map',{
-      center : [-18.809381 ,47.560713],
+      center : [-18.8093810000000 ,47.5607130000000],
       zoom : 6
-    }).setView([-18.809381 ,47.560713]);
+    }).setView([-18.8093810000000 ,47.5607130000000]);
     
     l.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
       attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -131,7 +124,6 @@ export class UserSitesComponent implements OnInit{
       siteLng         :fv.siteLng,
       siteUserId      :this.currentUser._id,
     };
-    // console.log(this.user);
     if (!this.siteId) {
       this.siteService.addSite(this.newSite).subscribe(serverSite => {
         console.log(serverSite);
@@ -147,14 +139,6 @@ export class UserSitesComponent implements OnInit{
       })
     }
   }
-  // moveMap(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng != null) this.center = 
-  //   (event.latLng.toJSON());
-  // };
-  // move(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng != null) this.display = 
-  //   (event.latLng.toJSON());
-  // };
   deleteSite(siteId:string){
     this.siteService.deleteSite(siteId).subscribe(vide =>{
       console.log(vide)
@@ -163,6 +147,7 @@ export class UserSitesComponent implements OnInit{
     });
   }
   setDataToModify(siteId:string){
+    this.update = true;
     this.siteId = siteId;
     console.log(this.siteId)
     this.siteService.getSiteById(siteId).subscribe(siteToModify=>{
@@ -181,17 +166,6 @@ export class UserSitesComponent implements OnInit{
             this.map.removeLayer(this.marker);
           }
           this.marker = l.marker([siteToModify.siteLat,siteToModify.siteLng]).addTo(this.map);
-          // marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
-          // this.latitude=event.latlng.lat;
-          // this.longitude=event.latlng.lng;
-          // const fv = this.addSiteForm.value;
-          // this.addSiteForm.setValue({
-          //   "siteName": fv.siteName,
-          //   "siteAddress":fv.siteAddress,
-          //   "siteLat":siteToModify.siteLat,
-          //   "siteLng":event.latlng.lng,
-          // });
-        // })
       }
     })
   }
@@ -202,5 +176,6 @@ export class UserSitesComponent implements OnInit{
       this.map.removeLayer(this.marker)
     }
     this.marker = l.marker([fv.siteLat,fv.siteLng]).addTo(this.map);
+    this.map.setView([fv.siteLat,fv.siteLng],2000)
   }
 }

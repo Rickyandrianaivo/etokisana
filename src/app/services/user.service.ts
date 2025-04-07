@@ -41,8 +41,11 @@ export class UserService {
     return this.http.get<User>(USER_BY_EMAIL_URL + userEmail);
   }
 
-  requestResetPassword(token : any ){
-    return this.http.post(USER_REQUESTRESETPASSWORD_URL,token);
+  requestResetPassword(userInfo:any){
+    return this.http.post(USER_REQUESTRESETPASSWORD_URL,userInfo);
+  }
+  resetPassword(data:any){
+    return this.http.post(USER_RESETPASSWORD_URL,data);
   }
   idByToken(token : any){
     console.log(token);
@@ -93,7 +96,7 @@ export class UserService {
     return this.http.put<User>(USER_UPDATE_URL + userId, updateData)
   }
   update(updateData : IUserRegister, userId : string){
-    return this.http.put<User>(USER_UPDATE_URL + userId, updateData)
+    return this.http.patch<User>(USER_UPDATE_URL + userId, updateData)
   }
 
   private setUserToLocalStorage(user:User){

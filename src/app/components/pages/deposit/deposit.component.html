@@ -5,9 +5,9 @@
         <form class="register-form-style" [formGroup]="addFundForm"  (ngSubmit)="submit()">
             <div class="client-register">
             <text-input
-            [control]="fc.libelle"
+            [control]="fc.description"
             [showErrorsWhen]="isSubmitted"
-            label="Libellé">
+            label="Description">
         </text-input>
             <text-input
             [control]="fc.montant"

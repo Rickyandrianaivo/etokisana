@@ -27,6 +27,9 @@ import { CartPageComponent } from './components/pages/cart-page/cart-page.compon
 import { DepositComponent } from './components/pages/deposit/deposit.component';
 import { ChoixDepotComponent } from './components/pages/choix-depot/choix-depot.component';
 import { ChoixProduitComponent } from './components/pages/choix-produit/choix-produit.component';
+import { DepotSitesComponent } from './components/pages/depot-sites/depot-sites.component';
+import { RetraitComponent } from './components/pages/retrait/retrait.component';
+import { RequestResetPasswordComponent } from './components/pages/request-reset-password/request-reset-password.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
@@ -39,7 +42,8 @@ const routes: Routes = [
     {path : 'client-area', component: ClientAreaComponent},
     {path : 'transactions', component: TransactionComponent},
     {path : 'user-products', component: UserProductsComponent},
-    {path : 'password-reset', component: PasswordResetComponent},
+    {path : 'passwordReset/:token/:id', component: PasswordResetComponent},
+    {path : 'request-reset-password', component: RequestResetPasswordComponent},
     {path : 'client-profile', component: ClientProfileComponent},
     {path : 'product-page/:id', component: ProductPageComponent},
     {path : 'user-products/add', component: AddProductComponent},
@@ -56,7 +60,9 @@ const routes: Routes = [
     {path : 'email-verification', component: EmailVerificationComponent},
     {path : 'user-confirmation/:token', component: EmailVerificationComponent},
     {path : 'admin', component: BoLoginComponent},
+    {path : 'retrait', component: RetraitComponent},
     {path : 'choix-depot' , component:ChoixDepotComponent},
+    {path : 'depot-sites/:id' , component:DepotSitesComponent},
     {path : 'choix-produit/:id' , component:ChoixProduitComponent},
     {path : '**', component: NotFoundComponent},
 

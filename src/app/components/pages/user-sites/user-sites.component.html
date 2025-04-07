@@ -43,7 +43,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-    <h4>Ajouter un site</h4>
+    <h4 *ngIf="!update">Ajouter un site</h4>
+    <h4 *ngIf="update">Modifier un site</h4>
     <form class="register-form-style" [formGroup]="addSiteForm"  (ngSubmit)="submit()">
         <div class="client-register">
         <text-input
@@ -56,9 +57,7 @@
         [showErrorsWhen]="isSubmitted"
         label="Adresse">
         </text-input>
-        <div class="map-container">
-            <div id="map"></div>
-        </div>
+        
         <text-input
         [control]="fc.siteLng"
         [showErrorsWhen]="isSubmitted"
@@ -69,8 +68,10 @@
         [showErrorsWhen]="isSubmitted"
         label="Latitude"
         ></text-input>
-        <app-default-button text ="localiser sur la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
-
+        <app-default-button text ="Centrer la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
         <!-- <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()">
         <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()"> -->
         <!-- <google-map height="50vh"
