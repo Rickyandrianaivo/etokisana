@@ -59,7 +59,12 @@
                         [showErrorsWhen]="isSubmitted"
                         label="Confirmation mot de passe">
                     </app-password-input>
-                </div>            
+                </div>
+                <text-input
+                [control]="fc.refId"
+                [showErrorsWhen]="isSubmitted"
+                label="Referral">
+                </text-input>            
             <!-- <mat-form-field appearance="outline" >
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth" type="date"> 

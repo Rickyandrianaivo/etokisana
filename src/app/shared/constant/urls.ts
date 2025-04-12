@@ -1,5 +1,6 @@
 // const BASE_URL = 'http://localhost:443';
-const BASE_URL = 'https://etokisanabackend.onrender.com';
+// const BASE_URL = 'https://etokisanabackend.onrender.com';
+const BASE_URL = 'https://backend.commercegestion.com';
 
 export const PRODUCT_URL                   = BASE_URL + '/api/product/';
 export const PRODUCT_BY_ID_URL             = PRODUCT_URL + 'id/';
