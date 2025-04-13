@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   selector: 'app-bo-login',
   standalone: true,
   imports: [
-    RouterLink,
+    // RouterLink,
     FormsModule,
     MatIconModule,
     TextInputComponent,
@@ -59,7 +59,7 @@ export class BoLoginComponent implements OnInit{
         userPassword    : fv.password
       };
       this.userService.getUserByEmail(user.userEmail).subscribe(usertolog=>{
-        if (usertolog.userAccess== "admin") {
+        if (usertolog.userAccess == "admin") {
           this.userService.login(user).subscribe(_=>{
             this.router.navigateByUrl("/dashboard") ;
             

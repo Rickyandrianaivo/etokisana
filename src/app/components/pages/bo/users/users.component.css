@@ -6,6 +6,6 @@
     flex-direction: column;
 }
 button{
-    background-color: rgba(255, 255, 255, 0.007);
-    border:1px solid blue;
+    background-color: rgb(64, 124, 255);
+    border:1px solid rgb(237, 237, 253);
 }

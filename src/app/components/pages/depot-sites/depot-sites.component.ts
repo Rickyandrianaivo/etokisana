@@ -24,6 +24,7 @@ export class DepotSitesComponent implements OnInit{
   map:any;
   marker:any = null;
   prestataireId!:string;
+  typeES !: string;
 
   constructor(
     private router:Router,
@@ -31,7 +32,8 @@ export class DepotSitesComponent implements OnInit{
     private activatedRoute:ActivatedRoute
   ){
     this.activatedRoute.params.subscribe(params =>{
-      this.prestataireId = params['id']
+      this.prestataireId = params['id'];
+      this.typeES = params["typeEs"];
     })
     this.siteService.getSiteByUserId(this.prestataireId).subscribe(mesSite =>{
       if (mesSite) {
@@ -73,6 +75,6 @@ export class DepotSitesComponent implements OnInit{
           this.map.setView([this.latitude,this.longitude],2000)
     }
     chooseSite(siteId:string){
-      this.router.navigateByUrl("/choix-produit/"+siteId)
+      this.router.navigateByUrl("/choix-produit/"+this.typeES+"/"+siteId)
     }
 }

@@ -114,7 +114,7 @@ export class DepositComponent {
     // console.log(parseInt(this.fullUser.userTotalSolde) + parseInt(fv.montant));
     this.userService.update(updatedUser,this.user._id).subscribe(_ => {
       alert("Dépôt de fonds effectué");
-      this.router.navigateByUrl("/transaction");
+      this.router.navigateByUrl("/transactions");
     })
   }
 }

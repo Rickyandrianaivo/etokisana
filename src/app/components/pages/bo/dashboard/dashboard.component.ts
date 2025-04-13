@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
     SideBarComponent,
     MatTableModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    DatePipe
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -33,5 +35,10 @@ export class DashboardComponent {
   }
   ValidateUser(userId : string){
     this.userService.validateUser(userId,{userValidate : true}).subscribe(_=>{});
+  }
+  deleteUser(userId:string){
+    this.userService.delete(userId).subscribe(_=>{
+
+    })
   }
 }

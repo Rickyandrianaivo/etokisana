@@ -45,6 +45,7 @@ export const FACTURE_VENTE_DETAILS_ADD_URL  = FACTURE_VENTE_DETAILS_URL + 'creat
 export const USER_URL                       = BASE_URL + '/api/users/';
 export const USER_BY_ID_URL                 = USER_URL + 'id/';
 export const USER_NEW_URL                   = USER_URL + 'new';
+export const USER_DELETE_URL                = USER_URL + 'delete/';
 export const USER_BY_EMAIL_URL              = USER_URL + 'email/';
 export const USER_UPDATE_URL                = USER_URL + 'update/';
 export const USER_VALIDATE_URL                = USER_URL + 'validate/';

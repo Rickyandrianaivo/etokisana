@@ -17,14 +17,14 @@ import { DefaultButtonComponent } from 'src/app/components/partials/default-butt
     MatIconModule,
     MatCheckboxModule,
     RouterLink,
-    DefaultButtonComponent,
+    // DefaultButtonComponent,
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit{
   userslist:any[]=[];
-  displayedColumns: string[] = ['Photo','Nom', 'Prénoms', 'Type', 'Solde','Verifier','Action'];
+  displayedColumns: string[] = ['Photo','Nom', 'Prénoms', 'Type', 'Solde','Approuvé','Email','EmailVerified','Action'];
 
   constructor(
     private userService:UserService,

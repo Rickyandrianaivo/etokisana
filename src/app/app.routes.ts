@@ -61,9 +61,9 @@ const routes: Routes = [
     {path : 'user-confirmation/:token', component: EmailVerificationComponent},
     {path : 'admin', component: BoLoginComponent},
     {path : 'retrait', component: RetraitComponent},
-    {path : 'choix-depot' , component:ChoixDepotComponent},
-    {path : 'depot-sites/:id' , component:DepotSitesComponent},
-    {path : 'choix-produit/:id' , component:ChoixProduitComponent},
+    {path : 'choix-site/:typeES' , component:ChoixDepotComponent},
+    {path : 'depot-sites/:typeES/:id' , component:DepotSitesComponent},
+    {path : 'choix-produit/:typeES/:id' , component:ChoixProduitComponent},
     {path : '**', component: NotFoundComponent},
 
 ];
