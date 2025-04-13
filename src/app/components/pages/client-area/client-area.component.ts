@@ -26,7 +26,7 @@ export class ClientAreaComponent implements OnInit{
   ){
     this.user = this.userService.getUserFromLocalStorage();
     this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
-      this.verifiedUser = user.userEnabled;
+      this.verifiedUser = user.userValidated;
       if (user.userType=="admin") {
         this.router.navigateByUrl("/dashboard")
       }

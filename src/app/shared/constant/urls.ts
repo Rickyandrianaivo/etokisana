@@ -1,6 +1,6 @@
 // const BASE_URL = 'http://localhost:443';
-// const BASE_URL = 'https://etokisanabackend.onrender.com';
-const BASE_URL = 'https://backend.commercegestion.com';
+const BASE_URL = 'https://etokisanabackend.onrender.com';
+// const BASE_URL = 'https://backend.commercegestion.com';
 
 export const PRODUCT_URL                   = BASE_URL + '/api/product/';
 export const PRODUCT_BY_ID_URL             = PRODUCT_URL + 'id/';
@@ -44,8 +44,10 @@ export const FACTURE_VENTE_DETAILS_ADD_URL  = FACTURE_VENTE_DETAILS_URL + 'creat
 
 export const USER_URL                       = BASE_URL + '/api/users/';
 export const USER_BY_ID_URL                 = USER_URL + 'id/';
+export const USER_NEW_URL                   = USER_URL + 'new';
 export const USER_BY_EMAIL_URL              = USER_URL + 'email/';
 export const USER_UPDATE_URL                = USER_URL + 'update/';
+export const USER_VALIDATE_URL                = USER_URL + 'validate/';
 export const USER_LOGIN_URL                 = USER_URL + 'login';
 export const USER_REGISTER_URL              = USER_URL + 'register';
 export const USER_UPLOAD_PDP_URL            = USER_URL + 'uploads'

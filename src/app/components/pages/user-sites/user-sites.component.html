@@ -73,13 +73,14 @@
             <div id="map"></div>
         </div>
         <!-- <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()">
-        <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()"> -->
-        <!-- <google-map height="50vh"
+        <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()">
+        <google-map height="50vh"
                 width="100%"
                 [center]="center"
                 [zoom]="6"
                 (mapClick)="moveMap($event)"
-                (mapMousemove)="move($event)" >
+                (mapMousemove)="move($event)" 
+                >
             <map-marker *ngFor="let position of markerLatLong" [position]="position"></map-marker>
         </google-map> -->
         <!-- <text-input

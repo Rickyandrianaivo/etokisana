@@ -59,7 +59,7 @@ export class BoLoginComponent implements OnInit{
         userPassword    : fv.password
       };
       this.userService.getUserByEmail(user.userEmail).subscribe(usertolog=>{
-        if (usertolog.userType == "admin") {
+        if (usertolog.userAccess== "admin") {
           this.userService.login(user).subscribe(_=>{
             this.router.navigateByUrl("/dashboard") ;
             

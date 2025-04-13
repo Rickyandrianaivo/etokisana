@@ -15,7 +15,7 @@ export class SiteService {
     return this.http.post<Site>(SITE_ADD_URL,siteData);
   }
   getAll() : Observable<Site[]>{
-      return this.http.get<Site[]>(SITE_URL);
+    return this.http.get<Site[]>(SITE_URL);
   }
   getSiteByUserId(userId :string) : Observable<Site[]>{
     return this.http.get<Site[]>(SITE_BY_USERID_URL+ userId);

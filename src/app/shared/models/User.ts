@@ -7,7 +7,10 @@ export class User{
     userPhone           : string = "";
     userType            : string="particulier";
     userTotalSolde      : number = 0;
-    userEnabled         : boolean = false;
+    userValidated        : boolean = false;
+    userEmailVerified   : boolean = false;
+    userAccess          : string = "Utilisateur";
+    userParainId        : string ="";
     // userDescritpion     : string ="";
     // userImage           : string ="";
     // userDateOfBirth     !: Date;
