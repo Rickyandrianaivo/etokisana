@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../../../shared/models/User';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -31,7 +31,7 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
   selector: 'app-register',
   standalone: true,
   imports: [
-    // MatIcon,
+    MatIconModule,
     // MatLabel,
     FormsModule,
     ReactiveFormsModule,
@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit{
   userType!:AbstractControl;
 
   // readonly identityDocumentType = new FormControl();
-  // readonly dateOfBirth = new FormControl();
+  readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
   fileName = "";
   user : any;
@@ -147,8 +147,11 @@ export class RegisterComponent implements OnInit{
       confirmPassword:['',[Validators.required,PasswordMatchValidator]],
       userPhone:[''],
       refId:[''],
+      userAddress : [''],
+      userMainLat : [''],
+      userMainLng : [''],
+      userDateOfBirth:[''],
       // // userPhone:['',Validators.pattern("^[0-9]*$")],
-      // userDateOfBirth:[],
       // userDescritpion:[''],
       // userManager:[''],
       // userStatut:[''],

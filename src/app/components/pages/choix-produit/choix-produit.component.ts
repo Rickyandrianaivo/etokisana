@@ -14,6 +14,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ChoixProduitComponent {
   productList:any;
   depotId !: string;
+  typeES !: string;
   constructor(
     private router:Router,
     private productService : ProductService,
@@ -24,9 +25,11 @@ export class ChoixProduitComponent {
     });
     this.activatedRoute.params.subscribe(params =>{
       this.depotId=params['id'];
+      this.typeES= params['typeES'];
+      console.log(this.typeES)
     })
   }
   choixProduit(productId : string){
-    this.router.navigateByUrl("/deposit/"+this.depotId+"/"+productId)
+    this.router.navigateByUrl("/"+this.typeES+"/"+this.depotId+"/"+productId)
   }
 }

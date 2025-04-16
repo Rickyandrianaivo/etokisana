@@ -20,12 +20,12 @@ export const SITE_ADD_URL                  = SITE_URL + 'add';
 export const SITE_UPDATE_URL               = SITE_URL + 'update/';
 export const SITE_REMOVE_URL               = SITE_URL + 'delete/';
 
-export const TRANSACTION_URL                      = BASE_URL + '/api/transaction/';
-export const TRANSACTION_BY_ID_URL                = TRANSACTION_URL + '/';
-export const TRANSACTION_BY_USERID_URL            = TRANSACTION_URL + 'user/';
-export const TRANSACTION_ADD_URL                  = TRANSACTION_URL + 'add';
-export const TRANSACTION_UPDATE_URL               = TRANSACTION_URL + 'update/';
-export const TRANSACTION_REMOVE_URL               = TRANSACTION_URL + 'delete/';
+export const TRANSACTION_URL               = BASE_URL + '/api/transaction/';
+export const TRANSACTION_BY_ID_URL         = TRANSACTION_URL + '/';
+export const TRANSACTION_BY_USERID_URL     = TRANSACTION_URL + 'user/';
+export const TRANSACTION_ADD_URL           = TRANSACTION_URL + 'add';
+export const TRANSACTION_UPDATE_URL        = TRANSACTION_URL + 'update/';
+export const TRANSACTION_REMOVE_URL        = TRANSACTION_URL + 'delete/';
 
 export const CATEGORY_URL                  = BASE_URL +'/api/category/';
 export const CATEGORY_ADD_URL              = CATEGORY_URL + 'add';
@@ -48,7 +48,7 @@ export const USER_NEW_URL                   = USER_URL + 'new';
 export const USER_DELETE_URL                = USER_URL + 'delete/';
 export const USER_BY_EMAIL_URL              = USER_URL + 'email/';
 export const USER_UPDATE_URL                = USER_URL + 'update/';
-export const USER_VALIDATE_URL                = USER_URL + 'validate/';
+export const USER_VALIDATE_URL              = USER_URL + 'validate/';
 export const USER_LOGIN_URL                 = USER_URL + 'login';
 export const USER_REGISTER_URL              = USER_URL + 'register';
 export const USER_UPLOAD_PDP_URL            = USER_URL + 'uploads'

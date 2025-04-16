@@ -26,6 +26,7 @@ export class ChoixDepotComponent {
     })
     this.activatedRoute.params.subscribe(params=>{
       this.typeES = params['typeES'];
+      console.log(this.typeES)
     })
   }
   choixPrestataire(prestataireId : string){

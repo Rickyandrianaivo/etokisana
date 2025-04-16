@@ -5,10 +5,10 @@
         <input type="file" class="file-input" (change)="onFileSelected($event)" #pdpUpload>
         <input type="file" class="file-input" (change)="onFileSelected($event)" #logoUpload>
         <div class="options">
-            <!-- <div class="file-upload">
+            <div class="file-upload">
                 {{ fileName || "Photo de profil"}}
                 <button class="upload-btn" (click)="pdpUpload.click()"><mat-icon >attach_file</mat-icon></button>
-            </div> -->
+            </div>
         </div>
         <form class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submit()">
             <div class="client-register">
@@ -20,15 +20,32 @@
                 </div>
                 <div class="row">
                     <text-input
-                    [control]="fc.userName"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Nom">
-                </text-input>
-                <text-input
-                    [control]="fc.userFirstname"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Prénom">
-                </text-input>
+                        [control]="fc.userName"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Nom">
+                    </text-input>
+                    <text-input
+                        [control]="fc.userFirstname"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Prénom">
+                    </text-input>
+                    <text-input
+                        [control]="fc.userAddress"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Adresse">
+                    </text-input>
+                </div>        
+                <div class="row">
+                    <text-input
+                        [control]="fc.userMainLat"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Latitude">
+                    </text-input>
+                    <text-input
+                        [control]="fc.userMainLng"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Longitude">
+                    </text-input>
                 </div>
                 <div class="row">
                     <text-input
@@ -65,15 +82,15 @@
                 [showErrorsWhen]="isSubmitted"
                 label="Referral">
                 </text-input>            
-            <!-- <mat-form-field appearance="outline" >
+            <mat-form-field appearance="outline" >
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth" type="date"> 
-                <mat-hint>{{dateFormatString()}}</mat-hint>
+                <!-- <mat-hint>{{dateFormatString()}}</mat-hint> -->
                 <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker> -->
+                <mat-datepicker #picker></mat-datepicker>
                 <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-            <!-- </mat-form-field>
-            <button mat-button (click)="french()">Dynamically switch to French</button> -->
+            </mat-form-field>
+            <button mat-button (click)="french()" type="button">Dynamically switch to French</button>
             <!-- <mat-form-field appearance="outline">
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="dp" [formControl]="dateOfBirth" type="datetime" [value]="dateOfBirth"/>
@@ -81,8 +98,9 @@
                 <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp></mat-datepicker>
               </mat-form-field> -->
-              <!-- <button mat-button (click)="french()">Dynamically switch to French</button> -->
-            <!-- <div class="seller" *ngIf="showSellerForm()"> -->
+              <!-- <button mat-button (click)="french()">Dynamically switch to French</button>
+
+            <div class="seller" *ngIf="showSellerForm()"> -->
                 <!-- <div class="seller" >
                 <text-input
                     [control]="fc.userManager"

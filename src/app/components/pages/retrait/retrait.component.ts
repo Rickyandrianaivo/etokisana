@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
@@ -27,6 +27,7 @@ export class RetraitComponent {
   isSubmitted:boolean=false;
   withdrawFundForm!: FormGroup;
   prestataireId!:string;
+  depotId !: string;
   productId !: string;
   entry!:Transaction;
   product!:Product;
@@ -39,10 +40,13 @@ constructor(
     private formBuilder : FormBuilder,
     private activatedRoute : ActivatedRoute, 
     private productService : ProductService,
+    private router : Router,
   ){
     this.activatedRoute.params.subscribe(params=>{
-      this.prestataireId = params["depotId"];
+      this.depotId = params["depotId"];
       this.productId = params["productId"];
+
+
     })    
     this.user = this.userService.getUserFromLocalStorage();
     this.userService.getUserById(this.user._id).subscribe(fullUser =>{
@@ -76,12 +80,12 @@ constructor(
       this.entry = {
         userId          : this.user._id,      
         libelle         : fv.libelle,
-        codeProduit     : "argent",
-        produitId       : "argent",
-        tiersId         : "moi-même",
+        codeProduit     : "",
+        produitId       : this.productId,
+        tiersId         : this.depotId,
         montant         : fv.montant,
         statut          : "encours de validation",
-        siteId          : "moi-même",
+        siteId          : this.depotId,
         typeES          : "Retrait",
       };
       this.transactionservice.addTransaction(this.entry).subscribe(_=>{
@@ -97,9 +101,11 @@ constructor(
         userType            : this.user.userType,
         userEnabled         : this.user.userEnabled,
       }
-      this.userService.update(updatedUser,this.user._id).subscribe(_ => {
+      this.userService.update(updatedUser,this.user._id).subscribe(res => {
         alert("Retrait effectué");
-        // this.router.navigateByUrl("user-products");
+        if (res != null) {
+          this.router.navigateByUrl("/transactions");          
+        }
       })
     }
 }

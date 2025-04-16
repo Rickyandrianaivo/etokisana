@@ -33,7 +33,8 @@ export class DepotSitesComponent implements OnInit{
   ){
     this.activatedRoute.params.subscribe(params =>{
       this.prestataireId = params['id'];
-      this.typeES = params["typeEs"];
+      this.typeES = params["typeES"];
+      console.log(this.typeES);
     })
     this.siteService.getSiteByUserId(this.prestataireId).subscribe(mesSite =>{
       if (mesSite) {
