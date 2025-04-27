@@ -3,5 +3,5 @@ export class Site{
     siteAddress!:string;
     siteLng!:number;
     siteLat!:number;
-    siteUserId!:string;
+    siteUserID!:string;
 }

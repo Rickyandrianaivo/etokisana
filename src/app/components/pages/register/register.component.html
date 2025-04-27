@@ -62,15 +62,15 @@
                         label="Confirmation mot de passe">
                     </app-password-input>
                 </div>
-                <text-input
+                <!-- <text-input
                 [control]="fc.refId"
                 [showErrorsWhen]="isSubmitted"
                 label="Referral">
-                </text-input>       
+                </text-input>        -->
                 <div class="row">
                     <mat-form-field appearance="outline" >
                         <mat-label>Date de naissance</mat-label>
-                        <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth"> 
+                        <input matInput #dateInput [matDatepicker]="picker" [formControl]="dateOfBirth" (onfocus)="dateInput.type ='date'" (blur)="dateInput.type ='text'"> 
                         <!-- <mat-hint>{{dateFormatString()}}</mat-hint> -->
                         <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -101,7 +101,7 @@
     </input-container>
         </div>
             <google-map height="50vh"
-                width="100%"
+                width="50vh"
                 [center]="center"
                 [zoom]="6"
                 (mapClick)="moveMap($event)"

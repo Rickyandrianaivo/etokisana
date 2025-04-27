@@ -23,11 +23,26 @@ import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { PasswordMatchValidator } from 'src/app/shared/validators/password_match_validator';
 import { MatButtonModule } from '@angular/material/button';
-import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material/core';
 import { RadioInputComponent } from '../../partials/radio-input/radio-input.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { InputContainerComponent } from '../../partials/input-container/input-container.component';
+import { SiteService } from 'src/app/services/site.service';
+import { Site } from 'src/app/shared/models/Sites';
+import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
+import 'moment/locale/fr';
 
+const MY_DATE_FORMAT = {
+  parse : {
+    dateInput : 'DD/MM/YYYY', //this is how your date will be parsed from Input
+  },
+  display :{
+    dateInput: 'DD/MM/YYYY', // this is how yout date get displayed on the Input
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+}
 
 @Component({
   selector: 'app-register',
@@ -66,11 +81,14 @@ import { InputContainerComponent } from '../../partials/input-container/input-co
   providers :[// The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+    // {provide: DateAdapter, useClass:MomentDateAdapter,deps:[MAT_DATE_LOCALE]},
+    // {provide : MAT_DATE_FORMATS, useValue : MY_DATE_FORMAT},
 
     // Moment can be provided globally to your app by adding `provideMomentDateAdapter`
     // to your app config. We provide it at the component level here, due to limitations
     // of our example generation script.
-    provideNativeDateAdapter(),],
+    provideMomentDateAdapter(),
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -101,7 +119,7 @@ export class RegisterComponent implements OnInit{
   readonly dateFormatString = computed(() => {
     if (this._locale() === 'ja-JP') {
       return 'YYYY/MM/DD';
-    } else if (this._locale() === 'fr') {
+    } else if (this._locale() === 'fr-FR') {
       return 'DD/MM/YYYY';
     }
     return '';
@@ -112,6 +130,7 @@ export class RegisterComponent implements OnInit{
     private userService     : UserService,
     private router          : Router,
     private _snackBar        : MatSnackBar,
+    private siteService     : SiteService,
   ){
     
   }
@@ -186,11 +205,11 @@ export class RegisterComponent implements OnInit{
   
   submit(){
     this.isSubmitted =true;
-    if (!this.registerForm.valid){ 
-        console.log(this.registerForm.getError);
-        return;
-    }
-    
+    // if (!this.registerForm.valid){ 
+    //     console.log(this.registerForm.getError);
+    //     return;
+    // }
+    console.log(this.dateOfBirth.value._d);
     const fv = this.registerForm.value;
     this.user = {
     userName            : fv.userName ,         
@@ -206,7 +225,8 @@ export class RegisterComponent implements OnInit{
     userParainId        :"",
     userMainLat         : this.latitude,
     userMainLng         : this.longitude,
-    userDateOfBirth     : this.dateOfBirth.value,  
+    userDateOfBirth     : this.dateOfBirth.value._d,  
+    userAddress         : fv.userAddress ,
     // userDescritpion     : fv.userDescritpion ,   
     // userImage           : fv.userImage ,  
     // userLogo            : fv.userLogo ,  
@@ -216,25 +236,38 @@ export class RegisterComponent implements OnInit{
     // userRC              : fv.userRC ,  
     // identityDocumentType: this.identityDocumentType.value,
     // identityCardNumber  : fv.identityCardNumber ,
-    // userAddress         : fv.userAddress ,
     // userIdentityCode    : fv.userIdentityCode ,
     };
-    this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
-      if (useralreadyexist) {
-        this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
+
+    // this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
+    //   if (useralreadyexist) {
+    //     this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
+    //     this.simpleSb.onAction().subscribe(() =>{
+    //       this.router.navigateByUrl("login");
+    //     })
+    //     return;
+    //   }else{
+    //     this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+    //     this.simpleSb.onAction().subscribe(() =>{
+    //       this.router.navigateByUrl("login");
+    //     })
+        
+    //   }
+    // })
+    this.userService.registerUser(this.user).subscribe(_ =>{
+      this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
-        return;
-      }else{
-        this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
-        this.simpleSb.onAction().subscribe(() =>{
-          this.router.navigateByUrl("login");
-        })
-        this.userService.registerUser(this.user).subscribe(_ =>{
-        })
-      }
     })
+    const mainSite :Site = {
+      siteAddress     : fv.userAddress,
+      siteName        : "Domicile",
+      siteLat         : this.latitude,
+      siteLng         : this.longitude,
+      siteUserID   : fv.userEmail,
+    };
+    this.siteService.addSite(mainSite).subscribe(_=>{})
   }
 
   /*------------------------------------------

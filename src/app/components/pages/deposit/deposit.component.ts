@@ -61,7 +61,7 @@ export class DepositComponent {
     // })
     this.siteService.getSiteById(this.siteId).subscribe(site=>{
       this.theSite = site;
-      this.prestataireId= site.siteUserId;
+      this.prestataireId = site.siteUserID;
     })
     this.productService.getProductById(this.productId).subscribe(productById=>{
       this.product = productById;
@@ -88,7 +88,7 @@ export class DepositComponent {
     
     const fv = this.addFundForm.value;
     this.entry = {
-      userId          : this.user._id,      
+      userId          : this.user.userID,      
       libelle         : fv.libelle,
       codeProduit     : this.product.codeCPC,
       produitId       : this.productId,
