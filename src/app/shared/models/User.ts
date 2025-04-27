@@ -7,10 +7,14 @@ export class User{
     userPhone           : string = "";
     userType            : string="particulier";
     userTotalSolde      : number = 0;
-    userValidated        : boolean = false;
+    userValidated       : boolean = false;
     userEmailVerified   : boolean = false;
     userAccess          : string = "Utilisateur";
     userParainId        : string ="";
+    userID              !: string;
+    userAddress         !: string;
+    userMainLatitude    !: string;
+    userMainLongitude   !: string;
     // userDescritpion     : string ="";
     // userImage           : string ="";
     // userDateOfBirth     !: Date;
@@ -22,6 +26,5 @@ export class User{
     // identityDocumentType: string ="";
     // identityCardNumber  : string ="";
     // userAdmin           : boolean = false;
-    // userAddress         !: string;
     // userIdentityCode    : string = "";
 }
