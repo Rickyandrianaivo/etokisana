@@ -209,6 +209,7 @@ export class RegisterComponent implements OnInit{
     //     console.log(this.registerForm.getError);
     //     return;
     // }
+    const generatedID = Math.random().toString(36).slice(2,10)
     console.log(this.dateOfBirth.value._d);
     const fv = this.registerForm.value;
     this.user = {
@@ -227,6 +228,7 @@ export class RegisterComponent implements OnInit{
     userMainLng         : this.longitude,
     userDateOfBirth     : this.dateOfBirth.value._d,  
     userAddress         : fv.userAddress ,
+    userID              : generatedID,
     // userDescritpion     : fv.userDescritpion ,   
     // userImage           : fv.userImage ,  
     // userLogo            : fv.userLogo ,  
@@ -265,7 +267,7 @@ export class RegisterComponent implements OnInit{
       siteName        : "Domicile",
       siteLat         : this.latitude,
       siteLng         : this.longitude,
-      siteUserID   : fv.userEmail,
+      siteUserID      : generatedID,
     };
     this.siteService.addSite(mainSite).subscribe(_=>{})
   }
