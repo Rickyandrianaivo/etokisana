@@ -90,7 +90,7 @@ export class DepositComponent {
     this.entry = {
       userId          : this.user._id,      
       libelle         : fv.libelle,
-      codeProduit     : this.product.codeProduct,
+      codeProduit     : this.product.codeCPC,
       produitId       : this.productId,
       tiersId         : this.prestataireId,
       montant         : fv.montant,

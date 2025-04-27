@@ -72,17 +72,19 @@
         <div class="map-container">
             <div id="map"></div>
         </div>
-        <!-- <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()">
-        <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}" (change)="LngLatChange()">
+        <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}">
+        <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}">
         <google-map height="50vh"
                 width="100%"
                 [center]="center"
                 [zoom]="6"
                 (mapClick)="moveMap($event)"
-                (mapMousemove)="move($event)" 
                 >
-            <map-marker *ngFor="let position of markerLatLong" [position]="position"></map-marker>
-        </google-map> -->
+                <!-- (mapMousemove)="move($event)"  -->
+                <!-- *ngFor="let position of markerLatLong" -->
+            <map-marker 
+            [position]="position"></map-marker>
+        </google-map>
         <!-- <text-input
             [control]="fc.SiteUnite"
             [showErrorsWhen]="isSubmitted"

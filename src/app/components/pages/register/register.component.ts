@@ -61,7 +61,7 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
 
     // Moment can be provided globally to your app by adding `provideMomentDateAdapter`
     // to your app config. We provide it at the component level here, due to limitations
@@ -135,7 +135,7 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit(): void {
     this.french();
-    this.updateCloseButtonLabel('カレンダーを閉じる');
+    // this.updateCloseButtonLabel('カレンダーを閉じる');
 
     const pattern:RegExp = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
     this.registerForm = this.formBuilder.group({
@@ -193,6 +193,8 @@ export class RegisterComponent implements OnInit{
     userAccess          : "Utilisateur" ,
     userEmailVerified   :false,
     userParainId        :"",
+    userMainLat         : fv.userMainLat,
+    userMainLng         : fv.userMainLng,
     // userDescritpion     : fv.userDescritpion ,   
     // userImage           : fv.userImage ,  
     // userDateOfBirth     : this.dateOfBirth.value,  

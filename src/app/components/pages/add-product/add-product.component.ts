@@ -52,12 +52,18 @@ export class AddProductComponent implements OnInit {
     this.addProductForm = this.formBuilder.group({
       productName:['',Validators.required],
       productDescription:['',Validators.required],
-      productPrice:['',Validators.required],
+      productPrice:[''],
       productCategory:[''],
       productUnite:[''],
       productStock:[''],
       productState:[''],
-      productSource:[''],
+      productHauteur:[''],
+      productLargeur:[''],
+      productLongueur:[''],
+      productPoids:[''],
+      productVolume:[''],
+
+      // productSource:[''],
     })
   }
 
@@ -97,10 +103,13 @@ export class AddProductComponent implements OnInit {
       productUnite      :fv.productUnite,
       productStock      :fv.productStock,
       productState      :"en attente",
-      productSource     :fv.productSource,
       productImage      :"default.jpg",
-      productOwner      :this.currentUser._id,
-      codeProduct       :"",
+      codeCPC           :"",
+      productHauteur    : fv.productHauteur,
+      productLargeur    :fv.productLargeur,
+      productLongueur   :fv.productLongueur,
+      productPoids      : fv.productPoids,
+      productVolume     : fv.productVolume
     };
     // console.log(this.user);
     this.productService.addProduct(this.product).subscribe(_ => {

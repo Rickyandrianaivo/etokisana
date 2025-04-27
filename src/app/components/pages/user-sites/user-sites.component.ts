@@ -33,6 +33,8 @@ import { MatTableModule } from '@angular/material/table';
   styleUrl: './user-sites.component.css'
 })
 export class UserSitesComponent implements OnInit{
+  display:any
+  
   isSubmitted = false;
   update:boolean = false;
   addSiteForm!: FormGroup;
@@ -44,8 +46,12 @@ export class UserSitesComponent implements OnInit{
   siteId!:string;
   displayedColumns: string[] = ['Nom du Site','Adresse', 'Latitude', 'Longitude','Action'];
   map:any;
+  position: any
   marker:any = null;
-
+  center: google.maps.LatLngLiteral = {
+    lat: 18.2736308,
+    lng: 40.7512555
+};
   siteToUpdate:any;
 
   constructor(
@@ -67,7 +73,7 @@ export class UserSitesComponent implements OnInit{
   }
 
   ngOnInit() : void{
-    this.configMap()
+    // this.configMap()
 
     this.addSiteForm = this.formBuilder.group({
       siteName:[''],
@@ -79,33 +85,33 @@ export class UserSitesComponent implements OnInit{
   get fc(){
     return this.addSiteForm.controls;
   }
-  configMap(){
-    this.map = l.map('map',{
-      center : [-18.8093810000000 ,47.5607130000000],
-      zoom : 6
-    }).setView([-18.8093810000000 ,47.5607130000000]);
+  // configMap(){
+  //   this.map = l.map('map',{
+  //     center : [-18.8093810000000 ,47.5607130000000],
+  //     zoom : 6
+  //   }).setView([-18.8093810000000 ,47.5607130000000]);
     
-    l.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
-    }).addTo(this.map)
-    // let marker :any  = null
-    this.map.on('click', (event:any)=>{
-      if(this.marker !==null){
-        this.map.removeLayer(this.marker);
-      }
-      this.marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
-      this.latitude=event.latlng.lat;
-      this.longitude=event.latlng.lng;
-      const fv = this.addSiteForm.value;
-      this.addSiteForm.setValue({
-        "siteName": fv.siteName,
-        "siteAddress":fv.siteAddress,
-        "siteLat":event.latlng.lat,
-        "siteLng":event.latlng.lng,
-      });
-    })
-  }
+  //   l.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  //     attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  //     maxZoom: 19,
+  //   }).addTo(this.map)
+  //   // let marker :any  = null
+  //   this.map.on('click', (event:any)=>{
+  //     if(this.marker !==null){
+  //       this.map.removeLayer(this.marker);
+  //     }
+  //     this.marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
+  //     this.latitude=event.latlng.lat;
+  //     this.longitude=event.latlng.lng;
+  //     const fv = this.addSiteForm.value;
+  //     this.addSiteForm.setValue({
+  //       "siteName": fv.siteName,
+  //       "siteAddress":fv.siteAddress,
+  //       "siteLat":event.latlng.lat,
+  //       "siteLng":event.latlng.lng,
+  //     });
+  //   })
+  // }
   
   submit(){
     this.isSubmitted =true;
@@ -177,5 +183,29 @@ export class UserSitesComponent implements OnInit{
     }
     this.marker = l.marker([fv.siteLat,fv.siteLng]).addTo(this.map);
     this.map.setView([fv.siteLat,fv.siteLng],2000)
+  
   }
+  /*------------------------------------------
+   --------------------------------------------
+   moveMap()
+   --------------------------------------------
+   --------------------------------------------*/
+   moveMap(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) {
+      this.position = (event.latLng.toJSON());
+      this.latitude = event.latLng.lat();
+      this.longitude = event.latLng.lng();
+
+    }
+
+    }
+
+    /*------------------------------------------
+    --------------------------------------------
+    move()
+    --------------------------------------------
+    --------------------------------------------*/
+    // move(event: google.maps.MapMouseEvent) {
+    //     if (event.latLng != null) this.display = event.latLng.toJSON();
+    // }
 }

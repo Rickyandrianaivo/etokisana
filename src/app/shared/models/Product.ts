@@ -9,7 +9,7 @@ export class Product{
     productState : string = "en attente de validation";
     // productSource!:string;
     productImage!:string;
-    productOwner!:string;
+    // productOwner!:string;
     productVolume : number = 0;
     productHauteur : number = 0;
     productLargeur : number = 0;

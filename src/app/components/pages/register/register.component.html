@@ -35,18 +35,7 @@
                         label="Adresse">
                     </text-input>
                 </div>        
-                <div class="row">
-                    <text-input
-                        [control]="fc.userMainLat"
-                        [showErrorsWhen]="isSubmitted"
-                        label="Latitude">
-                    </text-input>
-                    <text-input
-                        [control]="fc.userMainLng"
-                        [showErrorsWhen]="isSubmitted"
-                        label="Longitude">
-                    </text-input>
-                </div>
+                
                 <div class="row">
                     <text-input
                         [control]="fc.userEmail"
@@ -84,13 +73,13 @@
                 </text-input>            
             <mat-form-field appearance="outline" >
                 <mat-label>Date de naissance</mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth" type="date"> 
+                <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth"> 
                 <!-- <mat-hint>{{dateFormatString()}}</mat-hint> -->
                 <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
             </mat-form-field>
-            <button mat-button (click)="french()" type="button">Dynamically switch to French</button>
+            <!-- <button mat-button (click)="french()" type="button">Dynamically switch to French</button> -->
             <!-- <mat-form-field appearance="outline">
                 <mat-label>Date de naissance</mat-label>
                 <input matInput [matDatepicker]="dp" [formControl]="dateOfBirth" type="datetime" [value]="dateOfBirth"/>
@@ -129,6 +118,19 @@
                 </app-textarea>
             </div> -->
         </div>
+        <div class="row">
+            <text-input
+                [control]="fc.userMainLat"
+                [showErrorsWhen]="isSubmitted"
+                label="Latitude">
+            </text-input>
+            <text-input
+                [control]="fc.userMainLng"
+                [showErrorsWhen]="isSubmitted"
+                label="Longitude">
+            </text-input>
+        </div>
+        
             <div class="buttonContainer">
                 <!-- <app-default-button text="S'INSCRIRE" type="submit" (onClick)="sendEmail($event)"></app-default-button> -->
                 <!-- <app-default-button text="SE CONNECTER" routerLink="/login" type="button"></app-default-button> -->

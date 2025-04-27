@@ -62,7 +62,12 @@ readonly productCategory = new FormControl();
             productUnite:[this.selectedProduct.productUnite],
             productStock:[this.selectedProduct.productStock],
             productState:[this.selectedProduct.productState],
-            productSource:[this.selectedProduct.productSource],
+            productHauteur:[this.selectedProduct.productHauteur],
+            productLongueur:[this.selectedProduct.productLongueur],
+            productLargeur:[this.selectedProduct.productLargeur],
+            productVolume:[this.selectedProduct.productVolume],
+            productPoids:[this.selectedProduct.productPoids],
+            codeCPC :[this.selectedProduct.codeCPC],
           })
         })
       }
@@ -109,10 +114,13 @@ readonly productCategory = new FormControl();
       productUnite      :fv.productUnite,
       productStock      :fv.productStock,
       productState      :"en attente",
-      productSource     :fv.productSource,
       productImage      :this.fileName,
-      productOwner      :this.currentUserEmail,
-      codeProduct       :"",
+      codeCPC           :fv.codeCPC,
+      productHauteur    :fv.productHauteur,
+      productLargeur    :fv.productLargeur,
+      productLongueur   :fv.productLongueur,
+      productPoids      :fv.productPoids,
+      productVolume     :fv.productVolume
     };
     // console.log(this.user);
     this.productService.updateProduct(this.productID,this.product).subscribe(_ => {
