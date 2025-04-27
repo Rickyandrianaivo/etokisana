@@ -29,11 +29,7 @@
                         [showErrorsWhen]="isSubmitted"
                         label="Prénom">
                     </text-input>
-                    <text-input
-                        [control]="fc.userAddress"
-                        [showErrorsWhen]="isSubmitted"
-                        label="Adresse">
-                    </text-input>
+                    
                 </div>        
                 
                 <div class="row">
@@ -70,65 +66,51 @@
                 [control]="fc.refId"
                 [showErrorsWhen]="isSubmitted"
                 label="Referral">
-                </text-input>            
-            <mat-form-field appearance="outline" >
-                <mat-label>Date de naissance</mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth"> 
-                <!-- <mat-hint>{{dateFormatString()}}</mat-hint> -->
-                <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
-            </mat-form-field>
-            <!-- <button mat-button (click)="french()" type="button">Dynamically switch to French</button> -->
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>Date de naissance</mat-label>
-                <input matInput [matDatepicker]="dp" [formControl]="dateOfBirth" type="datetime" [value]="dateOfBirth"/>
-                <mat-hint>{{dateFormatString()}}</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker #dp></mat-datepicker>
-              </mat-form-field> -->
-              <!-- <button mat-button (click)="french()">Dynamically switch to French</button>
-
-            <div class="seller" *ngIf="showSellerForm()"> -->
-                <!-- <div class="seller" >
-                <text-input
-                    [control]="fc.userManager"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Manager">
-                </text-input>
-                <text-input
-                    [control]="fc.userStatut"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Statut">
-                </text-input>
-                <text-input
-                    [control]="fc.userNif"
-                    [showErrorsWhen]="isSubmitted"
-                    label="NIF">
-                </text-input>
-                <text-input
-                    [control]="fc.userRC"
-                    [showErrorsWhen]="isSubmitted"
-                    label="RC">
-                </text-input>
-                <app-textarea
-                    [control]="fc.userDescritpion"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Descritpion">
-                </app-textarea>
-            </div> -->
+                </text-input>       
+                <div class="row">
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Date de naissance</mat-label>
+                        <input matInput [matDatepicker]="picker" [formControl]="dateOfBirth"> 
+                        <!-- <mat-hint>{{dateFormatString()}}</mat-hint> -->
+                        <mat-datepicker-toggle [for]="picker" style="position: absolute;margin-top:-8px;margin-left: -10px;"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                    </mat-form-field>
+                    <text-input
+                        [control]="fc.userAddress"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Adresse">
+                    </text-input>
+                </div>     
+            
         </div>
-        <div class="row">
-            <text-input
-                [control]="fc.userMainLat"
-                [showErrorsWhen]="isSubmitted"
-                label="Latitude">
-            </text-input>
-            <text-input
-                [control]="fc.userMainLng"
-                [showErrorsWhen]="isSubmitted"
-                label="Longitude">
-            </text-input>
+        
+        <div class="rightSide">
+            <div class="row">
+            <input-container>
+            <mat-form-field appearance="outline">
+                <mat-label>Latitude</mat-label>
+                <input matInput type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}">
+            </mat-form-field>
+        </input-container>
+        <input-container>
+        <mat-form-field appearance="outline">
+            <mat-label>Longitude</mat-label>
+            <input matInput type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}">
+        </mat-form-field>
+    </input-container>
+        </div>
+            <google-map height="50vh"
+                width="100%"
+                [center]="center"
+                [zoom]="6"
+                (mapClick)="moveMap($event)"
+                >
+                <!-- (mapMousemove)="move($event)"  -->
+                <!-- *ngFor="let position of markerLatLong" -->
+            <map-marker 
+            [position]="position"></map-marker>
+        </google-map>
         </div>
         
             <div class="buttonContainer">
@@ -141,5 +123,7 @@
                  <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
             </div>
         </form>
+        
+        
     </div>
 </div>

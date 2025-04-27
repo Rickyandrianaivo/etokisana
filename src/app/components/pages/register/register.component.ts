@@ -25,6 +25,8 @@ import { PasswordMatchValidator } from 'src/app/shared/validators/password_match
 import { MatButtonModule } from '@angular/material/button';
 import {DateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
 import { RadioInputComponent } from '../../partials/radio-input/radio-input.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { InputContainerComponent } from '../../partials/input-container/input-container.component';
 
 
 @Component({
@@ -42,6 +44,7 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
     MatInputModule,
     MatSelectModule,
     // TextareaComponent,
+    GoogleMapsModule,
     MatCheckboxModule,
     MatFormFieldModule,
     TextInputComponent,
@@ -57,6 +60,7 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
     MatButtonModule,
     RadioInputComponent,
     MatSnackBarModule,
+    InputContainerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -71,7 +75,14 @@ import { RadioInputComponent } from '../../partials/radio-input/radio-input.comp
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
-  
+  display : any;
+  center: google.maps.LatLngLiteral = {
+    lat: -19.0000000,
+    lng: 47.0000000
+  };
+  position:any;
+  latitude:number = 0;
+  longitude:number = 0;
   simpleSb !: MatSnackBarRef<SimpleSnackBar>;
 
   registerForm!: FormGroup;
@@ -193,11 +204,11 @@ export class RegisterComponent implements OnInit{
     userAccess          : "Utilisateur" ,
     userEmailVerified   :false,
     userParainId        :"",
-    userMainLat         : fv.userMainLat,
-    userMainLng         : fv.userMainLng,
+    userMainLat         : this.latitude,
+    userMainLng         : this.longitude,
+    userDateOfBirth     : this.dateOfBirth.value,  
     // userDescritpion     : fv.userDescritpion ,   
     // userImage           : fv.userImage ,  
-    // userDateOfBirth     : this.dateOfBirth.value,  
     // userLogo            : fv.userLogo ,  
     // userStatut          : fv.userStatut ,  
     // userManager         : fv.userManager ,  
@@ -225,6 +236,22 @@ export class RegisterComponent implements OnInit{
       }
     })
   }
+
+  /*------------------------------------------
+   --------------------------------------------
+   moveMap()
+   --------------------------------------------
+   --------------------------------------------*/
+   moveMap(event: google.maps.MapMouseEvent) {
+      if (event.latLng != null) 
+      {
+        this.position = (event.latLng.toJSON());
+        this.latitude = event.latLng.lat();
+        this.longitude = event.latLng.lng();
+      }
+
+    }
+
   uploadClick(){
 
   }

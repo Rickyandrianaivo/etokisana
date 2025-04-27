@@ -10,7 +10,7 @@ h3{
     display: none;
 }
 .client-register{
-    width: 100%;
+    width: 40%;
     display: flex;
     /* flex-wrap: wrap; */
     justify-content: center;
@@ -18,6 +18,9 @@ h3{
     flex-direction: column;
     align-content: center;
     align-items: center;
+}
+.rightSide{
+    width: 40%;
 }
 .row{
     display: flex;
