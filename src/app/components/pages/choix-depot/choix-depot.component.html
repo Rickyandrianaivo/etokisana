@@ -3,8 +3,8 @@
     <div class="content">
         <h1>Choix prestataire</h1>
         <ul>
-            <li>Mon compte <button (click)="choixPrestataire(currentUser._id)">Choisir</button></li>
-            <li *ngFor="let user of usersList"> {{ user.userName }} {{ user.userFirstname }} <button (click)="choixPrestataire(user._id)">Choisir</button></li>
+            <li>Mon compte <button (click)="choixPrestataire(currentUser.userID)">Choisir</button></li>
+            <li *ngFor="let user of usersList"> {{ user.userID }} <button (click)="choixPrestataire(user.userID)">Choisir</button></li>
         </ul>
     </div>
 </div>

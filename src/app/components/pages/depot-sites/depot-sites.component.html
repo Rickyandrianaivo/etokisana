@@ -42,7 +42,19 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <div class="map-container">
+      <!-- <div class="map-container">
         <div id="map"></div>
-    </div>
+    </div> -->
+    <google-map height="50vh"
+                width="100hw"
+                [center]="center"
+                [zoom]="6"
+                >
+                <!-- (mapClick)="moveMap($event)" -->
+                <!-- (mapMousemove)="move($event)"  -->
+                <!-- *ngFor="let position of markerLatLong" -->
+            <map-marker 
+            [position]="position"></map-marker>
+        </google-map>
+
 </div>

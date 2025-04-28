@@ -5,13 +5,15 @@ import { MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SiteService } from 'src/app/services/site.service';
 import { MatIconModule } from '@angular/material/icon';
+import { GoogleMapsModule } from '@angular/google-maps';
 @Component({
   selector: 'app-depot-sites',
   standalone: true,
   imports: [
     HeaderComponent,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    GoogleMapsModule,
   ],
   templateUrl: './depot-sites.component.html',
   styleUrl: './depot-sites.component.css'
@@ -25,7 +27,10 @@ export class DepotSitesComponent implements OnInit{
   marker:any = null;
   prestataireId!:string;
   typeES !: string;
-
+  position !: google.maps.LatLngLiteral;
+  center : google.maps.LatLngLiteral = {
+    lat:-19.0000000,lng : 48.0000000,
+  };
   constructor(
     private router:Router,
     private siteService:SiteService,
@@ -43,37 +48,38 @@ export class DepotSitesComponent implements OnInit{
     })
   }
   ngOnInit() : void{
-    this.configMap()
+    // this.configMap()
   }
 
-  configMap(){
-      this.map = l.map('map',{
-        center : [-18.8093810000000 ,47.5607130000000],
-        zoom : 6
-      }).setView([-18.8093810000000 ,47.5607130000000]);
+  // configMap(){
+  //     this.map = l.map('map',{
+  //       center : [-18.8093810000000 ,47.5607130000000],
+  //       zoom : 6
+  //     }).setView([-18.8093810000000 ,47.5607130000000]);
       
-      l.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-        attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 19,
-      }).addTo(this.map)
-      // let marker :any  = null
-      this.map.on('click', (event:any)=>{
-        if(this.marker !==null){
-          this.map.removeLayer(this.marker);
-        }
-        this.marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
-        this.latitude=event.latlng.lat;
-        this.longitude=event.latlng.lng;
-      })
-    }
+  //     l.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  //       attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  //       maxZoom: 19,
+  //     }).addTo(this.map)
+  //     // let marker :any  = null
+  //     this.map.on('click', (event:any)=>{
+  //       if(this.marker !==null){
+  //         this.map.removeLayer(this.marker);
+  //       }
+  //       this.marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
+  //       this.latitude=event.latlng.lat;
+  //       this.longitude=event.latlng.lng;
+  //     })
+  //   }
     localise(lat:any,lng:any){
       this.latitude = lat;
-      this.longitude = lng
-      if (this.marker !== null) {
-            this.map.removeLayer(this.marker)
-          }
-          this.marker = l.marker([this.latitude,this.longitude]).addTo(this.map);
-          this.map.setView([this.latitude,this.longitude],2000)
+      this.longitude = lng;
+      // if (this.marker !== null) {
+      //       this.map.removeLayer(this.marker)
+      //     }
+      //     this.marker = l.marker([this.latitude,this.longitude]).addTo(this.map);
+      //     this.map.setView([this.latitude,this.longitude],2000)
+      this.position = {lat : this.latitude,lng:this.longitude}
     }
     chooseSite(siteId:string){
       this.router.navigateByUrl("/choix-produit/"+this.typeES+"/"+siteId)
