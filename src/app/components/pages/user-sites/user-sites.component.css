@@ -1,10 +1,31 @@
-.map-container{
-    height: 400px;
-}
-#map{
-    height: 100%;
-    width: 100%;
-}
 .container{
     padding:20px
+}
+.client-register{
+    width: 40%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+.rightSide{
+    width: 40%;
+    float: right;
+}.form-line{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.userSite-form-style{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-evenly;
+    margin: auto 10%;
+}
+.row{
+    display: flex;
 }

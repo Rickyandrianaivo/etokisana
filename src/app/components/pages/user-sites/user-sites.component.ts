@@ -181,12 +181,18 @@ export class UserSitesComponent implements OnInit{
   refreshMapMarker(){
     const fv = this.addSiteForm.value;
     console.log(this.marker)
-    if (this.marker !== null) {
-      this.map.removeLayer(this.marker)
+    // if (this.marker !== null) {
+    //   this.map.removeLayer(this.marker)
+    // }
+    // this.marker = l.marker([fv.siteLat,fv.siteLng]).addTo(this.map);
+    // this.map.setView([fv.siteLat,fv.siteLng],2000)
+    this.position = {lat : fv.siteLat,
+      lng : fv.siteLng,
     }
-    this.marker = l.marker([fv.siteLat,fv.siteLng]).addTo(this.map);
-    this.map.setView([fv.siteLat,fv.siteLng],2000)
-  
+    this.center = {
+      lat: fv.siteLat,
+      lng: fv.siteLng
+  };
   }
   /*------------------------------------------
    --------------------------------------------
@@ -198,6 +204,13 @@ export class UserSitesComponent implements OnInit{
       this.position = (event.latLng.toJSON());
       this.latitude = event.latLng.lat();
       this.longitude = event.latLng.lng();
+      const fv = this.addSiteForm.value;
+      this.addSiteForm.setValue({
+        "siteName": fv.siteName,
+        "siteAddress":fv.siteAddress,
+        "siteLat":event.latLng.lat(),
+        "siteLng":event.latLng.lng(),
+      });
 
     }
 

@@ -2,6 +2,7 @@
 <div class="container">
 
     <h4>Mes sites</h4>
+    
     <table mat-table [dataSource]="sites" class="mat-elevation-z8">
 
         <!--- Note that these columns can be defined in any order.
@@ -43,39 +44,47 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+
     <h4 *ngIf="!update">Ajouter un site</h4>
     <h4 *ngIf="update">Modifier un site</h4>
-    <form class="register-form-style" [formGroup]="addSiteForm"  (ngSubmit)="submit()">
+    
+    <form class="userSite-form-style" [formGroup]="addSiteForm"  (ngSubmit)="submit()">
         <div class="client-register">
-        <text-input
-        [control]="fc.siteName"
-        [showErrorsWhen]="isSubmitted"
-        label="Nom du Site">
-        </text-input>
-        <text-input
-        [control]="fc.siteAddress"
-        [showErrorsWhen]="isSubmitted"
-        label="Adresse">
-        </text-input>
-        
-        <text-input
-        [control]="fc.siteLng"
-        [showErrorsWhen]="isSubmitted"
-        label="Longitude"
-        ></text-input>
-        <text-input
-        [control]="fc.siteLat"
-        [showErrorsWhen]="isSubmitted"
-        label="Latitude"
-        ></text-input>
-        <app-default-button text ="Centrer la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
-        <div class="map-container">
-            <div id="map"></div>
+          <div class="row">
+            <text-input
+            [control]="fc.siteName"
+            [showErrorsWhen]="isSubmitted"
+            label="Nom du Site">
+            </text-input>
+            <text-input
+            [control]="fc.siteAddress"
+            [showErrorsWhen]="isSubmitted"
+            label="Adresse">
+            </text-input>
+          </div>
+          <div class="row">
+            <text-input
+            [control]="fc.siteLng"
+            [showErrorsWhen]="isSubmitted"
+            label="Longitude"
+            ></text-input>
+            <text-input
+            [control]="fc.siteLat"
+            [showErrorsWhen]="isSubmitted"
+            label="Latitude"
+            ></text-input>
+          </div>
+          <app-default-button text ="Centrer la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
+          <div class="row">
+            <div class="buttonContainer">
+                <app-default-button text="Valider" type="submit"></app-default-button>
+                <app-default-button text="Annuler" routerLink="/user-site" type="button"></app-default-button>
+            </div>
+          </div>
         </div>
-        <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}">
-        <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}">
-        <google-map height="50vh"
-                width="100%"
+        <div class="rightSide">
+          <google-map height="50vh"
+                width="60vh"
                 [center]="center"
                 [zoom]="6"
                 (mapClick)="moveMap($event)"
@@ -83,22 +92,8 @@
                 <!-- (mapMousemove)="move($event)"  -->
                 <!-- *ngFor="let position of markerLatLong" -->
             <map-marker 
-            [position]="position"></map-marker>
-        </google-map>
-        <!-- <text-input
-            [control]="fc.SiteUnite"
-            [showErrorsWhen]="isSubmitted"
-            label="Longitude">
-        </text-input> 
-        <text-input
-        [control]="fc.SiteStock"
-        [showErrorsWhen]="isSubmitted"
-        label="Latitude">
-        </text-input> -->
-        </div>
-        <div class="buttonContainer">
-            <app-default-button text="Valider" type="submit"></app-default-button>
-            <app-default-button text="Annuler" routerLink="/user-site" type="button"></app-default-button>
+              [position]="position"></map-marker>
+          </google-map>
         </div>
     </form>     
     
