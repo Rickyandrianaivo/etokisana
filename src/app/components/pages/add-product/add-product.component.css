@@ -1,3 +1,9 @@
 .file-input{
     display: none;
 }
+.inner-container{
+    display: flex;
+}
+.row{
+    display: flex;
+}

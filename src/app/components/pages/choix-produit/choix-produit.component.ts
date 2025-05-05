@@ -32,4 +32,7 @@ export class ChoixProduitComponent {
   choixProduit(productId : string){
     this.router.navigateByUrl("/"+this.typeES+"/"+this.depotId+"/"+productId)
   }
+  NouveauProduit(){
+    this.router.navigateByUrl("/user-products/add")
+  }
 }
