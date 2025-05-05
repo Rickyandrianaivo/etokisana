@@ -12,19 +12,11 @@ export class User{
     userAccess          : string = "Utilisateur";
     userParainId        : string ="";
     userID              !: string;
+    userImage           !: string;
     userAddress         !: string;
     userMainLatitude    !: string;
     userMainLongitude   !: string;
-    // userDescritpion     : string ="";
-    // userImage           : string ="";
-    // userDateOfBirth     !: Date;
-    // userLogo            : string = "";
-    // userStatut          : string ="";
-    // userManager         : string = "";
-    // userNif             : string = "";
-    // userRC              : string = "";
-    // identityDocumentType: string ="";
-    // identityCardNumber  : string ="";
-    // userAdmin           : boolean = false;
-    // userIdentityCode    : string = "";
+    identityFile    : string ="";
+    userDateOfBirth     !: Date;
+    identityCardNumber  : string ="";
 }

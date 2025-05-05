@@ -2,14 +2,20 @@
 <div class="container">
     <div class="inner-container">
         <h3>Inscription</h3>
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #pdpUpload>
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #logoUpload>
+        <input type="file" class="file-input" (change)="onFileImageSelected($event)" #pdpUpload>
+        <input type="file" class="file-input" (change)="onFileDocumentSelected($event)" #documentUpload>
         <div class="options">
             <div class="file-upload">
+                <ngx-avatars size="100" [src]="image"></ngx-avatars>
                 {{ fileName || "Photo de profil"}}
                 <button class="upload-btn" (click)="pdpUpload.click()"><mat-icon >attach_file</mat-icon></button>
             </div>
+            <div class="file-upload">
+                {{ identityFileName || "CIN"}}
+                <button class="upload-btn" (click)="documentUpload.click()"><mat-icon >attach_file</mat-icon></button>
+            </div>
         </div>
+        <img height="100px" *ngIf="identityFile" [src]="identityFile" alt="">
         <form class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submit()">
             <div class="client-register">
                 <div class="row">
@@ -39,11 +45,11 @@
                         label="Email"
                         [type]="'email'">
                     </text-input>
-                    <!-- <text-input
-                        [control]="fc.userAdresse"
+                    <text-input
+                        [control]="fc.indentityCardNumber"
                         [showErrorsWhen]="isSubmitted"
-                        label="Adresse">
-                    </text-input> -->
+                        label="CIN">
+                    </text-input>
                     <text-input
                         [control]="fc.userPhone"
                         [showErrorsWhen]="isSubmitted"

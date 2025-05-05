@@ -3,9 +3,10 @@
     <div class="main-content">
         <div class="profile-entete">
             <div class="image-profile-container">
-                <img src="default.jpg" alt="">
+                <img [src]="profileImage" alt="">
             </div>
             <div class="client-name">
+                <h3>ID : {{user.userID}} </h3>
                 <h1>Bonjour {{user.userFirstname}} {{user.userName}} </h1>
                 <h3>Solde : {{user.userTotalSolde}} </h3>
             </div>  

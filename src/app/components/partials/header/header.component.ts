@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 // import { SearchComponent } from '../search/search.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AvatarModule } from 'ngx-avatars';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [CommonModule,
     // SearchComponent,
     RouterLink,
-    MatIconModule
+    MatIconModule,
+    AvatarModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -30,6 +32,7 @@ export class HeaderComponent implements OnInit,OnChanges{
     if(this.isUser.userName){
       this.userService.getUserByEmail(this.isUser.userEmail).subscribe(userReq => {
         this.user = userReq;
+        console.log(this.user)
       })
       this.isLoged = true;
     }else{

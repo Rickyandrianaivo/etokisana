@@ -1,1 +1,21 @@
-<p>users-details works!</p>
+<app-side-bar></app-side-bar>
+<div class="container">
+    <div class="main-content">
+        <div class="profile-entete">
+            <div class="image-profile-container">
+                <ngx-avatars size="100" [src]="profileImage"></ngx-avatars>
+            </div>
+            <div class="client-name">
+                <h3>ID : {{theUser.userID}} </h3>
+                <h1>Profil de : {{theUser.userFirstname}} {{theUser.userName}} </h1>
+                <h3>Solde : {{theUser.userTotalSolde}} </h3>
+            </div>  
+        </div>
+        <div class="body-content">
+            <app-profile-item label="Email" value="{{theUser.userEmail}}"></app-profile-item>
+            <app-profile-item label="Téléphone" value="{{theUser.userPhone}}"></app-profile-item>
+            <app-profile-item label="CIN" value="{{theUser.indentityCardNumber}}"></app-profile-item>
+            <app-profile-item label="Télécharger son CIN" value="{{theUser.documentFile}}"></app-profile-item>            
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DefaultButtonComponent } from 'src/app/components/partials/default-button/default-button.component';
+import { AvatarModule } from 'ngx-avatars';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +18,7 @@ import { DefaultButtonComponent } from 'src/app/components/partials/default-butt
     MatIconModule,
     MatCheckboxModule,
     RouterLink,
+    AvatarModule
     // DefaultButtonComponent,
   ],
   templateUrl: './users.component.html',
@@ -24,7 +26,7 @@ import { DefaultButtonComponent } from 'src/app/components/partials/default-butt
 })
 export class UsersComponent implements OnInit{
   userslist:any[]=[];
-  displayedColumns: string[] = ['Photo','Nom', 'Prénoms', 'Type', 'Solde','Approuvé','Email','EmailVerified','Action'];
+  displayedColumns: string[] = ['Photo','ID','Nom', 'Prénoms', 'Type', 'Solde','Approuvé','Email','EmailVerified','Action'];
 
   constructor(
     private userService:UserService,

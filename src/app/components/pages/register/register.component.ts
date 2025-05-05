@@ -31,6 +31,7 @@ import { SiteService } from 'src/app/services/site.service';
 import { Site } from 'src/app/shared/models/Sites';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/fr';
+import { AvatarModule } from 'ngx-avatars';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -76,6 +77,7 @@ const MY_DATE_FORMAT = {
     RadioInputComponent,
     MatSnackBarModule,
     InputContainerComponent,
+    AvatarModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -111,7 +113,11 @@ export class RegisterComponent implements OnInit{
   readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
   fileName = "";
+  identityFileName = "";
   user : any;
+  image : any = "default.jpg";
+  identityFile : any ;
+
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
@@ -181,14 +187,7 @@ export class RegisterComponent implements OnInit{
       userMainLat : [''],
       userMainLng : [''],
       userDateOfBirth:[''],
-      // // userPhone:['',Validators.pattern("^[0-9]*$")],
-      // userDescritpion:[''],
-      // userManager:[''],
-      // userStatut:[''],
-      // userNif:[''],
-      // userRC:[''],
-      // identityCardNumber:[''],
-      // userAddress:[''],     
+      identityCardNumber:[''],
     },{
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     }
@@ -229,15 +228,15 @@ export class RegisterComponent implements OnInit{
     userDateOfBirth     : this.dateOfBirth.value._d,  
     userAddress         : fv.userAddress ,
     userID              : generatedID,
+    userImage           : this.image ,  
+    identityCardNumber  : fv.identityCardNumber ,
+    identityFile        : this.identityFile,
     // userDescritpion     : fv.userDescritpion ,   
-    // userImage           : fv.userImage ,  
     // userLogo            : fv.userLogo ,  
     // userStatut          : fv.userStatut ,  
     // userManager         : fv.userManager ,  
     // userNif             : fv.userNif ,  
     // userRC              : fv.userRC ,  
-    // identityDocumentType: this.identityDocumentType.value,
-    // identityCardNumber  : fv.identityCardNumber ,
     // userIdentityCode    : fv.userIdentityCode ,
     };
 
@@ -290,19 +289,60 @@ export class RegisterComponent implements OnInit{
   uploadClick(){
 
   }
-  onFileSelected(event:Event) {
-    let htmlInputElement = <HTMLInputElement>event.target!;
-    const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
-    
-    if (file) {
-
-        this.fileName =file.name;
-
-        const formData = new FormData();
-
-        formData.append("thumbnail", file);
-
-        this.userService.uploadFile(formData).subscribe();
+  onFileImageSelected(event:any) {
+    console.log(event)
+    const reader = new FileReader();
+    if (event) {
+      this.fileName = event.target.files[0].name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () =>{
+        console.log(reader.result);
+        this.image = reader.result;
+      }
     }
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    }
+    // let htmlInputElement = <HTMLInputElement>event.target!;
+    // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
+    
+    // if (file) {
+
+    //     this.fileName =file.name;
+
+    //     const formData = new FormData();
+
+    //     formData.append("thumbnail", file);
+
+    //     this.userService.uploadFile(formData).subscribe();
+    // }
+  }
+  onFileDocumentSelected(event:any) {
+    console.log(event)
+    const reader = new FileReader();
+    if (event) {
+      this.identityFileName = event.target.files[0].name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () =>{
+        console.log(reader.result);
+        this.identityFile = reader.result;
+      }
+    }
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    }
+    // let htmlInputElement = <HTMLInputElement>event.target!;
+    // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
+    
+    // if (file) {
+
+    //     this.fileName =file.name;
+
+    //     const formData = new FormData();
+
+    //     formData.append("thumbnail", file);
+
+    //     this.userService.uploadFile(formData).subscribe();
+    // }
   }
 }

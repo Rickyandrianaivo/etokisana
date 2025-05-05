@@ -17,10 +17,10 @@ import { HeaderComponent } from '../../partials/header/header.component';
 })
 export class ClientProfileComponent implements OnInit{
   user !: User;
+  profileImage!:string;
   constructor(
     private userService:UserService,
   ){
-    
   }
   ngOnInit() : void {
     const userLocal = this.userService.getUserFromLocalStorage()
@@ -29,6 +29,7 @@ export class ClientProfileComponent implements OnInit{
     this.userService.getUserByEmail(userLocal.userEmail).subscribe(reqUser=>{
       console.log(this.user);
       this.user = reqUser;
+      this.profileImage = this.user.userImage;
     })
   }
 }

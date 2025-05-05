@@ -11,7 +11,7 @@
                 </ul>
             </nav>
             <nav class="right-nav" *ngIf="isLoged">
-                <ul>
+                <ul><li><ngx-avatars [src]="user.userImage"></ngx-avatars></li>
                     <!-- <li><a routerLink="/cart-page"><mat-icon>shopping_cart</mat-icon></a></li> -->
                     <li><a routerLink="/client-area" class="profil-btn">{{user.userName}} {{user.userFirstname}} </a></li>
                     <li><a routerLink="/transactions" class="solde-btn"><strong>{{user.userTotalSolde}}</strong> MGA</a></li>

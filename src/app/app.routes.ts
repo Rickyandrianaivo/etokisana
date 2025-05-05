@@ -30,6 +30,7 @@ import { ChoixProduitComponent } from './components/pages/choix-produit/choix-pr
 import { DepotSitesComponent } from './components/pages/depot-sites/depot-sites.component';
 import { RetraitComponent } from './components/pages/retrait/retrait.component';
 import { RequestResetPasswordComponent } from './components/pages/request-reset-password/request-reset-password.component';
+import { UsersDetailsComponent } from './components/pages/bo/users-details/users-details.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
@@ -51,6 +52,7 @@ const routes: Routes = [
     {path : 'cart-page', component: CartPageComponent},
     {path : 'dashboard', component: DashboardComponent},
     {path : 'users', component: UsersComponent},
+    {path : 'userDetails/:id', component: UsersDetailsComponent},
     {path : 'depot/:depotId/:productId', component: DepositComponent},
     {path : 'products', component: ProductsComponent},
     {path : 'categories', component: CategoriesComponent},

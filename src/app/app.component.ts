@@ -5,6 +5,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { APP_BASE_HREF } from '@angular/common';
+import { AvatarModule} from 'ngx-avatars';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { APP_BASE_HREF } from '@angular/common';
     // HeaderComponent,
     MatIconModule,    
     NgxSpinnerModule,
+    AvatarModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

@@ -13,7 +13,7 @@ h3{
     width: 40%;
     display: flex;
     /* flex-wrap: wrap; */
-    justify-content: center;
+    /* justify-content: center; */
     flex-wrap: wrap;
     flex-direction: column;
     align-content: center;
