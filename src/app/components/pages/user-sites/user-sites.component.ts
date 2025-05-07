@@ -215,6 +215,9 @@ export class UserSitesComponent implements OnInit{
     }
 
     }
+    VoirMonStock(id:string){
+      this.router.navigateByUrl("stock/"+id);
+    }
 
     /*------------------------------------------
     --------------------------------------------

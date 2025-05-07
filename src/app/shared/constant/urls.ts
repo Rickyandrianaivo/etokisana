@@ -12,6 +12,9 @@ export const PRODUCT_BY_SEARCH_URL         = PRODUCT_URL + 'search/';
 export const PRODUCT_UPLOAD_IMAGE_URL      = PRODUCT_URL + 'upload/';
 export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
 export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
+export const PRODUCT_BY_SITE_ID_URL        = PRODUCT_URL + 'stock/';
+export const PRODUCT_ADD_TO_STOCK_URL      = PRODUCT_URL + 'addStock/'
+
 
 export const SITE_URL                      = BASE_URL + '/api/site/';
 export const SITE_BY_ID_URL                = SITE_URL + '/';

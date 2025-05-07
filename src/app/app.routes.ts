@@ -31,6 +31,7 @@ import { DepotSitesComponent } from './components/pages/depot-sites/depot-sites.
 import { RetraitComponent } from './components/pages/retrait/retrait.component';
 import { RequestResetPasswordComponent } from './components/pages/request-reset-password/request-reset-password.component';
 import { UsersDetailsComponent } from './components/pages/bo/users-details/users-details.component';
+import { StockComponent } from './components/pages/stock/stock.component';
 
 const routes: Routes = [
     {path : '', component: HomeComponent},
@@ -48,6 +49,7 @@ const routes: Routes = [
     {path : 'client-profile', component: ClientProfileComponent},
     {path : 'product-page/:id', component: ProductPageComponent},
     {path : 'user-products/add', component: AddProductComponent},
+    {path : 'stock/:id', component: StockComponent},
     {path : 'user-site', component: UserSitesComponent},
     {path : 'cart-page', component: CartPageComponent},
     {path : 'dashboard', component: DashboardComponent},

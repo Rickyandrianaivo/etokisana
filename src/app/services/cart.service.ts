@@ -22,6 +22,7 @@ export class CartService {
       return;
     }
     this.cart.items.push(new CartItem(product));
+    this.setCartToLocalStorage();
   }
 
   removeFromCart(productId:string): void{

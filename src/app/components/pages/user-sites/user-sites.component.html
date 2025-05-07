@@ -34,11 +34,13 @@
     
         <ng-container matColumnDef="Action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let element"> 
+          <td mat-cell *matCellDef="let element" style="display: flex;justify-content: center;align-items: stretch;"> 
+              <button (click)="VoirMonStock(element._id)" style="font-size: large;">Stock</button>
               <button (click)="setDataToModify(element._id)"> <mat-icon>brush</mat-icon></button>
               <button (click)="deleteSite(element._id)"> <mat-icon>delete</mat-icon></button>
               <!-- <a routerLink="update/{{element._id}}"><button> <mat-icon>brush</mat-icon></button></a> -->
-            <!-- <button (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button></td> -->
+            <!-- <button (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button>-->
+            </td> 
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

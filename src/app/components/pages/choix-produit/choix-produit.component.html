@@ -1,10 +1,20 @@
 <app-header></app-header>
 <div class="container">
     <div class="content">
-        <h1>Choix du produit à {{typeES}}</h1>
-        <button (click)="NouveauProduit()" >Proposer un produit</button>
-        <ul>
-            <li *ngFor="let product of productList"> {{ product.productName }} {{ product.productFirstname }} <button (click)="choixProduit(product._id)">Choisir</button></li>
-        </ul>
+        <div class="left-side">
+            <h1>Choix du produit à {{typeES}}</h1>
+            <button (click)="NouveauProduit()" >Proposer un produit</button>
+            <ul>
+                <li *ngFor="let product of productList"> {{ product.productName }}<button (click)="choixProduit(product._id)">Choisir</button></li>
+            </ul> 
+        </div>
+        <div class="right-side">
+            <h1> Produits à déposer</h1>
+            <h4 *ngIf="!produitsAdeposer">Veuillez choisir un produit</h4>
+            <ul>
+                <li *ngFor="let product of produitsAdeposer">{{ product.productName }}</li>
+            </ul>
+            <button (click)="FaireDepot()">Valider</button>
+        </div>
     </div>
 </div>

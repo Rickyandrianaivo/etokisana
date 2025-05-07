@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../../partials/header/header.component';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-choix-produit',
   standalone: true,
-  imports: [HeaderComponent,NgFor],
+  imports: [HeaderComponent,NgFor,NgIf],
   templateUrl: './choix-produit.component.html',
   styleUrl: './choix-produit.component.css'
 })
@@ -15,6 +15,8 @@ export class ChoixProduitComponent {
   productList:any;
   depotId !: string;
   typeES !: string;
+  isEmpty :boolean = true;
+  produitsAdeposer : any[] = [];
   constructor(
     private router:Router,
     private productService : ProductService,
@@ -30,9 +32,29 @@ export class ChoixProduitComponent {
     })
   }
   choixProduit(productId : string){
-    this.router.navigateByUrl("/"+this.typeES+"/"+this.depotId+"/"+productId)
+    this.isEmpty=false;
+    this.productService.getProductById(productId).subscribe(product=>{
+      this.produitsAdeposer.push(product)
+      this.productService.addDepositItem(product)
+    })
+    // this.router.navigateByUrl("/"+this.typeES+"/"+this.depotId+"/"+productId)
+  }
+  RemoveProduct(productId : string){
+    const removedProductIndex = this.produitsAdeposer.findIndex(product => product._id === productId);
+    this.produitsAdeposer.splice(removedProductIndex,1);
   }
   NouveauProduit(){
     this.router.navigateByUrl("/user-products/add")
+  }
+  FaireDepot(){
+    this.produitsAdeposer.forEach(productAdeposer =>{
+      const stockelement = {
+        productId : productAdeposer._id,
+        depotId : this.depotId,
+      }
+      this.productService.depositProduct(stockelement).subscribe(_=>{
+        console.log(stockelement)
+      })
+    })
   }
 }

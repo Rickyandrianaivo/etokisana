@@ -10,3 +10,15 @@ button{
     width: fit-content;
     margin: 0;
 }
+.content{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+.left-side{
+    width: 60%;
+
+}
+.right-side{
+    width: 40%;
+}
