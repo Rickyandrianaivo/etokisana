@@ -65,7 +65,7 @@ const MY_DATE_FORMAT = {
     MatCheckboxModule,
     TextInputComponent,
     MatFormFieldModule, 
-    RadioInputComponent,
+    // RadioInputComponent,
     MatDatepickerModule,
     ReactiveFormsModule,
     MatDatepickerModule,
@@ -104,6 +104,7 @@ export class RegisterComponent implements OnInit{
   simpleSb !: MatSnackBarRef<SimpleSnackBar>;
   documentType : string = "cin"
   registerForm!: FormGroup;
+  registerCorporateForm!: FormGroup;
   isSubmitted = false;
   userType!:AbstractControl;
   userPhone = new FormControl();
@@ -115,6 +116,15 @@ export class RegisterComponent implements OnInit{
   user : any;
   image : any = "default.jpg";
   identityDocument : any ;
+
+  //Corporate User
+  corporateCarteStat : string = "";
+  corporateLogo : any = "defaulT.jpg";
+  corporateCarteFiscale : string = "";
+  contactPhone = new FormControl();
+
+  corporateUser : boolean = false;
+
 
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
@@ -190,6 +200,23 @@ export class RegisterComponent implements OnInit{
     }
   );
     // this.returnUrl= this.activatedRoute.snapshot.queryParams['returnUrl'];
+    this.registerCorporateForm = this.formBuilder.group({
+      raisonSocial : ['',[Validators.required]],
+      type : [''],
+      rcs : ['',[Validators.required]],
+      nif : ['',[Validators.required]],
+      managerName : [''],
+      managerEmail : [''],
+      contactName : ['',Validators.required],
+      contactPhone : [''],
+      contactEmail : ['',Validators.required],
+      siegeAddress: [''],
+      userPassword:['',Validators.required],
+      confirmPassword:['',[Validators.required,PasswordMatchValidator]],
+    },{
+      validators : PasswordMatchValidator("userPassword","confirmPassword"),
+    })
+
   }
 
   toggleSellerForm(){
@@ -198,13 +225,16 @@ export class RegisterComponent implements OnInit{
   get fc(){
     return this.registerForm.controls;
   }
+  get cfc(){
+    return this.registerCorporateForm.controls;
+  }
   
-  submit(){
+  submitUser(){
     this.isSubmitted =true;
-    // if (!this.registerForm.valid){ 
-    //     console.log(this.registerForm.getError);
-    //     return;
-    // }
+    if (!this.registerForm.valid){ 
+        console.log(this.registerForm.getError);
+        return;
+    }
     const generatedID = Math.random().toString(36).slice(2,10)
     console.log(this.dateOfBirth.value._d);
     const fv = this.registerForm.value;
@@ -261,7 +291,39 @@ export class RegisterComponent implements OnInit{
       siteLng         : this.longitude,
       siteUserID      : generatedID,
     };
-    // this.siteService.addSite(mainSite).subscribe(_=>{})
+    this.siteService.addSite(mainSite).subscribe(_=>{})
+  }
+  submitUserCorporate(){
+    this.isSubmitted =true;
+    if (!this.registerCorporateForm.valid){ 
+        console.log(this.registerCorporateForm.getError);
+        return;
+    }
+    const generatedID = Math.random().toString(36).slice(2,10)
+    // console.log(this.dateOfBirth.value._d);
+    const fv = this.registerCorporateForm.value;
+    this.user = {
+    userId                  : generatedID,
+    raisonSocial            : fv.raisonSocial,         
+    type                    : fv.type,  
+    rcs                     : fv.rcs,  
+    carteStat               : this.corporateCarteStat,     
+    nif                     : fv.userPhone.internationalNumber,      
+    carteFiscal             : this.corporateCarteFiscale,  
+    logo                    : this.corporateLogo,  
+    managerName             : fv.managerName,  
+    managerEmail            : fv.managerEmail,
+    contactName             : fv.contactName,
+    contactPhone            : fv.contactPhone.internationalNumber,
+    contactEmail            : fv.contactEmail,
+    siegeAddress            : fv.siegeAddress,
+    siegeLat                : this.latitude,  
+    siegeLng                : this.longitude,
+    contactEmailVerified    : false,
+    corporateUserValidated  : false ,
+    userTotalSolde          : 0,
+    userAccess              :"Utilisateur",
+    };
   }
 
   /*------------------------------------------
@@ -276,7 +338,6 @@ export class RegisterComponent implements OnInit{
         this.latitude = event.latLng.lat();
         this.longitude = event.latLng.lng();
       }
-
     }
 
   uploadClick(){
@@ -296,6 +357,7 @@ export class RegisterComponent implements OnInit{
     reader.onerror = error =>{
       console.log("Error: ",error);
     }
+    
     // let htmlInputElement = <HTMLInputElement>event.target!;
     // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
     
@@ -309,6 +371,21 @@ export class RegisterComponent implements OnInit{
 
     //     this.userService.uploadFile(formData).subscribe();
     // }
+  }
+  onFileLogoSelected(event:any) {
+    console.log(event)
+    const reader = new FileReader();
+    if (event) {
+      this.fileName = event.target.files[0].name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () =>{
+        console.log(reader.result);
+        this.corporateLogo = reader.result;
+      }
+    }
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    }
   }
   onFileDocumentSelected(event:any) {
     console.log(event)
