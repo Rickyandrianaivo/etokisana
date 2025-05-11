@@ -2,28 +2,24 @@
 <div class="container">
     <div class="inner-container">
         <h3>Inscription</h3>
-        <input type="file" class="file-input" (change)="onFileImageSelected($event)" #pdpUpload>
-        <input type="file" class="file-input" (change)="onFileDocumentSelected($event)" #documentUpload>
-        <div class="options">
-            <div class="file-upload">
-                <ngx-avatars size="100" [src]="image"></ngx-avatars>
-                {{ fileName || "Photo de profil"}}
-                <button class="upload-btn" (click)="pdpUpload.click()"><mat-icon >attach_file</mat-icon></button>
-            </div>
-            <div class="file-upload">
-                {{ identityFileName || "CIN"}}
-                <button class="upload-btn" (click)="documentUpload.click()"><mat-icon >attach_file</mat-icon></button>
-            </div>
-        </div>
-        <img height="100px" *ngIf="identityFile" [src]="identityFile" alt="">
+        
+        
         <form class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submit()">
             <div class="client-register">
+                <div class="file-upload">
+                    <ngx-avatars *ngIf="imageIsUploaded" size="100" [src]="image"></ngx-avatars>
+                    {{ fileName || "Photo de profil"}}
+                    <button class="upload-btn" (click)="pdpUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
+                </div>
                 <div class="row">
                     <app-radio-input
                     [control]="fc.userType"
                     [showErrorsWhen]="isSubmitted"
                     ></app-radio-input>
                 </div>
+                <input type="file" class="file-input" (change)="onFileImageSelected($event)" #pdpUpload>
+                <input type="file" class="file-input" (change)="onFileDocumentSelected($event)" #documentUpload>
+                
                 <div class="row">
                     <text-input
                         [control]="fc.userName"
@@ -45,16 +41,29 @@
                         label="Email"
                         [type]="'email'">
                     </text-input>
-                    <text-input
-                        [control]="fc.indentityCardNumber"
-                        [showErrorsWhen]="isSubmitted"
-                        label="CIN">
-                    </text-input>
-                    <text-input
+                    
+                    <!-- <text-input
                         [control]="fc.userPhone"
                         [showErrorsWhen]="isSubmitted"
                         label="Téléphone">
-                    </text-input>
+                    </text-input> -->
+                    <mat-form-field appearance="outline">
+                        <ngx-intl-tel-input
+                        formControlName="userPhone"
+                        name ="userPhone"
+                        [separateDialCode]="true"
+                        [cssClass]="'custom'"
+                        [preferredCountries]="['mg']"
+                        [enablePlaceholder]="true"
+                        [searchCountryFlag]="true"
+                        [selectFirstCountry]="true"
+                        [maxLength]="15"
+                        [phoneValidation]="true"
+                        #phone>
+                        <input matInput [formControl]="userPhone">
+                    </ngx-intl-tel-input>              
+                </mat-form-field>
+                    
                 </div> 
                 <div class="row">
                     <app-password-input
@@ -87,24 +96,51 @@
                         [showErrorsWhen]="isSubmitted"
                         label="Adresse">
                     </text-input>
-                </div>     
+                </div>
+                <div class="row">
+                    <div class="options">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Document d'identification</mat-label>
+                        <mat-select matNativeControl [(value)]="documentType" >
+                            <mat-option value="cin" selected>CIN</mat-option>
+                            <mat-option value="passeport">Passeport</mat-option>
+                            <mat-option value="permis">Permis de conduire</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                </div>
+                    <text-input
+                        [control]="fc.identityCardNumber"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Numéro du Document">
+                    </text-input>
+                </div>
+                <div class="file-upload">
+                    <div class="idDocumentUpload" *ngIf="documentType">
+                        <p *ngIf="documentType && !identityDocument"> Photo de votre : </p>
+                        <img height="100px" *ngIf="identityDocument" [src]="identityDocument" alt="">
+                        {{ identityDocumentName || documentType | uppercase}}
+                        <button class="upload-btn" (click)="documentUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
+                    </div>
+                </div>    
             
         </div>
         
         <div class="rightSide">
+            
             <div class="row">
             <input-container>
-            <mat-form-field appearance="outline">
-                <mat-label>Latitude</mat-label>
-                <input matInput type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}">
-            </mat-form-field>
-        </input-container>
-        <input-container>
-        <mat-form-field appearance="outline">
-            <mat-label>Longitude</mat-label>
-            <input matInput type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}">
-        </mat-form-field>
-    </input-container>
+                <mat-form-field appearance="outline">
+                    <mat-label>Latitude</mat-label>
+                    <input matInput type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone:true}">
+                </mat-form-field>
+            </input-container>
+            <input-container>
+                <mat-form-field appearance="outline">
+                    <mat-label>Longitude</mat-label>
+                    <input matInput type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone:true}">
+                </mat-form-field>
+            </input-container>
         </div>
             <google-map height="50vh"
                 width="50vh"

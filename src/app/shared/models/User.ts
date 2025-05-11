@@ -16,7 +16,8 @@ export class User{
     userAddress         !: string;
     userMainLatitude    !: string;
     userMainLongitude   !: string;
-    identityFile    : string ="";
     userDateOfBirth     !: Date;
     identityCardNumber  : string ="";
+    identityDocument    : string ="";
+    documentType        !: string;
 }

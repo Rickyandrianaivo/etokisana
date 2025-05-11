@@ -32,6 +32,7 @@ import { Site } from 'src/app/shared/models/Sites';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/fr';
 import { AvatarModule } from 'ngx-avatars';
+import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -49,35 +50,31 @@ const MY_DATE_FORMAT = {
   selector: 'app-register',
   standalone: true,
   imports: [
-    MatIconModule,
-    // MatLabel,
-    FormsModule,
-    ReactiveFormsModule,
     RouterLink,
     FormsModule,
+    AvatarModule,
     CommonModule,
+    MatIconModule,
     MatRadioModule,
     MatInputModule,
     MatSelectModule,
-    // TextareaComponent,
+    HeaderComponent,
+    MatButtonModule,
     GoogleMapsModule,
+    MatSnackBarModule,
     MatCheckboxModule,
-    MatFormFieldModule,
     TextInputComponent,
+    MatFormFieldModule, 
+    RadioInputComponent,
+    MatDatepickerModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    ReactiveFormsModule,
     MatButtonToggleModule,
+    NgxIntlTelInputModule,
     DefaultButtonComponent,
     PasswordInputComponent,
-    HeaderComponent,
-    MatFormFieldModule, 
-    MatInputModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    RadioInputComponent,
-    MatSnackBarModule,
     InputContainerComponent,
-    AvatarModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -95,6 +92,7 @@ const MY_DATE_FORMAT = {
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
+  imageIsUploaded : boolean = false;
   display : any;
   center: google.maps.LatLngLiteral = {
     lat: -19.0000000,
@@ -104,19 +102,19 @@ export class RegisterComponent implements OnInit{
   latitude:number = 0;
   longitude:number = 0;
   simpleSb !: MatSnackBarRef<SimpleSnackBar>;
-
+  documentType : string = "cin"
   registerForm!: FormGroup;
   isSubmitted = false;
   userType!:AbstractControl;
-
+  userPhone = new FormControl();
   // readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
   fileName = "";
-  identityFileName = "";
+  identityDocumentName = "";
   user : any;
   image : any = "default.jpg";
-  identityFile : any ;
+  identityDocument : any ;
 
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
@@ -182,7 +180,6 @@ export class RegisterComponent implements OnInit{
       userPassword:['',Validators.required],
       confirmPassword:['',[Validators.required,PasswordMatchValidator]],
       userPhone:[''],
-      refId:[''],
       userAddress : [''],
       userMainLat : [''],
       userMainLng : [''],
@@ -216,7 +213,7 @@ export class RegisterComponent implements OnInit{
     userFirstname       : fv.userFirstname ,  
     userPassword        : fv.userPassword ,  
     userEmail           : fv.userEmail ,     
-    userPhone           : fv.userPhone ,      
+    userPhone           : fv.userPhone.internationalNumber ,      
     userType            : fv.userType,  
     userTotalSolde      : 0 ,  
     userValidated       : false ,  
@@ -230,37 +227,33 @@ export class RegisterComponent implements OnInit{
     userID              : generatedID,
     userImage           : this.image ,  
     identityCardNumber  : fv.identityCardNumber ,
-    identityFile        : this.identityFile,
-    // userDescritpion     : fv.userDescritpion ,   
-    // userLogo            : fv.userLogo ,  
-    // userStatut          : fv.userStatut ,  
-    // userManager         : fv.userManager ,  
-    // userNif             : fv.userNif ,  
-    // userRC              : fv.userRC ,  
-    // userIdentityCode    : fv.userIdentityCode ,
+    identityDocument    : this.identityDocument,
+    documentType        : fv.docuementType,
     };
 
-    // this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
-    //   if (useralreadyexist) {
-    //     this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
-    //     this.simpleSb.onAction().subscribe(() =>{
-    //       this.router.navigateByUrl("login");
-    //     })
-    //     return;
-    //   }else{
-    //     this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
-    //     this.simpleSb.onAction().subscribe(() =>{
-    //       this.router.navigateByUrl("login");
-    //     })
+    this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
+      if (useralreadyexist) {
+        console.log(useralreadyexist)
+        this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
+        this.simpleSb.onAction().subscribe(() =>{
+          this.router.navigateByUrl("login");
+        })
+        return;
+      }else{
+        this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+        this.simpleSb.onAction().subscribe(() =>{
+          this.router.navigateByUrl("login");
+        })
         
-    //   }
-    // })
+      }
+    })
     this.userService.registerUser(this.user).subscribe(_ =>{
       this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
     })
+    console.log(fv.userPhone.internationalNumber)
     const mainSite :Site = {
       siteAddress     : fv.userAddress,
       siteName        : "Domicile",
@@ -268,7 +261,7 @@ export class RegisterComponent implements OnInit{
       siteLng         : this.longitude,
       siteUserID      : generatedID,
     };
-    this.siteService.addSite(mainSite).subscribe(_=>{})
+    // this.siteService.addSite(mainSite).subscribe(_=>{})
   }
 
   /*------------------------------------------
@@ -321,11 +314,11 @@ export class RegisterComponent implements OnInit{
     console.log(event)
     const reader = new FileReader();
     if (event) {
-      this.identityFileName = event.target.files[0].name;
+      this.identityDocumentName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         console.log(reader.result);
-        this.identityFile = reader.result;
+        this.identityDocument = reader.result;
       }
     }
     reader.onerror = error =>{

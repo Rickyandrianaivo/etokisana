@@ -24,7 +24,7 @@ export class UsersDetailsComponent {
     this.activatedRoute.params.subscribe(req=>{
       this.userSerivce.getUserById(req['id']).subscribe(res =>{
         this.theUser = res;
-        this.documentFile = res.identityFile;
+        this.documentFile = res.identityDocument;
         this.profileImage = res.userImage
       })
     })

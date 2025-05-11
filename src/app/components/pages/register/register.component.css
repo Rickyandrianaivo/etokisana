@@ -24,6 +24,9 @@ h3{
 }
 .row{
     display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
 }
 /* .seller{
     width: 40%;
@@ -65,4 +68,11 @@ mat-checkbox{
 .seller-file{
     width: 100%;
  }
- 
+ngx-intl-tel-input:last-child{
+    background: none;
+    border: none;
+} 
+input#phone.iti__tel-input.custom.ng-untouched.ng-pristine.ng-valid{
+    background: none !important;
+    border: none !important;
+ }

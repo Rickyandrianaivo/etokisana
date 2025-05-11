@@ -336,3 +336,14 @@ ul{
 mat-form-field{
   width: 100%;
 }
+.iti--allow-dropdown input.iti__tel-input, .iti--allow-dropdown input.iti__tel-input[type=text], .iti--allow-dropdown input.iti__tel-input[type=tel], .iti--show-selected-dial-code input.iti__tel-input, .iti--show-selected-dial-code input.iti__tel-input[type=text], .iti--show-selected-dial-code input.iti__tel-input[type=tel].mat-mdc-text-field-wrapper{
+  background: none;
+  border: none;
+  max-width: 12rem;
+}
+.iti--allow-dropdown .iti__flag-container, .iti--show-selected-dial-code .iti__flag-container{
+  left:-17px !important;
+}
+.iti.separate-dial-code[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406], .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406], .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406], .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406]{
+  padding-left: 74px !important;
+}
