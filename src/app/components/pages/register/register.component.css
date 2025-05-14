@@ -22,6 +22,8 @@ h3{
     flex-direction: column;
     align-content: center;
     align-items: center;
+    justify-content: center;
+    margin: auto;
 }
 .rightSide{
     width: 40%;
@@ -29,7 +31,7 @@ h3{
 .row{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: nowrap;
 }
 /* .seller{
@@ -43,7 +45,7 @@ h3{
 .register-form-style{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-content: space-evenly;
     margin: auto 10%;
 }

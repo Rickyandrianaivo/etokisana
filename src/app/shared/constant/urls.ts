@@ -63,6 +63,23 @@ export const USER_REQUESTRESETPASSWORD_URL  = USER_URL + 'requestResetPwd';
 export const USER_EMAIL_CONFIRMATION_URL    = USER_URL + 'user-confirmation/';
 export const USER_TOKEN_VERIFICATION_URL    = USER_URL + 'token/';
 
+export const CORPORATE_URL                       = BASE_URL + '/api/corporate/';
+export const CORPORATE_BY_ID_URL                 = CORPORATE_URL + 'id/';
+export const CORPORATE_BY_USER_ID_URL            = CORPORATE_URL + 'userId/';
+export const CORPORATE_NEW_URL                   = CORPORATE_URL + 'new';
+export const CORPORATE_DELETE_URL                = CORPORATE_URL + 'delete/';
+export const CORPORATE_BY_EMAIL_URL              = CORPORATE_URL + 'email/';
+export const CORPORATE_UPDATE_URL                = CORPORATE_URL + 'update/';
+export const CORPORATE_VALIDATE_URL              = CORPORATE_URL + 'validate/';
+export const CORPORATE_LOGIN_URL                 = CORPORATE_URL + 'login';
+export const CORPORATE_REGISTER_URL              = CORPORATE_URL + 'register';
+export const CORPORATE_UPLOAD_LOGO_URL            = CORPORATE_URL + 'uploads';
+export const CORPORATE_GET_LOGO_URL              = CORPORATE_URL + 'logo';
+export const CORPORATE_RESETPASSWORD_URL         = CORPORATE_URL + 'passwordReset';
+export const CORPORATE_REQUESTRESETPASSWORD_URL  = CORPORATE_URL + 'requestResetPwd';
+export const CORPORATE_EMAIL_CONFIRMATION_URL    = CORPORATE_URL + 'corporate-confirmation/';
+export const CORPORATE_TOKEN_VERIFICATION_URL    = CORPORATE_URL + 'corporateToken/';
+
 export const BON_ENTREE_URL                 = BASE_URL + '/api/bon-entrees/';
 export const BON_ENTREE_ADD_URL             = BON_ENTREE_URL + 'create';
 

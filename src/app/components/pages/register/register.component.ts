@@ -33,6 +33,7 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/fr';
 import { AvatarModule } from 'ngx-avatars';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
+import { CorporateService } from 'src/app/services/corporate.service';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -72,7 +73,7 @@ const MY_DATE_FORMAT = {
     ReactiveFormsModule,
     MatButtonToggleModule,
     NgxIntlTelInputModule,
-    DefaultButtonComponent,
+    // DefaultButtonComponent,
     PasswordInputComponent,
     InputContainerComponent,
   ],
@@ -119,7 +120,7 @@ export class RegisterComponent implements OnInit{
 
   //Corporate User
   corporateCarteStat : string = "";
-  corporateLogo : any = "defaulT.jpg";
+  corporateLogo : any = "default.jpg";
   corporateCarteFiscale : string = "";
   contactPhone = new FormControl();
 
@@ -141,9 +142,10 @@ export class RegisterComponent implements OnInit{
 
   constructor(
     private formBuilder     : FormBuilder,
+    private corporateService : CorporateService,
     private userService     : UserService,
     private router          : Router,
-    private _snackBar        : MatSnackBar,
+    private _snackBar       : MatSnackBar,
     private siteService     : SiteService,
   ){
     
@@ -293,12 +295,12 @@ export class RegisterComponent implements OnInit{
     };
     this.siteService.addSite(mainSite).subscribe(_=>{})
   }
-  submitUserCorporate(){
+  submitCorporateUser(){
     this.isSubmitted =true;
-    if (!this.registerCorporateForm.valid){ 
-        console.log(this.registerCorporateForm.getError);
-        return;
-    }
+    // if (!this.registerCorporateForm.valid){ 
+    //     console.log(this.registerCorporateForm.getError);
+    //     return;
+    // }
     const generatedID = Math.random().toString(36).slice(2,10)
     // console.log(this.dateOfBirth.value._d);
     const fv = this.registerCorporateForm.value;
@@ -308,7 +310,7 @@ export class RegisterComponent implements OnInit{
     type                    : fv.type,  
     rcs                     : fv.rcs,  
     carteStat               : this.corporateCarteStat,     
-    nif                     : fv.userPhone.internationalNumber,      
+    nif                     : fv.nif,      
     carteFiscal             : this.corporateCarteFiscale,  
     logo                    : this.corporateLogo,  
     managerName             : fv.managerName,  
@@ -324,6 +326,38 @@ export class RegisterComponent implements OnInit{
     userTotalSolde          : 0,
     userAccess              :"Utilisateur",
     };
+    console.log(this.user)
+    // this.corporateService.getCorporateByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
+    //   if (useralreadyexist) {
+    //     console.log(useralreadyexist)
+    //     this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
+    //     this.simpleSb.onAction().subscribe(() =>{
+    //       this.router.navigateByUrl("login");
+    //     })
+    //     return;
+    //   }else{
+    //     this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+    //     this.simpleSb.onAction().subscribe(() =>{
+    //       this.router.navigateByUrl("login");
+    //     })
+        
+    //   }
+    // })
+    // this.corporateService.registerCorporate(this.user).subscribe(_ =>{
+    //   this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+    //     this.simpleSb.onAction().subscribe(() =>{
+    //       this.router.navigateByUrl("login");
+    //     })
+    // })
+    // console.log(fv.userPhone.internationalNumber)
+    // const mainSite :Site = {
+    //   siteAddress     : fv.userAddress,
+    //   siteName        : "Domicile",
+    //   siteLat         : this.latitude,
+    //   siteLng         : this.longitude,
+    //   siteUserID      : generatedID,
+    // };
+    // this.siteService.addSite(mainSite).subscribe(_=>{})
   }
 
   /*------------------------------------------

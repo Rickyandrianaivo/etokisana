@@ -347,3 +347,7 @@ mat-form-field{
 .iti.separate-dial-code[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406], .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-2[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406], .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406], .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4[_ngcontent-ng-c2444536406] input[_ngcontent-ng-c2444536406]{
   padding-left: 74px !important;
 }
+button{
+  font-size: 3rem;
+  padding : 10px;
+}
