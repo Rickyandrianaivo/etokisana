@@ -3,10 +3,11 @@
     <div class="main-content">
         <div class="profile-entete">
             <div class="image-profile-container">
-                <img [src]="profileImage" alt="">
+                <ngx-avatars [src]="profileImage" size="100"></ngx-avatars>
+                <!-- <img [src]="profileImage" alt=""> -->
             </div>
             <div class="client-name">
-                <h3>ID : {{user.userID}} </h3>
+                <h3>ID : {{user.userId}} </h3>
                 <h1>Bonjour {{user.userFirstname}} {{user.userName}} </h1>
                 <h3>Solde : {{user.userTotalSolde}} </h3>
             </div>  
@@ -14,12 +15,13 @@
         <div class="body-content">
             <app-profile-item label="Email" value="{{user.userEmail}}"></app-profile-item>
             <app-profile-item label="Téléphone" value="{{user.userPhone}}"></app-profile-item>
-            <!-- <app-profile-item label="Adresse" value="{{user.use}}"></app-profile-item>
-            <app-profile-item label="Manager" value="{{user.userManager}}"></app-profile-item>
-            <app-profile-item label="Statut" value="{{user.userStatut}}"></app-profile-item>
-            <app-profile-item label="NIF" value="{{user.userNif}}"></app-profile-item>
-            <app-profile-item label="RC" value="{{user.userRC}}"></app-profile-item>
-            <app-profile-item label="Description" value="{{user.userDescritpion}}"></app-profile-item> -->
+            <app-profile-item label="Adresse" value="{{user.userAddress}}"></app-profile-item>
+            <app-profile-item label="Manager" value="{{user.managerName}}"></app-profile-item>
+            <app-profile-item label="Email du manager" value="{{user.managerEmail}}"></app-profile-item>
+            <app-profile-item label="Statut" value="{{user.type}}"></app-profile-item>
+            <app-profile-item label="NIF" value="{{user.nif}}"></app-profile-item>
+            <app-profile-item label="RC" value="{{user.rcs}}"></app-profile-item>
+            <app-profile-item label="Carte Fiscale" value="{{user.carteFiscal}}"></app-profile-item>
         </div>
     </div>
 </div>

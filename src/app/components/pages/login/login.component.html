@@ -4,12 +4,12 @@
         <h3>Authentification</h3>
         <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <text-input
-            [control]="fc['email']"
+            [control]="fc.email"
             [showErrorsWhen]="isSubmitted"
             label="Email">
             </text-input>
             <app-password-input
-            [control]="fc['password']"
+            [control]="fc.password"
             [showErrorsWhen]="isSubmitted"
             label="Mot de passe">
             </app-password-input>

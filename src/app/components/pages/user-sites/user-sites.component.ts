@@ -63,8 +63,8 @@ export class UserSitesComponent implements OnInit{
     this.currentUser = this.userService.getUserFromLocalStorage();
     this.userService.getUserById(this.currentUser._id).subscribe(fulluser=>{
 
-      console.log(fulluser.userID);
-      this.siteService.getSiteByUserId(fulluser.userID).subscribe(mesSite =>{
+      console.log(fulluser.userId);
+      this.siteService.getSiteByUserId(fulluser.userId).subscribe(mesSite =>{
         console.log(mesSite)
         if (mesSite) {
           this.sites=mesSite;        

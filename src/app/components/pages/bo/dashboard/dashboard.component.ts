@@ -25,10 +25,15 @@ import { AvatarModule } from 'ngx-avatars';
 export class DashboardComponent {
   usersNewList : any[] = [] ;
   usersTableColumns: string[] = ['Photo','ID','Nom', 'Prenom', 'Type', 'Date','Email','Document','Action'];
+  logedUser : any;
   constructor(
     private userService : UserService,
     private router :Router,
   ){
+    this.logedUser = this.userService.getUserFromLocalStorage();
+    if (this.logedUser.userAccess != "Admin") {
+      this.router.navigateByUrl('home')
+    }
     this.userService.getNewUsers().subscribe(users =>{
       this.usersNewList = users;
       console.log(this.usersNewList)

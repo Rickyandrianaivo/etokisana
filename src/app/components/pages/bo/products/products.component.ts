@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { MatTableModule } from '@angular/material/table';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-products',
@@ -22,9 +23,16 @@ import { MatTableModule } from '@angular/material/table';
 export class ProductsComponent {
   productsList:any[]=[]
   displayedColumns: string[] = ['Photo','Nom', 'Description', 'Unité', 'Prix Unitaire','Validé','Action'];
+  logedUser : any;
   constructor(
     private productService: ProductService,
+    private userService : UserService,
+    private router : Router,
   ){
+    this.logedUser = this.userService.getUserFromLocalStorage();
+    if (this.logedUser.userAccess != "Admin") {
+      this.router.navigateByUrl('home')
+    }
     this.productService.getAll().subscribe(productAll=>{
       this.productsList = productAll;
     })

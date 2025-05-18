@@ -42,6 +42,7 @@ export class UserService {
     return this.http.get<User>(USER_BY_ID_URL+ userId);
   }
   getUserByEmail(userEmail :string) : Observable<User>{
+    console.log(USER_BY_EMAIL_URL + userEmail)
     return this.http.get<User>(USER_BY_EMAIL_URL + userEmail);
   }
 
@@ -98,8 +99,8 @@ export class UserService {
   getNewUsers() : Observable<User[]>{
     return this.http.get<User[]>(USER_NEW_URL)
   }
-  validateUser(userId:string, userValidationData : any){
-    return this.http.patch<User>(USER_VALIDATE_URL + userId,userValidationData)
+  validateUser(userId:string){
+    return this.http.get<User>(USER_VALIDATE_URL + userId)
   }
   activateUser(updateData : IUserRegister, userId : string){
     return this.http.put<User>(USER_UPDATE_URL + userId, updateData)

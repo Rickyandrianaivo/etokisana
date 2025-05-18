@@ -11,7 +11,7 @@ export class User{
     userEmailVerified   : boolean = false;
     userAccess          : string = "Utilisateur";
     userParainId        : string ="";
-    userID              !: string;
+    userId              !: string;
     userImage           !: string;
     userAddress         !: string;
     userMainLatitude    !: string;
@@ -20,4 +20,13 @@ export class User{
     identityCardNumber  : string ="";
     identityDocument    : string ="";
     documentType        !: string;
+    raisonSocial            : string = "";
+    type                    : string = "";
+    rcs                     : string = "";
+    carteStat               : string = "";
+    nif                     : string = "";
+    carteFiscal             : string = "";
+    logo                    : string = "";
+    managerName             : string = "";
+    managerEmail            : string = "";
 }

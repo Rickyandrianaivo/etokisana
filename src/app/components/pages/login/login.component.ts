@@ -67,20 +67,22 @@ export class LoginComponent {
     if (this.loginForm.invalid) return;
     
     const fv = this.loginForm.value;
-    const user : IUserLogin = {
-      userEmail      : fv.email,
-      userPassword  : fv.password
-    };
-    this.userService.login(user).subscribe(_=>{
-      this.userService.getUserByEmail(user.userEmail).subscribe(userComplete=>{
-        if(userComplete.userType == "admin"){
-          this.router.navigateByUrl("/dashboard");
-        }else{
-          this.router.navigateByUrl(this.url);
-        }
-      })
+    this.userService.getUserByEmail(fv.email).subscribe(isUser=>{
+      console.log(isUser);
       
+      if(isUser){
+        const user:IUserLogin = {
+          userEmail      : fv.email,
+          userPassword  : fv.password
+        };
+        this.userService.login(user).subscribe(_=>{
+          if(isUser.userType == "admin"){
+            this.router.navigateByUrl("/dashboard");
+          }else{
+            this.router.navigateByUrl(this.url);
+          }
+        })
+      }
     })
-  }
-  
+  }  
 }

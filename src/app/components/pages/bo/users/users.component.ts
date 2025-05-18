@@ -4,7 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DefaultButtonComponent } from 'src/app/components/partials/default-button/default-button.component';
 import { AvatarModule } from 'ngx-avatars';
@@ -27,10 +27,17 @@ import { AvatarModule } from 'ngx-avatars';
 export class UsersComponent implements OnInit{
   userslist:any[]=[];
   displayedColumns: string[] = ['Photo','ID','Nom', 'Prénoms', 'Type', 'Solde','Approuvé','Email','EmailVerified','Action'];
+  logedUser : any;
 
   constructor(
     private userService:UserService,
+    private router : Router
   ){
+    this.logedUser = this.userService.getUserFromLocalStorage();
+    if (this.logedUser.userAccess != "Admin") {
+      this.router.navigateByUrl('home')
+    }
+
     this.userService.getAll().subscribe(users=>{
       this.userslist = users;
     })

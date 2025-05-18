@@ -110,9 +110,8 @@
                                 <mat-option value="passeport">Passeport</mat-option>
                                 <mat-option value="permis">Permis de conduire</mat-option>
                             </mat-select>
-                        </mat-form-field>
-                        
-                    </div>
+                        </mat-form-field>                        
+                        </div>
                         <text-input
                             [control]="fc.identityCardNumber"
                             [showErrorsWhen]="isSubmitted"
@@ -140,7 +139,7 @@
             </div>
                 
             </form>
-            <form *ngIf="showSellerForm()" class="register-form-style" [formGroup]="registerCorporateForm"  (ngSubmit)="submitCorporateUser()">
+            <form *ngIf="showSellerForm()" class="register-form-style" [formGroup]="registerCorporateForm"  (ngSubmit)="submitUser()">
                 <div class="client-register">
                     <div class="file-upload">
                         <ngx-avatars  size="100" [src]="corporateLogo"></ngx-avatars>
@@ -154,11 +153,17 @@
                             [showErrorsWhen]="isSubmitted"
                             label="Raison Sociale">
                         </text-input>
-                        <text-input
-                            [control]="cfc.type"
-                            [showErrorsWhen]="isSubmitted"
-                            label="Type d'entreprise">
-                        </text-input>
+                        <div class="options">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Forme juridique</mat-label>
+                            <mat-select matNativeControl [(value)]="type" >
+                                <mat-option value="sarl" selected>SARL</mat-option>
+                                <mat-option value="sarlu">SARLU</mat-option>
+                                <mat-option value="individuel">INDIVIDUEL</mat-option>
+                                <mat-option value="sa">SA</mat-option>
+                            </mat-select>
+                        </mat-form-field>                        
+                        </div>
                     </div>
                     <div class="row">
                         <text-input
@@ -223,12 +228,12 @@
                     </div>
                     <div class="row">
                         <app-password-input
-                            [control]="fc.userPassword"
+                            [control]="cfc.userPassword"
                             [showErrorsWhen]="isSubmitted"
                             label="Mot de passe">
                         </app-password-input>
                         <app-password-input
-                            [control]="fc.confirmPassword"
+                            [control]="cfc.confirmPassword"
                             [showErrorsWhen]="isSubmitted"
                             label="Confirmation mot de passe">
                         </app-password-input>
@@ -236,7 +241,7 @@
                     <div class="row">
                         <div class="buttonContainer">
                             <div>
-                                <button type="submit" (click)="submitCorporateUser()">S'INSCRIRE</button>
+                                <button type="submit" (click)="submitUser()">S'INSCRIRE</button>
                                 <!-- <app-default-button text="S'inscrire" type="submit" (onClick)="submitCorporateUser()"></app-default-button> -->
                             </div>
                             <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>

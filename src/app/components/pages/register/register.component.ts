@@ -33,7 +33,6 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/fr';
 import { AvatarModule } from 'ngx-avatars';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
-import { CorporateService } from 'src/app/services/corporate.service';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -99,6 +98,7 @@ export class RegisterComponent implements OnInit{
     lat: -19.0000000,
     lng: 47.0000000
   };
+  type : string = "";
   position:any;
   latitude:number = 0;
   longitude:number = 0;
@@ -142,7 +142,6 @@ export class RegisterComponent implements OnInit{
 
   constructor(
     private formBuilder     : FormBuilder,
-    private corporateService : CorporateService,
     private userService     : UserService,
     private router          : Router,
     private _snackBar       : MatSnackBar,
@@ -233,35 +232,84 @@ export class RegisterComponent implements OnInit{
   
   submitUser(){
     this.isSubmitted =true;
-    if (!this.registerForm.valid){ 
-        console.log(this.registerForm.getError);
-        return;
-    }
     const generatedID = Math.random().toString(36).slice(2,10)
-    console.log(this.dateOfBirth.value._d);
-    const fv = this.registerForm.value;
-    this.user = {
-    userName            : fv.userName ,         
-    userFirstname       : fv.userFirstname ,  
-    userPassword        : fv.userPassword ,  
-    userEmail           : fv.userEmail ,     
-    userPhone           : fv.userPhone.internationalNumber ,      
-    userType            : fv.userType,  
-    userTotalSolde      : 0 ,  
-    userValidated       : false ,  
-    userAccess          : "Utilisateur" ,
-    userEmailVerified   :false,
-    userParainId        :"",
-    userMainLat         : this.latitude,
-    userMainLng         : this.longitude,
-    userDateOfBirth     : this.dateOfBirth.value._d,  
-    userAddress         : fv.userAddress ,
-    userID              : generatedID,
-    userImage           : this.image ,  
-    identityCardNumber  : fv.identityCardNumber ,
-    identityDocument    : this.identityDocument,
-    documentType        : fv.docuementType,
-    };
+    // console.log(this.dateOfBirth.value._d);
+    if(this.showSellerForm()){
+      if (!this.registerCorporateForm.valid){ 
+          console.log(this.registerForm.getError);
+          return;
+      }
+      
+      const fv = this.registerCorporateForm.value;
+      this.user = {
+        userName            : fv.contactName ,         
+        userFirstname       : "" ,  
+        userPassword        : fv.userPassword ,  
+        userEmail           : fv.contactEmail,     
+        userPhone           : fv.contactPhone.internationalNumber ,      
+        userType            : "Entreprise",  
+        userTotalSolde      : 0 ,  
+        userValidated       : false ,  
+        userAccess          : "Utilisateur" ,
+        userEmailVerified   : false,
+        userParainId        : "",
+        userDateOfBirth     : "",  
+        userMainLat         : this.latitude,
+        userMainLng         : this.longitude,
+        userAddress         : fv.siegeAddress ,
+        userId              : generatedID,
+        userImage           : this.corporateLogo,  
+        identityCardNumber  : "",
+        identityDocument    : "",
+        documentType        : "",
+        raisonSocial        : fv.raisonSocial,
+        type                : fv.type,
+        rcs                 : fv.rcs,
+        carteStat           : "",
+        nif                 : fv.nif,
+        carteFiscal         : "",
+        logo                : this.corporateLogo,
+        managerName         : fv.managerName,
+        managerEmail        : fv.managerEmail,
+      }
+    }else{
+      if (!this.registerForm.valid){ 
+          console.log(this.registerForm.getError);
+          return;
+      }
+      const fv = this.registerForm.value;
+      this.user = {
+        userName            : fv.userName ,         
+        userFirstname       : fv.userFirstname ,  
+        userPassword        : fv.userPassword ,  
+        userEmail           : fv.userEmail ,     
+        userPhone           : fv.userPhone.internationalNumber ,      
+        userType            : "Particulier",  
+        userTotalSolde      : 0 ,  
+        userValidated       : false ,  
+        userAccess          : "Utilisateur" ,
+        userEmailVerified   : false,
+        userParainId        : "",
+        userMainLat         : this.latitude,
+        userMainLng         : this.longitude,
+        userDateOfBirth     : this.dateOfBirth.value._d,  
+        userAddress         : fv.userAddress ,
+        userID              : generatedID,
+        userImage           : this.image ,  
+        identityCardNumber  : fv.identityCardNumber ,
+        identityDocument    : this.identityDocument,
+        documentType        : fv.docuementType,
+        raisonSocial        : fv.raisonSocial,
+        type                : fv.type,
+        rcs                 : fv.rcs,
+        carteStat           : "",
+        nif                 : fv.nif,
+        carteFiscal         : "",
+        logo                : this.corporateLogo,
+        managerName         : fv.managerName,
+        managerEmail        : fv.managerEmail,
+      }
+    }
 
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {
@@ -285,81 +333,16 @@ export class RegisterComponent implements OnInit{
           this.router.navigateByUrl("login");
         })
     })
-    console.log(fv.userPhone.internationalNumber)
+    console.log(this.user.userPhone.internationalNumber)
     const mainSite :Site = {
-      siteAddress     : fv.userAddress,
+      siteAddress     : this.user.userAddress,
       siteName        : "Domicile",
       siteLat         : this.latitude,
       siteLng         : this.longitude,
       siteUserID      : generatedID,
     };
     this.siteService.addSite(mainSite).subscribe(_=>{})
-  }
-  submitCorporateUser(){
-    this.isSubmitted =true;
-    // if (!this.registerCorporateForm.valid){ 
-    //     console.log(this.registerCorporateForm.getError);
-    //     return;
-    // }
-    const generatedID = Math.random().toString(36).slice(2,10)
-    // console.log(this.dateOfBirth.value._d);
-    const fv = this.registerCorporateForm.value;
-    this.user = {
-    userId                  : generatedID,
-    raisonSocial            : fv.raisonSocial,         
-    type                    : fv.type,  
-    rcs                     : fv.rcs,  
-    carteStat               : this.corporateCarteStat,     
-    nif                     : fv.nif,      
-    carteFiscal             : this.corporateCarteFiscale,  
-    logo                    : this.corporateLogo,  
-    managerName             : fv.managerName,  
-    managerEmail            : fv.managerEmail,
-    contactName             : fv.contactName,
-    contactPhone            : fv.contactPhone.internationalNumber,
-    contactEmail            : fv.contactEmail,
-    siegeAddress            : fv.siegeAddress,
-    siegeLat                : this.latitude,  
-    siegeLng                : this.longitude,
-    contactEmailVerified    : false,
-    corporateUserValidated  : false ,
-    userTotalSolde          : 0,
-    userAccess              :"Utilisateur",
-    };
-    console.log(this.user)
-    // this.corporateService.getCorporateByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
-    //   if (useralreadyexist) {
-    //     console.log(useralreadyexist)
-    //     this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
-    //     this.simpleSb.onAction().subscribe(() =>{
-    //       this.router.navigateByUrl("login");
-    //     })
-    //     return;
-    //   }else{
-    //     this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
-    //     this.simpleSb.onAction().subscribe(() =>{
-    //       this.router.navigateByUrl("login");
-    //     })
-        
-    //   }
-    // })
-    // this.corporateService.registerCorporate(this.user).subscribe(_ =>{
-    //   this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
-    //     this.simpleSb.onAction().subscribe(() =>{
-    //       this.router.navigateByUrl("login");
-    //     })
-    // })
-    // console.log(fv.userPhone.internationalNumber)
-    // const mainSite :Site = {
-    //   siteAddress     : fv.userAddress,
-    //   siteName        : "Domicile",
-    //   siteLat         : this.latitude,
-    //   siteLng         : this.longitude,
-    //   siteUserID      : generatedID,
-    // };
-    // this.siteService.addSite(mainSite).subscribe(_=>{})
-  }
-
+  }  
   /*------------------------------------------
    --------------------------------------------
    moveMap()
@@ -378,7 +361,6 @@ export class RegisterComponent implements OnInit{
 
   }
   onFileImageSelected(event:any) {
-    console.log(event)
     const reader = new FileReader();
     if (event) {
       this.fileName = event.target.files[0].name;
@@ -407,13 +389,12 @@ export class RegisterComponent implements OnInit{
     // }
   }
   onFileLogoSelected(event:any) {
-    console.log(event)
     const reader = new FileReader();
     if (event) {
       this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        console.log(reader.result);
+        // console.log(reader.result);
         this.corporateLogo = reader.result;
       }
     }
@@ -435,6 +416,7 @@ export class RegisterComponent implements OnInit{
     reader.onerror = error =>{
       console.log("Error: ",error);
     }
+    
     // let htmlInputElement = <HTMLInputElement>event.target!;
     // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
     
