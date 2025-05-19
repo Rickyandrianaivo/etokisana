@@ -26,13 +26,16 @@ import { UserService } from 'src/app/services/user.service';
 export class BoLoginComponent implements OnInit{
   loginForm!: FormGroup;
   isSubmitted : boolean = false;
-
+  logedUser : any ;
   constructor(
     private userService     : UserService,
     private formBuilder     : FormBuilder,
     private router          : Router,
   ){
-
+    this.logedUser = this.userService.getUserFromLocalStorage();
+    if (this.logedUser.userAccess != "Admin") {
+      this.router.navigateByUrl('home')
+    }
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({

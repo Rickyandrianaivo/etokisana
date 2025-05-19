@@ -117,6 +117,7 @@ export class RegisterComponent implements OnInit{
   user : any;
   image : any = "default.jpg";
   identityDocument : any ;
+  carteFiscale : any ;
 
   //Corporate User
   corporateCarteStat : string = "";
@@ -304,7 +305,7 @@ export class RegisterComponent implements OnInit{
         rcs                 : fv.rcs,
         carteStat           : "",
         nif                 : fv.nif,
-        carteFiscal         : "",
+        carteFiscal         : this.carteFiscale,
         logo                : this.corporateLogo,
         managerName         : fv.managerName,
         managerEmail        : fv.managerEmail,
@@ -357,8 +358,19 @@ export class RegisterComponent implements OnInit{
       }
     }
 
-  uploadClick(){
-
+  onCarteFiscalSelected(event:any) {
+    const reader = new FileReader();
+    if (event) {
+      this.fileName = event.target.files[0].name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () =>{
+        console.log(reader.result);
+        this.carteFiscale = reader.result;
+      }
+    }
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    }
   }
   onFileImageSelected(event:any) {
     const reader = new FileReader();

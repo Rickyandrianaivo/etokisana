@@ -20,7 +20,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
     MatFormFieldModule,
     MatInputModule,
     TextInputComponent,
-    // TextareaComponent,
+    TextareaComponent,
     DefaultButtonComponent,
     FormsModule,
     ReactiveFormsModule,

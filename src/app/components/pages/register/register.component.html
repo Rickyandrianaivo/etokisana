@@ -251,6 +251,12 @@
             </form>
         </div>
         <div class="rightSide">
+            <div *ngIf="showSellerForm()" class="row">
+                Photo de votre carte fiscale
+                <button class="upload-btn" (click)="carteFiscalUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
+                <input type="file" class="file-input" (change)="onCarteFiscalSelected($event)" #carteFiscalUpload>
+                <img [src]="this.carteFiscale" height="100"/>
+            </div>
             <div class="row">
             <input-container>
                 <mat-form-field appearance="outline">
