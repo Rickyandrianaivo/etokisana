@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../shared/models/Product';
 import { PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { sample_products } from '../../../data';
 import { Deposit } from '../shared/models/Deposit';
 import { DepositItem } from '../shared/models/DepositItem';
 import { StockElement } from '../shared/models/StockElement';
 
-const DEPOSIT_KEY="Depot"
+const DEPOSIT_KEY="Depot";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private readonly apiKey : string ='9b5d1c08780729c719910a4f123fcf16';
   private depot:Deposit = this.getDepotFromLocalStorage();
   private depositSubject:BehaviorSubject<Deposit> = new BehaviorSubject(this.depot)
 
@@ -36,6 +37,13 @@ export class ProductService {
     return this.http.get<Product[]>(PRODUCT_URL);
   }
 
+  uploadProductImages(file : File):Observable<string>{
+    const formData = new FormData();
+
+    formData.append('image',file);
+
+    return this.http.post('/upload',formData,{params : { key: this.apiKey}}).pipe(map((response:any) => response['data']['url']));
+  }
 
   getProductById(id:string) : Observable<Product>{
     return this.http.get<Product>(PRODUCT_URL+id);

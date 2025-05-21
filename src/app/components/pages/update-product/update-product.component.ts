@@ -39,7 +39,8 @@ readonly productCategory = new FormControl();
   product : Product = new Product();
   currentUserEmail: string ="";
   productID!:string;
-  selectedProduct!:Product
+  selectedProduct!:Product;
+  productImage : string[] = [];
   constructor(
     private productService:ProductService,
     private formBuilder:FormBuilder,
@@ -79,19 +80,35 @@ readonly productCategory = new FormControl();
     
   }
 
-  onFileSelected(event:Event) {
-    let htmlInputElement = <HTMLInputElement>event.target!;
-    const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
+  onFileSelected(event:any) {
+    // let htmlInputElement = <HTMLInputElement>event.target!;
+    // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
     
-    if (file) {
+    // if (file) {
 
-        this.fileName =file.name;
+    //     this.fileName =file.name;
 
-        const formData = new FormData();
+    //     const formData = new FormData();
 
-        formData.append("file", file);
+    //     formData.append("file", file);
 
-        this.productService.uploadFile(formData).subscribe();
+    //     this.productService.uploadFile(formData).subscribe();
+    // }
+
+     const filesAmount = event.target.files.length;
+
+    for (let i = 0; i < filesAmount; i++) {
+
+      const reader = new FileReader();
+
+      reader.onload = (event:any) => {
+        console.log(event.target.result);
+          this.productImage.push(event.target.result); 
+        //  this.myForm.patchValue({
+        //     fileSource: this.images
+        //  });
+      }
+      reader.readAsDataURL(event.target.files[i]);
     }
   }
   get fc(){
@@ -114,7 +131,7 @@ readonly productCategory = new FormControl();
       productUnite      :fv.productUnite,
       productStock      :fv.productStock,
       productState      :"en attente",
-      productImage      :this.fileName,
+      productImage      :this.productImage,
       codeCPC           :fv.codeCPC,
       productHauteur    :fv.productHauteur,
       productLargeur    :fv.productLargeur,

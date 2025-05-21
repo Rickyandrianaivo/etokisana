@@ -37,6 +37,8 @@ export class AddProductComponent implements OnInit {
   addProductForm!: FormGroup;
   isSubmitted = false;
   product : Product = new Product();
+  firstImage : string = "";
+  productImage: string[] = [];
   currentUser :any;
 
   constructor(
@@ -67,20 +69,48 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  onFileSelected(event:Event) {
-    let htmlInputElement = <HTMLInputElement>event.target!;
-    const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
+  // onFileSelected(event:Event) {
+  //   let htmlInputElement = <HTMLInputElement>event.target!;
+  //   const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
     
-    if (file) {
+  //   if (file) {
 
-        this.fileName =file.name;
+  //       this.fileName =file.name;
 
-        const formData = new FormData();
+  //       const formData = new FormData();
 
-        formData.append("file", file);
-        // console.log(formData)
-        this.productService.uploadFile(formData).subscribe();
+  //       formData.append("file", file);
+  //       this.productService.uploadFile(formData).subscribe();
+        
+  //   }
+  // }
+  onFileSelected(event:any){
+  //   const reader = new FileReader();
+  //   if (event) {
+  //     this.fileName = event.target?.files[0].name
+  //     reader.readAsDataURL(event.target?.files[0]);
+  //     reader.onload = () =>{
+  //       console.log(reader.result);
+  //     }
+  // } if (event.target.files && event.target.files[0]) {
+
+    const filesAmount = event.target.files.length;
+
+    for (let i = 0; i < filesAmount; i++) {
+
+      const reader = new FileReader();
+
+      reader.onload = (event:any) => {
+        console.log(event.target.result);
+          this.productImage.push(event.target.result); 
+        //  this.myForm.patchValue({
+        //     fileSource: this.images
+        //  });
+      }
+      reader.readAsDataURL(event.target.files[i]);
     }
+    this.firstImage = this.productImage[0];
+
   }
   get fc(){
     return this.addProductForm.controls;
@@ -96,18 +126,18 @@ export class AddProductComponent implements OnInit {
     const fv = this.addProductForm.value;
     console.log(fv.userName);
     this.product = {
-      productName       :fv.productName,
-      productDescription:fv.productDescription,
-      productPrice      :fv.productPrice,
-      productCategory   :fv.productCategory,
-      productUnite      :fv.productUnite,
-      productStock      :fv.productStock,
-      productState      :"en attente",
-      productImage      :"default.jpg",
-      codeCPC           :"",
+      productName       : fv.productName,
+      productDescription: fv.productDescription,
+      productPrice      : fv.productPrice,
+      productCategory   : fv.productCategory,
+      productUnite      : fv.productUnite,
+      productStock      : fv.productStock,
+      productState      : "En attente de validation",
+      productImage      : this.productImage,
+      codeCPC           : "",
       productHauteur    : fv.productHauteur,
-      productLargeur    :fv.productLargeur,
-      productLongueur   :fv.productLongueur,
+      productLargeur    : fv.productLargeur,
+      productLongueur   : fv.productLongueur,
       productPoids      : fv.productPoids,
       productVolume     : fv.productVolume
     };

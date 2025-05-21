@@ -6,9 +6,9 @@ export class Product{
     productCategory!:string;
     productUnite!:string;
     productStock!:number;
-    productState : string = "en attente de validation";
+    productState : string = "en attente";
     // productSource!:string;
-    productImage!:string;
+    productImage:string[] =[];
     // productOwner!:string;
     productVolume : number = 0;
     productHauteur : number = 0;

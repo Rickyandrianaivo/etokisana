@@ -4,8 +4,8 @@
         <div class="options">
             <div class="file-upload">
                 <h3>Ajouter un produit</h3>
-                <input type="file"  name="file" class="file-input" (change)="onFileSelected($event)" #productUpload>
-                <img src="default.jpg" height="500px" width="500px"><br>
+                <input type="file"  name="file" multiple="" class="file-input" (change)="onFileSelected($event)" #productUpload>
+                <img [src]="firstImage" height="500px" width="500px"><br>
                 {{ fileName || "Photo de profil"}}
                 <button class="upload-btn" (click)="productUpload.click()"><mat-icon >Choisir un fichier</mat-icon></button>
             </div>
