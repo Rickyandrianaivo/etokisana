@@ -5,8 +5,17 @@
             <div class="file-upload">
                 <h3>Ajouter un produit</h3>
                 <input type="file"  name="file" multiple="" class="file-input" (change)="onFileSelected($event)" #productUpload>
-                <img [src]="firstImage" height="500px" width="500px"><br>
-                {{ fileName || "Photo de profil"}}
+                <!-- <img *ngIf="!firstImage" src="default.jpg" height="500px" width="500px"><br> -->
+                <!-- <img *ngIf="firstImage" [src]="firstImage" height="500px" width="500px"><br> -->
+                 <!-- <img @for displayImage of productImage [src]="displayImage[0]" height="500px" width="500px"><br> -->
+                <img [src]="productImage[0]" height="500px" width="500px"><br>
+                <div class="row">
+                    <img *ngIf="productImage[1]" [src]="productImage[1]" height="50px" width="50px"><br>
+                    <img *ngIf="productImage[2]" [src]="productImage[2]" height="50px" width="50px"><br>
+                    <img *ngIf="productImage[3]" [src]="productImage[3]" height="50px" width="50px"><br>
+                </div>
+
+                {{ fileName || "Photo(s) du produit"}}
                 <button class="upload-btn" (click)="productUpload.click()"><mat-icon >Choisir un fichier</mat-icon></button>
             </div>
         </div>
@@ -34,22 +43,22 @@
             label="Catégorie">
             </text-input> -->
             <div class="row">
-                    <text-input
+            <text-input
             [control]="fc.productPoids"
             [showErrorsWhen]="isSubmitted"
             label="Poids">
-            </text-input> 
+            </text-input>
             <text-input
             [control]="fc.productVolume"
             [showErrorsWhen]="isSubmitted"
-            label="Volume">
+            label="Volume"> L
             </text-input>
                 </div>
                 <div class="row">
                     <text-input
             [control]="fc.productLargeur"
             [showErrorsWhen]="isSubmitted"
-            label="Largeur">
+            label="Largeur"> 
             </text-input>
             <text-input
             [control]="fc.productLongueur"

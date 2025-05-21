@@ -295,7 +295,7 @@ export class RegisterComponent implements OnInit{
         userMainLng         : this.longitude,
         userDateOfBirth     : this.dateOfBirth.value._d,  
         userAddress         : fv.userAddress ,
-        userID              : generatedID,
+        userId              : generatedID,
         userImage           : this.image ,  
         identityCardNumber  : fv.identityCardNumber ,
         identityDocument    : this.identityDocument,

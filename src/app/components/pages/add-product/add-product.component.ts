@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { HeaderComponent } from '../../partials/header/header.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-add-product',
@@ -27,6 +28,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
     MatSelectModule,
     MatIconModule,
     HeaderComponent,
+    NgIf,
 ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
@@ -95,21 +97,32 @@ export class AddProductComponent implements OnInit {
   // } if (event.target.files && event.target.files[0]) {
 
     const filesAmount = event.target.files.length;
-
-    for (let i = 0; i < filesAmount; i++) {
-
+    if (filesAmount>0) {
+      for (let i = 0; i < filesAmount; i++) {
+  
+        const reader = new FileReader();
+  
+        reader.onload = (event:any) => {
+          // console.log(event.target.result);
+            this.productImage.push(event.target.result); 
+          //  this.myForm.patchValue({
+          //     fileSource: this.images
+          //  });
+        }
+        reader.readAsDataURL(event.target.files[i]);
+      }      
+    }else{
       const reader = new FileReader();
-
-      reader.onload = (event:any) => {
-        console.log(event.target.result);
-          this.productImage.push(event.target.result); 
-        //  this.myForm.patchValue({
-        //     fileSource: this.images
-        //  });
-      }
-      reader.readAsDataURL(event.target.files[i]);
+  
+        reader.onload = (event:any) => {
+          // console.log(event.target.result);
+            this.productImage.push(event.target.result);
+            reader.readAsDataURL(event.target.files[0]);        
     }
+    console.log(this.productImage[0])
+    console.log(this.firstImage)
     this.firstImage = this.productImage[0];
+  }
 
   }
   get fc(){
