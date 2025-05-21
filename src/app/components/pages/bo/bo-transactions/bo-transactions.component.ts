@@ -17,10 +17,10 @@ export class BoTransactionsComponent {
     private transactionService : TransactionService,
     private router : Router,
   ){
-    this.logedUser = this.userService.getUserFromLocalStorage();
-    if (this.logedUser.userAccess != "Admin") {
-      this.router.navigateByUrl('home')
-    }
+    // this.logedUser = this.userService.getUserFromLocalStorage();
+    // if (this.logedUser.userAccess != "Admin") {
+    //   this.router.navigateByUrl('home')
+    // }
   }
 
 }

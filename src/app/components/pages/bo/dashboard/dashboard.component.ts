@@ -30,10 +30,10 @@ export class DashboardComponent {
     private userService : UserService,
     private router :Router,
   ){
-    this.logedUser = this.userService.getUserFromLocalStorage();
-    if (this.logedUser.userAccess != "Admin") {
-      this.router.navigateByUrl('home')
-    }
+    // this.logedUser = this.userService.getUserFromLocalStorage();
+    // if (this.logedUser.userAccess != "Admin") {
+    //   this.router.navigateByUrl('home')
+    // }
     this.userService.getNewUsers().subscribe(users =>{
       this.usersNewList = users;
       console.log(this.usersNewList)

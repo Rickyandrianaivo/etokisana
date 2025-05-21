@@ -237,7 +237,7 @@ export class RegisterComponent implements OnInit{
     // console.log(this.dateOfBirth.value._d);
     if(this.showSellerForm()){
       if (!this.registerCorporateForm.valid){ 
-          console.log(this.registerForm.getError);
+          console.log(this.registerCorporateForm.getError);
           return;
       }
       
@@ -273,10 +273,11 @@ export class RegisterComponent implements OnInit{
         managerName         : fv.managerName,
         managerEmail        : fv.managerEmail,
       }
-    }else{
+    }
+    if(!this.showSellerForm()){
       if (!this.registerForm.valid){ 
-          console.log(this.registerForm.getError);
-          return;
+            // console.log(this.registerForm.getError);
+            return;
       }
       const fv = this.registerForm.value;
       this.user = {
@@ -311,6 +312,7 @@ export class RegisterComponent implements OnInit{
         managerEmail        : fv.managerEmail,
       }
     }
+      console.log(this.user)
 
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {
@@ -321,6 +323,7 @@ export class RegisterComponent implements OnInit{
         })
         return;
       }else{
+        this.router.navigateByUrl('login');
         this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");

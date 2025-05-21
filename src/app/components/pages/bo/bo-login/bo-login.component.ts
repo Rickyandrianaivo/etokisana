@@ -32,10 +32,10 @@ export class BoLoginComponent implements OnInit{
     private formBuilder     : FormBuilder,
     private router          : Router,
   ){
-    this.logedUser = this.userService.getUserFromLocalStorage();
-    if (this.logedUser.userAccess != "Admin") {
-      this.router.navigateByUrl('home')
-    }
+    // this.logedUser = this.userService.getUserFromLocalStorage();
+    // if (this.logedUser.userAccess != "Admin") {
+    //   this.router.navigateByUrl('home')
+    // }
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
