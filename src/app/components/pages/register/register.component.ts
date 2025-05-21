@@ -126,7 +126,7 @@ export class RegisterComponent implements OnInit{
   contactPhone = new FormControl();
 
   corporateUser : boolean = false;
-
+  corporateType : string = "";
 
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);

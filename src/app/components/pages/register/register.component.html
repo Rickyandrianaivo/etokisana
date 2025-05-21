@@ -127,15 +127,7 @@
                         </div>
                     </div>    
                 
-                    <div class="row">
-                        <div class="buttonContainer">
-                            <div>
-                                <button type="submit" (click)="submitUser()">S'INSCRIRE</button>
-                                <!-- <app-default-button text="S'inscrire" type="submit" (onClick)="submitUser()"></app-default-button> -->
-                            </div>
-                            <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
-                        </div>
-                    </div>
+                   
             </div>
                 
             </form>
@@ -238,15 +230,15 @@
                             label="Confirmation mot de passe">
                         </app-password-input>
                     </div> 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="buttonContainer">
                             <div>
-                                <button type="submit" (click)="submitUser()">S'INSCRIRE</button>
+                                <button type="submit" (click)="submitUser()">S'INSCRIRE</button> -->
                                 <!-- <app-default-button text="S'inscrire" type="submit" (onClick)="submitCorporateUser()"></app-default-button> -->
-                            </div>
-                            <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
-                        </div>
-                    </div>
+                            <!-- </div>
+                            <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a> -->
+                        <!-- </div>
+                    </div> -->
                 </div>
             </form>
         </div>
@@ -282,6 +274,16 @@
             <map-marker 
             [position]="position"></map-marker>
         </google-map>
+
+        <div class="row">
+                       <div class="buttonContainer">
+                           <div>
+                               <button type="submit" (click)="submitUser()">S'INSCRIRE</button>
+                               <!-- <app-default-button text="S'inscrire" type="submit" (onClick)="submitUser()"></app-default-button> -->
+                           </div>
+                           <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
+                       </div>
+                   </div>
         </div>
     </div>
     
