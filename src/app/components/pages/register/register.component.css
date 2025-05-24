@@ -1,5 +1,9 @@
-h3{
-    margin-bottom: 5%;
+.idDocumentUpload{
+    display: flex;
+    justify-content: space-around;
+}
+.recto,.verso{
+    margin: 10px;
 }
 .inner-container{
     display : flex;

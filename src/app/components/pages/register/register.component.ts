@@ -116,8 +116,8 @@ export class RegisterComponent implements OnInit{
   identityDocumentName = "";
   user : any;
   image : any = "default.jpg";
-  identityDocument : any ;
-  carteFiscale : any ;
+  identityDocument : any[] = ["placeholder_IDCard_Recto.png","placeholder_IDCard_Verso.png"] ;
+  carteFiscale : any[] = ["placeholder_IDCard_Recto.png","placeholder_IDCard_Verso.png"] ;
 
   //Corporate User
   corporateCarteStat : string = "";
@@ -185,7 +185,6 @@ export class RegisterComponent implements OnInit{
 
     const pattern:RegExp = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
     this.registerForm = this.formBuilder.group({
-      userType :['',[Validators.required]],
       userName:['',Validators.required],
       userFirstname:['',Validators.required],
       userEmail:['',[Validators.required,Validators.email]],
@@ -233,6 +232,7 @@ export class RegisterComponent implements OnInit{
   
   submitUser(){
     this.isSubmitted =true;
+    console.log("submit = " + this.isSubmitted)
     const generatedID = Math.random().toString(36).slice(2,10)
     // console.log(this.dateOfBirth.value._d);
     if(this.showSellerForm()){
@@ -260,15 +260,15 @@ export class RegisterComponent implements OnInit{
         userAddress         : fv.siegeAddress ,
         userId              : generatedID,
         userImage           : this.corporateLogo,  
-        identityCardNumber  : "",
-        identityDocument    : "",
+        identityCardNumber  : fv.nif ,
+        identityDocument    : this.identityDocument,
         documentType        : "",
         raisonSocial        : fv.raisonSocial,
         type                : fv.type,
         rcs                 : fv.rcs,
         carteStat           : "",
         nif                 : fv.nif,
-        carteFiscal         : "",
+        carteFiscal         : this.identityDocument,
         logo                : this.corporateLogo,
         managerName         : fv.managerName,
         managerEmail        : fv.managerEmail,
@@ -276,7 +276,7 @@ export class RegisterComponent implements OnInit{
     }
     if(!this.showSellerForm()){
       if (!this.registerForm.valid){ 
-            // console.log(this.registerForm.getError);
+            console.log(this.registerForm.getError);
             return;
       }
       const fv = this.registerForm.value;
@@ -361,14 +361,28 @@ export class RegisterComponent implements OnInit{
       }
     }
 
-  onCarteFiscalSelected(event:any) {
+  onCarteFiscalRectoSelected(event:any) {
     const reader = new FileReader();
     if (event) {
       this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        console.log(reader.result);
-        this.carteFiscale = reader.result;
+        // console.log(reader.result);
+        this.carteFiscale[0] = reader.result;
+      }
+    }
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    }
+  }
+  onCarteFiscalVersoSelected(event:any) {
+    const reader = new FileReader();
+    if (event) {
+      this.fileName = event.target.files[0].name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () =>{
+        // console.log(reader.result);
+        this.carteFiscale[1] = reader.result;
       }
     }
     reader.onerror = error =>{
@@ -381,7 +395,7 @@ export class RegisterComponent implements OnInit{
       this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        console.log(reader.result);
+        // console.log(reader.result);
         this.image = reader.result;
       }
     }
@@ -417,15 +431,30 @@ export class RegisterComponent implements OnInit{
       console.log("Error: ",error);
     }
   }
-  onFileDocumentSelected(event:any) {
+  onFileDocumentRectoSelected(event:any) {
     console.log(event)
     const reader = new FileReader();
     if (event) {
       this.identityDocumentName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        console.log(reader.result);
-        this.identityDocument = reader.result;
+        // console.log(reader.result);
+        this.identityDocument[0] = reader.result;
+      }
+    }
+    reader.onerror = error =>{
+      console.log("Error: ",error);
+    }
+  }
+  onFileDocumentVersoSelected(event:any) {
+    console.log(event)
+    const reader = new FileReader();
+    if (event) {
+      this.identityDocumentName = event.target.files[0].name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () =>{
+        // console.log(reader.result);
+        this.identityDocument[1] = reader.result;
       }
     }
     reader.onerror = error =>{

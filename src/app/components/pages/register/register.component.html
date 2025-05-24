@@ -25,7 +25,8 @@
                         <button class="upload-btn" (click)="pdpUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
                     </div>                
                     <input type="file" class="file-input" (change)="onFileImageSelected($event)" #pdpUpload>
-                    <input type="file" class="file-input" (change)="onFileDocumentSelected($event)" #documentUpload>
+                    <input type="file" class="file-input" (change)="onFileDocumentRectoSelected($event)" #documentRectoUpload>
+                    <input type="file" class="file-input" (change)="onFileDocumentVersoSelected($event)" #documentVersoUpload>
                     <div class="row">
                         <text-input
                             [control]="fc.userName"
@@ -119,11 +120,22 @@
                         </text-input>
                     </div>
                     <div class="file-upload">
+                        <p *ngIf="documentType && !identityDocument"> Photo de votre : </p>
                         <div class="idDocumentUpload" *ngIf="documentType">
-                            <p *ngIf="documentType && !identityDocument"> Photo de votre : </p>
-                            <img height="100px" *ngIf="identityDocument" [src]="identityDocument" alt="">
-                            {{ identityDocumentName || documentType | uppercase}}
-                            <button class="upload-btn" (click)="documentUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
+                            <div class="recto">
+                                {{ identityDocumentName}} Recto
+                                <button class="upload-btn" (click)="documentRectoUpload.click()" type="button">
+                                <img height="100px" *ngIf="identityDocument[0]" [src]="identityDocument[0]" alt="">
+                                    <!-- <mat-icon >attach_file</mat-icon> -->
+                                </button>
+                            </div>
+                            <div class="verso">
+                                {{ identityDocumentName}} Verso
+                                <button class="upload-btn" (click)="documentVersoUpload.click()" type="button">
+                                    <img height="100px" *ngIf="identityDocument[1]" [src]="identityDocument[1]" alt="">
+                                    <!-- <mat-icon >attach_file</mat-icon> -->
+                                </button>
+                            </div>
                         </div>
                     </div>    
                 
@@ -243,11 +255,26 @@
             </form>
         </div>
         <div class="rightSide">
-            <div *ngIf="showSellerForm()" class="row">
-                Photo de votre carte fiscale
-                <button class="upload-btn" (click)="carteFiscalUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
-                <input type="file" class="file-input" (change)="onCarteFiscalSelected($event)" #carteFiscalUpload>
-                <img [src]="this.carteFiscale" height="100"/>
+            <div *ngIf="showSellerForm()">
+            Photo de votre carte fiscale:
+                <div class="idDocumentUpload">
+                    <div class="recto">
+                        Recto :
+                        <button class="upload-btn" (click)="carteFiscalRectoUpload.click()" type="button">
+                            <!-- <mat-icon >attach_file</mat-icon> -->
+                            <input type="file" class="file-input" (change)="onCarteFiscalRectoSelected($event)" #carteFiscalRectoUpload>
+                            <img [src]="this.carteFiscale[0]" height="100"/>
+                        </button>
+                    </div>
+                    <div class="verso">
+                        Verso :
+                        <button class="upload-btn" (click)="carteFiscalVersoUpload.click()" type="button">
+                            <!-- <mat-icon >attach_file</mat-icon> -->
+                            <input type="file" class="file-input" (change)="onCarteFiscalVersoSelected($event)" #carteFiscalVersoUpload>
+                            <img [src]="this.carteFiscale[1]" height="100"/>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="row">
             <input-container>
@@ -276,14 +303,14 @@
         </google-map>
 
         <div class="row">
-                       <div class="buttonContainer">
-                           <div>
-                               <button type="submit" (click)="submitUser()">S'INSCRIRE</button>
-                               <!-- <app-default-button text="S'inscrire" type="submit" (onClick)="submitUser()"></app-default-button> -->
-                           </div>
-                           <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
-                       </div>
-                   </div>
+            <div class="buttonContainer">
+                <div>
+                    <button type="submit" (click)="submitUser()">S'INSCRIRE</button>
+                    <!-- <app-default-button text="S'inscrire" type="submit" (onClick)="submitUser()"></app-default-button> -->
+                </div>
+                <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
+            </div>
+        </div>
         </div>
     </div>
     
