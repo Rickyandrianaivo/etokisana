@@ -34,9 +34,11 @@ export class UsersComponent implements OnInit{
     private router : Router
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    if (this.logedUser.userAccess != "Admin") {
-      this.router.navigateByUrl('home')
-    }
+    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+      if (userCurrent.userAccess != "Admin") {
+        this.router.navigateByUrl('home')
+      }
+    });
 
     this.userService.getAll().subscribe(users=>{
       this.userslist = users;

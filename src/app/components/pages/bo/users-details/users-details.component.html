@@ -17,8 +17,15 @@
             <app-profile-item label="Adresse" value="{{theUser.userAddress}}"></app-profile-item>
             <app-profile-item [label]="theUser.documentType" value="{{theUser.identityCardNumber}}"></app-profile-item>
             <!-- <img height="100px" *ngIf="theUser.identityDocument" [src]="documentFile"> -->
-            <a [href]="this.downloadLink" [download]="downloadableName"> Télécharger le document d'identification </a>
-            <img height="100" [src]="documentFile" >
+             Document d'identification : 
+             <button>
+                 <a [href]="this.downloadLink1" [download]="downloadableName1"> <img height="100" [src]="documentFile[0]" ></a>
+                 
+             </button>
+             <button>
+                 <a [href]="this.downloadLink2" [download]="downloadableName2"> <img height="100" [src]="documentFile[1]" ></a>
+                 
+             </button>
         </div>
         <div *ngIf="isEntreprise" class="body-content">
             <app-profile-item label="Raison sociale" value="{{theUser.raisonSocial}}"></app-profile-item>
@@ -31,8 +38,15 @@
             <app-profile-item label="NIF" value="{{theUser.nif}}"></app-profile-item>
             <app-profile-item label="Statut" value="{{theUser.type}}"></app-profile-item>
             <!-- <app-profile-item label="Carte Fiscale" value="{{theUser.carteFiscal}}"></app-profile-item>            -->
-             <a [href]="this.downloadLink" [download]="downloadableName"> Télécharger le document d'identification </a>
-            <img height="100" [src]="documentFile" >
+             Document d'identification : 
+             <button>
+                 <a [href]="this.downloadLink1" [download]="downloadableName1"> <img height="100" [src]="documentFile[0]" ></a>
+                 
+             </button>
+             <button>
+                 <a [href]="this.downloadLink2" [download]="downloadableName2"> <img height="100" [src]="documentFile[1]" ></a>
+                 
+             </button>
         </div>
         <button *ngIf="!theUser.userValidated" (click)="ValidateRegistration()">Approuver l'inscription</button>
     </div>

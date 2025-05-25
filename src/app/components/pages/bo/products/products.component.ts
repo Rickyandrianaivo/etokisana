@@ -30,9 +30,11 @@ export class ProductsComponent {
     private router : Router,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    if (this.logedUser.userAccess != "Admin") {
-      this.router.navigateByUrl('home')
-    }
+    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+      if (userCurrent.userAccess != "Admin") {
+        this.router.navigateByUrl('home')
+      }
+    });
     this.productService.getAll().subscribe(productAll=>{
       this.productsList = productAll;
     })

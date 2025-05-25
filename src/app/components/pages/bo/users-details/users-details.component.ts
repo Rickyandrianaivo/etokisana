@@ -21,11 +21,13 @@ import { NgIf } from '@angular/common';
 export class UsersDetailsComponent implements OnInit{
   profileImage!:string;
   theUser : any;
-  documentFile:any;
+  documentFile: string [] = [];
   isEntreprise:boolean = false;
   identityFileType:string = "";
-  downloadLink:string = "";
-  downloadableName : string = "";
+  downloadLink1:string = "";
+  downloadLink2:string = "";
+  downloadableName1 : string = "";
+  downloadableName2 : string = "";
   logedUser : any ;
   constructor(
     private userService:UserService,
@@ -33,9 +35,11 @@ export class UsersDetailsComponent implements OnInit{
     private router : Router,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    if (this.logedUser.userAccess != "Admin") {
-      this.router.navigateByUrl('home')
-    }
+    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+      if (userCurrent.userAccess != "Admin") {
+        this.router.navigateByUrl('home')
+      }
+    });
 
     this.activatedRoute.params.subscribe(req=>{
       this.userService.getUserById(req['id']).subscribe(res =>{
@@ -43,26 +47,31 @@ export class UsersDetailsComponent implements OnInit{
         if (this.theUser.userValidated) {
           this.router.navigateByUrl('dashboard')
         }
-        
-        console.log(this.theUser.userType);
         if (this.theUser.userType == "Entreprise") {
           this.profileImage = this.theUser.userImage;
           this.isEntreprise = true;
           this.identityFileType = this.theUser.nif;
           this.documentFile = this.theUser.carteFiscale;
-          this.downloadableName = this.theUser.raisonSociale + "_CarteFiscale";
+          this.downloadableName1 = this.theUser.raisonSociale + "_CarteFiscale_recto";
+          this.downloadableName2 = this.theUser.raisonSociale + "_CarteFiscale_verso";
         }else{
           this.profileImage = this.theUser.userImage;
           this.identityFileType = this.theUser.identityFileType;
           this.documentFile = this.theUser.identityDocument;
-          this.downloadableName = this.theUser.userName + "_" +this.theUser.documentType;
+          this.downloadableName1 = this.theUser.userName + "_" +this.theUser.documentType + "_" + this.documentFile[0];
+          this.downloadableName2 = this.theUser.userName + "_" +this.theUser.documentType + "_" + this.documentFile[1];
           this.isEntreprise = false;
         }
         // create download link
         if (this.theUser.documentFile) {
-          const base64Data = this.documentFile;
+          const base64Data = this.documentFile[0];
+          const base64Data1 = this.documentFile[1];
+          console.log(base64Data);
+          console.log(base64Data1);
           const blob = this.convertBase64ToBlob(base64Data)
-          this.downloadLink = window.URL.createObjectURL(blob);
+          const blob1 = this.convertBase64ToBlob(base64Data1)
+          this.downloadLink1 = window.URL.createObjectURL(blob);
+          this.downloadLink2 = window.URL.createObjectURL(blob1)
           
         }
       })

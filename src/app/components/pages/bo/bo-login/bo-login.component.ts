@@ -65,10 +65,10 @@ export class BoLoginComponent implements OnInit{
         if (usertolog.userAccess == "Admin") {
           this.userService.login(user).subscribe(_=>{
             this.router.navigateByUrl("/dashboard") ;
-            
           })
         }else{
-          alert("This is only for admin !")
+
+          alert("This is only for admin ! your access level is : " + usertolog.userAccess)
         }
       })
     }

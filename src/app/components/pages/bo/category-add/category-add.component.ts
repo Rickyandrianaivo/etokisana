@@ -7,6 +7,7 @@ import { TextareaComponent } from 'src/app/components/partials/textarea/textarea
 import { CategoryService } from 'src/app/services/category.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-category-add',
@@ -27,12 +28,20 @@ export class CategoryAddComponent implements OnInit{
   addCatForm!: FormGroup;
   isSubmitted = false;
   category : any;
+  logedUser : any;
 
   constructor(
+    private userService : UserService,
     private categoryService : CategoryService,
     private formBuilder : FormBuilder,
     private router : Router,
   ){
+    this.logedUser = this.userService.getUserFromLocalStorage();
+    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+      if (userCurrent.userAccess != "Admin") {
+        this.router.navigateByUrl('home')
+      }
+    });
 
   }
   ngOnInit(): void {

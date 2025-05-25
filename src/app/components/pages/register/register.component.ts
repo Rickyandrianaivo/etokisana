@@ -262,9 +262,9 @@ export class RegisterComponent implements OnInit{
         userImage           : this.corporateLogo,  
         identityCardNumber  : fv.nif ,
         identityDocument    : this.identityDocument,
-        documentType        : "",
+        documentType        : fv.documentType,
         raisonSocial        : fv.raisonSocial,
-        type                : fv.type,
+        type                : this.type,
         rcs                 : fv.rcs,
         carteStat           : "",
         nif                 : fv.nif,
@@ -300,7 +300,7 @@ export class RegisterComponent implements OnInit{
         userImage           : this.image ,  
         identityCardNumber  : fv.identityCardNumber ,
         identityDocument    : this.identityDocument,
-        documentType        : fv.docuementType,
+        documentType        : this.documentType,
         raisonSocial        : fv.raisonSocial,
         type                : fv.type,
         rcs                 : fv.rcs,
@@ -317,22 +317,21 @@ export class RegisterComponent implements OnInit{
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {
         console.log(useralreadyexist)
-        this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter")
+        this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter",{duration : 4000})
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
         return;
       }else{
         this.router.navigateByUrl('login');
-        this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+        this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 4000})
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
-        
       }
     })
     this.userService.registerUser(this.user).subscribe(_ =>{
-      this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter")
+      this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 4000})
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
@@ -368,7 +367,7 @@ export class RegisterComponent implements OnInit{
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);
-        this.carteFiscale[0] = reader.result;
+        this.identityDocument[0] = reader.result;
       }
     }
     reader.onerror = error =>{
@@ -382,7 +381,7 @@ export class RegisterComponent implements OnInit{
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);
-        this.carteFiscale[1] = reader.result;
+        this.identityDocument[1] = reader.result;
       }
     }
     reader.onerror = error =>{
