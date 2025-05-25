@@ -28,3 +28,11 @@
 app-profile-item{
     width: 100%;
 }
+.documentFile{
+    display: flex;
+    justify-content: space-around;
+    
+}
+.documentFile button{
+    margin: 10px;
+}

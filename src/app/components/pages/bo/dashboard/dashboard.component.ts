@@ -31,7 +31,7 @@ export class DashboardComponent {
     private router :Router,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+    this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
       if (userCurrent.userAccess != "Admin") {
         this.router.navigateByUrl('home')
       }
@@ -43,12 +43,12 @@ export class DashboardComponent {
     
   }
   CheckUser(userId : string){
-    // this.userService.validateUser(userId,{userValidate : true}).subscribe(_=>{});
     this.router.navigateByUrl('/userDetails/'+userId);
   }
   deleteUser(userId:string){
-    this.userService.delete(userId).subscribe(_=>{
-
+    this.userService.deleteUser(userId).subscribe(_=>{
+      console.log("suppression avec succès ! ")
+      location.reload();
     })
   }
 }

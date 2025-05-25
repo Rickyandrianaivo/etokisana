@@ -37,7 +37,7 @@ export class CategoryAddComponent implements OnInit{
     private router : Router,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+    this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
       if (userCurrent.userAccess != "Admin") {
         this.router.navigateByUrl('home')
       }

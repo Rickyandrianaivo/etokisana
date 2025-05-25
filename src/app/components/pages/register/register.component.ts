@@ -113,7 +113,8 @@ export class RegisterComponent implements OnInit{
   readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
   fileName = "";
-  identityDocumentName = "";
+  identityDocumentName1 = "";
+  identityDocumentName2 = "";
   user : any;
   image : any = "default.jpg";
   identityDocument : any[] = ["placeholder_IDCard_Recto.png","placeholder_IDCard_Verso.png"] ;
@@ -301,15 +302,15 @@ export class RegisterComponent implements OnInit{
         identityCardNumber  : fv.identityCardNumber ,
         identityDocument    : this.identityDocument,
         documentType        : this.documentType,
-        raisonSocial        : fv.raisonSocial,
-        type                : fv.type,
-        rcs                 : fv.rcs,
+        raisonSocial        : "",
+        type                : "",
+        rcs                 : "",
         carteStat           : "",
-        nif                 : fv.nif,
-        carteFiscal         : this.carteFiscale,
-        logo                : this.corporateLogo,
-        managerName         : fv.managerName,
-        managerEmail        : fv.managerEmail,
+        nif                 : "",
+        carteFiscal         : "",
+        logo                : "",
+        managerName         : "",
+        managerEmail        : "",
       }
     }
       console.log(this.user)
@@ -368,6 +369,7 @@ export class RegisterComponent implements OnInit{
       reader.onload = () =>{
         // console.log(reader.result);
         this.identityDocument[0] = reader.result;
+        this.carteFiscale[0] = reader.result;
       }
     }
     reader.onerror = error =>{
@@ -382,6 +384,7 @@ export class RegisterComponent implements OnInit{
       reader.onload = () =>{
         // console.log(reader.result);
         this.identityDocument[1] = reader.result;
+        this.carteFiscale[1] = reader.result;
       }
     }
     reader.onerror = error =>{
@@ -434,7 +437,7 @@ export class RegisterComponent implements OnInit{
     console.log(event)
     const reader = new FileReader();
     if (event) {
-      this.identityDocumentName = event.target.files[0].name;
+      this.identityDocumentName1 = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);
@@ -449,7 +452,7 @@ export class RegisterComponent implements OnInit{
     console.log(event)
     const reader = new FileReader();
     if (event) {
-      this.identityDocumentName = event.target.files[0].name;
+      this.identityDocumentName2 = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);

@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
@@ -17,8 +17,9 @@ import { AvatarModule } from 'ngx-avatars';
     MatTableModule,
     MatIconModule,
     MatCheckboxModule,
-    RouterLink,
-    AvatarModule
+    // RouterLink,
+    AvatarModule,
+    NgIf,
     // DefaultButtonComponent,
   ],
   templateUrl: './users.component.html',
@@ -34,7 +35,7 @@ export class UsersComponent implements OnInit{
     private router : Router
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+    this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
       if (userCurrent.userAccess != "Admin") {
         this.router.navigateByUrl('home')
       }
@@ -49,6 +50,12 @@ export class UsersComponent implements OnInit{
     
   }
   deleteUser(userId:string){
-
+    this.userService.deleteUser(userId).subscribe(_=>{})
+  }
+  userToAmdin(userId : string){
+    this.userService.userToAdmin(userId).subscribe(_=>{})
+  }
+  adminToUser(userId : string){
+    this.userService.adminToUser(userId).subscribe(_=>{})
   }
 }

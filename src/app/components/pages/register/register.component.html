@@ -123,14 +123,14 @@
                         <p *ngIf="documentType && !identityDocument"> Photo de votre : </p>
                         <div class="idDocumentUpload" *ngIf="documentType">
                             <div class="recto">
-                                {{ identityDocumentName}} Recto
+                                {{ identityDocumentName1}} Recto
                                 <button class="upload-btn" (click)="documentRectoUpload.click()" type="button">
                                 <img height="100px" *ngIf="identityDocument[0]" [src]="identityDocument[0]" alt="">
                                     <!-- <mat-icon >attach_file</mat-icon> -->
                                 </button>
                             </div>
                             <div class="verso">
-                                {{ identityDocumentName}} Verso
+                                {{ identityDocumentName2}} Verso
                                 <button class="upload-btn" (click)="documentVersoUpload.click()" type="button">
                                     <img height="100px" *ngIf="identityDocument[1]" [src]="identityDocument[1]" alt="">
                                     <!-- <mat-icon >attach_file</mat-icon> -->

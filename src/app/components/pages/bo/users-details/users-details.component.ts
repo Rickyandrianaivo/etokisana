@@ -20,7 +20,7 @@ import { NgIf } from '@angular/common';
 })
 export class UsersDetailsComponent implements OnInit{
   profileImage!:string;
-  theUser : any;
+  theUser : any = null;
   documentFile: string [] = [];
   isEntreprise:boolean = false;
   identityFileType:string = "";
@@ -28,6 +28,7 @@ export class UsersDetailsComponent implements OnInit{
   downloadLink2:string = "";
   downloadableName1 : string = "";
   downloadableName2 : string = "";
+  documentIncomplet : boolean = false;
   logedUser : any ;
   constructor(
     private userService:UserService,
@@ -35,48 +36,56 @@ export class UsersDetailsComponent implements OnInit{
     private router : Router,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
-    this.userService.getUserByEmail(this.logedUser).subscribe(userCurrent =>{
+    this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
       if (userCurrent.userAccess != "Admin") {
         this.router.navigateByUrl('home')
       }
-    });
-
-    this.activatedRoute.params.subscribe(req=>{
-      this.userService.getUserById(req['id']).subscribe(res =>{
-        this.theUser = res;
+    })
+    this.activatedRoute.params.subscribe(params=>{
+      console.log(params.id);
+      this.userService.getUserById(params['id']).subscribe(theUser =>{
+        this.theUser = theUser;
+        console.log(theUser);
         if (this.theUser.userValidated) {
           this.router.navigateByUrl('dashboard')
         }
-        if (this.theUser.userType == "Entreprise") {
-          this.profileImage = this.theUser.userImage;
+        if (this.theUser.userType==="Entreprise") {
           this.isEntreprise = true;
+          this.profileImage = this.theUser.logo;
           this.identityFileType = this.theUser.nif;
           this.documentFile = this.theUser.carteFiscale;
-          this.downloadableName1 = this.theUser.raisonSociale + "_CarteFiscale_recto";
-          this.downloadableName2 = this.theUser.raisonSociale + "_CarteFiscale_verso";
+          this.downloadableName1 = this.theUser.raisonSocial + "_CarteFiscale_recto";
+          this.downloadableName2 = this.theUser.raisonSocial + "_CarteFiscale_verso";
+          if (this.theUser.identityDocument.length>1) {
+            this.documentIncomplet = false;
+            console.log(this.documentIncomplet);
+          }else{
+            this.documentIncomplet = true;
+            console.log(this.documentIncomplet);
+          }          
         }else{
           this.profileImage = this.theUser.userImage;
           this.identityFileType = this.theUser.identityFileType;
-          this.documentFile = this.theUser.identityDocument;
-          this.downloadableName1 = this.theUser.userName + "_" +this.theUser.documentType + "_" + this.documentFile[0];
-          this.downloadableName2 = this.theUser.userName + "_" +this.theUser.documentType + "_" + this.documentFile[1];
+          this.documentFile[0] = this.theUser.identityDocument[0];
+          this.documentFile[1] = this.theUser.identityDocument[1];
+          this.downloadableName1 = this.theUser.userName + "_" +this.theUser.documentType + "_recto";
+          this.downloadableName2 = this.theUser.userName + "_" +this.theUser.documentType + "_verso";
           this.isEntreprise = false;
         }
+        
         // create download link
-        if (this.theUser.documentFile) {
-          const base64Data = this.documentFile[0];
-          const base64Data1 = this.documentFile[1];
-          console.log(base64Data);
-          console.log(base64Data1);
+        if (!this.documentIncomplet) {
+          const base64Data = this.theUser.identityDocument[0];
+          const base64Data1 = this.theUser.identityDocument[1];
           const blob = this.convertBase64ToBlob(base64Data)
           const blob1 = this.convertBase64ToBlob(base64Data1)
           this.downloadLink1 = window.URL.createObjectURL(blob);
-          this.downloadLink2 = window.URL.createObjectURL(blob1)
-          
+          this.downloadLink2 = window.URL.createObjectURL(blob1); 
         }
       })
     })
   } 
+  
 
   ngOnInit(): void {
     
