@@ -131,7 +131,7 @@ export class UserSitesComponent implements OnInit{
       siteAddress     :fv.siteAddress,
       siteLat         :fv.siteLat,
       siteLng         :fv.siteLng,
-      siteUserId      :this.currentUser._id,
+      siteUserID      :this.currentUser.userId,
     };
     if (!this.siteId) {
       this.siteService.addSite(this.newSite).subscribe(serverSite => {
