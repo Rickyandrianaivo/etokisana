@@ -9,6 +9,24 @@
     display : flex;
     /* flex-wrap: wrap; */
 }
+.wrapper{
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-rows: 100px 100px;
+    grid-template-areas:
+    "a b"
+    "a b";
+}
+.row.content{
+    padding : 2px;
+}
+.left{
+    grid-area: a;
+}
+.right{
+    grid-area: b;
+}
+
 .form-line{
     display: flex;
     justify-content: space-around;

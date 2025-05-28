@@ -28,66 +28,23 @@
                     <input type="file" class="file-input" (change)="onFileImageSelected($event)" #pdpUpload>
                     <input type="file" class="file-input" (change)="onFileDocumentRectoSelected($event)" #documentRectoUpload>
                     <input type="file" class="file-input" (change)="onFileDocumentVersoSelected($event)" #documentVersoUpload>
-                    <div class="row">
+                    <div class="left">
                         <text-input
                             [control]="fc.userName"
                             [showErrorsWhen]="isSubmitted"
                             label="Nom">
                         </text-input>
                         <text-input
-                            [control]="fc.userFirstname"
-                            [showErrorsWhen]="isSubmitted"
-                            label="Prénom">
-                        </text-input>
-                    </div>
-                    <div class="row">
-                        <text-input
                             [control]="fc.userEmail"
                             [showErrorsWhen]="isSubmitted"
                             label="Email"
                             [type]="'email'">
                         </text-input>
-                        
-                        <!-- <text-input
-                            [control]="fc.userPhone"
-                            [showErrorsWhen]="isSubmitted"
-                            label="Téléphone">
-                        </text-input> -->
-                            <mat-form-field appearance="outline">
-                                <ngx-intl-tel-input
-                                formControlName="userPhone"
-                                name ="userPhone"
-                                [separateDialCode]="true"
-                                [cssClass]="'custom'"
-                                [preferredCountries]="['mg']"
-                                [enablePlaceholder]="true"
-                                [searchCountryFlag]="true"
-                                [selectFirstCountry]="true"
-                                [maxLength]="15"
-                                [phoneValidation]="true"
-                                #phone>
-                                <input matInput [formControl]="userPhone">
-                                </ngx-intl-tel-input>              
-                            </mat-form-field>                   
-                    </div> 
-                    <div class="row">
                         <app-password-input
                             [control]="fc.userPassword"
                             [showErrorsWhen]="isSubmitted"
                             label="Mot de passe">
                         </app-password-input>
-                        <app-password-input
-                            [control]="fc.confirmPassword"
-                            [showErrorsWhen]="isSubmitted"
-                            label="Confirmation mot de passe">
-                        </app-password-input>
-                    </div>
-                    <!-- <text-input
-                    [control]="fc.refId"
-                    [showErrorsWhen]="isSubmitted"
-                    label="Referral">
-                    </text-input>        -->
-                    <div class="row">
                         <mat-form-field appearance="outline" >
                             <mat-label>Date de naissance</mat-label>
                             <input matInput #dateInput [matDatepicker]="picker" [formControl]="dateOfBirth" (onfocus)="dateInput.type ='date'" (blur)="dateInput.type ='text'"> 
@@ -96,13 +53,6 @@
                             <mat-datepicker #picker></mat-datepicker>
                             <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                         </mat-form-field>
-                        <text-input
-                            [control]="fc.userAddress"
-                            [showErrorsWhen]="isSubmitted"
-                            label="Adresse">
-                        </text-input>
-                    </div>
-                    <div class="row">
                         <div class="options">
                         <mat-form-field appearance="outline">
                             <mat-label>Document d'identification</mat-label>
@@ -113,12 +63,51 @@
                             </mat-select>
                         </mat-form-field>                        
                         </div>
+                    </div>
+                    <div class="right">
+                        <text-input
+                            [control]="fc.userFirstname"
+                            [showErrorsWhen]="isSubmitted"
+                            label="Prénom">
+                        </text-input>
+                        <mat-form-field appearance="outline">
+                            <ngx-intl-tel-input
+                            formControlName="userPhone"
+                            name ="userPhone"
+                            [separateDialCode]="true"
+                            [cssClass]="'custom'"
+                            [preferredCountries]="['mg']"
+                            [enablePlaceholder]="true"
+                            [searchCountryFlag]="true"
+                            [selectFirstCountry]="true"
+                            [maxLength]="15"
+                            [phoneValidation]="true"
+                            #phone>
+                            <input matInput [formControl]="userPhone">
+                        </ngx-intl-tel-input>              
+                    </mat-form-field>
+                        <!-- <text-input
+                            [control]="fc.userPhone"
+                            [showErrorsWhen]="isSubmitted"
+                            label="Téléphone">
+                        </text-input> -->
+                        <app-password-input
+                            [control]="fc.confirmPassword"
+                            [showErrorsWhen]="isSubmitted"
+                            label="Confirmation mot de passe">
+                        </app-password-input>
+                        <text-input
+                            [control]="fc.userAddress"
+                            [showErrorsWhen]="isSubmitted"
+                            label="Adresse">
+                        </text-input>
                         <text-input
                             [control]="fc.identityCardNumber"
                             [showErrorsWhen]="isSubmitted"
                             label="Numéro du Document">
                         </text-input>
-                    </div>
+                    </div> 
+                  
                     <div class="file-upload">
                         <p *ngIf="documentType && !identityDocument"> Photo de votre : </p>
                         <div class="idDocumentUpload" *ngIf="documentType">

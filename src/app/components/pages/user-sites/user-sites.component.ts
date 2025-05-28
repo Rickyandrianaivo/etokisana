@@ -49,9 +49,9 @@ export class UserSitesComponent implements OnInit{
   position: any
   marker:any = null;
   center: google.maps.LatLngLiteral = {
-    lat: 18.2736308,
-    lng: 40.7512555
-};
+    lat: -19.0000000,
+    lng: 47.0000000
+  };
   siteToUpdate:any;
 
   constructor(
