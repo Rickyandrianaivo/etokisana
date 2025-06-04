@@ -34,8 +34,8 @@ import { UsersDetailsComponent } from './components/pages/bo/users-details/users
 import { StockComponent } from './components/pages/stock/stock.component';
 
 const routes: Routes = [
-    {path : '', component: HomeComponent},
-    {path : 'home', component: HomeComponent},
+    {path : '', component: LoginComponent},
+    {path : 'home', component: LoginComponent},
     {path : 'achat', component: AchatComponent},
     {path : 'login', component: LoginComponent},
     {path : 'panier', component: PanierComponent},

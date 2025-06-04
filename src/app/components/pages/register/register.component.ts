@@ -364,7 +364,7 @@ export class RegisterComponent implements OnInit{
   onCarteFiscalRectoSelected(event:any) {
     const reader = new FileReader();
     if (event) {
-      this.fileName = event.target.files[0].name;
+      // this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);
@@ -379,7 +379,7 @@ export class RegisterComponent implements OnInit{
   onCarteFiscalVersoSelected(event:any) {
     const reader = new FileReader();
     if (event) {
-      this.fileName = event.target.files[0].name;
+      // this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);
