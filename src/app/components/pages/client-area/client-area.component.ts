@@ -20,13 +20,15 @@ export class ClientAreaComponent implements OnInit{
   user:any;
   link!:string;
   verifiedUser:boolean = false;
+  validatedUser : boolean = false;
   constructor(
     private userService:UserService,
     private router: Router,
   ){
     this.user = this.userService.getUserFromLocalStorage();
     this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
-      this.verifiedUser = user.userValidated;
+      this.verifiedUser = user.userEmailVerified;
+      this.validatedUser = user.userValidated;
       if (user.userType=="admin") {
         this.router.navigateByUrl("/dashboard")
       }
