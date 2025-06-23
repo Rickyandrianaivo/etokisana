@@ -205,7 +205,7 @@ export class RegisterComponent implements OnInit{
     this.registerCorporateForm = this.formBuilder.group({
       raisonSocial : ['',[Validators.required]],
       type : [''],
-      rcs : ['',[Validators.required]],
+      rcs : [''],
       nif : ['',[Validators.required]],
       managerName : [''],
       managerEmail : [''],

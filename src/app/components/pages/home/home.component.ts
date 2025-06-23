@@ -6,7 +6,10 @@ import { HeaderComponent } from '../../partials/header/header.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DefaultButtonComponent,RouterLink,HeaderComponent],
+  imports: [DefaultButtonComponent,
+    RouterLink,
+    HeaderComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

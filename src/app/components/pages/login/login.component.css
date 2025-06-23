@@ -13,5 +13,10 @@ a {
     justify-content: center;
 }
 .details{
-    margin: auto 35%;
+    margin: auto 30%;
+}
+.container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
