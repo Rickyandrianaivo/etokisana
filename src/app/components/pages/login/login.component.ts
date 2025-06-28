@@ -24,7 +24,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
     ReactiveFormsModule,
     RouterLink,
     PasswordInputComponent,
-    HeaderComponent
+    // HeaderComponent
 ],
   providers : [HttpClient],
   templateUrl: './login.component.html',
@@ -76,7 +76,7 @@ export class LoginComponent {
           userPassword  : fv.password
         };
         this.userService.login(user).subscribe(_=>{
-          if(isUser.userType == "admin"){
+          if(isUser.userType == "Admin"){
             this.router.navigateByUrl("/dashboard");
           }else{
             this.router.navigateByUrl(this.url);

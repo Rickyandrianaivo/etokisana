@@ -13,7 +13,14 @@ export const PRODUCT_UPLOAD_IMAGE_URL      = PRODUCT_URL + 'upload/';
 export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
 export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
 export const PRODUCT_BY_SITE_ID_URL        = PRODUCT_URL + 'stock/';
-export const PRODUCT_ADD_TO_STOCK_URL      = PRODUCT_URL + 'addStock/'
+export const PRODUCT_ADD_TO_STOCK_URL      = PRODUCT_URL + 'addStock/';
+
+export const NOTIFICATION_URL                   = BASE_URL + '/api/product/';
+export const NOTIFICATION_BY_ID_URL             = NOTIFICATION_URL + 'id/';
+export const NOTIFICATION_ADD_URL               = NOTIFICATION_URL + 'add/';
+export const NOTIFICATION_UPDATE_URL            = NOTIFICATION_URL + 'update/';
+export const NOTIFICATION_REMOVE_URL            = NOTIFICATION_URL + 'delete/';
+export const NOTIFICATION_BY_OWNER_URL          = NOTIFICATION_URL + 'owner/';
 
 
 export const SITE_URL                      = BASE_URL + '/api/site/';

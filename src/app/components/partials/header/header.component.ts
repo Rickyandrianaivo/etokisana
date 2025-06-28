@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 // import { SearchComponent } from '../search/search.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AvatarModule } from 'ngx-avatars';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -21,18 +22,24 @@ import { AvatarModule } from 'ngx-avatars';
 })
 export class HeaderComponent implements OnInit,OnChanges{
 // subscriptions : Subscription[] = [];
+  notifications : any[]=[];
   isLoged : boolean = false;
   isUser?:User;
   user : User = new User();
   constructor(
     private userService : UserService,
-    private router:Router
+    private router:Router,
+    private notificationService : NotificationService,
     ) { 
     this.isUser = this.userService.getUserFromLocalStorage()
     if(this.isUser.userName){
       this.userService.getUserByEmail(this.isUser.userEmail).subscribe(userReq => {
         this.user = userReq;
         console.log(this.user)
+
+        this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allNotif =>{
+          this.notifications = allNotif;
+        })
       })
       this.isLoged = true;
     }else{
