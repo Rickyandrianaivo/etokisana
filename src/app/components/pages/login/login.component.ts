@@ -82,6 +82,9 @@ export class LoginComponent {
             this.router.navigateByUrl(this.url);
           }
         })
+      }else{
+        alert("Utilisateur inconnu, essayez de vous inscrire dans un premier temps");
+        this.router.navigateByUrl('/register');
       }
     })
   }  
