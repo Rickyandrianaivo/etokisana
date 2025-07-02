@@ -50,12 +50,18 @@ export class UsersComponent implements OnInit{
     
   }
   deleteUser(userId:string){
-    this.userService.deleteUser(userId).subscribe(_=>{})
+    this.userService.deleteUser(userId).subscribe(_=>{
+        location.reload();        
+    })
   }
   userToAmdin(userId : string){
-    this.userService.userToAdmin(userId).subscribe(_=>{})
+    this.userService.userToAdmin(userId).subscribe(_=>{
+      location.reload();
+    });
   }
   adminToUser(userId : string){
-    this.userService.adminToUser(userId).subscribe(_=>{})
+    this.userService.adminToUser(userId).subscribe(res=>{
+        location.reload();
+    })
   }
 }
