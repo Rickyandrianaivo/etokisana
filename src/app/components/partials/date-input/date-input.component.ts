@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputValidationComponent } from '../input-validation/input-validation.component';
 import { InputContainerComponent } from '../input-container/input-container.component';
+import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'text-input',
+  selector: 'date-input',
   standalone: true,
   imports: [
     InputValidationComponent,
@@ -14,20 +15,21 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    
+    MatDatepickerModule,
   ],
-  templateUrl: './text-input.component.html',
-  styleUrl: './text-input.component.css'
+  templateUrl: './date-input.component.html',
+  styleUrl: './date-input.component.css'
 })
-export class TextInputComponent implements OnInit{
+export class DateInputComponent implements OnInit{
   @Input()  control!:AbstractControl;
   @Input()  showErrorsWhen:boolean = true;
   @Input()  label!: string;
   @Input()  type:'texte'|'password'|'email' ="texte" ;
-  
+    
   get formControl(){
     return this.control as FormControl;
   }
   ngOnInit(): void {
+    
   }
 }

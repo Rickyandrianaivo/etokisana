@@ -54,7 +54,7 @@ export const FACTURE_VENTE_DETAILS_ADD_URL  = FACTURE_VENTE_DETAILS_URL + 'creat
 
 export const USER_URL                       = BASE_URL + '/api/users/';
 export const USER_BY_ID_URL                 = USER_URL + 'id/';
-export const USER_BY_USER_ID_URL                 = USER_URL + 'userId/';
+export const USER_BY_USER_ID_URL            = USER_URL + 'userId/';
 export const USER_NEW_URL                   = USER_URL + 'new';
 export const USER_DELETE_URL                = USER_URL + 'delete/';
 export const USER_BY_EMAIL_URL              = USER_URL + 'email/';
@@ -64,8 +64,6 @@ export const USER_LOGIN_URL                 = USER_URL + 'login';
 export const USER_REGISTER_URL              = USER_URL + 'register';
 export const USER_UPLOAD_PDP_URL            = USER_URL + 'uploads';
 export const USER_GET_PDP_URL               = USER_URL + 'pdp';
-export const USER_TO_ADMIN_URL              = USER_URL + 'userToAdmin/';
-export const USER_ADMIN_TO_USER_URL         = USER_URL + 'AdminToUser/';
 export const RESET_TABLES_URL               = USER_URL + 'resetTable';
 export const USER_RESETPASSWORD_URL         = USER_URL + 'passwordReset';
 export const USER_REQUESTRESETPASSWORD_URL  = USER_URL + 'requestResetPwd';

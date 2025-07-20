@@ -69,7 +69,6 @@ const routes: Routes = [
     {path : 'depot-sites/:typeES/:id' , component:DepotSitesComponent},
     {path : 'choix-produit/:typeES/:id' , component:ChoixProduitComponent},
     {path : '**', component: NotFoundComponent},
-
 ];
 
 export default routes;

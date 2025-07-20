@@ -351,3 +351,13 @@ button{
   font-size: 3rem;
   padding : 10px;
 }
+input-validation{
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+    top:0;
+    right: 1rem;
+    width: 12rem;
+    color:red;
+    font-size : small;
+}

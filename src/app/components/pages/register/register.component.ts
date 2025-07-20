@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import * as nodemailer from 'nodemailer';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
@@ -33,6 +34,11 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/fr';
 import { AvatarModule } from 'ngx-avatars';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
+import { InputValidationComponent } from '../../partials/input-validation/input-validation.component';
+import { DateInputComponent } from '../../partials/date-input/date-input.component';
+import { timestamp } from 'rxjs';
+import { NotificationDialogComponent } from '../../partials/notification-dialog/notification-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -75,6 +81,10 @@ const MY_DATE_FORMAT = {
     // DefaultButtonComponent,
     PasswordInputComponent,
     InputContainerComponent,
+    // InputValidationComponent,
+    DateInputComponent,
+    MatProgressBarModule,
+    MatDialogModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -92,6 +102,7 @@ const MY_DATE_FORMAT = {
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
+  readonly dialog = inject(MatDialog);
   imageIsUploaded : boolean = false;
   display : any;
   center: google.maps.LatLngLiteral = {
@@ -112,7 +123,7 @@ export class RegisterComponent implements OnInit{
   // readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
   showSellerForm = signal(false);
-  fileName = "";
+  fileName:any;
   identityDocumentName1 = "";
   identityDocumentName2 = "";
   user : any;
@@ -128,6 +139,11 @@ export class RegisterComponent implements OnInit{
 
   corporateUser : boolean = false;
   corporateType : string = "";
+  SuccessRegister :boolean = false;
+  // jour = new FormControl();
+  // mois = new FormControl();
+  // annee = new FormControl();
+  // dateOfBithr = new Date(this.annee,this.mois,this.jour)
 
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
@@ -195,8 +211,8 @@ export class RegisterComponent implements OnInit{
       userAddress : [''],
       userMainLat : [''],
       userMainLng : [''],
-      userDateOfBirth:[''],
-      identityCardNumber:[''],
+      // userDateOfBirth:['',[Validators.required]],
+      identityCardNumber:['',[Validators.required]],
     },{
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     }
@@ -233,13 +249,18 @@ export class RegisterComponent implements OnInit{
   
   submitUser(){
     this.isSubmitted =true;
-    console.log("submit = " + this.isSubmitted)
+    // console.log("submit = " + this.isSubmitted)
     const generatedID = Math.random().toString(36).slice(2,10)
     // console.log(this.dateOfBirth.value._d);
     if(this.showSellerForm()){
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
+          this.openNotificationDialog("Formulaire incomplet","Veuillez vérifier si tous les champs obligatoires sont remplis",null,false);
           return;
+      }
+      if(!this.identityDocumentName1 || !this.identityDocumentName2){
+        this.openNotificationDialog("Formulaire incomplet","Les photos du document d'identification sont obligatoire pour la validation de votre inscription",null,false);
+        return;
       }
       
       const fv = this.registerCorporateForm.value;
@@ -278,7 +299,12 @@ export class RegisterComponent implements OnInit{
     if(!this.showSellerForm()){
       if (!this.registerForm.valid){ 
             console.log(this.registerForm.getError);
+            this.openNotificationDialog("Formulaire incomplet","Veuillez vérifier si tous les champs obligatoires sont remplis",null,false);
             return;
+      }
+      if(!this.identityDocumentName1 || !this.identityDocumentName2){
+        this.openNotificationDialog("Formulaire incomplet","Les photos du document d'identification sont obligatoire pour la validation de votre inscription",null,false);
+        return;
       }
       const fv = this.registerForm.value;
       this.user = {
@@ -318,24 +344,27 @@ export class RegisterComponent implements OnInit{
     this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
       if (useralreadyexist) {
         console.log(useralreadyexist)
-        this.simpleSb = this._snackBar.open("Déjà existant!","Se connecter",{duration : 4000})
+        this.simpleSb = this._snackBar.open("Un compte utilise déjà cet email","Se connecter",{duration : 10000})
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
         return;
       }else{
-        this.router.navigateByUrl('login');
-        this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 4000})
-        this.simpleSb.onAction().subscribe(() =>{
-          this.router.navigateByUrl("login");
+        // this.router.navigateByUrl('login');
+        // this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 10000})
+        // this.simpleSb.onAction().subscribe(() =>{
+        //   this.router.navigateByUrl("login");
+
+        // })
+        this.userService.registerUser(this.user).subscribe(() =>{
+          this.openNotificationDialog("Inscription envoyer", "Un email vous a été envoyer. Nous vous remercions de votre patience pendant que nos administrateur procède à la validation de votre inscription",null,false)
+          this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 10000})
+          this.simpleSb.onAction().subscribe(() =>{
+            this.SuccessRegister =true;
+            // this.router.navigateByUrl("login");
+          })
         })
       }
-    })
-    this.userService.registerUser(this.user).subscribe(_ =>{
-      this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 4000})
-        this.simpleSb.onAction().subscribe(() =>{
-          this.router.navigateByUrl("login");
-        })
     })
     console.log(this.user.userPhone.internationalNumber)
     const mainSite :Site = {
@@ -382,7 +411,6 @@ export class RegisterComponent implements OnInit{
       // this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        // console.log(reader.result);
         this.identityDocument[1] = reader.result;
         this.carteFiscale[1] = reader.result;
       }
@@ -397,8 +425,8 @@ export class RegisterComponent implements OnInit{
       this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        // console.log(reader.result);
         this.image = reader.result;
+        reader.readAsDataURL(this.image);
       }
     }
     reader.onerror = error =>{
@@ -425,7 +453,6 @@ export class RegisterComponent implements OnInit{
       this.fileName = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        // console.log(reader.result);
         this.corporateLogo = reader.result;
       }
     }
@@ -440,7 +467,6 @@ export class RegisterComponent implements OnInit{
       this.identityDocumentName1 = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        // console.log(reader.result);
         this.identityDocument[0] = reader.result;
       }
     }
@@ -455,26 +481,27 @@ export class RegisterComponent implements OnInit{
       this.identityDocumentName2 = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
-        // console.log(reader.result);
         this.identityDocument[1] = reader.result;
       }
     }
     reader.onerror = error =>{
       console.log("Error: ",error);
     }
-    
-    // let htmlInputElement = <HTMLInputElement>event.target!;
-    // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
-    
-    // if (file) {
-
-    //     this.fileName =file.name;
-
-    //     const formData = new FormData();
-
-    //     formData.append("thumbnail", file);
-
-    //     this.userService.uploadFile(formData).subscribe();
-    // }
   }
+  openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
+      const dialogRef = this.dialog.open(NotificationDialogComponent,{
+        data : {
+          title,
+          message
+        }
+      })
+      dialogRef.afterClosed().subscribe(result=>{
+        if (result == true && !url && reload == true) {
+          window.location.reload();
+        }
+        if(url){
+          this.router.navigateByUrl(url);
+        }
+      })
+    }
 }
