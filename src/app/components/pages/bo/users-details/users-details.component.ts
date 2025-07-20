@@ -117,7 +117,7 @@ export class UsersDetailsComponent implements OnInit{
 
   ValidateRegistration(){
     this.userService.validateUser(this.theUser._id,).subscribe(_=>{
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/users');
     })
   }
 }
