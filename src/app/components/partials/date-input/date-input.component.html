@@ -8,5 +8,8 @@
             [control]="control"
             [showErrorsWhen]="showErrorsWhen">
         </input-validation>
+        <mat-error *ngIf="!formControl">
+            Ne doit pas être vide
+        </mat-error>
     </mat-form-field>
 </input-container>

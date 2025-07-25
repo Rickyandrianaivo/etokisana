@@ -227,4 +227,8 @@ export class UserSitesComponent implements OnInit{
     // move(event: google.maps.MapMouseEvent) {
     //     if (event.latLng != null) this.display = event.latLng.toJSON();
     // }
+
+  backButton(){
+    this.router.navigateByUrl("/client-rea")
+  }
 }

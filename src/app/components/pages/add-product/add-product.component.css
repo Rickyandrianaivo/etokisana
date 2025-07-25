@@ -10,3 +10,8 @@
 .register-form-style{
     margin-top:70px;
 }
+.autoCompleteCPC{
+    background: none;
+    width: 100%;
+    color: black;
+}

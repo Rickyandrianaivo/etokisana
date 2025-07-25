@@ -5,6 +5,7 @@ import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/form
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'date-input',
@@ -16,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
+    NgIf,
   ],
   templateUrl: './date-input.component.html',
   styleUrl: './date-input.component.css'

@@ -45,10 +45,10 @@ export class UsersDetailsComponent implements OnInit{
       console.log(params.id);
       this.userService.getUserById(params['id']).subscribe(theUser =>{
         this.theUser = theUser;
-        console.log(theUser);
-        if (this.theUser.userValidated) {
-          this.router.navigateByUrl('dashboard')
-        }
+        // console.log(theUser);
+        // if (this.theUser.userValidated) {
+        //   this.router.navigateByUrl('dashboard')
+        // }
         if (this.theUser.userType==="Entreprise") {
           this.isEntreprise = true;
           this.profileImage = this.theUser.logo;

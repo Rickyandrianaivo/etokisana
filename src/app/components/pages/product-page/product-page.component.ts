@@ -41,14 +41,14 @@ export class ProductPageComponent implements OnInit{
       id: this.productId,
       productName:this.theProduct.productName,
       productDescription: this.theProduct.productDescription,
-      productPrice: this.theProduct.productPrice,
+      // productPrice: this.theProduct.productPrice,
       productCategory: this.theProduct.productCategory,
-      productUnite: this.theProduct.productUnite,
-      productStock: this.theProduct.productStock,
+      // productUnite: this.theProduct.productUnite,
+      // productStock: this.theProduct.productStock,
       productState: this.theProduct.productState,
-      productSource: this.theProduct.productSource,
+      // productSource: this.theProduct.productSource,
       productImage: this.theProduct.productImage,
-      productOwner: this.theProduct.productOwner,
+      // productOwner: this.theProduct.productOwner,
     }
     this.cartService.addToCart(this.theProduct);
     this.router.navigateByUrl('/cart-page');

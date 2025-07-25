@@ -58,10 +58,10 @@ readonly productCategory = new FormControl();
           this.addProductForm = this.formBuilder.group({
             productName:[this.selectedProduct.productName,Validators.required],
             productDescription:[this.selectedProduct.productDescription,Validators.required],
-            productPrice:[this.selectedProduct.productPrice,Validators.required],
-            productCategory:[this.selectedProduct.productCategory],
-            productUnite:[this.selectedProduct.productUnite],
-            productStock:[this.selectedProduct.productStock],
+            // productPrice:[this.selectedProduct.productPrice,Validators.required],
+            // productCategory:[this.selectedProduct.productCategory],
+            // productUnite:[this.selectedProduct.productUnite],
+            // productStock:[this.selectedProduct.productStock],
             productState:[this.selectedProduct.productState],
             productHauteur:[this.selectedProduct.productHauteur],
             productLongueur:[this.selectedProduct.productLongueur],
@@ -124,20 +124,18 @@ readonly productCategory = new FormControl();
     const fv = this.addProductForm.value;
     // console.log(fv.userName);
     this.product = {
+      codeCPC           :fv.codeCPC,
       productName       :fv.productName,
       productDescription:fv.productDescription,
-      productPrice      :fv.productPrice,
       productCategory   :fv.productCategory,
-      productUnite      :fv.productUnite,
-      productStock      :fv.productStock,
       productState      :"en attente",
+      productValidation :false,
       productImage      :this.productImage,
-      codeCPC           :fv.codeCPC,
       productHauteur    :fv.productHauteur,
       productLargeur    :fv.productLargeur,
       productLongueur   :fv.productLongueur,
       productPoids      :fv.productPoids,
-      productVolume     :fv.productVolume
+      productVolume     :fv.productVolume,
     };
     // console.log(this.user);
     this.productService.updateProduct(this.productID,this.product).subscribe(_ => {

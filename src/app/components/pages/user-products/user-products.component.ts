@@ -6,14 +6,18 @@ import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../../partials/header/header.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-products',
   standalone: true,
-  imports: [MatTableModule,
+  imports: [
+    NgIf,
     RouterLink,
     MatIconModule,
-  HeaderComponent],
+    MatTableModule,
+    HeaderComponent,
+  ],
   templateUrl: 'user-products.component.html',
   styleUrl: 'user-products.component.css'
 })
@@ -45,5 +49,11 @@ export class UserProductsComponent implements OnInit{
       alert("Produit retirer avec succés !")
       this.router.navigateByUrl('user-products')
     });
+  }
+  ajouterPrix(id : string){
+    this.router.navigateByUrl('user-products/update/'+id)
+  }
+  deposerProduit(id : string){
+    this.router.navigateByUrl('choix-depot')
   }
 }

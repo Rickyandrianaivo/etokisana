@@ -84,8 +84,12 @@ h5{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: end;
     align-content: space-evenly;
+    align-items: center;
+}
+.buttonContainer.row{
+    margin-right : 0;
 }
 .options{
     display: flex;
@@ -115,4 +119,8 @@ input#phone.iti__tel-input.custom.ng-untouched.ng-pristine.ng-valid{
  .mat-icon{
     height: fit-content;
     width: fit-content;
+ }
+ .final-row{
+    
+    float:right;
  }

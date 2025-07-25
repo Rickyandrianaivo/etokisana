@@ -12,7 +12,7 @@
                     ></app-radio-input>
                 </div> -->
                 <div class="row">
-                    Je suis une entreprise
+                    Entreprise
                     <mat-checkbox
                     [checked]="showSellerForm()"
                     (change)="toggleSellerForm()">
@@ -51,7 +51,7 @@
                         <text-input
                             [control]="fc.userFirstname"
                             [showErrorsWhen]="isSubmitted"
-                            label="Prénom">
+                            label="Prénoms">
                         </text-input>
                     </div>
                     <div class="row">
@@ -341,7 +341,7 @@
                 </div>
             </div>
             <div class="row">
-                    <p>Veuillez renseigner vos coordonnée géographique :</p>
+                    <p>Veuillez renseigner vos coordonnées géographiques :</p>
             </div>   
             <div class="row">
             <input-container>
@@ -369,7 +369,7 @@
             [position]="position"></map-marker>
         </google-map>
 
-        <div class="row">
+        <div class="row final-row">
             <div class="buttonContainer">
                 <div>
                     <button type="submit" (click)="submitUser()">S'INSCRIRE</button>

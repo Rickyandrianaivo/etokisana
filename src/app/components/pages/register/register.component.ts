@@ -246,7 +246,6 @@ export class RegisterComponent implements OnInit{
   get cfc(){
     return this.registerCorporateForm.controls;
   }
-  
   submitUser(){
     this.isSubmitted =true;
     // console.log("submit = " + this.isSubmitted)
@@ -255,11 +254,19 @@ export class RegisterComponent implements OnInit{
     if(this.showSellerForm()){
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
-          this.openNotificationDialog("Formulaire incomplet","Veuillez vérifier si tous les champs obligatoires sont remplis",null,false);
+          this.openNotificationDialog(
+            "Formulaire incomplet",
+            "Veuillez vérifier si tous les champs obligatoires sont remplis",
+            null,
+            false);
           return;
       }
       if(!this.identityDocumentName1 || !this.identityDocumentName2){
-        this.openNotificationDialog("Formulaire incomplet","Les photos du document d'identification sont obligatoire pour la validation de votre inscription",null,false);
+        this.openNotificationDialog(
+          "Formulaire incomplet",
+          "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
+          null,
+          false);
         return;
       }
       
@@ -299,11 +306,19 @@ export class RegisterComponent implements OnInit{
     if(!this.showSellerForm()){
       if (!this.registerForm.valid){ 
             console.log(this.registerForm.getError);
-            this.openNotificationDialog("Formulaire incomplet","Veuillez vérifier si tous les champs obligatoires sont remplis",null,false);
+            this.openNotificationDialog(
+              "Formulaire incomplet",
+              "Veuillez vérifier si tous les champs obligatoires sont remplis",
+              null,
+              false);
             return;
       }
       if(!this.identityDocumentName1 || !this.identityDocumentName2){
-        this.openNotificationDialog("Formulaire incomplet","Les photos du document d'identification sont obligatoire pour la validation de votre inscription",null,false);
+        this.openNotificationDialog(
+          "Formulaire incomplet",
+          "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
+          null,
+          false);
         return;
       }
       const fv = this.registerForm.value;
@@ -356,14 +371,18 @@ export class RegisterComponent implements OnInit{
         //   this.router.navigateByUrl("login");
 
         // })
-        this.userService.registerUser(this.user).subscribe(() =>{
-          this.openNotificationDialog("Inscription envoyer", "Un email vous a été envoyer. Nous vous remercions de votre patience pendant que nos administrateur procède à la validation de votre inscription",null,false)
+        this.userService.registerUser(this.user).subscribe(_=>{
           this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 10000})
           this.simpleSb.onAction().subscribe(() =>{
             this.SuccessRegister =true;
             // this.router.navigateByUrl("login");
           })
         })
+        this.openNotificationDialog(
+          "Inscription envoyer", 
+          "Un email vous a été envoyé vous permettons la vérification de votre email. Une notification vous parviendra dès que votre compte sera opérationnel",
+          "login",
+          false)
       }
     })
     console.log(this.user.userPhone.internationalNumber)

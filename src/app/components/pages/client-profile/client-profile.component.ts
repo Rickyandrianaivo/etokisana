@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ProfileItemComponent } from '../../partials/profile-item/profile-item.component';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { AvatarModule } from 'ngx-avatars';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-client-profile',
@@ -15,7 +16,8 @@ import { AvatarModule } from 'ngx-avatars';
     MatInputModule,
     ProfileItemComponent,
     AvatarModule,
-    HeaderComponent
+    HeaderComponent,
+    NgIf
   ],
   templateUrl: './client-profile.component.html',
   styleUrl: './client-profile.component.css'

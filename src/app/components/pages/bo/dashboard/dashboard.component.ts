@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 
 @Component({
@@ -17,14 +17,15 @@ import { AvatarModule } from 'ngx-avatars';
     MatCheckboxModule,
     MatIconModule,
     DatePipe,
-    AvatarModule
+    AvatarModule,
+    UpperCasePipe,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
   usersNewList : any[] = [] ;
-  usersTableColumns: string[] = ['Photo','ID','Nom', 'Prenom', 'Type', 'Date','Email','Document','Action'];
+  usersTableColumns: string[] = ['Photo','ID','Nom', 'Prénoms', 'Type', 'Date','Email','Document','Action'];
   logedUser : any;
   constructor(
     private userService : UserService,

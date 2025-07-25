@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
@@ -25,6 +25,7 @@ import { NotificationDialogComponent } from 'src/app/components/partials/notific
     // RouterLink,
     AvatarModule,
     NgIf,
+    UpperCasePipe,
     // DefaultButtonComponent,
   ],
   templateUrl: './users.component.html',
@@ -101,6 +102,9 @@ export class UsersComponent implements OnInit{
     }
     this.userService.update(userAccessProperty,userId).subscribe(_=>{});
     this.openNotificationDialog("Retrogradation d'un utilisateur","L'adiministrateur est maintenant un utilisateur",null,true)
+  }
+  CheckUser(userId : string){
+    this.router.navigateByUrl('/userDetails/'+userId);
   }
 }
 // @Component({

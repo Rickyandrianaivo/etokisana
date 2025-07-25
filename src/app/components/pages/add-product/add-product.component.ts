@@ -3,7 +3,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../services/product.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,16 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { HeaderComponent } from '../../partials/header/header.component';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { productCpc } from 'src/cpc-data';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { map, Observable, startWith } from 'rxjs';
+// import {MatStepperModule} from '@angular/material/stepper';
+
+export interface Category{
+  cpc : string;
+  designation :string;
+}
 
 @Component({
   selector: 'app-add-product',
@@ -29,12 +38,23 @@ import { NgIf } from '@angular/common';
     MatIconModule,
     HeaderComponent,
     NgIf,
+    MatAutocompleteModule,
+    AsyncPipe,
+    // MatStepperModule,
 ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
+
+
 export class AddProductComponent implements OnInit {
-  readonly productCategory = new FormControl();
+  // readonly section = new FormControl();
+  // readonly division = new FormControl();
+  // readonly groupe = new FormControl();
+  // readonly classe = new FormControl();
+  // readonly sousClasse = new FormControl();
+  productCategory!:AbstractControl;
+  
   fileName = "";
   addProductForm!: FormGroup;
   isSubmitted = false;
@@ -42,6 +62,10 @@ export class AddProductComponent implements OnInit {
   firstImage : string = "";
   productImage: string[] = [];
   currentUser :any;
+  catCtrl = new FormControl('');
+  listOfCategories : Category[]=productCpc;
+  filteredCat: Observable<Category[]>;
+  selected: any = "";
 
   constructor(
     private productService:ProductService,
@@ -49,27 +73,45 @@ export class AddProductComponent implements OnInit {
     private router:Router,
     private userService:UserService
   ){
+    // console.log(this.listOfCategories[0].designation);
+    this.filteredCat = this.catCtrl.valueChanges.pipe(
+      startWith(''),
+      map(cat => (cat ? this._filterCats(cat): this.listOfCategories.slice())),
+    )
     this.currentUser  = this.userService.getUserFromLocalStorage();
+
+  }
+
+  private _filterCats(value:string): Category[]{
+    const filterValue = value.toLowerCase();
+    console.log(this.listOfCategories.filter(category =>category.designation.length >=3 && category.designation.toLowerCase().includes(filterValue)))
+    return this.listOfCategories.filter(category =>category.designation.length >=3 && category.designation.toLowerCase().includes(filterValue));
+  }
+
+  get productCategoryFormControl(){
+    return this.productCategory as FormControl;
+  }
+
+  setCPC(codeCPC:string){
+    this.selected = codeCPC;
   }
 
   ngOnInit() : void {
     this.addProductForm = this.formBuilder.group({
       productName:['',Validators.required],
       productDescription:['',Validators.required],
-      productPrice:[''],
-      productCategory:[''],
-      productUnite:[''],
-      productStock:[''],
-      productState:[''],
+      // productState:['en attente'],
       productHauteur:[''],
       productLargeur:[''],
       productLongueur:[''],
       productPoids:[''],
       productVolume:[''],
-
-      // productSource:[''],
+      productCode:[''],
+      // productCategory:[''],
     })
   }
+
+  
 
   // onFileSelected(event:Event) {
   //   let htmlInputElement = <HTMLInputElement>event.target!;
@@ -139,15 +181,14 @@ export class AddProductComponent implements OnInit {
     const fv = this.addProductForm.value;
     console.log(fv.userName);
     this.product = {
+
+      codeCPC           : this.selected,
       productName       : fv.productName,
       productDescription: fv.productDescription,
-      productPrice      : fv.productPrice,
       productCategory   : fv.productCategory,
-      productUnite      : fv.productUnite,
-      productStock      : fv.productStock,
-      productState      : "En attente de validation",
+      productState      : "En attente",
+      productValidation : false,
       productImage      : this.productImage,
-      codeCPC           : "",
       productHauteur    : fv.productHauteur,
       productLargeur    : fv.productLargeur,
       productLongueur   : fv.productLongueur,
