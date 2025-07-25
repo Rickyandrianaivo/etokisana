@@ -1,56 +1,80 @@
 <app-header></app-header>
 <div class="container">
     <div class="inner-container">
-        <h3>Ajouter un produit</h3>
-        <input type="file"  name="file" class="file-input" (change)="onFileSelected($event)" #productUpload>
         <div class="options">
+            <h3>Modifier un produit</h3>
             <div class="file-upload">
+                <input type="file"  name="file" class="file-input" (change)="onFileSelected($event)" #productUpload>
+                <img [src]="productImage[0]" height="500px" width="500px"><br>
+                <div class="row">
+                    <img *ngIf="productImage[1]" [src]="productImage[1]" height="50px" width="50px"><br>
+                    <img *ngIf="productImage[2]" [src]="productImage[2]" height="50px" width="50px"><br>
+                    <img *ngIf="productImage[3]" [src]="productImage[3]" height="50px" width="50px"><br>
+                </div>
                 {{ fileName || "Changer l'image du produit"}}
                 <button class="upload-btn" (click)="productUpload.click()"><mat-icon >attachement</mat-icon></button>
             </div>
         </div>
         <form class="register-form-style" [formGroup]="addProductForm"  (ngSubmit)="submit()">
             <div class="client-register">
-            <text-input
-            [control]="fc.productName"
-            [showErrorsWhen]="isSubmitted"
-            label="Nom du produit">
-            </text-input>
-            
-            <!-- <app-textarea
-            [control]="fc.productDescription"
-            [showErrorsWhen]="isSubmitted"
-            label="Description">
-            </app-textarea> -->
-            <!-- <text-input
-            [control]="fc.productPrice"
-            [showErrorsWhen]="isSubmitted"
-            label="Prix unitaire">
-            </text-input>
-            <text-input
-            [control]="fc.productCategory"
-            [showErrorsWhen]="isSubmitted"
-            label="Catégorie">
-            </text-input>
-            <text-input
-            [control]="fc.productUnite"
-            [showErrorsWhen]="isSubmitted"
-            label="Unité de mesure">
-            </text-input> 
-            <text-input
-            [control]="fc.productStock"
-            [showErrorsWhen]="isSubmitted"
-            label="Quantité disponible">
-            </text-input> -->
-            <text-input
-            [control]="fc.productSource"
-            [showErrorsWhen]="isSubmitted"
-            label="Provenance">
-            </text-input> 
+                <div class="row">
+                    <text-input
+                        [control]="fc.codeCPC"
+                        [showErrorsWhen]="isSubmitted"
+                        label="CPC">
+                    </text-input>
+                    <text-input
+                        [control]="fc.productCategory"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Catégorie">
+                    </text-input>
+                </div>
+                <text-input
+                    [control]="fc.productName"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Nom du produit">
+                </text-input>
+                <app-textarea
+                    [control]="fc.productDescription"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Description">
+                </app-textarea>
+                <div class="row">
+                    <text-input
+                        [control]="fc.productPoids"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Poids (kg)">
+                    </text-input>
+                    <text-input
+                        [control]="fc.productVolume"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Volume (L)">
+                    </text-input>
+                </div>
+                <div class="row">
+                    <text-input
+                        [control]="fc.productLargeur"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Largeur (m)">
+                    </text-input>
+                    <text-input
+                        [control]="fc.productLongueur"
+                        [showErrorsWhen]="isSubmitted"
+                        label="Longueur (m)">
+                    </text-input>
+                </div>
+                
+                
+                <text-input
+                    [control]="fc.productHauteur"
+                    [showErrorsWhen]="isSubmitted"
+                    label="Hauter (m)">
+                </text-input>
+                
             </div>
             <div class="buttonContainer">
-                <app-default-button text="Annuler" routerLink="/user-products" type="button"></app-default-button>
                 <app-default-button text="Valider" type="submit"></app-default-button>
+                <app-default-button text="Annuler" routerLink="/user-products" type="button"></app-default-button>
             </div>
         </form>
     </div>

@@ -12,6 +12,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { HeaderComponent } from '../../partials/header/header.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-update-product',
@@ -27,7 +28,9 @@ import { HeaderComponent } from '../../partials/header/header.component';
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
-  HeaderComponent],
+    HeaderComponent,
+    NgIf
+  ],
   templateUrl: 'update-product.component.html',
   styleUrl: 'update-product.component.css'
 })
@@ -54,21 +57,19 @@ readonly productCategory = new FormControl();
       if (this.productID) {
         this.productService.getProductById(this.productID).subscribe(theproduct=>{
           this.selectedProduct = theproduct;
-          console.log(this.selectedProduct);
+          this.productImage = theproduct.productImage;
+          // console.log(this.selectedProduct);
           this.addProductForm = this.formBuilder.group({
+            codeCPC :[this.selectedProduct.codeCPC],
+            productCategory:[this.selectedProduct.productCategory],
             productName:[this.selectedProduct.productName,Validators.required],
             productDescription:[this.selectedProduct.productDescription,Validators.required],
-            // productPrice:[this.selectedProduct.productPrice,Validators.required],
-            // productCategory:[this.selectedProduct.productCategory],
-            // productUnite:[this.selectedProduct.productUnite],
-            // productStock:[this.selectedProduct.productStock],
             productState:[this.selectedProduct.productState],
-            productHauteur:[this.selectedProduct.productHauteur],
-            productLongueur:[this.selectedProduct.productLongueur],
-            productLargeur:[this.selectedProduct.productLargeur],
-            productVolume:[this.selectedProduct.productVolume],
             productPoids:[this.selectedProduct.productPoids],
-            codeCPC :[this.selectedProduct.codeCPC],
+            productVolume:[this.selectedProduct.productVolume],
+            productLargeur:[this.selectedProduct.productLargeur],
+            productLongueur:[this.selectedProduct.productLongueur],
+            productHauteur:[this.selectedProduct.productHauteur],
           })
         })
       }
