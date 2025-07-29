@@ -18,16 +18,27 @@
         <form class="register-form-style" [formGroup]="addProductForm"  (ngSubmit)="submit()">
             <div class="client-register">
                 <div class="row">
-                    <text-input
-                        [control]="fc.codeCPC"
-                        [showErrorsWhen]="isSubmitted"
-                        label="CPC">
-                    </text-input>
-                    <text-input
-                        [control]="fc.productCategory"
-                        [showErrorsWhen]="isSubmitted"
-                        label="Catégorie">
-                    </text-input>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Category</mat-label>
+                        <input type="text" 
+                        placeholder="Category"
+                        matInput 
+                        [formControl]="catCtrl"
+                        [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            @for (category of filteredCat | async; track category.cpc){
+                                <button class="autoCompleteCPC" (click)="setCPC(category.cpc)" >
+                                    <mat-option [value]="category.designation" >
+                                        {{category.designation}}
+                                    </mat-option>
+                                </button>
+                                }
+                        </mat-autocomplete>
+                    </mat-form-field>        
+                    <mat-form-field appearance="outline">
+                        <mat-label style="color: black;">CPC</mat-label>
+                        <input matInput type="text" [(ngModel)]="selected" [ngModelOptions]="{standalone:true}" disabled="true">
+                    </mat-form-field>      
                 </div>
                 <text-input
                     [control]="fc.productName"

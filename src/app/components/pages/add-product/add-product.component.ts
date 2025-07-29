@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
@@ -16,6 +16,8 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { productCpc } from 'src/cpc-data';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { map, Observable, startWith } from 'rxjs';
+import { NotificationDialogComponent } from '../../partials/notification-dialog/notification-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // import {MatStepperModule} from '@angular/material/stepper';
 
 export interface Category{
@@ -48,11 +50,7 @@ export interface Category{
 
 
 export class AddProductComponent implements OnInit {
-  // readonly section = new FormControl();
-  // readonly division = new FormControl();
-  // readonly groupe = new FormControl();
-  // readonly classe = new FormControl();
-  // readonly sousClasse = new FormControl();
+  readonly dialog = inject(MatDialog);
   productCategory!:AbstractControl;
   
   fileName = "";
@@ -65,7 +63,8 @@ export class AddProductComponent implements OnInit {
   catCtrl = new FormControl('');
   listOfCategories : Category[]=productCpc;
   filteredCat: Observable<Category[]>;
-  selected: any = "";
+  selectedCode: string = "";
+  selectedCat : string ="";
 
   constructor(
     private productService:ProductService,
@@ -73,12 +72,11 @@ export class AddProductComponent implements OnInit {
     private router:Router,
     private userService:UserService
   ){
-    // console.log(this.listOfCategories[0].designation);
+    this.currentUser  = this.userService.getUserFromLocalStorage();
     this.filteredCat = this.catCtrl.valueChanges.pipe(
       startWith(''),
       map(cat => (cat ? this._filterCats(cat): this.listOfCategories.slice())),
     )
-    this.currentUser  = this.userService.getUserFromLocalStorage();
 
   }
 
@@ -92,22 +90,21 @@ export class AddProductComponent implements OnInit {
     return this.productCategory as FormControl;
   }
 
-  setCPC(codeCPC:string){
-    this.selected = codeCPC;
+  setCPC(codeCPC:string, category:string){
+    this.selectedCode = codeCPC;
+    this.selectedCat = category
   }
 
   ngOnInit() : void {
     this.addProductForm = this.formBuilder.group({
       productName:['',Validators.required],
       productDescription:['',Validators.required],
-      // productState:['en attente'],
       productHauteur:[''],
       productLargeur:[''],
       productLongueur:[''],
       productPoids:[''],
       productVolume:[''],
       productCode:[''],
-      // productCategory:[''],
     })
   }
 
@@ -181,11 +178,10 @@ export class AddProductComponent implements OnInit {
     const fv = this.addProductForm.value;
     console.log(fv.userName);
     this.product = {
-
-      codeCPC           : this.selected,
+      codeCPC           : this.selectedCode,
       productName       : fv.productName,
       productDescription: fv.productDescription,
-      productCategory   : fv.productCategory,
+      productCategory   : this.selectedCat,
       productState      : "En attente",
       productValidation : false,
       productImage      : this.productImage,
@@ -193,12 +189,28 @@ export class AddProductComponent implements OnInit {
       productLargeur    : fv.productLargeur,
       productLongueur   : fv.productLongueur,
       productPoids      : fv.productPoids,
-      productVolume     : fv.productVolume
+      productVolume     : fv.productVolume,
+      productOwnerId    : this.currentUser.userId, 
     };
-    // console.log(this.user);
     this.productService.addProduct(this.product).subscribe(_ => {
-      alert("adding product successfully!");
+      this.openNotificationDialog("Produit en attente de validation","Un email vous sera envoyer dès que le produit sera approuvé, merci de votre patience.","user-products",false,)
       this.router.navigateByUrl("user-products");
     })
   }
+  openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
+        const dialogRef = this.dialog.open(NotificationDialogComponent,{
+          data : {
+            title,
+            message
+          }
+        })
+        dialogRef.afterClosed().subscribe(result=>{
+          if (result == true && !url && reload == true) {
+            window.location.reload();
+          }
+          if(url){
+            this.router.navigateByUrl(url);
+          }
+        })
+      }
 }

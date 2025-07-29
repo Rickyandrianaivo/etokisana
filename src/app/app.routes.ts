@@ -32,6 +32,7 @@ import { RetraitComponent } from './components/pages/retrait/retrait.component';
 import { RequestResetPasswordComponent } from './components/pages/request-reset-password/request-reset-password.component';
 import { UsersDetailsComponent } from './components/pages/bo/users-details/users-details.component';
 import { StockComponent } from './components/pages/stock/stock.component';
+import { ProductDetailsComponent } from './components/pages/bo/product-details/product-details.component';
 
 const routes: Routes = [
     {path : '', component: LoginComponent},
@@ -48,6 +49,7 @@ const routes: Routes = [
     {path : 'request-reset-password', component: RequestResetPasswordComponent},
     {path : 'client-profile', component: ClientProfileComponent},
     {path : 'product-page/:id', component: ProductPageComponent},
+    {path : 'product-details/:id', component: ProductDetailsComponent},
     {path : 'user-products/add', component: AddProductComponent},
     {path : 'stock/:id', component: StockComponent},
     {path : 'user-site', component: UserSitesComponent},

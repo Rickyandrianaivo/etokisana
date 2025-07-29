@@ -51,6 +51,8 @@ export class ChoixProduitComponent {
       const stockelement = {
         productId : productAdeposer._id,
         depotId : this.depotId,
+        prix : productAdeposer.prix,
+        quantite : productAdeposer.quantite
       }
       this.productService.depositProduct(stockelement).subscribe(_=>{
         console.log(stockelement)

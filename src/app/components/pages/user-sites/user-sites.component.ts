@@ -229,6 +229,6 @@ export class UserSitesComponent implements OnInit{
     // }
 
   backButton(){
-    this.router.navigateByUrl("/client-rea")
+    this.router.navigateByUrl("/client-area")
   }
 }

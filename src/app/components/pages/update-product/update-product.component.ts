@@ -12,7 +12,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
 import { HeaderComponent } from '../../partials/header/header.component';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Category } from '../add-product/add-product.component';
+import { map, Observable, startWith } from 'rxjs';
+import { productCpc } from 'src/cpc-data';
+import { MatAutocomplete, MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-update-product',
@@ -29,7 +33,9 @@ import { NgIf } from '@angular/common';
     MatSelectModule,
     MatIconModule,
     HeaderComponent,
-    NgIf
+    NgIf,
+    MatAutocompleteModule,
+    AsyncPipe,
   ],
   templateUrl: 'update-product.component.html',
   styleUrl: 'update-product.component.css'
@@ -39,11 +45,16 @@ readonly productCategory = new FormControl();
   fileName = "";
   addProductForm: FormGroup = new FormGroup({});
   isSubmitted = false;
-  product : Product = new Product();
+  product : any;
   currentUserEmail: string ="";
   productID!:string;
   selectedProduct!:Product;
   productImage : string[] = [];
+
+  catCtrl = new FormControl('');
+  listOfCategories : Category[]=productCpc;
+  filteredCat: Observable<Category[]>;
+  selected: any = "";
   constructor(
     private productService:ProductService,
     private formBuilder:FormBuilder,
@@ -75,10 +86,22 @@ readonly productCategory = new FormControl();
       }
     })
     this.currentUserEmail  = this.userService.getUserFromLocalStorage().userEmail;
+    this.filteredCat = this.catCtrl.valueChanges.pipe(
+          startWith(''),
+          map(cat => (cat ? this._filterCats(cat): this.listOfCategories.slice())),
+        )
+  }
+  private _filterCats(value:string): Category[]{
+    const filterValue = value.toLowerCase();
+    console.log(this.listOfCategories.filter(category =>category.designation.length >=3 && category.designation.toLowerCase().includes(filterValue)))
+    return this.listOfCategories.filter(category =>category.designation.length >=3 && category.designation.toLowerCase().includes(filterValue));
   }
 
   ngOnInit() : void {
     
+  }
+ setCPC(codeCPC:string){
+    this.selected = codeCPC;
   }
 
   onFileSelected(event:any) {
@@ -105,9 +128,6 @@ readonly productCategory = new FormControl();
       reader.onload = (event:any) => {
         console.log(event.target.result);
           this.productImage.push(event.target.result); 
-        //  this.myForm.patchValue({
-        //     fileSource: this.images
-        //  });
       }
       reader.readAsDataURL(event.target.files[i]);
     }

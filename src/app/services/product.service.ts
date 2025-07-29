@@ -60,9 +60,9 @@ export class ProductService {
   addProduct(productData:Product):Observable<Product>{
     return this.http.post<Product>(PRODUCT_ADD_URL,productData);
   }
-  updateProduct( productID:string,newProductData:Product):Observable<Product>{
+  updateProduct( productID:string,newProductData:any):Observable<Product>{
     console.log(newProductData);
-    return this.http.put<Product>(PRODUCT_UPDATE_URL+productID,newProductData);
+    return this.http.patch<Product>(PRODUCT_UPDATE_URL+productID,newProductData);
   }
   getStockElementBySite( siteId:string):Observable<StockElement[]>{
     return this.http.get<StockElement[]>(PRODUCT_BY_SITE_ID_URL+siteId);

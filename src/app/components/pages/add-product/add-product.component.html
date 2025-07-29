@@ -22,28 +22,28 @@
         <form class="register-form-style" [formGroup]="addProductForm"  (ngSubmit)="submit()">
             <div class="client-register">
                 <div class="row">
-                <mat-form-field appearance="outline">
-                    <mat-label>Category</mat-label>
-                    <input type="text" 
-                    placeholder="Category"
-                    matInput 
-                    [formControl]="catCtrl"
-                    [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        @for (category of filteredCat | async; track category.cpc){
-                            <button class="autoCompleteCPC" (click)="setCPC(category.cpc)" >
-                                <mat-option [value]="category.designation" >
-                                    {{category.designation}}
-                                </mat-option>
-                            </button>
-                            }
-                    </mat-autocomplete>
-                </mat-form-field>        
-                <mat-form-field appearance="outline">
-                    <mat-label style="color: black;">CPC</mat-label>
-                    <input matInput type="text" [(ngModel)]="selected" [ngModelOptions]="{standalone:true}" disabled="true">
-                </mat-form-field>      
-            </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Category</mat-label>
+                        <input type="text" 
+                        placeholder="Category"
+                        matInput 
+                        [formControl]="catCtrl"
+                        [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            @for (category of filteredCat | async; track category.cpc){
+                                <button class="autoCompleteCPC" (click)="setCPC(category.cpc,category.designation)" >
+                                    <mat-option [value]="category.designation" >
+                                        {{category.designation}}
+                                    </mat-option>
+                                </button>
+                                }
+                        </mat-autocomplete>
+                    </mat-form-field>        
+                    <mat-form-field appearance="outline">
+                        <mat-label style="color: black;">CPC</mat-label>
+                        <input matInput type="text" [(ngModel)]="selectedCode" [ngModelOptions]="{standalone:true}" disabled="true">
+                    </mat-form-field>      
+                </div>
             <!-- Champ du nom du produit -->
             <text-input
             [control]="fc.productName"

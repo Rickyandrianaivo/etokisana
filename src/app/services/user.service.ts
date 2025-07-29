@@ -42,7 +42,6 @@ export class UserService {
     return this.http.get<User>(USER_BY_USER_ID_URL+ userId);
   }
   getUserByEmail(userEmail :string) : Observable<User>{
-    console.log(USER_BY_EMAIL_URL + userEmail)
     return this.http.get<User>(USER_BY_EMAIL_URL + userEmail);
   }
 

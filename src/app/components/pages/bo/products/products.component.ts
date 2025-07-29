@@ -8,24 +8,30 @@ import { MatTableModule } from '@angular/material/table';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationDialogComponent } from 'src/app/components/partials/notification-dialog/notification-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NgIf } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [
-    RouterLink,
+    // RouterLink,
     MatTableModule,
     MatCheckboxModule,
     MatIconModule,
-    SideBarComponent
+    SideBarComponent,
+    // MatIconButton,
+    MatTooltipModule,
+    NgIf,
 ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
   readonly dialog = inject(MatDialog);
-  productsList:any[]=[]
-  displayedColumns: string[] = ['Photo','CPC','Category','Nom', 'Description', 'Unité','Validé','Action'];
+  productsList:any[] = [];
+  displayedColumns: string[] = ['Photo','CPC','Category','Nom', 'Description', 'Statut','Poids','Volume','Largeur','Longueur','Hauteur','Action'];
   logedUser : any;
   constructor(
     private productService: ProductService,
@@ -42,10 +48,16 @@ export class ProductsComponent {
       this.productsList = productAll;
     })
   }
+  checkProduct(productId:string){
+    this.router.navigateByUrl("product-details/"+productId);
+  }
+  validateProduct(productId:string){
+    this.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",null,true);
+  }
   deleteProduct(productId:string){
     this.productService.deleteProduct(productId).subscribe(result =>{
-      this.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
     })
+    this.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
   }
   openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
       const dialogRef = this.dialog.open(NotificationDialogComponent,{

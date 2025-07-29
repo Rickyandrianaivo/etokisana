@@ -11,4 +11,5 @@ export class Product{
     productLargeur : number = 0;
     productLongueur : number = 0;
     productPoids : number = 0;
+    productOwnerId : string ="";
 }

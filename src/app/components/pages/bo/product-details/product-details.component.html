@@ -26,13 +26,12 @@
 
                 </div>
             </mat-tab>
-            <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
         </mat-tab-group> 
         </div>
     </div>
               
     <div class="row">
-        <app-default-button (click)="addtoCart(theProduct)" text="Ajouter au panier"></app-default-button>
+        <app-default-button (click)="validateProduct(theProduct._id)" text="Approuver le produit"></app-default-button>
     </div>
 </div>
 

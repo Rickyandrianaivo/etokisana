@@ -22,7 +22,7 @@ import { NgIf } from '@angular/common';
   styleUrl: 'user-products.component.css'
 })
 export class UserProductsComponent implements OnInit{
-  displayedColumns: string[] = ['Thumbnail','Nom', 'Description', 'Unité', 'Stock','Prix Unitaire','Action'];
+  displayedColumns: string[] = ['Thumbnail','Nom', 'Description','Statut','Poids','Volume','Largeur','Longueur','Hauteur','Action'];
   dataSource : Product[] = [];
   currentUserEmail!:string ;
   OwnerId!:string
@@ -32,14 +32,13 @@ export class UserProductsComponent implements OnInit{
     private productService:ProductService,
     private userService :UserService,
     private router:Router,
-    // private activated
   ){
     this.currentUserEmail =this.userService.getUserFromLocalStorage().userEmail;
     this.userService.getUserByEmail(this.currentUserEmail).subscribe((userServer:any) =>{
-      this.OwnerId = userServer._id
+      this.OwnerId = userServer.userId;
       this.productService.getProductByOwner(this.OwnerId).subscribe(productFromServer=>{
-      this.dataSource = productFromServer;
-    })
+        this.dataSource = productFromServer;
+      })
     })
   }
   ngOnInit(){
@@ -54,6 +53,9 @@ export class UserProductsComponent implements OnInit{
     this.router.navigateByUrl('user-products/update/'+id)
   }
   deposerProduit(id : string){
-    this.router.navigateByUrl('choix-depot')
+    this.router.navigateByUrl('choix-site/depot')
+  }
+  retirerProduit(id : string){
+    this.router.navigateByUrl('choix-site/retrait')
   }
 }

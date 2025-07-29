@@ -11,8 +11,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule,
-    // SearchComponent,
+  imports: [
+    CommonModule,
     RouterLink,
     MatIconModule,
     AvatarModule
@@ -35,7 +35,6 @@ export class HeaderComponent implements OnInit,OnChanges{
     if(this.isUser.userName){
       this.userService.getUserByEmail(this.isUser.userEmail).subscribe(userReq => {
         this.user = userReq;
-        console.log(this.user)
 
         this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allNotif =>{
           this.notifications = allNotif;
