@@ -26,7 +26,6 @@ export class UserService {
   }
 
   resetTables(){
-    console.log("we're on the service")
     return this.http.get(RESET_TABLES_URL);
   }
 
@@ -34,11 +33,10 @@ export class UserService {
     return this.http.get<User[]>(USER_URL);
   }
   getUserById(dbId :string) : Observable<User>{
-    console.log(USER_BY_ID_URL+dbId)
     return this.http.get<User>(USER_BY_ID_URL+ dbId);
   }
   getUserByUserId(userId :string) : Observable<User>{
-    console.log(USER_BY_USER_ID_URL+userId)
+    
     return this.http.get<User>(USER_BY_USER_ID_URL+ userId);
   }
   getUserByEmail(userEmail :string) : Observable<User>{

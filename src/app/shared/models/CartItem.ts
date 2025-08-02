@@ -5,9 +5,10 @@ export class CartItem{
         this.CartItemProduct = product;
     }
     CartItemProduct!:any;
-    CartItemQuantity!:number;
-
-    get CartItemPrice():number{
-        return this.CartItemProduct.productPrice * this.CartItemQuantity;
-    }
+    CartItemQuantity:number = 0;
+    CartItemPrice:number = 0;
+    CartItemMontant : number = 0;
+    // get CartItemMontant():number{
+    //     return this.CartItemPrice * this.CartItemQuantity;
+    // }
 }

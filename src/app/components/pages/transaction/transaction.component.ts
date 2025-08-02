@@ -13,7 +13,6 @@ import { DatePipe } from '@angular/common';
   selector: 'app-transaction',
   standalone: true,
   imports: [
-    MatDrawer,
     MatDrawerContainer,
     MatDrawerContent,
     MatTableModule,
@@ -38,41 +37,59 @@ export class TransactionComponent implements OnInit{
   retraitList     :any[]=[];
   transactionList :any[]=[];
   transactionListIsReady : boolean = false;
-  displayedColumns: string[] = ['Date','Situation', 'Description','Type', 'Montant','Dépôt'];
+  displayedColumns: string[] = ['Date','Situation','Type', 'Montant','Depart','Arrivee','Action'];
   // displayedColumns: string[] = ['Date','Situation', 'Type', 'Montant','Methode','Dépôt'];
-constructor(
-  private userService:UserService,
-  private router:Router,
-  private transactionService : TransactionService,
-  private siteService : SiteService,
-){
-  this.userCurrent = this.userService.getUserFromLocalStorage()
-  if (!this.userCurrent) {
-    this.router.navigateByUrl('/login')
-  } 
-  this.transactionService.getTransactionByUserId(this.userCurrent._id).subscribe((transactionListServer:any)=>{
-    // this.transactionList = transactionListServer;
-    transactionListServer.forEach((element:any) => {
-      this.siteService.getSiteById(element.siteId).subscribe((site:any)=>{
+  _siteDepart:any;
+  _siteArrivee:any;
+  constructor(
+    private userService:UserService,
+    private router:Router,
+    private transactionService : TransactionService,
+    private siteService : SiteService,
+  ){
+    this.userCurrent = this.userService.getUserFromLocalStorage()
+    if (!this.userCurrent) {
+      this.router.navigateByUrl('/login')
+    } 
+    this.transactionService.getTransactionByUserId(this.userCurrent._id).subscribe((transactionListServer:any)=>{
+      // this.transactionList = transactionListServer;
+      transactionListServer.forEach((element:any) => {
         let elementItem = {
+          _id:element._id,
           createdAt: element.createdAt,
           statut : element.statut,
-          libelle : element.libelle,
           typeES : element.typeES,
-          montant : element.montant,
-          depot : site.siteName + " - "+site.siteAddress
+          montantTotal : element.montantTotal,
+          siteDepart : this._siteDepart,
+          departOwner : "",
+          siteArrivee: this._siteArrivee,
+          arriveeOwner : "",
+        }
+        
+        if (element.siteDepartId) {
+          this.siteService.getSiteById(element.siteDepartId).subscribe((siteDepartFS:any)=>{
+            this._siteDepart= siteDepartFS;
+            elementItem.siteDepart = this._siteDepart;
+            this.userService.getUserByUserId(this._siteDepart.siteUserID).subscribe(departOwner =>{
+              elementItem.departOwner = departOwner.userId.toUpperCase() + " - " + departOwner.userName + " " + departOwner.userFirstname;
+            })
+          })
+        }
+        if (element.siteArriveId) {
+          this.siteService.getSiteById(element.siteArriveId).subscribe((siteArriveeFs:any)=>{
+            this._siteArrivee = siteArriveeFs;
+            elementItem.siteArrivee = this._siteArrivee.siteName + " - " + this._siteArrivee.siteAddress;
+            this.userService.getUserByUserId(this._siteArrivee.siteUserID).subscribe(arriveeOwner =>{
+              elementItem.arriveeOwner = arriveeOwner.userId.toUpperCase() + " - " + arriveeOwner.userName + " " + arriveeOwner.userFirstname;
+            })
+          })  
         }
         this.transactionList.push(elementItem);
         this.table.renderRows();
       })
-    })
-  });
-  // console.log(this.transactionList)
-}
-ngOnInit(): void {
-   
-}
-affiche(titre:string){
-  
-}
+    });
+  }
+  ngOnInit(): void {
+    
+  }
 }

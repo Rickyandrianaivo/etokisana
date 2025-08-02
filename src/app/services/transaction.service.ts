@@ -31,7 +31,7 @@ private depotSubject = new BehaviorSubject<Transaction> ( this.getDepotFromLocal
     return this.http.get<Transaction>(TRANSACTION_BY_ID_URL+ TransactionId);
   }
   update(updateData : any, TransactionId : string){
-    return this.http.put<Transaction>(TRANSACTION_UPDATE_URL + TransactionId, updateData)
+    return this.http.patch<Transaction>(TRANSACTION_UPDATE_URL + TransactionId, updateData)
   }
   deleteTransaction(TransactionId:string){
     return this.http.delete(TRANSACTION_REMOVE_URL+TransactionId);

@@ -33,6 +33,7 @@ import { RequestResetPasswordComponent } from './components/pages/request-reset-
 import { UsersDetailsComponent } from './components/pages/bo/users-details/users-details.component';
 import { StockComponent } from './components/pages/stock/stock.component';
 import { ProductDetailsComponent } from './components/pages/bo/product-details/product-details.component';
+import { TransactionDetailsComponent } from './components/pages/transaction-details/transaction-details.component';
 
 const routes: Routes = [
     {path : '', component: LoginComponent},
@@ -70,6 +71,7 @@ const routes: Routes = [
     {path : 'choix-site/:typeES' , component:ChoixDepotComponent},
     {path : 'depot-sites/:typeES/:id' , component:DepotSitesComponent},
     {path : 'choix-produit/:typeES/:id' , component:ChoixProduitComponent},
+    {path : 'transaction-details/:id' , component:TransactionDetailsComponent},
     {path : '**', component: NotFoundComponent},
 ];
 

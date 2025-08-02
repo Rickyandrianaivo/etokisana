@@ -1,20 +1,25 @@
 <app-header></app-header>
 <div class="container">
-    <div class="main-content" *ngIf="validatedUser">
-        <div class="email-confirmation" *ngIf="!verifiedUser">
-            Veuillez consulter vos Email pour finaliser votre inscription.
+    @if (user) {
+        @if ( validatedUser) {
+            <div class="main-content" *ngIf="validatedUser">
+            <div class="email-confirmation" *ngIf="!verifiedUser">
+                Veuillez consulter vos Email pour finaliser votre inscription.
+            </div>
+            <!-- <app-client-area-items title="Address" imageUrl=""></app-client-area-items> -->
+            <app-client-area-items title="Profile" imageUrl="clientArea/bloc2.svg" link="/client-profile"></app-client-area-items>
+            <!-- <app-client-area-items title="Mes demandes" imageUrl="clientArea/bloc3.svg" link=""></app-client-area-items> -->
+            <!-- <app-client-area-items title="Mes offres" imageUrl="clientArea/bloc3.svg" link=""></app-client-area-items> -->
+            <app-client-area-items title="Produits" imageUrl="clientArea/bloc4.svg" link="/user-products"></app-client-area-items>
+            <app-client-area-items title="Transactions" imageUrl="clientArea/bloc5.svg" link="/transactions"></app-client-area-items>
+            <app-client-area-items title="Sites" imageUrl="clientArea/bloc1.svg" link="/user-site"></app-client-area-items>
         </div>
-        <!-- <app-client-area-items title="Address" imageUrl=""></app-client-area-items> -->
-        <app-client-area-items title="Profile" imageUrl="clientArea/bloc2.svg" link="/client-profile"></app-client-area-items>
-        <!-- <app-client-area-items title="Mes demandes" imageUrl="clientArea/bloc3.svg" link=""></app-client-area-items> -->
-        <!-- <app-client-area-items title="Mes offres" imageUrl="clientArea/bloc3.svg" link=""></app-client-area-items> -->
-        <app-client-area-items title="Produits" imageUrl="clientArea/bloc4.svg" link="/user-products"></app-client-area-items>
-        <app-client-area-items title="Transactions" imageUrl="clientArea/bloc5.svg" link="/transactions"></app-client-area-items>
-        <app-client-area-items title="Sites" imageUrl="clientArea/bloc1.svg" link="/user-site"></app-client-area-items>
-    </div>
-    <div class="main-content" *ngIf="!validatedUser">
-        <h2 style="text-align: center;margin: auto;">Votre compte est en attente de vérification auprès de l'administrateur vous recevrez un e-mail dès qu'il sera prêt et approuvé.<br>
-        Merci de votre comprehension
-        </h2>
-    </div>
+        }@else {
+            <div class="main-content">
+                <h2 style="text-align: center;margin: auto;">Votre compte est en attente de vérification auprès de l'administrateur vous recevrez un e-mail dès qu'il sera prêt et approuvé.<br>
+                Merci de votre comprehension
+                </h2>
+            </div>
+        }
+    }
 </div>

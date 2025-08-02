@@ -15,9 +15,9 @@ export class BusyService {
     this.spnnierService.show(undefined,
       {
         type:'ball-scale-ripple',
-        bdColor:'rgba(116, 114, 114, 0.8)',
-        color:'#fff',
-        size:'default',
+        bdColor:'rgba(255, 255, 255, 1)',
+        color:'#000',
+        size:'large',
       }
     )
   }

@@ -1,4 +1,5 @@
 export class Product{
+    _id!:string;
     codeCPC !: string;
     productName!:string;
     productDescription!:string;

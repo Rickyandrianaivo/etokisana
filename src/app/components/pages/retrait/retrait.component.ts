@@ -69,43 +69,43 @@ constructor(
       return this.withdrawFundForm.controls;
     }
     submit(){
-      this.isSubmitted =true;
-      if (this.withdrawFundForm.invalid){ 
-          console.log(this.withdrawFundForm.getError);
-          alert("Veuillez remplir correctement les champs obligatoires!");
-          return;
-        }
+      // this.isSubmitted =true;
+      // if (this.withdrawFundForm.invalid){ 
+      //     console.log(this.withdrawFundForm.getError);
+      //     alert("Veuillez remplir correctement les champs obligatoires!");
+      //     return;
+      //   }
       
-      const fv = this.withdrawFundForm.value;
-      this.entry = {
-        userId          : this.user._id,      
-        libelle         : fv.libelle,
-        codeProduit     : "",
-        produitId       : this.productId,
-        tiersId         : this.depotId,
-        montant         : fv.montant,
-        statut          : "encours de validation",
-        siteId          : this.depotId,
-        typeES          : "Retrait",
-      };
-      this.transactionservice.addTransaction(this.entry).subscribe(_=>{
-      })
+      // const fv = this.withdrawFundForm.value;
+      // this.entry = {
+      //   userId          : this.user._id,      
+      //   libelle         : fv.libelle,
+      //   codeProduit     : "",
+      //   produitId       : this.productId,
+      //   tiersId         : this.depotId,
+      //   montant         : fv.montant,
+      //   statut          : "encours de validation",
+      //   siteId          : this.depotId,
+      //   typeES          : "Retrait",
+      // };
+      // this.transactionservice.addTransaction(this.entry).subscribe(_=>{
+      // })
   
-      let updatedUser : IUserRegister = {
-        userName            : this.user.userName,
-        userFirstname       : this.user.userFirstname,
-        userPassword        : this.user.userPassword,
-        userEmail           : this.user.userEmail,
-        userPhone           : this.user.userPhone,
-        userTotalSolde      : parseInt(this.fullUser.userTotalSolde)-parseInt(fv.montant),
-        userType            : this.user.userType,
-        userEnabled         : this.user.userEnabled,
-      }
-      this.userService.update(updatedUser,this.user._id).subscribe(res => {
-        alert("Retrait effectué");
-        if (res != null) {
-          this.router.navigateByUrl("/transactions");          
-        }
-      })
+      // let updatedUser : IUserRegister = {
+      //   userName            : this.user.userName,
+      //   userFirstname       : this.user.userFirstname,
+      //   userPassword        : this.user.userPassword,
+      //   userEmail           : this.user.userEmail,
+      //   userPhone           : this.user.userPhone,
+      //   userTotalSolde      : parseInt(this.fullUser.userTotalSolde)-parseInt(fv.montant),
+      //   userType            : this.user.userType,
+      //   userEnabled         : this.user.userEnabled,
+      // }
+      // this.userService.update(updatedUser,this.user._id).subscribe(res => {
+      //   alert("Retrait effectué");
+      //   if (res != null) {
+      //     this.router.navigateByUrl("/transactions");          
+      //   }
+      // })
     }
 }

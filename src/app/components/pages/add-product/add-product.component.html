@@ -8,7 +8,8 @@
                 <!-- <img *ngIf="!firstImage" src="default.jpg" height="500px" width="500px"><br> -->
                 <!-- <img *ngIf="firstImage" [src]="firstImage" height="500px" width="500px"><br> -->
                  <!-- <img @for displayImage of productImage [src]="displayImage[0]" height="500px" width="500px"><br> -->
-                <img [src]="productImage[0]" height="500px" width="500px"><br>
+                <img *ngIf="productImage[0]" [src]="productImage[0]" height="500px" width="500px"><br>
+                <img *ngIf="!productImage[0]" src="default.jpg" height="500px" width="500px"><br>
                 <div class="row">
                     <img *ngIf="productImage[1]" [src]="productImage[1]" height="50px" width="50px"><br>
                     <img *ngIf="productImage[2]" [src]="productImage[2]" height="50px" width="50px"><br>

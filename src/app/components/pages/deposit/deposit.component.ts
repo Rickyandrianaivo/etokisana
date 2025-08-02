@@ -79,42 +79,40 @@ export class DepositComponent {
     return this.addFundForm.controls;
   }
   submit(){
-    this.isSubmitted =true;
-    if (this.addFundForm.invalid){ 
-        console.log(this.addFundForm.getError);
-        alert("Veuillez remplir correctement les champs obligatoires!");
-        return;
-      }
+    // this.isSubmitted =true;
+    // if (this.addFundForm.invalid){ 
+    //     console.log(this.addFundForm.getError);
+    //     alert("Veuillez remplir correctement les champs obligatoires!");
+    //     return;
+    //   }
     
-    const fv = this.addFundForm.value;
-    this.entry = {
-      userId          : this.user.userID,      
-      libelle         : fv.libelle,
-      codeProduit     : this.product.codeCPC,
-      produitId       : this.productId,
-      tiersId         : this.prestataireId,
-      montant         : fv.montant,
-      statut          : "encours de validation",
-      siteId          : this.siteId,
-      typeES          : "Dépôt",
-    };
-    this.transactionservice.addTransaction(this.entry).subscribe(_=>{
+    // const fv = this.addFundForm.value;
+    // this.entry = {
+    //   userId          : this.user.userID,      
+    //   siteDepartId        : fv.libelle,
+    //   siteArriveId           : this.product.codeCPC,
+    //   montantTotal       : this.productId,
+    //   statut         : this.prestataireId,
+    //   typeES          : "Entrée",
+    //   productList : 
+    // };
+    // this.transactionservice.addTransaction(this.entry).subscribe(_=>{
 
-    })
-    let updatedUser : IUserRegister = {
-      userName            : this.user.userName,
-      userFirstname       : this.user.userFirstname,
-      userPassword        : this.user.userPassword,
-      userEmail           : this.user.userEmail,
-      userPhone           : this.user.userPhone,
-      userTotalSolde      : parseInt(this.fullUser.userTotalSolde) + parseInt(fv.montant),
-      userType            : this.user.userType,
-      userEnabled         : this.user.userEnabled,
-    }
-    // console.log(parseInt(this.fullUser.userTotalSolde) + parseInt(fv.montant));
-    this.userService.update(updatedUser,this.user._id).subscribe(_ => {
-      alert("Dépôt de fonds effectué");
-      this.router.navigateByUrl("/transactions");
-    })
+    // })
+    // let updatedUser : IUserRegister = {
+    //   userName            : this.user.userName,
+    //   userFirstname       : this.user.userFirstname,
+    //   userPassword        : this.user.userPassword,
+    //   userEmail           : this.user.userEmail,
+    //   userPhone           : this.user.userPhone,
+    //   userTotalSolde      : parseInt(this.fullUser.userTotalSolde) + parseInt(fv.montant),
+    //   userType            : this.user.userType,
+    //   userEnabled         : this.user.userEnabled,
+    // }
+    // // console.log(parseInt(this.fullUser.userTotalSolde) + parseInt(fv.montant));
+    // this.userService.update(updatedUser,this.user._id).subscribe(_ => {
+    //   alert("Dépôt de fonds effectué");
+    //   this.router.navigateByUrl("/transactions");
+    // })
   }
 }

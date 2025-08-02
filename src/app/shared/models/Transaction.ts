@@ -1,11 +1,12 @@
+import { CartItem } from "./CartItem";
+
 export class Transaction{
+    _id ?: string;
     userId !:string;
-    tiersId !: string;
-    codeProduit !: string;
+    siteDepartId !: string;
+    siteArriveId !: string;
     typeES!:string;
-    produitId !: string;
-    libelle !: string;
-    montant !: number;
+    montantTotal !: number;
     statut!:string;
-    siteId!: string;
+    productList!:CartItem[];
 }

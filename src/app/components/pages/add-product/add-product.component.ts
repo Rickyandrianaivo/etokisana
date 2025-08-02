@@ -178,6 +178,7 @@ export class AddProductComponent implements OnInit {
     const fv = this.addProductForm.value;
     console.log(fv.userName);
     this.product = {
+      _id               :"",
       codeCPC           : this.selectedCode,
       productName       : fv.productName,
       productDescription: fv.productDescription,

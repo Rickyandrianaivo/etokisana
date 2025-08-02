@@ -1,6 +1,5 @@
 export class StockElement{
-    depotId!:string;
+    transactionId!:string;
     productId!:string;
-    quantity:number = 0;
-
+    stock:number = 0;
 }

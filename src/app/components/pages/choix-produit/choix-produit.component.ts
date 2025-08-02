@@ -1,35 +1,74 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../partials/header/header.component';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { ProductService } from 'src/app/services/product.service';
+import { CartItem } from 'src/app/shared/models/CartItem';
+import { Product } from 'src/app/shared/models/Product';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
+import { TextInputComponent } from "../../partials/text-input/text-input.component";
+import { TransactionService } from 'src/app/services/transaction.service';
+import { UserService } from 'src/app/services/user.service';
+import { SiteService } from 'src/app/services/site.service';
+import { Site } from 'src/app/shared/models/Sites';
 
 @Component({
   selector: 'app-choix-produit',
   standalone: true,
-  imports: [HeaderComponent,NgFor,NgIf],
+  imports: [
+    HeaderComponent,
+    NgFor,
+    NgIf,
+    // NgModel,
+    FormsModule,
+    ReactiveFormsModule,
+    DefaultButtonComponent,
+    // TextInputComponent,
+    UpperCasePipe,
+    RouterLink
+],
   templateUrl: './choix-produit.component.html',
   styleUrl: './choix-produit.component.css'
 })
 export class ChoixProduitComponent {
+  subscriptions : Subscription[] = []
   productList:any;
   depotId !: string;
   typeES !: string;
   isEmpty :boolean = true;
   produitsAdeposer : any[] = [];
+  montantTotal : number = 0;
+  articles : Product[]=[]
+  currentUser : any ;
+  currentSite !:Site;
+  siteOwner !:any;
+  returnUrl !: string;
   constructor(
     private router:Router,
     private productService : ProductService,
     private activatedRoute : ActivatedRoute,
+    private transactionService : TransactionService,
+    private userService : UserService,
+    private siteService : SiteService,
   ){
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
+    this.currentUser = this.userService.getUserFromLocalStorage();
     this.productService.getAll().subscribe(productAll =>{
-      this. productList = productAll;
+      this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
+      this.articles = productAll;
     });
     this.activatedRoute.params.subscribe(params =>{
       this.depotId=params['id'];
       this.typeES= params['typeES'];
-      console.log(this.typeES)
-    })
+      this.siteService.getSiteById(this.depotId).subscribe(currentSite =>{
+        this.currentSite = currentSite;
+        this.userService.getUserByUserId(this.currentSite.siteUserID).subscribe(result=>{
+          this.siteOwner = result;
+        })
+      })
+      })
   }
   choixProduit(productId : string){
     this.isEmpty=false;
@@ -59,4 +98,326 @@ export class ChoixProduitComponent {
       })
     })
   }
+
+  // from gescom
+  // subscription : Subscription[] = []
+  cartItems: CartItem[] = [];
+  emptyHolderId: number = 0;
+  defaultRowCount : number = 12;
+  cartItemsHolder: CartItem[] = [
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    },
+    {
+      CartItemProduct:new Product(),
+      CartItemQuantity:0,
+      CartItemPrice:0,
+      CartItemMontant : 0,
+    }
+  ];
+  // familles: Familleproduct[] = [];
+  famille: string = 'Catégories';
+  CartItemPriceTotal:number = 0;
+  isCartEmpty:boolean = true;
+  // cart:Cart = new Cart();
+  // pointDeVente !: IPointDeVente;
+  // factureVenteDetails : FactureVenteDetails[] = [];
+  numeroFactureVente !:string;
+  isLoged : boolean = true; 
+  // cartLength : number = 0
+  
+  searchTerm: string ='';
+  codeClient: string = '';
+  nameClient: string = '';
+
+  isDetail:boolean = false;
+
+  showSuggestions:boolean = true;
+
+
+  GetIsEmpty(isEmpty : boolean){
+    this.showSuggestions = isEmpty;
+  }
+// plus tard recherche
+  // GetSearchTerm(searchTerm : string){
+  //   this.searchTerm = searchTerm;
+  //   let productObeservable = this.productService.getAllproductsBySearchTerm(this.searchTerm);
+  //   productObeservable.subscribe((searchedproduct)=>{
+  //     this.products = searchedproduct;
+  //   })
+  // }
+
+  // applyFamille(familleproduct:string){
+  //   this.subscription.push(this.productService.getproductByFamille(familleproduct).subscribe((serverproduct)=>{
+  //     this.products = serverproduct;
+  //     this.famille = familleproduct;
+  //     console.log(familleproduct)
+  //   }));
+  // }
+
+  addToCart(reference:string){
+    this.isCartEmpty = false;
+    let productFromServer : Product;
+    const productObservable = this.productService.getProductById(reference);
+    this.subscriptions.push(productObservable.subscribe((serverproduct)=>{
+      productFromServer = serverproduct ;
+      this.removeEmpty();
+        const itemToAdd : CartItem = {
+          CartItemProduct : productFromServer?? new Product(),
+          CartItemQuantity : 1,
+          CartItemPrice : 0,
+          CartItemMontant : 0,
+        }
+      this.cartItems.unshift(itemToAdd);
+      if (this.CartItemPriceTotal === 0) {
+        // this.CartItemPriceTotal = productFromServer.;
+      }else{
+        // this.CartItemPriceTotal = this.CartItemPriceTotal + productFromServer.prixUnitaireVenteTTC;
+      }
+    }))
+    // this.cartLength++
+  }
+
+  removeFromCart(productByRef:string){
+    if (this.cartItems.length == 0) {
+      console.log(this.cartItems.length)
+      this.isCartEmpty = true;
+    }
+    const itemIndex = this.cartItems.findIndex(items => items.CartItemProduct._id === productByRef);
+    const item = this.cartItems.find(items => items.CartItemProduct._id === productByRef);
+    if (item) {
+      const newCartItemPriceTotal = this.CartItemPriceTotal - item.CartItemPrice;
+      this.CartItemPriceTotal = newCartItemPriceTotal;
+    }
+    this.cartItems.splice(itemIndex,1);
+    // this.cartLength--
+  }
+
+  changeCartItemQuantity(item:CartItem , CartItemQuantity:number){
+    if (!item) return;
+
+    item.CartItemQuantity = CartItemQuantity;
+    // console.log(item.prod.prixUnitaireVenteTTC)
+    // item.CartItemPrice = item.CartItemProduct.prixUnitaireVenteTTC * CartItemQuantity;
+    item.CartItemMontant = CartItemQuantity * item.CartItemPrice;
+    this.calculTotal();
+  }
+  changeCartItemPrice(item:CartItem , CartItemPrice:number){
+    if (!item) return;
+
+    item.CartItemPrice = CartItemPrice;
+    item.CartItemMontant = CartItemPrice * item.CartItemQuantity;
+    console.log(item.CartItemMontant)
+
+    this.calculTotal();
+  }
+
+  qtUp(item:CartItem,itemQte:number,currentCartItemPriceTotal:number){
+    const newQt = itemQte+1;
+    const newCartItemPriceTotal = currentCartItemPriceTotal + item.CartItemProduct.prixUnitaireVenteTTC;
+    this.changeCartItemQuantity(item,newQt);
+  }
+
+  qtDown(item:CartItem ,itemQte:number,currentCartItemPriceTotal:number){
+    if (itemQte > 1) {
+      const newQt = itemQte-1;
+      const newCartItemPriceTotal  = currentCartItemPriceTotal-item.CartItemProduct.prixUnitaireVenteTTC;
+      this.changeCartItemQuantity(item,newQt);
+    }
+  }
+
+  removeEmpty(){
+      this.cartItemsHolder.splice(this.emptyHolderId,1);
+      if (this.cartItemsHolder.length > 0) {
+        this.emptyHolderId--;
+      }
+  }
+
+  resetCart(){
+    this.isCartEmpty = true;
+    if (this.cartItems.length > 12) {
+      for (let index = 0; index < this.defaultRowCount; index++) {
+        const emptyItem = {
+            CartItemProduct:new Product(),
+            CartItemQuantity:0,
+            CartItemPrice:0,
+            CartItemMontant : 0,
+          }
+        this.cartItemsHolder.push(emptyItem)
+      }
+    }else{
+      for (let index = 0; index < this.cartItems.length; index++) {
+        const emptyItem = {
+          CartItemProduct:new Product(),
+          CartItemQuantity:0,
+          CartItemPrice:0,
+          CartItemMontant : 0,
+        }
+        this.cartItemsHolder.push(emptyItem)
+      }
+    }
+    this.cartItems = [];
+    this.CartItemPriceTotal = 0;
+    this.montantTotal = 0;
+  }
+
+  submit(){
+    let transactionData={
+      userId : this.currentUser._id,
+      siteDepartId : "",
+      siteArriveId : this.depotId,
+      typeES:"Entrée",
+      montantTotal : this.montantTotal,
+      statut:"En cours",
+      productList:this.cartItems,
+
+    }
+    this.transactionService.addTransaction(transactionData).subscribe(_ =>{
+
+    })
+    let addBalance = {
+      userTotalSolde : this.montantTotal,
+    }
+    this.userService.update(addBalance,this.siteOwner._id).subscribe(_=>{
+      alert("Dépot réussi !");
+    })
+    // this.numeroFactureVente = this.pointDeVente.prefixeVente + "000" + this.pointDeVente.numeroVente;
+    // this.cartItems.forEach(cartItem => {
+    //   let newFactureVenteDetails = {
+    //     cartItem            : cartItem,
+    //     prixVenteTTC        : cartItem.CartItemProduct.prixUnitaireVenteTTC,
+    //     remise              : 0,
+    //     CartItemPriceNetTTC       : cartItem.CartItemPrice,
+    //     factureVenteNumDoc  : this.numeroFactureVente
+    //   }
+      // this.subscription.push(this.venteService.addFactureVenteDetails(newFactureVenteDetails).subscribe(_ => {}));
+    // const newMouvementStock ={
+    //   date                : new Date(),
+    //   product             : cartItem.CartItemProduct,
+    //   typeDocument         : "Vente",
+    //   sousTypeDocument    : "",
+    //   quantite            : cartItem.CartItemCartItemQuantity,
+    //   valeurDuMouvement   : cartItem.CartItemQuantity * cartItem.CartItemProduct.prixUnitaireVenteTTC,
+    //   stockReel           : cartItem.product.qteEnStock,
+    //   valeurStock         : cartItem.product.qteEnStock * cartItem.CartItemProduct.prixUnitaireVenteTTC,
+    //   depot               : this.pointDeVente.nomPV,
+    //   codeSociete         : this.pointDeVente.codeSociete,
+    //   numeroDocument      : this.numeroFactureVente,
+    //   numeroLigne         : this.pointDeVente.numeroMouvementStock,
+    // }
+    // this.subscription.push(this.mouvementStockService.addMouvementStock(newMouvementStock).subscribe(_=>{}))
+  // })
+    // const newFactureVente = {
+    //   numeroDocument      : this.numeroFactureVente,
+    //   date                : new Date(),
+    //   numeroClient        : "",
+    //   totalHT             : this.CartItemPriceTotal/1.2,
+    //   totalTVA            : this.CartItemPriceTotal-this.CartItemPriceTotal/1.2,
+    //   totalTTC            : this.CartItemPriceTotal,
+    //   CartItemPriceAcompte      : 0,
+    //   netAPayer           : this.CartItemPriceTotal,
+    //   paye                : true,
+    //   annule              : false,
+    //   // depot               : this.pointDeVente.nomPV,
+    //   soldeDu             : this.CartItemPriceTotal,
+    // }
+
+    // this.subscription.push(this.venteService.addVente(newFactureVente).subscribe(_=>{
+    //   this.resetCart();
+    //   alert("Achat réussi !");
+    // }));
+    // this.router.navigateByUrl(`print/${this.numeroFactureVente}` )
+    // this.router.navigateByUrl(`print/VE003` )
+  }
+
+  insertQty(item : CartItem, itemCartItemQuantity : string){
+    const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
+    console.log(itemCartItemQuantity)
+    let newCartItemPrice
+    
+    newCartItemPrice = item.CartItemProduct.prixUnitaireVenteTTC  * intItemCartItemQuantity;
+    this.changeCartItemQuantity(item,intItemCartItemQuantity);
+  }
+  insertPrice(item : CartItem, itemCartItemPrice : string){
+    const intItemCartItemPrice = parseInt(itemCartItemPrice);
+    console.log(intItemCartItemPrice)
+    this.changeCartItemPrice(item,intItemCartItemPrice);
+    this.calculTotal();
+  }
+
+  calculTotal(){
+    let total : number = 0;
+    this.cartItems.forEach(item =>{
+      total += item.CartItemMontant
+    })
+    this.montantTotal = total;
+  }
+
+  // ngOnDestroy(){
+  //   this.subscription.forEach(subscription => subscription.unsubscribe());
+  // }
+
 }

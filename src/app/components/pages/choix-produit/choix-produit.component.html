@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <div class="content">
+    <!-- <div class="content">
         <div class="left-side">
             <h1>Choix du produit à {{typeES}}</h1>
             <button (click)="NouveauProduit()" >Proposer un produit</button>
@@ -16,5 +16,162 @@
             </ul>
             <button (click)="FaireDepot()">Valider</button>
         </div>
+    </div> -->
+    <!-- <app-header [isLoged]="isLoged"></app-header> 
+<app-sidebar></app-sidebar> -->
+<div class="main">
+    <div id="gridContainer">
+      <div id="listGrid">
+        <div class="border-title">
+          <div class="title-border"> Opérations sur la liste des articles</div> 
+          <!-- <app-search url="vente" (updatedSearchTerm)="GetSearchTerm($event)"></app-search> -->
+          <!-- <h5 style="margin-bottom: 3px;">Filtre par catégories :</h5>
+          <select ngModel="famille" >
+            <option  *ngFor="let famille of familles" [value]="famille.famille"> <button (click)="applyFamille(famille.famille)">{{ famille.famille }}</button> </option>
+          </select> -->
+          <!-- <li class="menu-container">
+            <a>{{famille}}</a>
+            <div class="menu">
+                <a  *ngFor="let famille of familles"(click)="applyFamille(famille.famille)">{{ famille.famille }}</a>
+            </div>
+          </li> -->
+          <!-- <ul class="category-list">
+            <li class="categories" *ngFor="let famille of familles" ><button (click)="applyFamille(famille.famille)">{{ famille.famille }} </button></li>
+          </ul> -->
+        </div> 
+        <h3>Liste des articles<span>📃</span></h3>
+        <div class="overflow">
+          <table>
+          <tr class="tableHeader">
+            <td >Aperçu</td>
+            <td >CPC</td>
+            <td >Catégories</td>
+            <td >Désignation</td>
+            <!-- <td >Qté disponible</td> -->
+          </tr>
+          <tr class="tableRow" *ngFor="let article of articles"(click)="addToCart(article._id)">
+            <td style="text-align: center;"> <img [src]="article.productImage[0]"/></td>
+            <td class="list-price">{{ article.codeCPC}}</td> 
+            <td style="text-align: center;"> {{ article.productCategory}} </td>
+            <td >{{ article.productName}}</td>
+          </tr>
+        </table>
+        </div>
+          <!-- <table>
+            <tr style="width: 100%;" *ngFor="let article of articles"(click)="addToCart(article.reference)">
+                <td class="destinationTd">{{ article.designation}}</td>
+                <td class="uniteTd">{{ article.unite}}</td>
+                <td >{{ article.prixUnitaireVenteTTC}}</td>
+            </tr>
+          </table> -->
+      </div>
+      <div id="cartGrid">
+        <div class="border-title">
+          <div class="title-border"> Dépôt</div> 
+          <table class="depot-infos" style="border: none;border-collapse:collapse ;">
+            @if (currentSite.siteName != "") {
+            <tr>
+              <td>Nom du site :  </td>
+                <td>{{currentSite.siteName}}</td>
+              </tr>
+              <tr>
+                <td>Adresse :  </td>  
+                <td>{{currentSite.siteAddress}}</td>
+              </tr>
+              <tr>
+                <td>Latitude :  </td>
+                <td>{{currentSite.siteLat}}</td>
+              </tr>
+              <tr>
+                <td>Longitude :  </td>
+                <td>{{currentSite.siteLng}}</td>
+              </tr>
+              <tr>
+                <td>Propriétaire :  </td>
+                <td>{{currentSite.siteUserID | uppercase}} - {{siteOwner.userName}} {{siteOwner.userFirstname}}</td>
+              </tr>
+              <tr>
+                <a routerLink="/depot-sites/depot/{{currentSite.siteUserID}}"><button >Autres sites</button></a>
+                <a routerLink="/choix-site/depot/"><button >Changer de prestataire</button></a>
+              </tr>
+            }
+          </table>
+        </div> 
+        <!-- <app-client-select [isDetail]="isDetail" [codeClient]="codeClient" [nameClient]="nameClient"  (updatedCodeClient)="GetCodeClient($event)" (updatedNameClient)="GetNameClient($event)" ></app-client-select> -->
+        <!-- <ul style="position:absolute;background-color: white;list-style: none; top: 157px;" *ngIf="showSuggestions">
+          <li *ngFor="let item of clients"><a (click)="chooseClientFromeCodeClient(item.client_code)" style="font-size: small;">{{item.client_code}} - {{ item.client_raisonSociale}}</a>  </li>
+        </ul> -->
+        <h3>Panier<span>  🛒</span></h3>
+        <div >
+          <div class="overflow">
+            <table class="overflow">
+              <tr class="tableRowCart tableHeader">
+                <td>Désignation</td>
+                <td>Prix Unitaire</td>
+                <td>Quantité</td>
+                <td>Montant</td>
+                <td>Actions</td>
+              </tr>
+              
+              <tr  class="tableRowCart tableRow" style="height:10px;" *ngFor="let item of cartItems" >
+              <!-- <h1 *ngIf="isCartEmpty">Vous pouvez choisir un client puis remplir le panier</h1> -->
+              <td>{{ item.CartItemProduct.productName}}</td>
+              <!-- <td style="text-align: right;">{{ item.CartItemProduct.prixUnitaireVenteTTC}}</td> -->
+              <td style="text-align: right;">
+                <input #p class="itemQty" type="text" [(ngModel)]="item.CartItemPrice" (keyup)="insertPrice(item,p.value)" [value]="item.CartItemPrice" [ngModelOptions]="{standalone:true}">
+              </td>
+              <td>
+                  <div class="itemQtyContainer">
+                    <input #s class="itemQty" type="text" *ngIf="item.CartItemQuantity" [(ngModel)]="item.CartItemQuantity" (keyup)="insertQty(item,s.value)" [value]="item.CartItemQuantity" [ngModelOptions]="{standalone:true}">
+                    <div class="itemQuantityButton">
+                      <button class="changeQte" (click)="qtUp(item,item.CartItemQuantity, montantTotal)">➕</button>
+                      <button class="changeQte" (click)="qtDown(item,item.CartItemQuantity, montantTotal)">➖</button>
+                    </div>
+                  </div>
+              </td>
+              <td style="text-align: right;"> {{item.CartItemMontant}}</td>
+              <td style="width: 10%;text-align: center;">
+                <button style="background: none;border: none;" (click)="removeFromCart(item.CartItemProduct._id)">
+                  <span style="font-size: .2rem;">🗑</span>
+                </button>
+              </td>
+            </tr>
+            <tr class="cart-content" *ngFor="let item of cartItemsHolder" >
+              <td >{{ item.CartItemProduct.designation}}</td>
+              <!-- <td >{{ item.productPrice}}</td> -->
+              <td >
+                  <div class="itemQtyContainer">
+                      <input  class="itemQty" type="text" valeur="item.quantity" >
+                  <div class="itemQuantityButton">
+                      <!-- <button class="changeQte" >➕</button> -->
+                      <!-- <button class="changeQte" >➖</button> -->
+                  </div>
+              </div>
+              </td>
+              <td></td>
+              <td style="width: 10%;text-align: center;">
+                -
+              </td>
+            </tr>
+          </table>
+          </div>
+        </div>
+          
+        
+          <div class="totalArea" *ngIf="!isCartEmpty">
+            <div >
+              TOTAL . . .
+            </div>
+            <div>
+              {{montantTotal}}
+            </div>
+          </div>
+          <div class="buttonContainer" *ngIf="!isCartEmpty">
+            <app-default-button text="Payer" type="submit" (click)="submit()"></app-default-button>
+            <app-default-button text="Vider le panier" type="button" (click)="resetCart()"></app-default-button>
+          </div>
+      </div>
     </div>
+    </div>
+
 </div>

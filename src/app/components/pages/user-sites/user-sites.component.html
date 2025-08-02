@@ -1,7 +1,8 @@
 <app-header></app-header>
 <div class="container">
 <button (click)="backButton()"><- Retour</button>
-    <h4>Mes sites</h4>
+    <div class="border-title">
+          <div class="title-border"> Mes Sites</div>
     
     <table mat-table [dataSource]="sites" class="mat-elevation-z8">
 
@@ -46,10 +47,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
-    <h4 *ngIf="!update">Ajouter un site</h4>
-    <h4 *ngIf="update">Modifier un site</h4>
+</div>
     
+    <div class="border-title">
+          <div class="title-border"> @if (!update) {Ajouter un site}@else{Modifier un site}</div>
     <form class="userSite-form-style" [formGroup]="addSiteForm"  (ngSubmit)="submit()">
         <div class="client-register">
           <div class="row">
@@ -86,7 +87,8 @@
         </div>
         <div class="rightSide">
           <google-map height="50vh"
-                width="60vh"
+                max-width="60vh"
+                min-width="30vh"
                 [center]="center"
                 [zoom]="6"
                 (mapClick)="moveMap($event)"
@@ -98,5 +100,5 @@
           </google-map>
         </div>
     </form>     
-    
+    </div>
 </div>

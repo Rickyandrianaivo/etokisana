@@ -7,6 +7,7 @@ import { ProfileItemComponent } from '../../partials/profile-item/profile-item.c
 import { HeaderComponent } from '../../partials/header/header.component';
 import { AvatarModule } from 'ngx-avatars';
 import { NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-client-profile',
@@ -17,7 +18,6 @@ import { NgIf } from '@angular/common';
     ProfileItemComponent,
     AvatarModule,
     HeaderComponent,
-    NgIf
   ],
   templateUrl: './client-profile.component.html',
   styleUrl: './client-profile.component.css'

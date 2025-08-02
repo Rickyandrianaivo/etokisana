@@ -17,7 +17,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './client-area.component.css'
 })
 export class ClientAreaComponent implements OnInit{
-  user:any;
+  user:any = null;
   link!:string;
   verifiedUser:boolean = false;
   validatedUser : boolean = false;
