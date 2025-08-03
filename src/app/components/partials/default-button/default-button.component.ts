@@ -1,10 +1,11 @@
 import { NgStyle } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-default-button',
   standalone: true,
-  imports: [NgStyle],
+  imports: [NgStyle,RouterLink],
   templateUrl: './default-button.component.html',
   styleUrl: './default-button.component.css'
 })
@@ -16,5 +17,7 @@ export class DefaultButtonComponent {
   @Input()  fontSizeRem = 1;
   @Input()  widthRem = 10;
   @Input()  disabled = false;
+  @Input()  link = "";
   @Output() onClick = new EventEmitter();
+
 }

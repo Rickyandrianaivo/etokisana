@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DefaultButtonComponent } from '../../partials/default-button/default-button.component';
 import { Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../partials/header/header.component';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +15,13 @@ import { HeaderComponent } from '../../partials/header/header.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
-  constructor(private router:Router){
-
+  productList: any[]=[];
+  constructor(private router:Router,
+    private productservice:ProductService,
+  ){
+    this.productservice.getAll().subscribe(allproduct=>{
+      this.productList =allproduct.filter(filteredProduct=> filteredProduct.productValidation == true && filteredProduct.isStocker == true )
+    })
   }
   registerbutton(){
       this.router.navigateByUrl('achat')

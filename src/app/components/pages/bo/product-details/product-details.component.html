@@ -31,7 +31,10 @@
     </div>
               
     <div class="row">
-        <app-default-button (click)="validateProduct(theProduct._id)" text="Approuver le produit"></app-default-button>
+        @if (!theProduct.productValidation){
+            <app-default-button (click)="validateProduct(theProduct._id)" text="Approuver"></app-default-button>
+        }
+            <app-default-button link="/products" text="Retour"></app-default-button>
     </div>
 </div>
 

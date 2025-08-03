@@ -1,5 +1,6 @@
 
 export class User{
+    userNickName        !:string;
     userName            !: string;
     userFirstname       !:string;
     userPassword        !: string;

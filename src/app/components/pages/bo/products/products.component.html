@@ -11,81 +11,92 @@
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
               
-                <ng-container matColumnDef="Photo">
+                <ng-container matColumnDef="Photo"><!--Aperçu Column -->
                   <th mat-header-cell *matHeaderCellDef> Aperçu </th>
                   <td mat-cell *matCellDef="let element"><img src="{{element.productImage}}"/> </td>
                 </ng-container>
             
             
-                <!-- CPC Column -->
-                <ng-container matColumnDef="CPC">
+                
+                <ng-container matColumnDef="CPC"><!-- CPC Column -->
                   <th mat-header-cell *matHeaderCellDef> CPC </th>
                   <td mat-cell *matCellDef="let element"> {{element.codeCPC }}</td>
                 </ng-container>
 
-                <!-- CPC Column -->
-                <ng-container matColumnDef="Category">
+                
+                <ng-container matColumnDef="Category"><!-- Category Column -->
                   <th mat-header-cell *matHeaderCellDef> Catégorie</th>
                   <td mat-cell *matCellDef="let element"> {{element.productCategory }}</td>
                 </ng-container>
 
-                <!-- Position Column -->
-                <ng-container matColumnDef="Nom">
+                
+                <ng-container matColumnDef="Nom"><!-- Name Column -->
                   <th mat-header-cell *matHeaderCellDef> Nom </th>
                   <td mat-cell *matCellDef="let element"> {{element.productName }}</td>
                 </ng-container>
               
-                <!-- Name Column -->
-                <ng-container matColumnDef="Description">
+                
+                <ng-container matColumnDef="Description"><!-- Description Column -->
                   <th mat-header-cell *matHeaderCellDef> Descritpion </th>
                   <td mat-cell *matCellDef="let element"> {{ element.productDescription }} </td>
                 </ng-container>
               
-                <ng-container matColumnDef="Poids">
+                <ng-container matColumnDef="Poids"><!-- Poids Column -->
                   <th mat-header-cell *matHeaderCellDef> Poids(kg) </th>
                   <td mat-cell *matCellDef="let element"> 
                   <p *ngIf="element.productStock != 0"> {{element.productPoids}}</p>
                   </td>
                 </ng-container>
-
-                <ng-container matColumnDef="Volume">
+                
+                <ng-container matColumnDef="Volume"><!-- Volume Column -->
                   <th mat-header-cell *matHeaderCellDef> Volume (L) </th>
                   <td mat-cell *matCellDef="let element"> 
                   <p *ngIf="element.productStock != 0"> {{element.productVolume}}</p>
                   </td>
                 </ng-container>
-                <ng-container matColumnDef="Largeur">
+                
+                <ng-container matColumnDef="Largeur"><!-- Largeur Column -->
                   <th mat-header-cell *matHeaderCellDef> Largeur (m) </th>
                   <td mat-cell *matCellDef="let element"> 
                   <p *ngIf="element.productStock != 0"> {{element.productLargeur}}</p>
                   </td>
                 </ng-container>
-                <ng-container matColumnDef="Longueur">
+                
+                <ng-container matColumnDef="Longueur"><!-- Longueur Column -->
                   <th mat-header-cell *matHeaderCellDef> Longeur (m) </th>
                   <td mat-cell *matCellDef="let element"> 
                   <p *ngIf="element.productStock != 0"> {{element.productLongueur}}</p>
                   </td>
                 </ng-container>
-                <ng-container matColumnDef="Hauteur">
+                
+                <ng-container matColumnDef="Hauteur"><!-- Hauteur Column -->
                   <th mat-header-cell *matHeaderCellDef> Hauteur (m) </th>
                   <td mat-cell *matCellDef="let element"> 
                   <p *ngIf="element.productStock != 0"> {{element.productHauteur}}</p>
                   </td>
                 </ng-container>
               
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="Statut">
+                
+                <ng-container matColumnDef="Statut"><!-- Statut Column -->
                   <th mat-header-cell *matHeaderCellDef> Statut </th>
                   <td mat-cell *matCellDef="let element"> 
                     <p>{{element.productState}}</p>
                   </td>
                 </ng-container>
             
-                <ng-container matColumnDef="Action">
+              
+                <ng-container matColumnDef="Utilisateur"><!-- Utilisateur Column -->
+                  <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <p>{{element.productOwnerId |uppercase}} - </p>
+                  </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="Action"><!-- Action Column -->
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element"> 
-                    <button matToolTip="Approuver le produit" style="background-color: green;" (click)="checkProduct(element._id)"> <mat-icon>check_circle</mat-icon></button>
-                    <button matToolTip="Refuser le produit" style="background-color: red;" (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button></td>
+                    <button matToolTip="Approuver le produit" style="background-color: rgb(135, 173, 255);" (click)="checkProduct(element._id)"> <mat-icon>visibility</mat-icon></button>
+                    <button matToolTip="Refuser le produit" style="background-color: rgb(66, 0, 0);" (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button></td>
                 </ng-container>
               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -8,3 +8,60 @@
         <a routerLink="/login" style="margin: 0 auto;font-size:large;color:rgb(0, 0, 0)"> J'ai déjà un compte</a>
     </div>
 </div>
+<div class="container">
+  <div class="inner-container">
+    <div class="main">
+      <div class="border-title">
+        <div class="title-border">Filtre</div>
+        
+          
+      </div> 
+      <div id="gridContainer">
+        <div id="listGrid">
+          <div class="border-title">
+            <div class="title-border"> Articles</div> 
+           
+          </div>
+        </div>
+        <div id="cartGrid">
+          
+          <div class="border-title">
+            <div class="title-border"> Panier</div> 
+            
+          </div> 
+            <!-- <div class="buttonContainer" *ngIf="!isCartEmpty"> -->
+              <!-- <app-default-button text="Payer" type="submit" (click)="submit()"></app-default-button>
+              <app-default-button text="Vider le panier" type="button" (click)="resetCart()"></app-default-button> -->
+            <!-- </div> -->
+        </div>
+      </div>
+      <div class="column">
+          <h3>Liste des articles<span>📃</span></h3>
+          <div class="overflow full-width">
+            <table>
+              <tr class="tableHeader">
+                <td>Aperçu</td>
+                <td>CPC</td>
+                <td>Catégories</td>
+                <td>Désignation</td>
+                <td>Prix Unitaire (Ar)</td>
+                <td>Quantité(Unité)</td>
+                <td>Montant(Ar)</td>
+              </tr>
+              <tr>
+                @for (product of productList; track $index) {
+                  <td ><img [src]="product.CartItemProduct.productImage[0]" alt=""></td>
+                  <td >{{product.CartItemProduct.codeCPC}}</td>
+                  <td >{{product.CartItemProduct.productCategory}} </td>
+                  <td >{{product.CartItemProduct.productName }} </td>
+                  <td> {{product.CartItemPrice}} </td>
+                  <td> {{product.CartItemQuantity}} </td>
+                  <td> {{product.CartItemMontant }} </td>
+                }
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

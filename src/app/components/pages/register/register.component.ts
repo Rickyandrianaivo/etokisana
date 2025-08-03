@@ -39,6 +39,7 @@ import { DateInputComponent } from '../../partials/date-input/date-input.compone
 import { timestamp } from 'rxjs';
 import { NotificationDialogComponent } from '../../partials/notification-dialog/notification-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -84,7 +85,8 @@ const MY_DATE_FORMAT = {
     // InputValidationComponent,
     DateInputComponent,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -122,7 +124,7 @@ export class RegisterComponent implements OnInit{
   userPhone = new FormControl();
   // readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
-  showSellerForm = signal(false);
+  showSellerForm = signal(0);
   fileName:any;
   identityDocumentName1 = "";
   identityDocumentName2 = "";
@@ -237,25 +239,28 @@ export class RegisterComponent implements OnInit{
 
   }
 
-  toggleSellerForm(){
-    this.showSellerForm.update(value =>!value)
-  }
+  // toggleSellerForm(){
+  //   this.showSellerForm.update(value =>!value)
+  // }
   get fc(){
     return this.registerForm.controls;
   }
   get cfc(){
     return this.registerCorporateForm.controls;
   }
+
+  
+
   submitUser(){
     this.isSubmitted =true;
     // console.log("submit = " + this.isSubmitted)
     const generatedID = Math.random().toString(36).slice(2,10)
     // console.log(this.dateOfBirth.value._d);
-    if(this.showSellerForm()){
+    if(this.showSellerForm()==1){
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
           this.openNotificationDialog(
-            "Formulaire incomplet",
+            "Formulaire Entreprise incomplet",
             "Veuillez vérifier si tous les champs obligatoires sont remplis",
             null,
             false);
@@ -303,7 +308,7 @@ export class RegisterComponent implements OnInit{
         managerEmail        : fv.managerEmail,
       }
     }
-    if(!this.showSellerForm()){
+    if(this.showSellerForm()==0){
       if (!this.registerForm.valid){ 
             console.log(this.registerForm.getError);
             this.openNotificationDialog(
@@ -416,6 +421,7 @@ export class RegisterComponent implements OnInit{
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         // console.log(reader.result);
+        this.identityDocumentName1 = event.target.files[0].name;
         this.identityDocument[0] = reader.result;
         this.carteFiscale[0] = reader.result;
       }
@@ -427,7 +433,7 @@ export class RegisterComponent implements OnInit{
   onCarteFiscalVersoSelected(event:any) {
     const reader = new FileReader();
     if (event) {
-      // this.fileName = event.target.files[0].name;
+      this.identityDocumentName2 = event.target.files[0].name;
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         this.identityDocument[1] = reader.result;
@@ -487,6 +493,7 @@ export class RegisterComponent implements OnInit{
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         this.identityDocument[0] = reader.result;
+        console.log(this.identityDocumentName1)
       }
     }
     reader.onerror = error =>{
@@ -501,6 +508,7 @@ export class RegisterComponent implements OnInit{
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = () =>{
         this.identityDocument[1] = reader.result;
+        console.log(this.identityDocumentName2)
       }
     }
     reader.onerror = error =>{

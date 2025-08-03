@@ -92,7 +92,10 @@
               </tr>
               <tr>
                 <a routerLink="/depot-sites/depot/{{currentSite.siteUserID}}"><button >Autres sites</button></a>
-                <a routerLink="/choix-site/depot/"><button >Changer de prestataire</button></a>
+                @if (typeES=="stock") {
+                  <a routerLink="/choix-site/depot/"><button >Changer de prestataire</button></a>
+                }
+                
               </tr>
             }
           </table>

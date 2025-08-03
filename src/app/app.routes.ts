@@ -37,7 +37,7 @@ import { TransactionDetailsComponent } from './components/pages/transaction-deta
 
 const routes: Routes = [
     {path : '', component: LoginComponent},
-    {path : 'home', component: LoginComponent},
+    {path : 'home', component: HomeComponent},
     {path : 'achat', component: AchatComponent},
     {path : 'login', component: LoginComponent},
     {path : 'panier', component: PanierComponent},

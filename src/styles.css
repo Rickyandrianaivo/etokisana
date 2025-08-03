@@ -27,7 +27,11 @@ body{
   
   .container{
     margin: auto;
-    max-width: 1280px;
+    /* max-width: 1280px; */
+    min-height: 100%;
+  }
+  .mat-drawer-container{
+    min-height: 100%;
   }
   .left-side{
     width: 69%;
@@ -38,6 +42,7 @@ body{
   .inner-container{
     max-width: 1700px;
     width: 70%;
+    min-height: 100%;
     margin:auto;
   }
   .changeQte{
@@ -78,7 +83,7 @@ body{
     width:100%
   }
   #listGrid{
-    height: 60vh;
+    height: fit-content;
     /* overflow: scroll; */
   }
   #cartGrid{

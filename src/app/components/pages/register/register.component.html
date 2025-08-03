@@ -2,15 +2,14 @@
 <div class="container">
     <h3>Inscription</h3>
     <div class="inner-container">
-        <div class="left-side">
-
-            <div class="client-register">
-                <!-- <div class="row">
-                    <app-radio-input (onchange)="toggleSellerForm()"
-                    [control]="fc.userType"
-                    [showErrorsWhen]="isSubmitted"
-                    ></app-radio-input>
-                </div> -->
+        
+        <div class="left-side"><mat-tab-group [(selectedIndex)]="showSellerForm">
+            <mat-tab label="Particuler"> 
+            </mat-tab>
+            <mat-tab label="Entreprise">
+            </mat-tab>
+        </mat-tab-group>
+            <!-- <div class="client-register">
                 <div class="row">
                     Entreprise
                     <mat-checkbox
@@ -18,7 +17,7 @@
                     (change)="toggleSellerForm()">
                     </mat-checkbox>
                 </div>
-            </div>
+            </div> -->
             <form *ngIf="!showSellerForm().valueOf()" class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submitUser()">
                 <div class="wrapper">
                     <div class="client-register">
@@ -314,32 +313,37 @@
                         </div> -->
                     </div>
                 </div>
+                    <div class="file-upload">
+                        Photo de votre carte fiscale (.png,.jpg,.jepg):
+                        <div class="idDocumentUpload">
+                            <div class="recto">
+                                <p>Recto* :
+                                    <button class="upload-btn" (click)="carteFiscalRectoUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
+                                </p>
+                                <button class="upload-btn" (click)="carteFiscalRectoUpload.click()" type="button">
+                                    
+                                    <input type="file" class="file-input" (change)="onCarteFiscalRectoSelected($event)" #carteFiscalRectoUpload>
+                                    <img [src]="this.carteFiscale[0]" height="100"/>
+                                </button>
+                                <h5>Upload 10MB maximum</h5>
+                            </div>
+                            <div class="verso">
+                                <p>
+                                    Verso* :
+                                    <button class="upload-btn" (click)="carteFiscalVersoUpload.click()" type="button"><mat-icon >attach_file</mat-icon></button>
+                                </p>
+                                <button class="upload-btn" (click)="carteFiscalVersoUpload.click()" type="button">                                    <!--  -->
+                                    <input type="file" class="file-input" (change)="onCarteFiscalVersoSelected($event)" #carteFiscalVersoUpload>
+                                    <img [src]="this.carteFiscale[1]" height="100"/>
+                                </button>
+                                <h5>Upload 10MB maximum</h5>
+                            </div>
+                        </div>
+                    </div>
             </form>
         </div>
         <div class="rightSide">
-            <div *ngIf="showSellerForm()">
-            Photo de votre carte fiscale:
-                <div class="idDocumentUpload">
-                    <div class="recto">
-                        Recto* :
-                        <button class="upload-btn" (click)="carteFiscalRectoUpload.click()" type="button">
-                            <!-- <mat-icon >attach_file</mat-icon> -->
-                            <input type="file" class="file-input" (change)="onCarteFiscalRectoSelected($event)" #carteFiscalRectoUpload>
-                            <img [src]="this.carteFiscale[0]" height="100"/>
-                        </button>
-                        <h5>Upload 10MB maximum</h5>
-                    </div>
-                    <div class="verso">
-                        Verso* :
-                        <button class="upload-btn" (click)="carteFiscalVersoUpload.click()" type="button">
-                            <!-- <mat-icon >attach_file</mat-icon> -->
-                            <input type="file" class="file-input" (change)="onCarteFiscalVersoSelected($event)" #carteFiscalVersoUpload>
-                            <img [src]="this.carteFiscale[1]" height="100"/>
-                        </button>
-                        <h5>Upload 10MB maximum</h5>
-                    </div>
-                </div>
-            </div>
+            
             <div class="row">
                     <p>Veuillez renseigner vos coordonnées géographiques :</p>
             </div>   

@@ -56,8 +56,8 @@ export class ChoixProduitComponent {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
     this.currentUser = this.userService.getUserFromLocalStorage();
     this.productService.getAll().subscribe(productAll =>{
-      this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
-      this.articles = productAll;
+    this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
+    this.articles = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
     });
     this.activatedRoute.params.subscribe(params =>{
       this.depotId=params['id'];

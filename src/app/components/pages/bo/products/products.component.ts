@@ -8,7 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationDialogComponent } from 'src/app/components/partials/notification-dialog/notification-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NgIf } from '@angular/common';
+import { NgIf, UpperCasePipe } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -24,6 +24,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // MatIconButton,
     MatTooltipModule,
     NgIf,
+    UpperCasePipe,
 ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
@@ -31,7 +32,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class ProductsComponent {
   readonly dialog = inject(MatDialog);
   productsList:any[] = [];
-  displayedColumns: string[] = ['Photo','CPC','Category','Nom', 'Description', 'Statut','Poids','Volume','Largeur','Longueur','Hauteur','Action'];
+  displayedColumns: string[] = ['Photo','CPC','Category','Nom', 'Description', 'Statut','Poids','Volume','Largeur','Longueur','Hauteur','Utilisateur','Action'];
   logedUser : any;
   constructor(
     private productService: ProductService,

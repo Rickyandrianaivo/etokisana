@@ -53,35 +53,52 @@ export class ChoixDepotComponent  implements OnInit{
       console.log(this.typeES)
     })
 
+    if (this.typeES == "stock") {
+      this.siteService.getSiteByUserId(this.currentUser.userId).subscribe(currentUserSites=>{
+        const newRevendeur:RevendeurElement = {
+            userId : this.currentUser.userId,
+            name: this.currentUser.userName,
+            image : this.currentUser.userImage,
+            reviews :0,
+            depots : currentUserSites,
+            transactions : 0,
+          }
+          this.dataToTable.push(newRevendeur);
+          this.dataSource.data = this.dataToTable;
+      })
+    }else{
+      this.userService.getAll().subscribe(userServer =>{
+      this.usersList = userServer;
+      this.usersList.forEach((revendeur:any)=> {
+        this.siteService.getSiteByUserId(revendeur.userId).subscribe(siteUser =>{
+          // let revendeurSites:any[] = []
+          const newRevendeur:RevendeurElement = {
+            userId : revendeur.userId,
+            name: revendeur.userName,
+            image : revendeur.userImage,
+            reviews :0,
+            depots : siteUser,
+            transactions : 0,
+          }
+          // siteUser.forEach(siteElement =>{
+          // })         
+          this.dataToTable.push(newRevendeur);
+          this.dataSource.data = this.dataToTable;
+        })
+      })
+    });
+    }
+    
     
     
   }
   ngOnInit(): void {
-    this.refresh();
   }
-  choixPrestataire(prestataireId : string){
+  choixPrestataireAchat(prestataireId : string){
       this.router.navigateByUrl("/depot-sites/"+this.typeES+"/"+prestataireId)      
   }
-  refresh() {
-    this.userService.getAll().subscribe(userServer =>{
-      this.usersList = userServer;
-      this.usersList.forEach((revendeur:any)=> {
-        this.siteService.getSiteByUserId(revendeur.userId).subscribe(siteUser =>{
-          let revendeurSites:any[] = []
-          siteUser.forEach(siteElement =>{
-            const newRevendeur:RevendeurElement = {
-              userId : revendeur.userId,
-              name: revendeur.userName,
-              image : revendeur.userImage,
-              reviews :0,
-              depots : siteUser,
-              transactions : 0,
-            }
-            this.dataToTable.push(newRevendeur);
-            this.dataSource.data = this.dataToTable;
-          })         
-        })
-      })
-    });
+  choixPrestataireVente(prestataireId : string){
+    this.typeES = "achat"
+      this.router.navigateByUrl("/depot-sites/"+this.typeES+"/"+prestataireId)      
   }
 }
