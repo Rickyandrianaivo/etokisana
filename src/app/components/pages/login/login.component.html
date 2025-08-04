@@ -1,7 +1,8 @@
 <!-- <app-header></app-header> -->
 <div class="container">
     <div class="details">
-        <h3>Authentification</h3>
+        <div class="border-title">
+          <div class="title-border"> Connexion</div>
         <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <text-input
             [control]="fc.email"
@@ -24,5 +25,6 @@
                 <!-- <app-default-button text="Register" routerLink="/register" type="button"></app-default-button> -->
             </div>
         </form>
+        </div>
     </div>
 </div>
