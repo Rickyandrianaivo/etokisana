@@ -42,9 +42,9 @@
       <div id="gridContainer">
         <div id="listGrid">
           <div class="border-title">
-            <div class="title-border"> Dépôt de départ</div> 
+            <div class="title-border"> Dépôt de départ<span style="font-style: italic;color:red;text-transform: lowercase;font-size: small;">(Non enregistré sur la plateforme)</span></div> 
             <table class="depot-infos" style="border: none;border-collapse:collapse ;">
-              @if (siteDepart) {
+              @if (siteDepart) {                
               <tr>
                 <td>Nom du site :  </td>
                   <td>
@@ -102,6 +102,7 @@
                 </tr>
                 <!-- <tr><a href=""></a><button ></button></tr> -->
               }
+              
             </table>
           </div>
         </div>
@@ -184,8 +185,8 @@
                 <td>Quantité(Unité)</td>
                 <td>Montant(Ar)</td>
               </tr>
+              @for (product of productList; track $index) {
               <tr>
-                @for (product of productList; track $index) {
                   <td ><img [src]="product.CartItemProduct.productImage[0]" alt=""></td>
                   <td >{{product.CartItemProduct.codeCPC}}</td>
                   <td >{{product.CartItemProduct.productCategory}} </td>
@@ -193,8 +194,8 @@
                   <td> {{product.CartItemPrice}} </td>
                   <td> {{product.CartItemQuantity}} </td>
                   <td> {{product.CartItemMontant }} </td>
-                }
-              </tr>
+                </tr>
+              }
             </table>
           </div>
         </div>

@@ -39,6 +39,14 @@
                     <input type="file" class="file-input" (change)="onFileImageSelected($event)" #pdpUpload>
                     <input type="file" class="file-input" (change)="onFileDocumentRectoSelected($event)" #documentRectoUpload>
                     <input type="file" class="file-input" (change)="onFileDocumentVersoSelected($event)" #documentVersoUpload>
+                    <!-- Champ Surnom-->
+                        <div class="row">
+                            <text-input
+                                [control]="fc.userNickName"
+                                [showErrorsWhen]="isSubmitted"
+                                label="Pseudo">
+                            </text-input>
+                        </div>
                     <div class="row">
                         <!-- Champ Nom-->
                         <text-input

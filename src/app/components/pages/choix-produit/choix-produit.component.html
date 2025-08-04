@@ -23,7 +23,7 @@
     <div id="gridContainer">
       <div id="listGrid">
         <div class="border-title">
-          <div class="title-border"> Opérations sur la liste des articles</div> 
+          <div class="title-border"> Liste des articles</div> 
           <!-- <app-search url="vente" (updatedSearchTerm)="GetSearchTerm($event)"></app-search> -->
           <!-- <h5 style="margin-bottom: 3px;">Filtre par catégories :</h5>
           <select ngModel="famille" >
@@ -38,8 +38,7 @@
           <!-- <ul class="category-list">
             <li class="categories" *ngFor="let famille of familles" ><button (click)="applyFamille(famille.famille)">{{ famille.famille }} </button></li>
           </ul> -->
-        </div> 
-        <h3>Liste des articles<span>📃</span></h3>
+        <!-- <h3>Liste des articles<span>📃</span></h3> -->
         <div class="overflow">
           <table>
           <tr class="tableHeader">
@@ -57,6 +56,8 @@
           </tr>
         </table>
         </div>
+      </div> 
+        
           <!-- <table>
             <tr style="width: 100%;" *ngFor="let article of articles"(click)="addToCart(article.reference)">
                 <td class="destinationTd">{{ article.designation}}</td>
@@ -67,7 +68,7 @@
       </div>
       <div id="cartGrid">
         <div class="border-title">
-          <div class="title-border"> Dépôt</div> 
+          <div class="title-border"> Destination</div> 
           <table class="depot-infos" style="border: none;border-collapse:collapse ;">
             @if (currentSite.siteName != "") {
             <tr>

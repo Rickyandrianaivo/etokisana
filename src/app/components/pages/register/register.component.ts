@@ -204,6 +204,7 @@ export class RegisterComponent implements OnInit{
 
     const pattern:RegExp = new RegExp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
     this.registerForm = this.formBuilder.group({
+      userNickName:['',Validators.required],
       userName:['',Validators.required],
       userFirstname:['',Validators.required],
       userEmail:['',[Validators.required,Validators.email]],
@@ -328,6 +329,7 @@ export class RegisterComponent implements OnInit{
       }
       const fv = this.registerForm.value;
       this.user = {
+        userNickName        : fv.userNickName,
         userName            : fv.userName ,         
         userFirstname       : fv.userFirstname ,  
         userPassword        : fv.userPassword ,  
@@ -361,10 +363,9 @@ export class RegisterComponent implements OnInit{
     }
       console.log(this.user)
 
-    this.userService.getUserByEmail(this.user.userEmail).subscribe(useralreadyexist =>{
-      if (useralreadyexist) {
-        console.log(useralreadyexist)
-        this.simpleSb = this._snackBar.open("Un compte utilise déjà cet email","Se connecter",{duration : 10000})
+    this.userService.getUserByEmail(this.user.userEmail).subscribe(userEmailAlreadyExist =>{
+      if (userEmailAlreadyExist) {
+        this.simpleSb = this._snackBar.open("Un compte utilise déjà cet email","Se connecter",{duration : 10000});
         this.simpleSb.onAction().subscribe(() =>{
           this.router.navigateByUrl("login");
         })
