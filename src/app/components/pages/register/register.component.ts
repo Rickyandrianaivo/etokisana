@@ -310,7 +310,7 @@ export class RegisterComponent implements OnInit{
       }
     }
     if(this.showSellerForm()==0){
-      if (!this.registerForm.valid){ 
+      if (!this.registerForm.valid && !this.dateOfBirth.value._d){ 
             console.log(this.registerForm.getError);
             this.openNotificationDialog(
               "Formulaire incomplet",
@@ -385,8 +385,8 @@ export class RegisterComponent implements OnInit{
           })
         })
         this.openNotificationDialog(
-          "Inscription envoyer", 
-          "Un email vous a été envoyé vous permettons la vérification de votre email. Une notification vous parviendra dès que votre compte sera opérationnel",
+          "Inscription envoyée", 
+          "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
           "login",
           false)
       }
