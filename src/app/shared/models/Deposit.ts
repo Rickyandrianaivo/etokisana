@@ -1,6 +1,6 @@
-import { DepositItem } from "./DepositItem";
+import { DepotItem } from "./DepotItem";
 
 export class Deposit{
-    item:DepositItem[]=[];
+    item:DepotItem[]=[];
 
 }

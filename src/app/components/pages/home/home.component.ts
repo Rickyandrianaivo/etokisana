@@ -3,6 +3,7 @@ import { DefaultButtonComponent } from '../../partials/default-button/default-bu
 import { Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { ProductService } from 'src/app/services/product.service';
+// import { DepotItem } from 'src/app/shared/models/DepotItem';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,9 @@ export class HomeComponent {
   constructor(private router:Router,
     private productservice:ProductService,
   ){
-    this.productservice.getAll().subscribe(allproduct=>{
-      this.productList =allproduct.filter(filteredProduct=> filteredProduct.productValidation == true && filteredProduct.isStocker == true )
+    this.productservice.getAllDeptoItem().subscribe(allproduct=>{
+      // this.productList =allproduct.filter(filteredProduct=> filteredProduct.productValidation == true && filteredProduct.isStocker == true )
+      this.productList=allproduct;
     })
   }
   registerbutton(){

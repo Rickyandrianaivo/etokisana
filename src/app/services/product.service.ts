@@ -5,7 +5,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { sample_products } from '../../../data';
 import { Deposit } from '../shared/models/Deposit';
-import { DepositItem } from '../shared/models/DepositItem';
+import { DepotItem} from '../shared/models/DepotItem';
 import { StockElement } from '../shared/models/StockElement';
 
 const DEPOSIT_KEY="Depot";
@@ -77,10 +77,10 @@ export class ProductService {
   freeimagehostupload(formData:FormData){
     return this.http.post("freeimage.host/api/1/upload/?key=6d207e02198a847aa98d0a2a901485a5",formData);
   }
-  addDepositItem(product:any){
-    this.depot.item.push(new DepositItem(product))
-    this.setDepotToLocalStorage();
-  }
+  // addDepositItem(product:any){
+  //   this.depot.item.push(new DepositItem(product))
+  //   this.setDepotToLocalStorage();
+  // }
   depositProduct(stockElement:any){
     return this.http.post(PRODUCT_ADD_TO_STOCK_URL,stockElement)
   }
@@ -97,12 +97,12 @@ export class ProductService {
     return depotJson? JSON.parse(depotJson): new Deposit();
    }
    getAllDeptoItem(){
-    return this.http.get(PRODUCT_GET_ALL_TO_SELL);
+    return this.http.get<DepotItem[]>(PRODUCT_GET_ALL_TO_SELL);
    }
    addDepotItem(depotItemData:any){
     return this.http.post(PRODUCT_ADD_TO_STOCK_URL,depotItemData);
    }
-   modifyDepotItem(depotItemData : any){
-    return this.http.patch(PRODUCT_MODIFY_STOCK_URL,depotItemData);
+   modifyDepotItem(depotItemData : any,depotItemId : string ){
+    return this.http.patch(PRODUCT_MODIFY_STOCK_URL + depotItemId,depotItemData);
    }
 }

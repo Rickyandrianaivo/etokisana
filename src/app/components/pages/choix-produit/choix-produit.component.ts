@@ -13,6 +13,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
 import { SiteService } from 'src/app/services/site.service';
 import { Site } from 'src/app/shared/models/Sites';
+import { DepotItem } from 'src/app/shared/models/DepotItem';
 
 @Component({
   selector: 'app-choix-produit',
@@ -74,7 +75,7 @@ export class ChoixProduitComponent {
     this.isEmpty=false;
     this.productService.getProductById(productId).subscribe(product=>{
       this.produitsAdeposer.push(product)
-      this.productService.addDepositItem(product)
+      // this.productService.addDepotItem(product)
     })
     // this.router.navigateByUrl("/"+this.typeES+"/"+this.depotId+"/"+productId)
   }
@@ -93,9 +94,9 @@ export class ChoixProduitComponent {
         prix : productAdeposer.prix,
         quantite : productAdeposer.quantite
       }
-      this.productService.depositProduct(stockelement).subscribe(_=>{
-        console.log(stockelement)
-      })
+      // this.productService.depositProduct(stockelement).subscribe(_=>{
+      //   console.log(stockelement)
+      // })
     })
   }
 
@@ -342,8 +343,21 @@ export class ChoixProduitComponent {
       userTotalSolde : this.montantTotal,
     }
     this.userService.update(addBalance,this.siteOwner._id).subscribe(_=>{
-      alert("Dépot réussi !");
+      alert("Dépot réussi!");
     })
+    this.cartItems.forEach(depotItem=>{
+      let depotItempData:DepotItem = {
+        productId : depotItem.CartItemProduct._id,
+        stock: depotItem.CartItemQuantity++,
+        prix   : depotItem.CartItemPrice,
+        lastUpdate : new Date(),
+        currentDepotId : this.depotId,
+      }
+      this.productService.addDepotItem(depotItempData).subscribe(_=>{
+        console.log("Produit Stocker !")
+      })
+    })
+    
     // this.numeroFactureVente = this.pointDeVente.prefixeVente + "000" + this.pointDeVente.numeroVente;
     // this.cartItems.forEach(cartItem => {
     //   let newFactureVenteDetails = {
