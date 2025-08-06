@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../shared/models/Product';
-import { PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
+import { PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_GET_ALL_TO_SELL, PRODUCT_MODIFY_STOCK_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { sample_products } from '../../../data';
@@ -75,7 +75,7 @@ export class ProductService {
     return this.http.delete(PRODUCT_REMOVE_URL+productId);
   }
   freeimagehostupload(formData:FormData){
-    return this.http.post("freeimage.host/api/1/upload/?key=6d207e02198a847aa98d0a2a901485a5",formData)
+    return this.http.post("freeimage.host/api/1/upload/?key=6d207e02198a847aa98d0a2a901485a5",formData);
   }
   addDepositItem(product:any){
     this.depot.item.push(new DepositItem(product))
@@ -95,5 +95,14 @@ export class ProductService {
   private getDepotFromLocalStorage(){
     const depotJson = localStorage.getItem(DEPOSIT_KEY);
     return depotJson? JSON.parse(depotJson): new Deposit();
+   }
+   getAllDeptoItem(){
+    return this.http.get(PRODUCT_GET_ALL_TO_SELL);
+   }
+   addDepotItem(depotItemData:any){
+    return this.http.post(PRODUCT_ADD_TO_STOCK_URL,depotItemData);
+   }
+   modifyDepotItem(depotItemData : any){
+    return this.http.patch(PRODUCT_MODIFY_STOCK_URL,depotItemData);
    }
 }

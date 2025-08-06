@@ -14,6 +14,9 @@ export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
 export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
 export const PRODUCT_BY_SITE_ID_URL        = PRODUCT_URL + 'stock/';
 export const PRODUCT_ADD_TO_STOCK_URL      = PRODUCT_URL + 'addStock/';
+export const PRODUCT_MODIFY_STOCK_URL      = PRODUCT_URL + 'modififyStock/'
+export const PRODUCT_GET_ALL_TO_SELL       = PRODUCT_URL + 'getAllStock/'
+
 
 export const NOTIFICATION_URL                   = BASE_URL + '/api/product/';
 export const NOTIFICATION_BY_ID_URL             = NOTIFICATION_URL + 'id/';

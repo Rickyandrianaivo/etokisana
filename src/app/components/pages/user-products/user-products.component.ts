@@ -61,4 +61,7 @@ export class UserProductsComponent implements OnInit{
   retirerProduit(id : string){
     this.router.navigateByUrl('choix-site/retrait')
   }
+  voirStock(productId:string){
+
+  }
 }

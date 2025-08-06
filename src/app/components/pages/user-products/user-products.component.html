@@ -78,7 +78,8 @@
           @if (!element.isStocker) {
             <button (click)="stockerProduit(element._id)"  type="button" [disabled]="!element.productValidation">Stocker</button>
           }@else {
-            <button (click)="deposerProduit(element._id)"  type="button" [disabled]="!element.productValidation">Echanger</button>
+            <button (click)="deposerProduit(element._id)"  type="button" >Echanger</button>
+            <button (click)="voirStock(element._id)"  type="button" ><mat-icon>visibility</mat-icon></button>
           }
       </ng-container>
     

@@ -2,8 +2,10 @@ import { Product } from "./Product";
 
 export class DepositItem{
     constructor(product:Product){
-        this.depositItemProduct = product;
+        this.product = product;
     }
-    depositItemProduct!:any;
-    depositItemQuantity!:number;
+    product!:any;
+    stock!:number;
+    prix!:number;
+    lastUpdate!:Date;
 }
