@@ -1,7 +1,6 @@
 .idDocumentUpload{
     display: flex;
     justify-content: space-around;
-    margin-bottom: 40px;
 }
 .recto,.verso{
     margin: 10px;
@@ -98,7 +97,6 @@ h5{
     margin-right : 0;
 }
 .options{
-    /* margin-top: 20px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -131,19 +129,3 @@ input#phone.iti__tel-input.custom.ng-untouched.ng-pristine.ng-valid{
     
     float:right;
  }
- button{
-    margin: 10px;
-    width: 150px;
-    height: 40px;
- }
- .upload-btn{
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.localisation{
-    align-content: center;
-}

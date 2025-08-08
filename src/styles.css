@@ -34,7 +34,7 @@ body{
     min-height: 100%;
   }
   .left-side{
-    width: 69%;
+    width: 70%;
   }
   .right-side{
     width: 29%;
@@ -296,7 +296,9 @@ body{
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
+.wrapper{
+  width: 100%;
+}
 .mat-mdc-icon-button .mat-mdc-button-touch-target {
   position: absolute;
   top: 10%;

@@ -15,7 +15,7 @@ export class DefaultButtonComponent {
   @Input()  bgColor = '#1877f2';
   @Input()  color = 'white';
   @Input()  fontSizeRem = 1;
-  @Input()  widthRem = 10;
+  @Input()  widthRem = 21;
   @Input()  disabled = false;
   @Input()  link = "";
   @Output() onClick = new EventEmitter();

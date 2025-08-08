@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import * as nodemailer from 'nodemailer';
 import { TextareaComponent } from '../../partials/textarea/textarea.component';
@@ -40,9 +40,7 @@ import { timestamp } from 'rxjs';
 import { NotificationDialogComponent } from '../../partials/notification-dialog/notification-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-
-import {MatStepperModule} from '@angular/material/stepper';
-
+import { MatStep, MatStepperModule} from '@angular/material/stepper';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -91,6 +89,7 @@ const MY_DATE_FORMAT = {
     MatDialogModule,
     MatTabsModule,
     MatStepperModule,
+    MatStep,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -107,32 +106,7 @@ const MY_DATE_FORMAT = {
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-
-// export class StepperOverviewExample {
-  // private _formBuilder = inject(FormBuilder);
-
-//   firstFormGroup = this._formBuilder.group({
-//     firstCtrl: ['', Validators.required],
-//   });
-//   secondFormGroup = this._formBuilder.group({
-//     secondCtrl: ['', Validators.required],
-//   });
-//   isLinear = false;
-// }
-
-
-
-export class RegisterComponent implements OnInit {
-  
-  private _formBuilder = inject(FormBuilder);
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  isLinear = false;
-
+export class RegisterComponent implements OnInit{
   readonly dialog = inject(MatDialog);
   imageIsUploaded : boolean = false;
   display : any;
@@ -145,7 +119,10 @@ export class RegisterComponent implements OnInit {
   latitude:number = 0;
   longitude:number = 0;
   simpleSb !: MatSnackBarRef<SimpleSnackBar>;
-  documentType : string = "cin"
+  documentType : string = "cin";
+  personalInfosFormGroup!: FormGroup;
+  proofFormGroup!: FormGroup;
+  siteInfosFormGroup!:FormGroup;
   registerForm!: FormGroup;
   registerCorporateForm!: FormGroup;
   isSubmitted = false;
@@ -175,6 +152,14 @@ export class RegisterComponent implements OnInit {
   // mois = new FormControl();
   // annee = new FormControl();
   // dateOfBithr = new Date(this.annee,this.mois,this.jour)
+  private _formBuilder = inject(FormBuilder);
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl:['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl:['', Validators.required],
+  });
+  isLinear = false;
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
