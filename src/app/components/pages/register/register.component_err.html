@@ -307,6 +307,12 @@
             <form *ngIf="showSellerForm()" class="register-form-style" [formGroup]="registerCorporateForm"  (ngSubmit)="submitUser()">
                 <div class="wrapper">
                     <div class="client-register">
+
+    <mat-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Renseignements généraux</ng-template>
+
                         <div class="file-upload">
                             {{ fileName || "Logo"}}
                             <button class="upload-btn" (click)="logoUpload.click()" type="button">
@@ -425,7 +431,16 @@
                         </div> -->
                     </div>
                 </div>
-                    <div class="file-upload">
+                    
+            <div>
+                <button matButton matStepperNext>Suivant</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Télécharger les documents">
+        <form [formGroup]="secondFormGroup">
+                
+                <div class="file-upload">
                         Photo de votre carte fiscale (.png,.jpg,.jepg):
                         <div class="idDocumentUpload">
                             <div class="recto">
@@ -451,7 +466,29 @@
                                 <h5>Upload 10MB maximum</h5>
                             </div>
                         </div>
+            <div>
+                <button matButton matStepperPrevious>Précédent</button>
+                <button matButton matStepperNext>Suivant</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Localisation</ng-template>
+        <!-- <p>You are now done.</p> -->
+        <p>Veuillez renseigner vos coordonnées géographiques :</p>
+        <div class="localisation">
                     </div>
+
+
+            <button matButton matStepperPrevious>Précédent</button>
+            <button type="submit" (click)="submitUser()">S'inscrire</button>
+            
+            <!-- <button matButton (click)="stepper.reset()">Reset</button> -->
+        </div>
+        <a routerLink="/login"><p style="text-align: center;">J'ai déjà un compte</p></a>
+    </mat-step>
+    </mat-stepper>
+                    
             </form>
             </div>
         <!-- </div> -->
