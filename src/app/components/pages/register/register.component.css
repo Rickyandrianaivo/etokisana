@@ -1,11 +1,11 @@
 .idDocumentUpload{
     display: flex;
     justify-content: space-around;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
-.recto,.verso{
+/* .recto,.verso{
     margin: 10px;
-}
+} */
 .inner-container{
     display : flex;
     justify-content: space-around;
@@ -69,8 +69,12 @@ h5{
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    width: max-content;
+    width: 100%;
 }
+text-input, app-password-input, date-input{
+    width: 100%;
+}
+
 /* .seller{
     width: 40%;
     display: flex;
@@ -84,7 +88,7 @@ h5{
     flex-wrap: wrap;
     justify-content: center;
     align-content: space-evenly;
-    margin: auto 10%;
+    /* margin: auto 10%; */
 }
 .buttonContainer{
     width: 100%;
@@ -104,6 +108,9 @@ h5{
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.focus-content{
+    width: 50%;
+}
 mat-checkbox{
     margin : auto 0;
 }
@@ -120,6 +127,9 @@ ngx-intl-tel-input:last-child{
     background: none;
     border: none;
 } 
+input-container{
+    width: 100%;
+}
 input#phone.iti__tel-input.custom.ng-untouched.ng-pristine.ng-valid{
     background: none !important;
     border: none !important;
@@ -144,7 +154,44 @@ input#phone.iti__tel-input.custom.ng-untouched.ng-pristine.ng-valid{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 .localisation{
     align-content: center;
 }
+.mat-mdc-form-field{
+    font-size: 1.2rem !important;
+    min-height: 10px;
+    padding:0px;
+}
+.mat-mdc-form-field mat-label{
+    font-size: 1.2rem;
+}
+.mat-mdc-form-field-infix{
+    height: 15px;
+    min-height: 10px;
+    padding:0px;
+}
+.mdc-text-field--outlined{
+    padding: 0;
+}
+input#phone._iti__tel-input.custom{
+    font-size: 1.2rem;
+}
+.back-forward{
+    display: flex;
+    justify-content: space-between;
+}
+.end{
+    flex-wrap: wrap;
+    justify-content: end;
+}
+img{
+    margin-top: 50px;
+    width: 100%;
+}
+/* button{
+    width: 100%;
+} */

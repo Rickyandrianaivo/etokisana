@@ -24,7 +24,9 @@ body{
  .mat-mdc-row{
     border-radius: 20px;
   }
-  
+  .row{
+    width: 100%;
+  }
   .container{
     margin: auto;
     /* max-width: 1280px; */
@@ -40,8 +42,10 @@ body{
     width: 29%;
   }
   .inner-container{
-    max-width: 1700px;
-    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10%;
     min-height: 100%;
     margin:auto;
   }
@@ -348,6 +352,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 ul{
   list-style: none;
+}
+.mat-stepper-vertical, .mat-stepper-horizontal{
+  width: 100%;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
 }
 mat-form-field{
   width: 100%;

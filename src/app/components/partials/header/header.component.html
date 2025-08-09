@@ -6,22 +6,24 @@
              <!-- <app-search></app-search> -->
             <nav class="right-nav" *ngIf="!isLoged">
                 <ul>
-                    <li><a routerLink="/home" class="register-btn">Boutique</a></li>
+                    <!-- <li><a routerLink="/home" class="register-btn">Boutique</a></li> -->
                     <li><a routerLink="/register" class="register-btn">S'inscrire</a></li>
                     <li><a routerLink="/login" class="login-btn">Se Connecter</a></li>
                 </ul>
             </nav>
             <nav class="right-nav" *ngIf="isLoged">
                 <ul><li><ngx-avatars [src]="user.userImage"></ngx-avatars></li>
-                    <!-- <li><a routerLink="/cart-page"><mat-icon>shopping_cart</mat-icon></a></li> -->
                     <li class="menu-container"><a routerLink="/client-area" class="profil-btn">{{user.userName}} {{user.userFirstname}} </a>
+                    @if (user.userValidated) {
                         <div class="menu">
                             <a routerLink="/client-profile">Mon compte</a>
                             <a routerLink="/user-products">Produits</a>
                             <a routerLink="/transactions">Transactions</a>
                             <a routerLink="/user-site">Mes sites</a>
                         </div>
-                    </li>
+                    }
+                </li>
+                    
                     <!-- <li class="menu-container">
                         <a href="#"><mat-icon>notifications</mat-icon></a>
                         <div class="menu">

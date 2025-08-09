@@ -41,7 +41,7 @@ import { NotificationDialogComponent } from '../../partials/notification-dialog/
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import {MatStepperModule} from '@angular/material/stepper';
+import {MatStep, MatStepperModule} from '@angular/material/stepper';
 
 
 const MY_DATE_FORMAT = {
@@ -75,7 +75,6 @@ const MY_DATE_FORMAT = {
     MatCheckboxModule,
     TextInputComponent,
     MatFormFieldModule, 
-    // RadioInputComponent,
     MatDatepickerModule,
     ReactiveFormsModule,
     MatDatepickerModule,
@@ -91,6 +90,7 @@ const MY_DATE_FORMAT = {
     MatDialogModule,
     MatTabsModule,
     MatStepperModule,
+    MatStep,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers :[// The locale would typically be provided on the root module of your application. We do it at
@@ -124,13 +124,6 @@ const MY_DATE_FORMAT = {
 
 export class RegisterComponent implements OnInit {
   
-  private _formBuilder = inject(FormBuilder);
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
   isLinear = false;
 
   readonly dialog = inject(MatDialog);
@@ -148,12 +141,14 @@ export class RegisterComponent implements OnInit {
   documentType : string = "cin"
   registerForm!: FormGroup;
   registerCorporateForm!: FormGroup;
+  localisationFormGroup!:FormGroup;
+  proofFormGroup!:FormGroup;
   isSubmitted = false;
   userType!:AbstractControl;
   userPhone = new FormControl();
   // readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
-  showSellerForm = signal(0);
+  showSellerForm = signal(false);
   fileName:any;
   identityDocumentName1 = "";
   identityDocumentName2 = "";
@@ -265,12 +260,18 @@ export class RegisterComponent implements OnInit {
     },{
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     })
+    this.proofFormGroup = this.formBuilder.group({
+    secondCtrl: ['', Validators.required],
+    });
+    this.localisationFormGroup = this.formBuilder.group({
+
+    })
 
   }
 
-  // toggleSellerForm(){
-  //   this.showSellerForm.update(value =>!value)
-  // }
+  toggleSellerForm(){
+    this.showSellerForm.update(value =>!value)
+  }
   get fc(){
     return this.registerForm.controls;
   }
@@ -285,7 +286,7 @@ export class RegisterComponent implements OnInit {
     // console.log("submit = " + this.isSubmitted)
     const generatedID = Math.random().toString(36).slice(2,10)
     // console.log(this.dateOfBirth.value._d);
-    if(this.showSellerForm()==1){
+    if(this.showSellerForm()){
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
           this.openNotificationDialog(
@@ -337,7 +338,7 @@ export class RegisterComponent implements OnInit {
         managerEmail        : fv.managerEmail,
       }
     }
-    if(this.showSellerForm()==0){
+    if(!this.showSellerForm()){
       if (!this.registerForm.valid && !this.dateOfBirth.value._d){ 
             console.log(this.registerForm.getError);
             this.openNotificationDialog(
@@ -389,7 +390,6 @@ export class RegisterComponent implements OnInit {
         managerEmail        : "",
       }
     }
-      console.log(this.user)
 
     this.userService.getUserByEmail(this.user.userEmail).subscribe(userEmailAlreadyExist =>{
       if (userEmailAlreadyExist) {
@@ -399,12 +399,6 @@ export class RegisterComponent implements OnInit {
         })
         return;
       }else{
-        // this.router.navigateByUrl('login');
-        // this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 10000})
-        // this.simpleSb.onAction().subscribe(() =>{
-        //   this.router.navigateByUrl("login");
-
-        // })
         this.userService.registerUser(this.user).subscribe(_=>{
           this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 10000})
           this.simpleSb.onAction().subscribe(() =>{
@@ -412,15 +406,7 @@ export class RegisterComponent implements OnInit {
             // this.router.navigateByUrl("login");
           })
         })
-        this.openNotificationDialog(
-          "Inscription envoyée", 
-          "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
-          "login",
-          false)
-      }
-    })
-    console.log(this.user.userPhone.internationalNumber)
-    const mainSite :Site = {
+      const mainSite :Site = {
       siteAddress     : this.user.userAddress,
       siteName        : "Domicile",
       siteLat         : this.latitude,
@@ -428,6 +414,15 @@ export class RegisterComponent implements OnInit {
       siteUserID      : generatedID,
     };
     this.siteService.addSite(mainSite).subscribe(_=>{})
+        this.openNotificationDialog(
+          "Inscription envoyée", 
+          "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
+          "login",
+          false)
+      }
+    })
+    // console.log(this.user.userPhone.internationalNumber)
+    
   }  
   /*------------------------------------------
    --------------------------------------------
