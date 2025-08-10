@@ -2,6 +2,9 @@
 const BASE_URL = 'https://etokisanabackend.onrender.com';
 // const BASE_URL = 'https://backend.commercegestion.com';
 
+
+
+
 export const PRODUCT_URL                   = BASE_URL + '/api/product/';
 export const PRODUCT_BY_ID_URL             = PRODUCT_URL + 'id/';
 export const PRODUCT_ADD_URL               = PRODUCT_URL + 'add/';
@@ -16,6 +19,8 @@ export const PRODUCT_BY_SITE_ID_URL        = PRODUCT_URL + 'stock/';
 export const PRODUCT_ADD_TO_STOCK_URL      = PRODUCT_URL + 'addStock/';
 export const PRODUCT_MODIFY_STOCK_URL      = PRODUCT_URL + 'modififyStock/'
 export const PRODUCT_GET_ALL_TO_SELL       = PRODUCT_URL + 'getAllStock/'
+
+export const UPLOAD_IMAGE_URL              = PRODUCT_URL + 'upload-image/';
 
 
 export const NOTIFICATION_URL                   = BASE_URL + '/api/product/';

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component,computed,inject,OnInit,signal } from '@angular/core';
+import { ChangeDetectorRef, Component,computed,inject,OnInit,signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
@@ -42,6 +42,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import {MatStep, MatStepperModule} from '@angular/material/stepper';
+import { CommonService } from 'src/app/services/common.service';
+import { HttpEventType } from '@angular/common/http';
 
 
 const MY_DATE_FORMAT = {
@@ -60,7 +62,7 @@ const MY_DATE_FORMAT = {
   selector: 'app-register',
   standalone: true,
   imports: [
-    RouterLink,
+    // RouterLink,
     FormsModule,
     AvatarModule,
     CommonModule,
@@ -92,8 +94,8 @@ const MY_DATE_FORMAT = {
     MatStepperModule,
     MatStep,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers :[// The locale would typically be provided on the root module of your application. We do it at
+  providers :[
+    // The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     // {provide: DateAdapter, useClass:MomentDateAdapter,deps:[MAT_DATE_LOCALE]},
@@ -107,69 +109,51 @@ const MY_DATE_FORMAT = {
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-
-// export class StepperOverviewExample {
-  // private _formBuilder = inject(FormBuilder);
-
-//   firstFormGroup = this._formBuilder.group({
-//     firstCtrl: ['', Validators.required],
-//   });
-//   secondFormGroup = this._formBuilder.group({
-//     secondCtrl: ['', Validators.required],
-//   });
-//   isLinear = false;
-// }
-
-
-
 export class RegisterComponent implements OnInit {
   
   isLinear = false;
-
   readonly dialog = inject(MatDialog);
-  imageIsUploaded : boolean = false;
   display : any;
+  type : string = "";
+
+  //snackbar
+  simpleSb !: MatSnackBarRef<SimpleSnackBar>;
+
+  //Pour la localisation
+  position:any;
+  latitude:number = 0;
+  longitude:number = 0;
   center: google.maps.LatLngLiteral = {
     lat: -19.0000000,
     lng: 47.0000000
   };
-  type : string = "";
-  position:any;
-  latitude:number = 0;
-  longitude:number = 0;
-  simpleSb !: MatSnackBarRef<SimpleSnackBar>;
-  documentType : string = "cin"
+  
+  //Pour les formulaires
   registerForm!: FormGroup;
   registerCorporateForm!: FormGroup;
-  localisationFormGroup!:FormGroup;
-  proofFormGroup!:FormGroup;
   isSubmitted = false;
   userType!:AbstractControl;
   userPhone = new FormControl();
-  // readonly identityDocumentType = new FormControl();
   readonly dateOfBirth = new FormControl();
+  documentType : string = "cin"
   showSellerForm = signal(false);
-  fileName:any;
-  identityDocumentName1 = "";
-  identityDocumentName2 = "";
   user : any;
-  image : any = "default.jpg";
-  identityDocument : any[] = ["placeholder_IDCard_Recto.png","placeholder_IDCard_Verso.png"] ;
-  carteFiscale : any[] = ["placeholder_IDCard_Recto.png","placeholder_IDCard_Verso.png"] ;
+  identityDocument : any[] = [];
+  SuccessRegister :boolean = false;
+  
+  
+  // Upload variables
+  fileName:any;
+  images : {[key: string]: string} = {};
+  progress:{[key:string]:number} = {};
+
 
   //Corporate User
   corporateCarteStat : string = "";
-  corporateLogo : any = "default.jpg";
   corporateCarteFiscale : string = "";
   contactPhone = new FormControl();
-
   corporateUser : boolean = false;
   corporateType : string = "";
-  SuccessRegister :boolean = false;
-  // jour = new FormControl();
-  // mois = new FormControl();
-  // annee = new FormControl();
-  // dateOfBithr = new Date(this.annee,this.mois,this.jour)
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
@@ -189,8 +173,16 @@ export class RegisterComponent implements OnInit {
     private router          : Router,
     private _snackBar       : MatSnackBar,
     private siteService     : SiteService,
+    private commonService   : CommonService,
+    private cd              : ChangeDetectorRef
   ){
-    
+    this.images['pdpHolder'] = "default.jpg";
+    this.images['logo'] = "default.jpg";
+    this.images['documentRecto'] = "placeholder_IDCard_Recto.png";
+    this.images['documentVerso'] = "placeholder_IDCard_Verso.png";
+    this.images['carteFiscaleRecto'] = "placeholder_IDCard_Recto.png";
+    this.images['carteFiscaleVerso'] = "placeholder_IDCard_Verso.png";
+  
   }
   get formControl(){
     return this.userType as FormControl;
@@ -260,13 +252,6 @@ export class RegisterComponent implements OnInit {
     },{
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     })
-    this.proofFormGroup = this.formBuilder.group({
-    secondCtrl: ['', Validators.required],
-    });
-    this.localisationFormGroup = this.formBuilder.group({
-
-    })
-
   }
 
   toggleSellerForm(){
@@ -278,8 +263,6 @@ export class RegisterComponent implements OnInit {
   get cfc(){
     return this.registerCorporateForm.controls;
   }
-
-  
 
   submitUser(){
     this.isSubmitted =true;
@@ -296,13 +279,16 @@ export class RegisterComponent implements OnInit {
             false);
           return;
       }
-      if(!this.identityDocumentName1 || !this.identityDocumentName2){
+      if(!this.images['carteFiscaleRecto'] || !this.images['carteFiscaleVerso']){
         this.openNotificationDialog(
           "Formulaire incomplet",
           "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
           null,
           false);
         return;
+      }else{
+        this.identityDocument.push(this.images['carteFiscaleRecto']);
+        this.identityDocument.push(this.images['carteFiscaleVerso']);
       }
       
       const fv = this.registerCorporateForm.value;
@@ -323,7 +309,7 @@ export class RegisterComponent implements OnInit {
         userMainLng         : this.longitude,
         userAddress         : fv.siegeAddress ,
         userId              : generatedID,
-        userImage           : this.corporateLogo,  
+        userImage           : this.images['logo'],  
         identityCardNumber  : fv.nif ,
         identityDocument    : this.identityDocument,
         documentType        : fv.documentType,
@@ -333,7 +319,7 @@ export class RegisterComponent implements OnInit {
         carteStat           : "",
         nif                 : fv.nif,
         carteFiscal         : this.identityDocument,
-        logo                : this.corporateLogo,
+        logo                : this.images['logo'],
         managerName         : fv.managerName,
         managerEmail        : fv.managerEmail,
       }
@@ -348,13 +334,16 @@ export class RegisterComponent implements OnInit {
               false);
             return;
       }
-      if(!this.identityDocumentName1 || !this.identityDocumentName2){
+      if(!this.images['documentRecto'] || !this.images['documentVerso']){
         this.openNotificationDialog(
           "Formulaire incomplet",
           "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
           null,
           false);
         return;
+      }else{
+        this.identityDocument.push(this.images['documentRecto']);
+        this.identityDocument.push(this.images['documentVerso']);
       }
       const fv = this.registerForm.value;
       this.user = {
@@ -375,7 +364,7 @@ export class RegisterComponent implements OnInit {
         userDateOfBirth     : this.dateOfBirth.value._d,  
         userAddress         : fv.userAddress ,
         userId              : generatedID,
-        userImage           : this.image ,  
+        userImage           : this.images['profile'] ,  
         identityCardNumber  : fv.identityCardNumber ,
         identityDocument    : this.identityDocument,
         documentType        : this.documentType,
@@ -421,7 +410,6 @@ export class RegisterComponent implements OnInit {
           false)
       }
     })
-    // console.log(this.user.userPhone.internationalNumber)
     
   }  
   /*------------------------------------------
@@ -438,107 +426,26 @@ export class RegisterComponent implements OnInit {
       }
     }
 
-  onCarteFiscalRectoSelected(event:any) {
-    const reader = new FileReader();
-    if (event) {
-      // this.fileName = event.target.files[0].name;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () =>{
-        // console.log(reader.result);
-        this.identityDocumentName1 = event.target.files[0].name;
-        this.identityDocument[0] = reader.result;
-        this.carteFiscale[0] = reader.result;
-      }
-    }
-    reader.onerror = error =>{
-      console.log("Error: ",error);
-    }
-  }
-  onCarteFiscalVersoSelected(event:any) {
-    const reader = new FileReader();
-    if (event) {
-      this.identityDocumentName2 = event.target.files[0].name;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () =>{
-        this.identityDocument[1] = reader.result;
-        this.carteFiscale[1] = reader.result;
-      }
-    }
-    reader.onerror = error =>{
-      console.log("Error: ",error);
-    }
-  }
-  onFileImageSelected(event:any) {
-    const reader = new FileReader();
-    if (event) {
-      this.fileName = event.target.files[0].name;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () =>{
-        this.image = reader.result;
-        reader.readAsDataURL(this.image);
-      }
-    }
-    reader.onerror = error =>{
-      console.log("Error: ",error);
-    }
-    
-    // let htmlInputElement = <HTMLInputElement>event.target!;
-    // const file = htmlInputElement.files ? htmlInputElement.files[0] :null;
-    
-    // if (file) {
+  onFileImageSelected(event:any, fieldName:string) {
+    const file = event.target.files[0];
+    if(!file) return;
 
-    //     this.fileName =file.name;
+    if(file){
+      this.progress[fieldName] = 0;
 
-    //     const formData = new FormData();
-
-    //     formData.append("thumbnail", file);
-
-    //     this.userService.uploadFile(formData).subscribe();
-    // }
-  }
-  onFileLogoSelected(event:any) {
-    const reader = new FileReader();
-    if (event) {
-      this.fileName = event.target.files[0].name;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () =>{
-        this.corporateLogo = reader.result;
-      }
-    }
-    reader.onerror = error =>{
-      console.log("Error: ",error);
+      this.commonService.uploadImage(file).subscribe(event=>{
+        if (event.type === HttpEventType.UploadProgress && event.total) {
+            //calcul du pourcentage
+            this.progress[fieldName] = Math.round((100*event.loaded)/event.total);
+          }else if(event.type === HttpEventType.Response){
+            //Upload terminé
+            this.images[fieldName] = event.body.responseData.url + '?t=' + new Date().getTime();
+            this.cd.detectChanges();
+          }
+      });
     }
   }
-  onFileDocumentRectoSelected(event:any) {
-    console.log(event)
-    const reader = new FileReader();
-    if (event) {
-      this.identityDocumentName1 = event.target.files[0].name;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () =>{
-        this.identityDocument[0] = reader.result;
-        console.log(this.identityDocumentName1)
-      }
-    }
-    reader.onerror = error =>{
-      console.log("Error: ",error);
-    }
-  }
-  onFileDocumentVersoSelected(event:any) {
-    console.log(event)
-    const reader = new FileReader();
-    if (event) {
-      this.identityDocumentName2 = event.target.files[0].name;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () =>{
-        this.identityDocument[1] = reader.result;
-        console.log(this.identityDocumentName2)
-      }
-    }
-    reader.onerror = error =>{
-      console.log("Error: ",error);
-    }
-  }
+  
   openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
       const dialogRef = this.dialog.open(NotificationDialogComponent,{
         data : {
