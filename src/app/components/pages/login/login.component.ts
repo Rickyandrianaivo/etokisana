@@ -76,11 +76,12 @@ export class LoginComponent {
           userPassword  : fv.password
         };
         this.userService.login(user).subscribe(_=>{
-          if(isUser.userType == "Admin"){
-            this.router.navigateByUrl("/dashboard");
-          }else{
+          // if(isUser.userAccess == "Admin"){
+          //   this.router.navigateByUrl("/dashboard");
+          // }else{
+            console.log(this.url);
             this.router.navigateByUrl(this.url);
-          }
+          // }
         })
       }else{
         alert("Utilisateur inconnu, essayez de vous inscrire dans un premier temps");

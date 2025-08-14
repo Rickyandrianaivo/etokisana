@@ -12,18 +12,32 @@
                 </ul>
             </nav>
             <nav class="right-nav" *ngIf="isLoged">
-                <ul><li><ngx-avatars [src]="user.userImage"></ngx-avatars></li>
-                    <li class="menu-container"><a routerLink="/client-area" class="profil-btn">{{user.userName}} {{user.userFirstname}} </a>
-                    @if (user.userValidated) {
-                        <div class="menu">
-                            <a routerLink="/client-profile">Mon compte</a>
-                            <a routerLink="/user-products">Produits</a>
-                            <a routerLink="/transactions">Transactions</a>
-                            <a routerLink="/user-site">Mes sites</a>
-                        </div>
-                    }
-                </li>
-                    
+                <ul>
+                    <li>
+                        <a routerLink="/transactions" class="solde-btn">
+                            Solde : <strong>{{user.userTotalSolde}}</strong> MGA
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <ngx-avatars [src]="user.userImage"></ngx-avatars>
+                    </li> -->
+                    <li class="menu-container">
+                        <a routerLink="/client-area" class="profil-btn">
+                            <!-- {{user.userName}} {{user.userFirstname}}  -->
+                            <ngx-avatars [src]="user.userImage"></ngx-avatars>
+                        </a>
+                        @if (user.userValidated) {
+                            <div class="menu">
+                                <a routerLink="/client-area">{{user.userName}} {{user.userFirstname}}</a>
+                                <a routerLink="/client-profile">Gérer mon compte</a>
+                                <a routerLink="/user-products">Mes produits</a>
+                                <a routerLink="/transactions">Mes transactions</a>
+                                <a routerLink="/user-site">Mes sites</a>
+                                <a routerLink="/dashboard">Administration</a>
+                                <a (click)="logOut()" class="logout-btn">Se déconnecter</a>
+                            </div>
+                        }
+                    </li>
                     <!-- <li class="menu-container">
                         <a href="#"><mat-icon>notifications</mat-icon></a>
                         <div class="menu">
@@ -33,8 +47,11 @@
                             </a>
                         </div>
                     </li> -->
-                    <li><a routerLink="/transactions" class="solde-btn"><strong>{{user.userTotalSolde}}</strong> MGA</a></li>
-                    <li><a (click)="logOut()" class="logout-btn">Se déconnecter</a></li>
+                    <!-- <li>
+                        <a (click)="logOut()" class="logout-btn">
+                            Se déconnecter
+                        </a>
+                    </li> -->
                 </ul>
             </nav>
         </div>

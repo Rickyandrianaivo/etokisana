@@ -22,12 +22,12 @@ header{
 .header-menu a{
     color: rgb(255, 255, 255);
     text-decoration: none;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 .right-nav a{
     color: rgb(108, 146, 253);
     text-decoration: none;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 a:hover{
     background: rgba(24, 119, 242);
@@ -50,8 +50,8 @@ ul{
     display: flex;
     list-style-type: none;
     margin: 0;
+    height: 70px;
 }
-
 ul a{
     padding: 1rem;
     display: inline-block;
@@ -64,6 +64,7 @@ a span {
     font-size:.9rem;
 }
 .menu-container{
+    width: 150px;
     position: relative;
 }
 .menu{
@@ -85,4 +86,8 @@ a span {
     width: 100%;
     min-width: 8rem;
     color:white;
+}
+.profil-btn{
+    align-items: center;
+    text-align: right;
 }
