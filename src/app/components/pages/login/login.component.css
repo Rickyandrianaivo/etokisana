@@ -2,6 +2,7 @@ form{
     width: auto;
     max-width: 1080px;
     margin: auto;
+    margin-top: 20px;
 }
 a {
     text-decoration: none;
@@ -13,10 +14,28 @@ a {
     justify-content: center;
 }
 .details{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
     margin: auto;
+    align-items: center;
+    padding: auto 20px;
 }
 .container{
     height: 100%;
     display: flex;
     justify-content: center;
 }
+text-input, app-password-input{
+    width:100%;
+}
+/* div.border-title{
+    flex-grow: 1;
+} */
+/* .logo{
+    flex-grow: 2;
+} */
+.buttonContainer{
+    width: 100%;
+    margin-bottom: 20px;
+ }

@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="buttonContainer"> -->
     
     @if(link){
         <button
@@ -6,7 +6,7 @@
             [ngStyle]="{color: color,
             'background-color':bgColor,
             'font-size.rem':fontSizeRem,
-            'width.rem':widthRem
+            'width.%':widthPer,
             }"
             [routerLink]="link"
             [type]="type">
@@ -18,11 +18,11 @@
             [ngStyle]="{color: color,
             'background-color':bgColor,
             'font-size.rem':fontSizeRem,
-            'width.rem':widthRem
+            'width.%':widthPer,
             }"
             [type]="type"
             (click)="onClick.emit()">
             {{text}}
         </button>
         }
-</div>
+<!-- </div> -->

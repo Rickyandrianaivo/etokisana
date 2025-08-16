@@ -47,7 +47,7 @@ export class UserService {
     return this.http.post(USER_REQUESTRESETPASSWORD_URL,userInfo);
   }
   resetPassword(data:any){
-    return this.http.put(USER_RESETPASSWORD_URL,data);
+    return this.http.patch(USER_RESETPASSWORD_URL,data);
   }
   idByToken(token : any){
     console.log(token);

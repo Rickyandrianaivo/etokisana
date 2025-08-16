@@ -28,3 +28,8 @@ td img{
 .depot-infos td,tr{
     border:none;
 }
+.totalArea{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

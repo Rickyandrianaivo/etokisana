@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-<button (click)="backButton()"><- Retour</button>
+<button style="width: 21rem;" (click)="backButton()">Retour</button>
     <div class="border-title">
           <div class="title-border"> Mes Sites</div>
     
@@ -50,8 +50,10 @@
 </div>
     
     <div class="border-title">
-          <div class="title-border"> @if (!update) {Ajouter un site}@else{Modifier un site}</div>
+          <div class="title-border"> 
+            @if (!update) {Ajouter un site}@else{Modifier un site}</div>
     <form class="userSite-form-style" [formGroup]="addSiteForm"  (ngSubmit)="submit()">
+      <div class="row">
         <div class="client-register">
           <div class="row">
             <text-input
@@ -77,28 +79,31 @@
             label="Latitude"
             ></text-input>
           </div>
-          <app-default-button text ="Centrer la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
           <div class="row">
             <div class="buttonContainer">
-                <app-default-button text="Valider" type="submit"></app-default-button>
-                <app-default-button text="Annuler" routerLink="/user-site" type="button"></app-default-button>
+              <app-default-button text ="Centrer la carte" (onClick)="refreshMapMarker()" type="button"></app-default-button>
+              <app-default-button text="Valider" type="submit"></app-default-button>
+              <app-default-button text="Annuler" routerLink="/user-site" type="button"></app-default-button>
             </div>
           </div>
         </div>
         <div class="rightSide">
-          <google-map height="50vh"
-                max-width="60vh"
-                min-width="30vh"
-                [center]="center"
-                [zoom]="6"
-                (mapClick)="moveMap($event)"
-                >
-                <!-- (mapMousemove)="move($event)"  -->
-                <!-- *ngFor="let position of markerLatLong" -->
+           <google-map height="50vh"
+            max-width="50vh"
+            min-width="50vh"
+            [center]="center"
+            [zoom]="6"
+            (mapClick)="moveMap($event)"
+            >
+            <!-- (mapMousemove)="move($event)"  -->
+            <!-- *ngFor="let position of markerLatLong" -->
             <map-marker 
-              [position]="position"></map-marker>
+            [position]="position"></map-marker>
           </google-map>
         </div>
-    </form>     
+      </div>
+        
+        </form>     
+        
     </div>
 </div>

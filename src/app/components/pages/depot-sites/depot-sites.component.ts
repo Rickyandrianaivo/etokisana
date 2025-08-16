@@ -27,6 +27,7 @@ export class DepotSitesComponent implements OnInit{
   marker:any = null;
   prestataireId!:string;
   typeES !: string;
+  productId !:string;
   position !: google.maps.LatLngLiteral;
   center : google.maps.LatLngLiteral = {
     lat:-19.0000000,lng : 48.0000000,
@@ -38,6 +39,7 @@ export class DepotSitesComponent implements OnInit{
   ){
     this.activatedRoute.params.subscribe(params =>{
       this.prestataireId = params['id'];
+      this.productId = params['productId']
       this.typeES = params["typeES"];
       console.log(this.typeES);
     })
@@ -48,29 +50,8 @@ export class DepotSitesComponent implements OnInit{
     })
   }
   ngOnInit() : void{
-    // this.configMap()
   }
 
-  // configMap(){
-  //     this.map = l.map('map',{
-  //       center : [-18.8093810000000 ,47.5607130000000],
-  //       zoom : 6
-  //     }).setView([-18.8093810000000 ,47.5607130000000]);
-      
-  //     l.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  //       attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  //       maxZoom: 19,
-  //     }).addTo(this.map)
-  //     // let marker :any  = null
-  //     this.map.on('click', (event:any)=>{
-  //       if(this.marker !==null){
-  //         this.map.removeLayer(this.marker);
-  //       }
-  //       this.marker = l.marker([event.latlng.lat,event.latlng.lng]).addTo(this.map);
-  //       this.latitude=event.latlng.lat;
-  //       this.longitude=event.latlng.lng;
-  //     })
-  //   }
     localise(lat:any,lng:any){
       this.latitude = lat;
       this.longitude = lng;
@@ -82,6 +63,9 @@ export class DepotSitesComponent implements OnInit{
       this.position = {lat : this.latitude,lng:this.longitude}
     }
     chooseSite(siteId:string){
-      this.router.navigateByUrl("/choix-produit/"+this.typeES+"/"+siteId)
+      if (this.typeES == "depot") {
+        this.router.navigateByUrl("/choix-produit/"+this.typeES+"/"+siteId+"/"+this.productId)
+      }
+      
     }
 }

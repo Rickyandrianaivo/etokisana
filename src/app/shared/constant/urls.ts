@@ -5,20 +5,23 @@ const BASE_URL = 'https://etokisanabackend.onrender.com';
 
 
 
-export const PRODUCT_URL                   = BASE_URL + '/api/product/';
-export const PRODUCT_BY_ID_URL             = PRODUCT_URL + 'id/';
-export const PRODUCT_ADD_URL               = PRODUCT_URL + 'add/';
-export const PRODUCT_UPDATE_URL            = PRODUCT_URL + 'update/';
-export const PRODUCT_REMOVE_URL            = PRODUCT_URL + 'delete/';
-export const PRODUCT_BY_OWNER_URL          = PRODUCT_URL + 'owner/';
-export const PRODUCT_BY_SEARCH_URL         = PRODUCT_URL + 'search/';
-export const PRODUCT_UPLOAD_IMAGE_URL      = PRODUCT_URL + 'upload/';
-export const PRODUCT_BY_CATEGORY_URL       = PRODUCT_URL + 'category/';
-export const PRODUCT_BY_REFERENCE_URL      = PRODUCT_URL + 'reference/';
-export const PRODUCT_BY_SITE_ID_URL        = PRODUCT_URL + 'stock/';
-export const PRODUCT_ADD_TO_STOCK_URL      = PRODUCT_URL + 'addStock/';
-export const PRODUCT_MODIFY_STOCK_URL      = PRODUCT_URL + 'modififyStock/'
-export const PRODUCT_GET_ALL_TO_SELL       = PRODUCT_URL + 'getAllStock/'
+export const PRODUCT_URL                                    = BASE_URL + '/api/product/';
+export const PRODUCT_BY_ID_URL                              = PRODUCT_URL + 'id/';
+export const PRODUCT_ADD_URL                                = PRODUCT_URL + 'add/';
+export const PRODUCT_UPDATE_URL                             = PRODUCT_URL + 'update/';
+export const PRODUCT_REMOVE_URL                             = PRODUCT_URL + 'delete/';
+export const PRODUCT_BY_OWNER_URL                           = PRODUCT_URL + 'owner/';
+export const PRODUCT_BY_SEARCH_URL                          = PRODUCT_URL + 'search/';
+export const PRODUCT_UPLOAD_IMAGE_URL                       = PRODUCT_URL + 'upload/';
+export const PRODUCT_BY_CATEGORY_URL                        = PRODUCT_URL + 'category/';
+export const PRODUCT_BY_REFERENCE_URL                       = PRODUCT_URL + 'reference/';
+export const PRODUCT_BY_SITE_ID_URL                         = PRODUCT_URL + 'stock/';
+export const PRODUCT_ADD_TO_STOCK_URL                       = PRODUCT_URL + 'addStock/';
+export const PRODUCT_MODIFY_STOCK_URL                       = PRODUCT_URL + 'modififyStock/';
+export const PRODUCT_GET_ALL_TO_SELL                        = PRODUCT_URL + 'getAllStock/';
+export const PRODUCT_ADD_DEPOT_ITEM_URL                     = PRODUCT_URL + 'addDepotItem/';
+export const PRODUCT_MODIFY_DEPOT_ITEM_URL                  = PRODUCT_URL + 'modifyDepotItem/';
+export const PRODUCT_GET_DEPOT_ITEM_BY_PRODUCT_ID_URL       = PRODUCT_URL + 'getDepotItemByProductId/'
 
 export const UPLOAD_IMAGE_URL              = PRODUCT_URL + 'upload-image/';
 

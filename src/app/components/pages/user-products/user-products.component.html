@@ -75,6 +75,7 @@
         <td mat-cell *matCellDef="let element"> 
           <!-- <a routerLink="update/{{element._id}}"><button type="button" [disabled]="!element.productValidation"> <mat-icon>brush</mat-icon></button></a>
           <button (click)="deleteProduct(element._id)" type="button" [disabled]="!element.productValidation"> <mat-icon>delete</mat-icon></button></td> -->
+          <button (click)="voirProduit(element._id)"  type="button" [disabled]="!element.productValidation">Voir</button>
           @if (!element.isStocker) {
             <button (click)="stockerProduit(element._id)"  type="button" [disabled]="!element.productValidation">Stocker</button>
           }@else {

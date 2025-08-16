@@ -207,7 +207,7 @@ body{
   .border-title{
     border: 1px solid rgb(216, 237, 255);
     border-radius: 10px;
-    padding: 1rem;
+    padding: 3rem;
     padding-top: 1.5rem;
     margin: 1.25rem 0.25rem 0 0.25rem;
     /* display: flex; */
@@ -225,7 +225,6 @@ body{
   }
   
   /* TABLES */
-  
   .table-container{
     display: flex;
   }
@@ -390,4 +389,8 @@ input-validation{
     width: 12rem;
     color:red;
     font-size : small;
+}
+
+app-default-button{
+  width: 100%;
 }

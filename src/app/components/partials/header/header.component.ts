@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AvatarModule } from 'ngx-avatars';
 import { NotificationService } from 'src/app/services/notification.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +17,9 @@ import { NotificationService } from 'src/app/services/notification.service';
     CommonModule,
     RouterLink,
     MatIconModule,
-    AvatarModule
+    AvatarModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

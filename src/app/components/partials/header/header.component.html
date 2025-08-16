@@ -4,56 +4,77 @@
             <!-- <div class="logo"><a routerLink="/"><img src="newlogo.png" alt="Logo etokisana"></a></div> -->
             <!-- <div class="search-bar"> Recherche</div> -->
              <!-- <app-search></app-search> -->
-            <nav class="right-nav" *ngIf="!isLoged">
-                <ul>
-                    <!-- <li><a routerLink="/home" class="register-btn">Boutique</a></li> -->
-                    <li><a routerLink="/register" class="register-btn">S'inscrire</a></li>
-                    <li><a routerLink="/login" class="login-btn">Se Connecter</a></li>
-                </ul>
-            </nav>
-            <nav class="right-nav" *ngIf="isLoged">
-                <ul>
-                    <li>
-                        <a routerLink="/transactions" class="solde-btn">
-                            Solde : <strong>{{user.userTotalSolde}}</strong> MGA
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <ngx-avatars [src]="user.userImage"></ngx-avatars>
-                    </li> -->
-                    <li class="menu-container">
-                        <a routerLink="/client-area" class="profil-btn">
-                            <!-- {{user.userName}} {{user.userFirstname}}  -->
-                            <ngx-avatars [src]="user.userImage"></ngx-avatars>
-                        </a>
-                        @if (user.userValidated) {
-                            <div class="menu">
-                                <a routerLink="/client-area">{{user.userName}} {{user.userFirstname}}</a>
-                                <a routerLink="/client-profile">Gérer mon compte</a>
-                                <a routerLink="/user-products">Mes produits</a>
-                                <a routerLink="/transactions">Mes transactions</a>
-                                <a routerLink="/user-site">Mes sites</a>
-                                <a routerLink="/dashboard">Administration</a>
-                                <a (click)="logOut()" class="logout-btn">Se déconnecter</a>
-                            </div>
-                        }
-                    </li>
-                    <!-- <li class="menu-container">
-                        <a href="#"><mat-icon>notifications</mat-icon></a>
-                        <div class="menu">
-                            <a href="#" *ngFor="let notification of notifications">
-                                <h3> {{notification.title}} </h3>
-                                <p> {{notification.message}} </p>
+              @if (!isLoged) {
+                <nav class="right-nav">
+                    <ul>
+                        <!-- <li><a routerLink="/home" class="register-btn">Boutique</a></li> -->
+                        <li><a routerLink="/register" class="register-btn">S'inscrire</a></li>
+                        <li><a routerLink="/login" class="login-btn">Se Connecter</a></li>
+                    </ul>
+                </nav>
+              }@else{
+                <nav class="right-nav">
+                    <ul>
+                        <li>
+                            <a routerLink="/transactions" class="solde-btn">
+                                Solde : <strong>{{user.userTotalSolde}}</strong> MGA
                             </a>
-                        </div>
-                    </li> -->
-                    <!-- <li>
-                        <a (click)="logOut()" class="logout-btn">
-                            Se déconnecter
-                        </a>
-                    </li> -->
-                </ul>
-            </nav>
+                        </li>
+                        <!-- <li>
+                            <ngx-avatars [src]="user.userImage"></ngx-avatars>
+                        </li> -->
+
+                        <button class="profil-btn" matButton [matMenuTriggerFor]="beforeMenu"><ngx-avatars size="30" [src]="user.userImage"></ngx-avatars></button>
+                            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/client-area">
+                                            <ngx-avatars size="50" [src]="user.userImage"></ngx-avatars> <br>
+                                            {{user.userName}} {{user.userFirstname}}
+                                        </a>
+                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/client-profile">Mon compte</a>
+                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-products">Mes produits</a>
+                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/transactions">Mes transactions</a>
+                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-site">Mes sites</a>
+                                @if (user.userAccess == "Admin") {
+                                        <a mat-menu-item routerLink="/dashboard">Administration</a>
+                                }
+                                <a mat-menu-item (click)="logOut()" class="logout-btn" >Se déconnecter</a>
+                            </mat-menu>
+
+
+                        <!-- <li class="menu-container">
+                            <a routerLink="/client-area" class="profil-btn">
+                                {{user.userName}} {{user.userFirstname}} 
+                                <ngx-avatars size="30" [src]="user.userImage"></ngx-avatars>
+                            </a>
+                            @if (user.userValidated) {
+                                <div class="menu">
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
+                            }
+                        </li> -->
+                        <!-- <li class="menu-container">
+                            <a href="#"><mat-icon>notifications</mat-icon></a>
+                            <div class="menu">
+                                <a href="#" *ngFor="let notification of notifications">
+                                    <h3> {{notification.title}} </h3>
+                                    <p> {{notification.message}} </p>
+                                </a>
+                            </div>
+                        </li> -->
+                        <!-- <li>
+                            <a (click)="logOut()" class="logout-btn">
+                                Se déconnecter
+                            </a>
+                        </li> -->
+                    </ul>
+                </nav>
+            }
         </div>
     </div>
         <!-- <div class="header-menu">
@@ -96,4 +117,7 @@
             <!-- </ul>
         </div> -->
     <!-- </div> -->
+            
+            
+            
 </header>

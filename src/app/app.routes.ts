@@ -69,8 +69,8 @@ const routes: Routes = [
     {path : 'admin', component: BoLoginComponent},
     {path : 'retrait/:depotId/:productId', component: RetraitComponent},
     {path : 'choix-site/:typeES' , component:ChoixDepotComponent},
-    {path : 'depot-sites/:typeES/:id' , component:DepotSitesComponent},
-    {path : 'choix-produit/:typeES/:id' , component:ChoixProduitComponent},
+    {path : 'depot-sites/:typeES/:id/:productId' , component:DepotSitesComponent},
+    {path : 'choix-produit/:typeES/:id/:productId' , component:ChoixProduitComponent},
     {path : 'transaction-details/:id' , component:TransactionDetailsComponent},
     {path : '**', component: NotFoundComponent},
 ];

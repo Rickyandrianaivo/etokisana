@@ -195,7 +195,7 @@ export class AddProductComponent implements OnInit {
       isStocker         : false,
     };
     this.productService.addProduct(this.product).subscribe(_ => {
-      this.openNotificationDialog("Produit en attente de validation","Un email vous sera envoyer dès que le produit sera approuvé, merci de votre patience.","user-products",false,)
+      this.openNotificationDialog("Produit en attente de validation","Un email vous sera envoyé dès que le produit sera approuvé, merci de votre patience.","user-products",false,)
       this.router.navigateByUrl("user-products");
     })
   }

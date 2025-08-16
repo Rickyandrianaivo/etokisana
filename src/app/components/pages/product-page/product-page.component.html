@@ -32,7 +32,10 @@
     </div>
               
     <div class="row">
-        <app-default-button (click)="addtoCart(theProduct)" text="Ajouter au panier"></app-default-button>
+        @if (theProduct.productOwnerId == currentuser.userId ) {
+            <app-default-button (click)="stockerDansDepot(theProduct._id)" text="Ajouter à un dépôt"></app-default-button>
+        }
+        <app-default-button (click)="back()" text="Retour"></app-default-button>
     </div>
 </div>
 

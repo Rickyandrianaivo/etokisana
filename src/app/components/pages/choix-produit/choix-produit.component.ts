@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SiteService } from 'src/app/services/site.service';
 import { Site } from 'src/app/shared/models/Sites';
 import { DepotItem } from 'src/app/shared/models/DepotItem';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-choix-produit',
@@ -28,7 +29,8 @@ import { DepotItem } from 'src/app/shared/models/DepotItem';
     DefaultButtonComponent,
     // TextInputComponent,
     UpperCasePipe,
-    RouterLink
+    RouterLink,
+    MatTabsModule,
 ],
   templateUrl: './choix-produit.component.html',
   styleUrl: './choix-produit.component.css'
@@ -44,6 +46,8 @@ export class ChoixProduitComponent {
   articles : Product[]=[]
   currentUser : any ;
   currentSite !:Site;
+  theProduct : any;
+  theProductId : string = "";
   siteOwner !:any;
   returnUrl !: string;
   constructor(
@@ -63,6 +67,14 @@ export class ChoixProduitComponent {
     this.activatedRoute.params.subscribe(params =>{
       this.depotId=params['id'];
       this.typeES= params['typeES'];
+      this.theProductId = params['productId'];
+      if (this.theProductId) {
+        this.addToCart(this.theProductId);
+        this.cartItemsHolder=[];
+      }
+      this.productService.getProductById(this.theProductId).subscribe(theProduct=>{
+        this.theProduct=theProduct;
+      })
       this.siteService.getSiteById(this.depotId).subscribe(currentSite =>{
         this.currentSite = currentSite;
         this.userService.getUserByUserId(this.currentSite.siteUserID).subscribe(result=>{
@@ -70,6 +82,7 @@ export class ChoixProduitComponent {
         })
       })
       })
+      
   }
   choixProduit(productId : string){
     this.isEmpty=false;
@@ -353,8 +366,17 @@ export class ChoixProduitComponent {
         lastUpdate : new Date(),
         currentDepotId : this.depotId,
       }
+      // this.productService.get().subscribe{
+
+      // }
+      // if (condition) {
+        
+      // }
       this.productService.addDepotItem(depotItempData).subscribe(_=>{
         console.log("Produit Stocker !")
+      })
+      this.productService.updateProduct(depotItem.CartItemProduct._id,{isStocker:true}).subscribe(_=>{
+
       })
     })
     
@@ -409,7 +431,7 @@ export class ChoixProduitComponent {
 
   insertQty(item : CartItem, itemCartItemQuantity : string){
     const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
-    console.log(itemCartItemQuantity)
+    // console.log(itemCartItemQuantity)
     let newCartItemPrice
     
     newCartItemPrice = item.CartItemProduct.prixUnitaireVenteTTC  * intItemCartItemQuantity;
@@ -417,7 +439,7 @@ export class ChoixProduitComponent {
   }
   insertPrice(item : CartItem, itemCartItemPrice : string){
     const intItemCartItemPrice = parseInt(itemCartItemPrice);
-    console.log(intItemCartItemPrice)
+    // console.log(intItemCartItemPrice)
     this.changeCartItemPrice(item,intItemCartItemPrice);
     this.calculTotal();
   }

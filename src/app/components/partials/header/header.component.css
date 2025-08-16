@@ -18,7 +18,13 @@ header{
     background-color: rgb(40, 40, 68);
     color:white;
 }
+nav{
+    margin-right: 10%;
+}
 
+nav a{
+    font-size: large;
+}
 .header-menu a{
     color: rgb(255, 255, 255);
     text-decoration: none;
@@ -29,10 +35,23 @@ header{
     text-decoration: none;
     /* text-transform: uppercase; */
 }
-a:hover{
-    background: rgba(24, 119, 242);
+/* a:hover, button a:hover{
+    background: rgb(99, 99, 99);
     color: white;
     cursor:pointer;
+    text-decoration: none;
+} */
+mat-menu a:hover, mat-menu button a:hover{
+    background: rgb(99, 99, 99);
+    color: rgb(0, 0, 0);
+    cursor:pointer;
+    text-decoration: none;
+}
+.logout-btn:hover{
+    color:black;
+}
+mat-menu a{
+    font-size: large;
 }
 
 .container{
@@ -50,7 +69,7 @@ ul{
     display: flex;
     list-style-type: none;
     margin: 0;
-    height: 70px;
+    /* height: 70px; */
 }
 ul a{
     padding: 1rem;
@@ -61,10 +80,10 @@ a span {
     color:rgb(0, 0, 0);
     padding: 0.1rem 0.45rem;
     border-radius: 100rem;
-    font-size:.9rem;
+    /* font-size:.9rem; */
 }
 .menu-container{
-    width: 150px;
+    width: 185px;
     position: relative;
 }
 .menu{
@@ -75,13 +94,14 @@ a span {
 }
 .menu-container:hover .menu{
     display: block;
+    margin-right: 90%;
 }
 
-.menu a {
+/* .menu a {
     width: 100%;
     min-width: 8rem;
     color:blue;
-}
+} */
 .menu a:hover {
     width: 100%;
     min-width: 8rem;
@@ -90,4 +110,17 @@ a span {
 .profil-btn{
     align-items: center;
     text-align: right;
+    border-radius: 50%;
+    width: min-content;
+}
+button{
+    width: 100%;
+    background: none;
+}
+button:hover{
+    background-color: #bdbdbd;
+    color: white;
+}
+mat-menu{
+    width: 5rem;
 }
