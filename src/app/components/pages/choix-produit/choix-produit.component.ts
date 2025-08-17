@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { AsyncPipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
@@ -35,7 +35,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   templateUrl: './choix-produit.component.html',
   styleUrl: './choix-produit.component.css'
 })
-export class ChoixProduitComponent {
+export class ChoixProduitComponent implements OnInit {
   subscriptions : Subscription[] = []
   productList:any;
   depotId !: string;
@@ -50,20 +50,31 @@ export class ChoixProduitComponent {
   theProductId : string = "";
   siteOwner !:any;
   returnUrl !: string;
+  depotItemStock : any[] = [];
+  currentItemStock : any;
+
+
+
+
   constructor(
     private router:Router,
-    private productService : ProductService,
-    private activatedRoute : ActivatedRoute,
-    private transactionService : TransactionService,
     private userService : UserService,
     private siteService : SiteService,
+    private activatedRoute : ActivatedRoute,
+    private productService : ProductService,
+    private transactionService : TransactionService,
   ){
+    
+  }
+
+  ngOnInit(): void {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
     this.currentUser = this.userService.getUserFromLocalStorage();
     this.productService.getAll().subscribe(productAll =>{
     this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
     this.articles = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
     });
+    
     this.activatedRoute.params.subscribe(params =>{
       this.depotId=params['id'];
       this.typeES= params['typeES'];
@@ -71,6 +82,9 @@ export class ChoixProduitComponent {
       if (this.theProductId) {
         this.addToCart(this.theProductId);
         this.cartItemsHolder=[];
+        this.productService.getDepotItemByProductId(this.theProductId).subscribe(currentItemStock=>{
+          this.currentItemStock = currentItemStock[0];
+        })
       }
       this.productService.getProductById(this.theProductId).subscribe(theProduct=>{
         this.theProduct=theProduct;
@@ -81,9 +95,9 @@ export class ChoixProduitComponent {
           this.siteOwner = result;
         })
       })
-      })
-      
+    })
   }
+
   choixProduit(productId : string){
     this.isEmpty=false;
     this.productService.getProductById(productId).subscribe(product=>{
@@ -215,7 +229,9 @@ export class ChoixProduitComponent {
   GetIsEmpty(isEmpty : boolean){
     this.showSuggestions = isEmpty;
   }
-// plus tard recherche
+
+  /** */
+  // plus tard recherche
   // GetSearchTerm(searchTerm : string){
   //   this.searchTerm = searchTerm;
   //   let productObeservable = this.productService.getAllproductsBySearchTerm(this.searchTerm);
@@ -339,47 +355,81 @@ export class ChoixProduitComponent {
   }
 
   submit(){
-    let transactionData={
-      userId : this.currentUser._id,
-      siteDepartId : "",
-      siteArriveId : this.depotId,
-      typeES:"Entrée",
-      montantTotal : this.montantTotal,
-      statut:"En cours",
-      productList:this.cartItems,
+    /** à remetter */
+    // let transactionData={
+    //   userId : this.currentUser._id,
+    //   siteDepartId : "",
+    //   siteArriveId : this.depotId,
+    //   typeES:"Entrée",
+    //   montantTotal : this.montantTotal,
+    //   statut:"En cours",
+    //   productList:this.cartItems,
 
-    }
-    this.transactionService.addTransaction(transactionData).subscribe(_ =>{
+    // }
+    // this.transactionService.addTransaction(transactionData).subscribe(_ =>{
 
-    })
-    let addBalance = {
-      userTotalSolde : this.montantTotal,
-    }
-    this.userService.update(addBalance,this.siteOwner._id).subscribe(_=>{
-      alert("Dépot réussi!");
-    })
-    this.cartItems.forEach(depotItem=>{
-      let depotItempData:DepotItem = {
-        productId : depotItem.CartItemProduct._id,
-        stock: depotItem.CartItemQuantity++,
-        prix   : depotItem.CartItemPrice,
-        lastUpdate : new Date(),
-        currentDepotId : this.depotId,
-      }
-      // this.productService.get().subscribe{
-
-      // }
-      // if (condition) {
-        
-      // }
-      this.productService.addDepotItem(depotItempData).subscribe(_=>{
-        console.log("Produit Stocker !")
-      })
-      this.productService.updateProduct(depotItem.CartItemProduct._id,{isStocker:true}).subscribe(_=>{
-
-      })
-    })
-    
+    // })
+    // let addBalance = {
+    //   userTotalSolde : this.montantTotal,
+    // }
+    // this.userService.update(addBalance,this.siteOwner._id).subscribe(_=>{
+      // alert("Dépot réussi!");
+    // })
+    // if (this.theProductId) {
+    //   let depotItempData:DepotItem = {
+    //     productId : this.theProductId,
+    //     stock: this.cartItems[0].CartItemQuantity,
+    //     prix   : this.cartItems[0].CartItemPrice,
+    //     lastUpdate : new Date(),
+    //     currentDepotId : this.depotId,
+    //   }
+    //   this.productService.getDepotItemByProductId(this.theProductId).subscribe(depotItemStock=>{
+    //     console.log(depotItemStock)
+    //     // console.log(depotItemStock[0].stock + this.cartItems[0].CartItemQuantity)
+    //   })
+    //   if (this.depotItemStock[0].currentDepotId == this.depotId && depotItempData._id) {
+    //     console.log(this.depotItemStock[0].stock + this.depotItemStock[0].CartItemQuantity)
+    //     // this.productService.modifyDepotItem({stock : element.stock + depotItem.CartItemQuantity},element._id).subscribe(_=>{
+    //     // })
+    //   }else{
+    //     // this.productService.addDepotItem(depotItempData).subscribe(_=>{
+    //     //   console.log("Produit Stocker !")
+    //     // this.productService.updateProduct(depotItem.CartItemProduct._id,{isStocker:true}).subscribe(_=>{})
+    //     // })
+    //   }
+    // }else{
+      this.cartItems.forEach(cartItem=>{
+        let depotItempData:DepotItem = {
+          productId : cartItem.CartItemProduct._id,
+          stock: cartItem.CartItemQuantity,
+          prix   : cartItem.CartItemPrice,
+          lastUpdate : new Date(),
+          currentDepotId : this.depotId,
+        }
+        this.productService.getDepotItemByProductId(depotItempData.productId).subscribe(depotItemsByProductId =>{
+          this.depotItemStock = depotItemsByProductId;
+          if (this.depotItemStock.length>0) {
+            this.depotItemStock.forEach(element=>{
+            if (element.currentDepotId == depotItempData.currentDepotId) {
+              this.productService.modifyDepotItem({stock : element.stock + depotItempData.stock},element._id).subscribe(_=>{
+                alert("Dépôt réussi !!")
+                this.router.navigateByUrl('user-products');
+              })
+            }
+          })
+          }else{
+            this.productService.addDepotItem(depotItempData).subscribe(_=>{
+              console.log("Produit Stocker !")
+            this.productService.updateProduct(depotItempData.productId,{isStocker:true}).subscribe(_=>{
+              this.router.navigateByUrl('user-products');
+            })
+            // Ajouter popup pour revenir à la liste de produit
+            })
+          }
+          
+        })
+      }) 
+    // }
     // this.numeroFactureVente = this.pointDeVente.prefixeVente + "000" + this.pointDeVente.numeroVente;
     // this.cartItems.forEach(cartItem => {
     //   let newFactureVenteDetails = {

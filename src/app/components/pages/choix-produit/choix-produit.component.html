@@ -104,10 +104,10 @@
           </table> -->
       </div>
       <div id="cartGrid">
+        @if (currentSite) {
         <div class="border-title">
           <div class="title-border"> Destination</div> 
           <table class="depot-infos" style="border: none;border-collapse:collapse ;">
-            @if (currentSite.siteName != "") {
             <tr>
               <td>Nom du site :  </td>
                 <td>{{currentSite.siteName}}</td>
@@ -126,7 +126,9 @@
               </tr>
               <tr>
                 <td>Propriétaire :  </td>
-                <td>{{currentSite.siteUserID | uppercase}} - {{siteOwner.userName}} {{siteOwner.userFirstname}}</td>
+                @if(siteOwner){
+                  <td>{{currentSite.siteUserID | uppercase}} - {{siteOwner.userName}} {{siteOwner.userFirstname}}</td>
+                }
               </tr>
               <tr>
                 <a routerLink="/depot-sites/depot/{{currentSite.siteUserID}}"><button >Autres sites</button></a>
@@ -135,13 +137,38 @@
                 }
                 
               </tr>
-            }
-          </table>
-        </div> 
+            </table>
+          </div> 
+        }
         <!-- <app-client-select [isDetail]="isDetail" [codeClient]="codeClient" [nameClient]="nameClient"  (updatedCodeClient)="GetCodeClient($event)" (updatedNameClient)="GetNameClient($event)" ></app-client-select> -->
         <!-- <ul style="position:absolute;background-color: white;list-style: none; top: 157px;" *ngIf="showSuggestions">
           <li *ngFor="let item of clients"><a (click)="chooseClientFromeCodeClient(item.client_code)" style="font-size: small;">{{item.client_code}} - {{ item.client_raisonSociale}}</a>  </li>
         </ul> -->
+        @if(theProduct && currentItemStock){
+          <div class="border-title">
+          <div class="title-border">Stock actuel</div>
+
+          <table class="overflow">
+              <tr class="tableRowCart tableHeader">
+                <td>Désignation</td>
+                <td>Prix Unitaire</td>
+                <td>Quantité</td>
+                <td>Montant</td>
+              </tr>
+              <tr  class="tableRowCart tableRow" style="height:10px;" >
+              <td>{{ theProduct.productName}}</td>
+              <td style="text-align: right;">
+                {{ currentItemStock.prix }}
+              </td>
+              <td>
+                {{ currentItemStock.stock }}
+              </td>
+              <td style="text-align: right;"> {{currentItemStock.prix * currentItemStock.stock}} </td>
+            </tr>
+          </table>
+        </div>
+        }
+        
         <div class="border-title">
           <div class="title-bordre">Panier🛒</div>
           <div class="overflow">
@@ -161,7 +188,11 @@
               <td>{{ item.CartItemProduct.productName}}</td>
               <!-- <td style="text-align: right;">{{ item.CartItemProduct.prixUnitaireVenteTTC}}</td> -->
               <td style="text-align: right;">
-                <input #p class="itemQty" type="text" [(ngModel)]="item.CartItemPrice" (keyup)="insertPrice(item,p.value)" [value]="item.CartItemPrice" [ngModelOptions]="{standalone:true}">
+                @if (currentItemStock) {
+                  {{ currentItemStock.prix }}
+                }@else {
+                  <input #p class="itemQty" type="text" [(ngModel)]="item.CartItemPrice" (keyup)="insertPrice(item,p.value)" [value]="item.CartItemPrice" [ngModelOptions]="{standalone:true}">
+                }
               </td>
               <td>
                   <div class="itemQtyContainer">
@@ -180,6 +211,8 @@
                 </button>
               </td>}
             </tr>
+
+            <!-- Placeholder -->
             <tr class="cart-content" *ngFor="let item of cartItemsHolder" >
               <td >{{ item.CartItemProduct.designation}}</td>
               <!-- <td >{{ item.productPrice}}</td> -->
@@ -208,7 +241,7 @@
             </div>
           </div>
           <div class="buttonContainer" *ngIf="!isCartEmpty">
-            <app-default-button text="Valider" type="submit" (click)="submit()"></app-default-button>
+            <app-default-button text="Deposer" type="submit" (click)="submit()"></app-default-button>
           @if(typeES != "depot")
             {<app-default-button text="Vider le panier" type="button" (click)="resetCart()"></app-default-button>}
           </div>

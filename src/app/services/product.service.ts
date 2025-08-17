@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../shared/models/Product';
-import { PRODUCT_ADD_DEPOT_ITEM_URL, PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_GET_ALL_TO_SELL, PRODUCT_GET_DEPOT_ITEM_BY_PRODUCT_ID_URL, PRODUCT_MODIFY_STOCK_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
+import { PRODUCT_ADD_DEPOT_ITEM_URL, PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_GET_ALL_TO_SELL, PRODUCT_GET_DEPOT_ITEM_BY_PRODUCT_ID_URL, PRODUCT_MODIFY_DEPOT_ITEM_URL, PRODUCT_MODIFY_STOCK_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { sample_products } from '../../../data';
@@ -106,6 +106,6 @@ export class ProductService {
     return this.http.post(PRODUCT_ADD_DEPOT_ITEM_URL,depotItemData);
    }
    modifyDepotItem(depotItemData : any,depotItemId : string ){
-    return this.http.patch(PRODUCT_MODIFY_STOCK_URL + depotItemId,depotItemData);
+    return this.http.patch(PRODUCT_MODIFY_DEPOT_ITEM_URL + depotItemId,depotItemData);
    }
 }
