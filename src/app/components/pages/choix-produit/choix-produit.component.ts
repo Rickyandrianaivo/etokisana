@@ -15,6 +15,7 @@ import { SiteService } from 'src/app/services/site.service';
 import { Site } from 'src/app/shared/models/Sites';
 import { DepotItem } from 'src/app/shared/models/DepotItem';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DepotItemService } from 'src/app/services/depot-item.service';
 
 @Component({
   selector: 'app-choix-produit',
@@ -63,6 +64,7 @@ export class ChoixProduitComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     private productService : ProductService,
     private transactionService : TransactionService,
+    private depotItemService : DepotItemService,
   ){
     
   }
@@ -82,7 +84,7 @@ export class ChoixProduitComponent implements OnInit {
       if (this.theProductId) {
         this.addToCart(this.theProductId);
         this.cartItemsHolder=[];
-        this.productService.getDepotItemByProductId(this.theProductId).subscribe(currentItemStock=>{
+        this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
           this.currentItemStock = currentItemStock[0];
         })
       }
@@ -406,19 +408,19 @@ export class ChoixProduitComponent implements OnInit {
           lastUpdate : new Date(),
           currentDepotId : this.depotId,
         }
-        this.productService.getDepotItemByProductId(depotItempData.productId).subscribe(depotItemsByProductId =>{
+        this.depotItemService.getAllByProductId(depotItempData.productId).subscribe(depotItemsByProductId =>{
           this.depotItemStock = depotItemsByProductId;
           if (this.depotItemStock.length>0) {
             this.depotItemStock.forEach(element=>{
             if (element.currentDepotId == depotItempData.currentDepotId) {
-              this.productService.modifyDepotItem({stock : element.stock + depotItempData.stock},element._id).subscribe(_=>{
+              this.depotItemService.update({stock : element.stock + depotItempData.stock},element._id).subscribe(_=>{
                 alert("Dépôt réussi !!")
                 this.router.navigateByUrl('user-products');
               })
             }
           })
           }else{
-            this.productService.addDepotItem(depotItempData).subscribe(_=>{
+            this.depotItemService.add(depotItempData).subscribe(_=>{
               console.log("Produit Stocker !")
             this.productService.updateProduct(depotItempData.productId,{isStocker:true}).subscribe(_=>{
               this.router.navigateByUrl('user-products');

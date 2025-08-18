@@ -1,14 +1,60 @@
 
 <app-header></app-header>
-<div class="slider">
-    <!-- <img src="SplashscreenEtokisana.jpg"/> -->
+<!-- <div class="slider">
     <div class="content-container">
         <h1>Acheter différemment</h1>
         <app-default-button text="S'INSCRIRE" [fontSizeRem]=2 [widthPer]=30 routerLink="/register"></app-default-button>
         <a routerLink="/login" style="margin: 0 auto;font-size:large;color:rgb(0, 0, 0)"> J'ai déjà un compte</a>
     </div>
-</div>
+</div> -->
 <div class="container">
+<div class="inner-container">
+  <mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Shiba inu </mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton>LIKE</button>
+    <button matButton>SHARE</button>
+  </mat-card-actions>
+</mat-card>
+@for (item of productList; track $index) {
+  <mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ item.produ}} </mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton>LIKE</button>
+    <button matButton>SHARE</button>
+  </mat-card-actions>
+</mat-card>
+}
+  
+
+</div>
+
+
+
   <!-- <div class="inner-container">
     <div class="main">
       <div class="border-title">

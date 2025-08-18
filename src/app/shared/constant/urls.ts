@@ -18,10 +18,12 @@ export const PRODUCT_BY_REFERENCE_URL                       = PRODUCT_URL + 'ref
 export const PRODUCT_BY_SITE_ID_URL                         = PRODUCT_URL + 'stock/';
 export const PRODUCT_ADD_TO_STOCK_URL                       = PRODUCT_URL + 'addStock/';
 export const PRODUCT_MODIFY_STOCK_URL                       = PRODUCT_URL + 'modififyStock/';
-export const PRODUCT_GET_ALL_TO_SELL                        = PRODUCT_URL + 'getAllStock/';
-export const PRODUCT_ADD_DEPOT_ITEM_URL                     = PRODUCT_URL + 'addDepotItem/';
-export const PRODUCT_MODIFY_DEPOT_ITEM_URL                  = PRODUCT_URL + 'modifyDepotItem/';
-export const PRODUCT_GET_DEPOT_ITEM_BY_PRODUCT_ID_URL       = PRODUCT_URL + 'getDepotItemByProductId/'
+
+export const DEPOTITEM_URL                                  = BASE_URL + '/api/depotItem/';
+export const DEPOTITEM_BY_CATEGORY_URL                      = DEPOTITEM_URL + 'category/';
+export const DEPOTITEM_ADD_DEPOT_ITEM_URL                   = DEPOTITEM_URL + 'add/';
+export const DEPOTITEM_MODIFY_DEPOT_ITEM_URL                = DEPOTITEM_URL + 'update/';
+export const DEPOTITEM_GET_DEPOT_ITEM_BY_PRODUCT_ID_URL     = DEPOTITEM_URL + 'ByProductId/'
 
 export const UPLOAD_IMAGE_URL              = PRODUCT_URL + 'upload-image/';
 

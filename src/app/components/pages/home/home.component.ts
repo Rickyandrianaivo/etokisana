@@ -4,25 +4,32 @@ import { Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../../partials/header/header.component';
 import { ProductService } from 'src/app/services/product.service';
 // import { DepotItem } from 'src/app/shared/models/DepotItem';
+import {MatCardModule} from '@angular/material/card';
+import { DepotItemService } from 'src/app/services/depot-item.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DefaultButtonComponent,
-    RouterLink,
-    HeaderComponent
+  imports: [
+    // DefaultButtonComponent,
+    // RouterLink,
+    HeaderComponent,
+    MatCardModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  depotItems:any[] = [];
   productList: any[]=[];
   constructor(private router:Router,
     private productservice:ProductService,
+    private depotItemService: DepotItemService,
   ){
-    this.productservice.getAllDeptoItem().subscribe(allproduct=>{
+    this.depotItemService.getAll().subscribe(allproduct=>{
       // this.productList =allproduct.filter(filteredProduct=> filteredProduct.productValidation == true && filteredProduct.isStocker == true )
       this.productList=allproduct;
+      console.log(this.productList);
     })
   }
   registerbutton(){
