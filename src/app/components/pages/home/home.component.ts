@@ -29,7 +29,17 @@ export class HomeComponent {
     this.depotItemService.getAll().subscribe(allproduct=>{
       // this.productList =allproduct.filter(filteredProduct=> filteredProduct.productValidation == true && filteredProduct.isStocker == true )
       this.productList=allproduct;
-      console.log(this.productList);
+      // console.log(this.productList);
+      this.productList.forEach(item => {
+        this.productservice.getProductById(item.productId).subscribe(product => {
+          console.log(item.productId);
+          console.log(product);
+          item.productName = product.productName;
+          item.productDescription = product.productDescription;
+          item.codeCPC = product.codeCPC;
+          item.productImage = product.productImage;
+        })
+      })
     })
   }
   registerbutton(){

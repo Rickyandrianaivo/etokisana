@@ -6,7 +6,7 @@ const BASE_URL = 'https://etokisanabackend.onrender.com';
 
 
 export const PRODUCT_URL                                    = BASE_URL + '/api/product/';
-export const PRODUCT_BY_ID_URL                              = PRODUCT_URL + 'id/';
+// export const PRODUCT_BY_ID_URL                              = PRODUCT_URL + 'id/';
 export const PRODUCT_ADD_URL                                = PRODUCT_URL + 'add/';
 export const PRODUCT_UPDATE_URL                             = PRODUCT_URL + 'update/';
 export const PRODUCT_REMOVE_URL                             = PRODUCT_URL + 'delete/';
