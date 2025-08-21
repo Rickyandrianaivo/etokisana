@@ -403,11 +403,11 @@ export class RegisterComponent implements OnInit {
           siteUserID      : generatedID,
         };
         this.siteService.addSite(mainSite).subscribe(_=>{})
-        // this.openNotificationDialog(
-        //   "Inscription envoyée", 
-        //   "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
-        //   "login",
-        //   false)
+        this.openNotificationDialog(
+          "Inscription envoyée", 
+          "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
+          "login",
+          false)
       }
     })
     

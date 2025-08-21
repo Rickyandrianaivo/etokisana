@@ -77,16 +77,16 @@ export class UsersComponent implements OnInit{
   onCheckBoxValidationChange(dbId:string){
     this.userService.getUserById(dbId).subscribe(_=>{
       this.userService.validateUser(dbId).subscribe(_=>{
-        this.openNotificationDialog("Validation réussi","L'utilisateur est apprové un email lui sera envoyé")
+        this.openNotificationDialog("Validation réussie","L'utilisateur est approuvé. Un email lui a été envoyé")
       })
     })
   }
   onCheckBoxEmailVerificationChange(){
-    this.openNotificationDialog("Vérification d'email","Un email est envoyé à l'utilisateur dès son inscription pour qu'il puisse vérifié son email",null,true)
+    this.openNotificationDialog("Vérification d'email","Un email est envoyé à l'utilisateur dès son inscription pour qu'il puisse vérifier son email",null,true)
   }
   deleteUser(userId:string){
     this.userService.deleteUser(userId).subscribe(_=>{});
-    this.openNotificationDialog("Suppression d'un utilisateur","La suppression de l'utilisateur est un succès !")
+    this.openNotificationDialog("Suppression d'un utilisateur","L'utilisateur a été supprimé !")
   }
   userToAdmin(userId : string){
     const adminProperty ={
@@ -94,14 +94,14 @@ export class UsersComponent implements OnInit{
     }
     this.userService.update(adminProperty,userId).subscribe(_=>{});
     // this.userService.userToAdmin(userId);
-    this.openNotificationDialog("Promotion d'un utilisateur","L'utilisateur a été promu au rôle d'administrateur",null,true)
+    this.openNotificationDialog("Promotion d'un utilisateur","L'utilisateur a été promu au rôle d'administrateur !",null,true)
   }
   adminToUser(userId : string){
     const userAccessProperty = {
       userAccess : "Utilisateur"
     }
     this.userService.update(userAccessProperty,userId).subscribe(_=>{});
-    this.openNotificationDialog("Retrogradation d'un utilisateur","L'adiministrateur est maintenant un utilisateur",null,true)
+    this.openNotificationDialog("Retrogradation d'un utilisateur","Cet utilisateur n'a plus les privilèges d'administrateur !",null,true)
   }
   CheckUser(userId : string){
     this.router.navigateByUrl('/userDetails/'+userId);
