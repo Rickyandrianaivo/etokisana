@@ -389,25 +389,25 @@ export class RegisterComponent implements OnInit {
         return;
       }else{
         this.userService.registerUser(this.user).subscribe(_=>{
-          this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 10000})
+          this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 5000})
           this.simpleSb.onAction().subscribe(() =>{
             this.SuccessRegister =true;
             // this.router.navigateByUrl("login");
           })
         })
-      const mainSite :Site = {
-      siteAddress     : this.user.userAddress,
-      siteName        : "Domicile",
-      siteLat         : this.latitude,
-      siteLng         : this.longitude,
-      siteUserID      : generatedID,
-    };
-    this.siteService.addSite(mainSite).subscribe(_=>{})
-        this.openNotificationDialog(
-          "Inscription envoyée", 
-          "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
-          "login",
-          false)
+        const mainSite :Site = {
+          siteAddress     : this.user.userAddress,
+          siteName        : "Domicile",
+          siteLat         : this.latitude,
+          siteLng         : this.longitude,
+          siteUserID      : generatedID,
+        };
+        this.siteService.addSite(mainSite).subscribe(_=>{})
+        // this.openNotificationDialog(
+        //   "Inscription envoyée", 
+        //   "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
+        //   "login",
+        //   false)
       }
     })
     
