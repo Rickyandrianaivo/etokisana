@@ -35,19 +35,38 @@ export class HeaderComponent implements OnInit,OnChanges{
     private router:Router,
     private notificationService : NotificationService,
     ) { 
-    this.isUser = this.userService.getUserFromLocalStorage()
-    if(this.isUser.userName){
+    this.isUser = this.userService.getUserFromLocalStorage();
+    if (!this.userService.checkUserConnection()) {
+      console.log("no user connected !")
+      this.router.navigateByUrl("login");
+    }
+    if(this.isUser){
       this.userService.getUserByEmail(this.isUser.userEmail).subscribe(userReq => {
         this.user = userReq;
+        if (!this.user) {
+          this.userService.checkUserDeleted();
+        }
 
         this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allNotif =>{
           this.notifications = allNotif;
         })
       })
       this.isLoged = true;
+       if (this.isUser.userEmail!=null) {
+      this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
+      if (this.user.userType=="admin") {
+        this.router.navigateByUrl("/dashboard")
+      }
+    })
+    }else{
+      this.router.navigateByUrl('login')
+    }
     }else{
       this.isLoged = false;
     }
+
+    
+   
   }
 
   ngOnInit(): void {

@@ -1,15 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NOTIFICATION_ADD_URL, NOTIFICATION_BY_ID_URL, NOTIFICATION_BY_OWNER_URL, NOTIFICATION_REMOVE_URL, NOTIFICATION_UPDATE_URL, NOTIFICATION_URL } from '../shared/constant/urls';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationDialogComponent } from '../components/partials/notification-dialog/notification-dialog.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  
+    readonly dialog = inject(MatDialog);
     constructor(
       private http:HttpClient,
+      private router:Router,
     ) { }
     getAll() : Observable<Notification[]>{
       return this.http.get<Notification[]>(NOTIFICATION_URL);
@@ -29,5 +33,22 @@ export class NotificationService {
     }
     deleteNotification(NotificationId:string){
       return this.http.delete(NOTIFICATION_REMOVE_URL+NotificationId);
+    }
+    openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
+      const dialogRef = this.dialog.open(NotificationDialogComponent,{
+              data : {
+                title,
+                message
+              }
+            })
+            dialogRef.afterClosed().subscribe(result=>{
+              if (result == true && !url && reload == true) {
+                window.location.reload();
+                return;
+              }
+              if(result == true && url && reload == false){
+                this.router.navigateByUrl(url);
+              }
+            })
     }
 }

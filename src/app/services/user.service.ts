@@ -58,7 +58,8 @@ export class UserService {
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
     this.router.navigateByUrl('/');
-   }
+  }
+
   registerUser(registerUserData : IUserRegister){
     return this.http.post<User>(USER_REGISTER_URL,registerUserData);
   }
@@ -86,18 +87,34 @@ export class UserService {
   confirmationEmail(token:string){
     return this.http.get(USER_EMAIL_CONFIRMATION_URL + token);
   }
+
   getNewUsers() : Observable<User[]>{
     return this.http.get<User[]>(USER_NEW_URL)
   }
+
   validateUser(userId:string){
     return this.http.get<User>(USER_VALIDATE_URL + userId)
   }
+
   activateUser(updateData : IUserRegister, userId : string){
     return this.http.put<User>(USER_UPDATE_URL + userId, updateData)
   }
+
   update(updateData : any, userId : string){
     return this.http.patch<User>(USER_UPDATE_URL + userId, updateData)
   }
+
+  checkUserDeleted(){
+    localStorage.removeItem(USER_KEY);
+  }
+  checkUserConnection() : boolean{
+    if (!this.userSubject) {
+      return false;
+    }else{
+      return true;
+    }
+  }
+
   deleteUser(userId:string){
     return this.http.delete(USER_DELETE_URL + userId);
   }
@@ -112,8 +129,6 @@ export class UserService {
     return new User();
     }
 
-  
-    
   get_image(){
     return this.http.get(USER_GET_PDP_URL)
   }

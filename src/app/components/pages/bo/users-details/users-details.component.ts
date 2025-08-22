@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { AvatarModule } from 'ngx-avatars';
 import { NgIf } from '@angular/common';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-users-details',
@@ -34,6 +35,7 @@ export class UsersDetailsComponent implements OnInit{
     private userService:UserService,
     private activatedRoute : ActivatedRoute,
     private router : Router,
+    private notificationService:NotificationService,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
     this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
@@ -118,6 +120,11 @@ export class UsersDetailsComponent implements OnInit{
   ValidateRegistration(){
     this.userService.validateUser(this.theUser._id,).subscribe(_=>{
       this.router.navigateByUrl('/users');
+      this.notificationService.openNotificationDialog(
+        "Utilisateur validé",
+        "Cette utilisateur a été approuvé et a accès à toutes les fonctionnalités de la plateforme",
+        "dashbroad",
+        false);
     })
   }
 }

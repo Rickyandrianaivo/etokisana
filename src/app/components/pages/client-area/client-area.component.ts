@@ -26,13 +26,17 @@ export class ClientAreaComponent implements OnInit{
     private router: Router,
   ){
     this.user = this.userService.getUserFromLocalStorage();
-    this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
+    if (this.user.userEmail!=null) {
+      this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
       this.verifiedUser = user.userEmailVerified;
       this.validatedUser = user.userValidated;
       if (user.userType=="admin") {
         this.router.navigateByUrl("/dashboard")
       }
     })
+    }else{
+      this.router.navigateByUrl('login')
+    }
   }
   ngOnInit():void{
   }

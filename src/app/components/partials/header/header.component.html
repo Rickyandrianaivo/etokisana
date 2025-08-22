@@ -36,11 +36,14 @@
                                             {{user.userName}} {{user.userFirstname}}
                                         </a>
                                 <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/client-profile">Mon compte</a>
-                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-products">Mes produits</a>
-                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/transactions">Mes transactions</a>
-                                <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-site">Mes sites</a>
+                                @if (user.userValidated) {
+                                    <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-products">Mes produits</a>
+                                    <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/transactions">Mes transactions</a>
+                                    <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-site">Mes sites</a>
+                                }
+                                
                                 @if (user.userAccess == "Admin") {
-                                        <a mat-menu-item routerLink="/dashboard">Administration</a>
+                                    <a mat-menu-item routerLink="/dashboard">Administration</a>
                                 }
                                 <a mat-menu-item (click)="logOut()" class="logout-btn" >Se déconnecter</a>
                             </mat-menu>

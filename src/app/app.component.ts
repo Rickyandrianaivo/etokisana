@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/partials/header/header.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { APP_BASE_HREF } from '@angular/common';
 import { AvatarModule} from 'ngx-avatars';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,9 @@ import { AvatarModule} from 'ngx-avatars';
   ]
 })
 export class AppComponent {
+  
   constructor(){
-
+    
   }
   title = 'etokisana';
 }

@@ -44,6 +44,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatStep, MatStepperModule} from '@angular/material/stepper';
 import { CommonService } from 'src/app/services/common.service';
 import { HttpEventType } from '@angular/common/http';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 const MY_DATE_FORMAT = {
@@ -174,7 +175,8 @@ export class RegisterComponent implements OnInit {
     private _snackBar       : MatSnackBar,
     private siteService     : SiteService,
     private commonService   : CommonService,
-    private cd              : ChangeDetectorRef
+    private cd              : ChangeDetectorRef,
+    private notificationService : NotificationService,
   ){
     this.images['pdpHolder'] = "default.jpg";
     this.images['logo'] = "default.jpg";
@@ -269,7 +271,7 @@ export class RegisterComponent implements OnInit {
     // console.log("submit = " + this.isSubmitted)
     const generatedID = Math.random().toString(36).slice(2,10)
     // console.log(this.dateOfBirth.value._d);
-    if(this.showSellerForm()){
+    if(this.showSellerForm()){ // Formulaire pour Entreprise
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
           this.openNotificationDialog(
@@ -324,22 +326,32 @@ export class RegisterComponent implements OnInit {
         managerEmail        : fv.managerEmail,
       }
     }
-    if(!this.showSellerForm()){
-      if (!this.registerForm.valid && !this.dateOfBirth.value._d){ 
+    if(!this.showSellerForm()){ // Formulaire pour Particulier
+      if (!this.registerForm.valid && !this.dateOfBirth.value._d){  //Champ obligatoire incomplet
             console.log(this.registerForm.getError);
-            this.openNotificationDialog(
+            this.notificationService.openNotificationDialog(
               "Formulaire incomplet",
               "Veuillez vérifier si tous les champs obligatoires sont remplis",
               null,
               false);
+            // this.openNotificationDialog(
+            //   "Formulaire incomplet",
+            //   "Veuillez vérifier si tous les champs obligatoires sont remplis",
+            //   null,
+            //   false);
             return;
       }
-      if(!this.images['documentRecto'] || !this.images['documentVerso']){
-        this.openNotificationDialog(
-          "Formulaire incomplet",
-          "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
-          null,
-          false);
+      if(!this.images['documentRecto'] || !this.images['documentVerso']){ //Les documents d'identificaiton sont incomplets
+        this.notificationService.openNotificationDialog(
+              "Formulaire incomplet",
+              "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
+              null,
+              false);
+        // this.openNotificationDialog(
+        //   "Formulaire incomplet",
+        //   "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
+        //   null,
+        //   false);
         return;
       }else{
         this.identityDocument.push(this.images['documentRecto']);
@@ -395,19 +407,28 @@ export class RegisterComponent implements OnInit {
             // this.router.navigateByUrl("login");
           })
         })
-        const mainSite :Site = {
-          siteAddress     : this.user.userAddress,
-          siteName        : "Domicile",
-          siteLat         : this.latitude,
-          siteLng         : this.longitude,
-          siteUserID      : generatedID,
-        };
-        this.siteService.addSite(mainSite).subscribe(_=>{})
-        this.openNotificationDialog(
+        if (this.latitude && this.longitude) {
+          const mainSite :Site = {
+            siteAddress     : this.user.userAddress,
+            siteName        : "Domicile",
+            siteLat         : this.latitude,
+            siteLng         : this.longitude,
+            siteUserID      : generatedID,
+          };
+          this.siteService.addSite(mainSite).subscribe(_=>{});
+        }
+        
+        this.notificationService.openNotificationDialog(
           "Inscription envoyée", 
           "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
           "login",
-          false)
+          false
+        )
+        // this.openNotificationDialog(
+        //   "Inscription envoyée", 
+        //   "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
+        //   "login",
+        //   false)
       }
     })
     
@@ -456,8 +477,9 @@ export class RegisterComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result=>{
         if (result == true && !url && reload == true) {
           window.location.reload();
+          return;
         }
-        if(url){
+        if(result == true && url && reload == false){
           this.router.navigateByUrl(url);
         }
       })

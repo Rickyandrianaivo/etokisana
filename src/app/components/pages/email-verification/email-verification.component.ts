@@ -3,6 +3,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -56,7 +57,9 @@ export class EmailVerificationComponent implements OnInit{
   // })
   this.activatedRoute.params.subscribe(params=>{
         this.userToken = params['token'];
-        this.userService.confirmationEmail(this.userToken).subscribe(_=>{alert("Confirmation successfull!")})
+        this.userService.confirmationEmail(this.userToken).subscribe(_=>{
+          alert("Confirmation successfull!")
+        })
       })
 }
   ngOnInit(): void {
