@@ -56,8 +56,7 @@
             "styles": [
               "src/custom-theme.scss",
               "src/styles.css",
-              "node_modules/ngx-spinner/animations/ball-scale-ripple.css",
-              "node_modules/intl-tel-input/build/css/intlTelInput.css"
+              "node_modules/ngx-spinner/animations/ball-scale-ripple.css"
             ],
             "scripts": []
           },
@@ -116,8 +115,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/ngx-spinner/animations/ball-scale-ripple.css",
-              "node_modules/intl-tel-input/build/css/intlTelInput.css"
+              "node_modules/ngx-spinner/animations/ball-scale-ripple.css"
             ],
             "scripts": []
           }

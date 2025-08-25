@@ -18,3 +18,7 @@ h1{
     background-position: center;
     height: 70vh;
 }
+.card-image{
+    max-width: 200px;
+    align-self: center;
+}

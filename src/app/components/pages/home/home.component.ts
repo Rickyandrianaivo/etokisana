@@ -22,7 +22,8 @@ import { DepotItemService } from 'src/app/services/depot-item.service';
 export class HomeComponent {
   depotItems:any[] = [];
   productList: any[]=[];
-  constructor(private router:Router,
+  constructor(
+    private router:Router,
     private productservice:ProductService,
     private depotItemService: DepotItemService,
   ){
@@ -45,5 +46,8 @@ export class HomeComponent {
   registerbutton(){
       this.router.navigateByUrl('achat')
       console.log("hit the button")
+  }
+  voirProduit(productId : string,depotItemId : string){
+    this.router.navigateByUrl('/product-details/'+ productId + "/" + depotItemId )
   }
 }

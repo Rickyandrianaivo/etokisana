@@ -97,8 +97,8 @@
                                             [type]="'email'">
                                         </text-input>  
                                         <input-container>
-                                            <mat-form-field appearance="outline">
-                                                <ngx-intl-tel-input
+                                            <!-- <mat-form-field appearance="outline"> -->
+                                                <!-- <ngx-intl-tel-input
                                                     formControlName="userPhone"
                                                     name ="userPhone"
                                                     [separateDialCode]="true"
@@ -110,9 +110,28 @@
                                                     [maxLength]="15"
                                                     [phoneValidation]="true"
                                                     #phone>
-                                                <input matInput [formControl]="userPhone">
-                                                </ngx-intl-tel-input>              
-                                            </mat-form-field>                   
+                                                </ngx-intl-tel-input>               -->
+                                                <!-- <input matInput [formControl]="userPhone"> -->
+                                            <!-- </mat-form-field>                    -->
+                                                <ngx-material-intl-tel-input 
+                                                [fieldControl]="userPhone" 
+                                                [required]="false" 
+                                                [autoIpLookup]="false"
+                                                appearance='fill'
+                                                [autoSelectCountry]="true"
+                                                autoSelectedCountry='+261'
+                                                [textLabels]="{
+                                                    mainLabel:'',
+                                                    codePlaceholder : '+261',
+                                                    searchPlaceholderLabel:'rechercher',
+                                                    noEntriesFoundLabel:'Téléphone',
+                                                    nationalNumberLabel:'Téléphone',
+                                                    hintLabel:'',
+                                                    invalidNumberError:'Numéro invalide',
+                                                    requiredError: 'Champ obligatoire',
+                                                    }"
+                                                >
+                                            </ngx-material-intl-tel-input>
                                         </input-container>
                                     </div> 
                                     <div class="row">
@@ -352,9 +371,9 @@
                                     </text-input>
                                 </div>
                                 <div class="row">       
-                                    <input-container>
-                                        <mat-form-field appearance="outline">
-                                            <ngx-intl-tel-input
+                                    <!-- <input-container>
+                                        <mat-form-field appearance="outline"> -->
+                                            <!-- <ngx-intl-tel-input
                                             formControlName="contactPhone"
                                             name ="corporateUserPhone"
                                             [separateDialCode]="true"
@@ -367,9 +386,26 @@
                                             [phoneValidation]="true"
                                             #phone>
                                             <input matInput [formControl]="contactPhone">
-                                        </ngx-intl-tel-input>              
-                                        </mat-form-field>
-                                    </input-container>
+                                        </ngx-intl-tel-input>               -->
+                                    <!-- </mat-form-field>
+                                </input-container> -->
+                                <ngx-material-intl-tel-input 
+                                [required]="false" 
+                                [autoIpLookup]="false"
+                                appearance='fill'
+                                [autoSelectCountry]="true"
+                                autoSelectedCountry='+261'
+                                [textLabels]="{
+                                    mainLabel:'',
+                                    codePlaceholder : '+261',
+                                    searchPlaceholderLabel:'rechercher',
+                                    noEntriesFoundLabel:'Téléphone',
+                                    nationalNumberLabel:'Téléphone',
+                                    hintLabel:'',
+                                    invalidNumberError:'Numéro invalide',
+                                    requiredError: 'Champ obligatoire',
+                                    }"> 
+                            </ngx-material-intl-tel-input>
                                 <!-- Champ adresse du siège -->
                                 <text-input
                                     [control]="cfc.siegeAddress"
@@ -478,7 +514,7 @@
 
                                 <div class="back-forward">
                                     <button matButton matStepperPrevious type="button">Précédent</button>
-                                    <button type="submit" (click)="submitUser()">S'inscrire</button>
+                                    <button type="submit" (click)="submitUser()" [disabled]="isSubmitDisable">S'inscrire</button>
                                 </div>
                                 
                                 <!-- <button matButton (click)="stepper.reset()">Reset</button> -->

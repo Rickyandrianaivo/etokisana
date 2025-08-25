@@ -16,6 +16,8 @@ import { Site } from 'src/app/shared/models/Sites';
 import { DepotItem } from 'src/app/shared/models/DepotItem';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DepotItemService } from 'src/app/services/depot-item.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-choix-produit',
@@ -53,6 +55,7 @@ export class ChoixProduitComponent implements OnInit {
   returnUrl !: string;
   depotItemStock : any[] = [];
   currentItemStock : any;
+  addDepot : boolean = false;
 
 
 
@@ -65,39 +68,46 @@ export class ChoixProduitComponent implements OnInit {
     private productService : ProductService,
     private transactionService : TransactionService,
     private depotItemService : DepotItemService,
+    private notificationService : NotificationService,
+    private cartService : CartService,
   ){
     
   }
 
   ngOnInit(): void {
-    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
-    this.currentUser = this.userService.getUserFromLocalStorage();
-    this.productService.getAll().subscribe(productAll =>{
-    this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
-    this.articles = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
-    });
+    // this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
+    // this.currentUser = this.userService.getUserFromLocalStorage();
+    // this.productService.getAll().subscribe(productAll =>{
+    // this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
+    // this.articles = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
+    // });
     
-    this.activatedRoute.params.subscribe(params =>{
-      this.depotId=params['id'];
-      this.typeES= params['typeES'];
-      this.theProductId = params['productId'];
-      if (this.theProductId) {
-        this.addToCart(this.theProductId);
-        this.cartItemsHolder=[];
-        this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
-          this.currentItemStock = currentItemStock[0];
-        })
-      }
-      this.productService.getProductById(this.theProductId).subscribe(theProduct=>{
-        this.theProduct=theProduct;
-      })
-      this.siteService.getSiteById(this.depotId).subscribe(currentSite =>{
-        this.currentSite = currentSite;
-        this.userService.getUserByUserId(this.currentSite.siteUserID).subscribe(result=>{
-          this.siteOwner = result;
-        })
-      })
-    })
+    // this.activatedRoute.params.subscribe(params =>{
+    //   this.depotId=params['id'];
+    //   this.typeES= params['typeES'];
+    //   this.theProductId = params['productId'];
+    //   if (this.theProductId) {
+    //     this.addToCart(this.theProductId);
+    //     this.cartItemsHolder=[];
+    //     this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
+    //       if (currentItemStock) {
+    //         this.currentItemStock = currentItemStock[0];
+    //         this.addDepot = true;            
+    //       }else{
+    //         this.currentItemStock = 0;
+    //       }
+    //     })
+    //   }
+    //   this.productService.getProductById(this.theProductId).subscribe(theProduct=>{
+    //     this.theProduct=theProduct;
+    //   })
+    //   this.siteService.getSiteById(this.depotId).subscribe(currentSite =>{
+    //     this.currentSite = currentSite;
+    //     this.userService.getUserByUserId(this.currentSite.siteUserID).subscribe(result=>{
+    //       this.siteOwner = result;
+    //     })
+    //   })
+    // })
   }
 
   choixProduit(productId : string){
@@ -134,80 +144,80 @@ export class ChoixProduitComponent implements OnInit {
   cartItems: CartItem[] = [];
   emptyHolderId: number = 0;
   defaultRowCount : number = 12;
-  cartItemsHolder: CartItem[] = [
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    },
-    {
-      CartItemProduct:new Product(),
-      CartItemQuantity:0,
-      CartItemPrice:0,
-      CartItemMontant : 0,
-    }
-  ];
+  // cartItemsHolder: CartItem[] = [
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   },
+  //   {
+  //     CartItemProduct:new Product(),
+  //     CartItemQuantity:0,
+  //     CartItemPrice:0,
+  //     CartItemMontant : 0,
+  //   }
+  // ];
   // familles: Familleproduct[] = [];
   famille: string = 'Catégories';
   CartItemPriceTotal:number = 0;
@@ -232,6 +242,10 @@ export class ChoixProduitComponent implements OnInit {
     this.showSuggestions = isEmpty;
   }
 
+  addToCart(depotItemId:string){
+    this.cartService.addToCart(depotItemId);
+  }
+
   /** */
   // plus tard recherche
   // GetSearchTerm(searchTerm : string){
@@ -250,38 +264,38 @@ export class ChoixProduitComponent implements OnInit {
   //   }));
   // }
 
-  addToCart(reference:string){
-    this.isCartEmpty = false;
-    let productFromServer : Product;
-    const productObservable = this.productService.getProductById(reference);
-    this.subscriptions.push(productObservable.subscribe((serverproduct)=>{
-      productFromServer = serverproduct ;
-      this.removeEmpty();
-        const itemToAdd : CartItem = {
-          CartItemProduct : productFromServer?? new Product(),
-          CartItemQuantity : 1,
-          CartItemPrice : 0,
-          CartItemMontant : 0,
-        }
-      this.cartItems.unshift(itemToAdd);
-      if (this.CartItemPriceTotal === 0) {
+  // addToCart(reference:string){
+  //   this.isCartEmpty = false;
+  //   let productFromServer : Product;
+  //   const productObservable = this.productService.getProductById(reference);
+  //   this.subscriptions.push(productObservable.subscribe((serverproduct)=>{
+  //     productFromServer = serverproduct ;
+  //     this.removeEmpty();
+  //       const itemToAdd : CartItem = {
+  //         depotItem : productFromServer._id??,
+  //         quantity : 1,
+  //         price : 0,
+  //         montant : 0,
+  //       }
+  //     this.cartItems.unshift(itemToAdd);
+  //     if (this.CartItemPriceTotal === 0) {
         // this.CartItemPriceTotal = productFromServer.;
-      }else{
+      // }else{
         // this.CartItemPriceTotal = this.CartItemPriceTotal + productFromServer.prixUnitaireVenteTTC;
-      }
-    }))
+    //   }
+    // }))
     // this.cartLength++
-  }
+  // }
 
   removeFromCart(productByRef:string){
     if (this.cartItems.length == 0) {
       console.log(this.cartItems.length)
       this.isCartEmpty = true;
     }
-    const itemIndex = this.cartItems.findIndex(items => items.CartItemProduct._id === productByRef);
-    const item = this.cartItems.find(items => items.CartItemProduct._id === productByRef);
+    const itemIndex = this.cartItems.findIndex(items => items.depotItem === productByRef);
+    const item = this.cartItems.find(items => items.depotItem === productByRef);
     if (item) {
-      const newCartItemPriceTotal = this.CartItemPriceTotal - item.CartItemPrice;
+      const newCartItemPriceTotal = this.CartItemPriceTotal - item.price;
       this.CartItemPriceTotal = newCartItemPriceTotal;
     }
     this.cartItems.splice(itemIndex,1);
@@ -291,72 +305,100 @@ export class ChoixProduitComponent implements OnInit {
   changeCartItemQuantity(item:CartItem , CartItemQuantity:number){
     if (!item) return;
 
-    item.CartItemQuantity = CartItemQuantity;
+    item.quantity = CartItemQuantity;
     // console.log(item.prod.prixUnitaireVenteTTC)
     // item.CartItemPrice = item.CartItemProduct.prixUnitaireVenteTTC * CartItemQuantity;
-    item.CartItemMontant = CartItemQuantity * item.CartItemPrice;
+    // item.montant = CartItemQuantity * item.price;
     this.calculTotal();
   }
   changeCartItemPrice(item:CartItem , CartItemPrice:number){
     if (!item) return;
 
-    item.CartItemPrice = CartItemPrice;
-    item.CartItemMontant = CartItemPrice * item.CartItemQuantity;
-    console.log(item.CartItemMontant)
+    item.price = CartItemPrice;
+    // item.montant = CartItemPrice * item.CartItemQuantity;
+    // console.log(item.CartItemMontant)
 
     this.calculTotal();
   }
 
   qtUp(item:CartItem,itemQte:number,currentCartItemPriceTotal:number){
-    const newQt = itemQte+1;
-    const newCartItemPriceTotal = currentCartItemPriceTotal + item.CartItemProduct.prixUnitaireVenteTTC;
-    this.changeCartItemQuantity(item,newQt);
+    // const newQt = itemQte+1;
+    // const newCartItemPriceTotal = currentCartItemPriceTotal + item.CartItemProduct.prixUnitaireVenteTTC;
+    // this.changeCartItemQuantity(item,newQt);
   }
 
   qtDown(item:CartItem ,itemQte:number,currentCartItemPriceTotal:number){
-    if (itemQte > 1) {
-      const newQt = itemQte-1;
-      const newCartItemPriceTotal  = currentCartItemPriceTotal-item.CartItemProduct.prixUnitaireVenteTTC;
-      this.changeCartItemQuantity(item,newQt);
-    }
+    // if (itemQte > 1) {
+    //   const newQt = itemQte-1;
+    //   const newCartItemPriceTotal  = currentCartItemPriceTotal-item.CartItemProduct.prixUnitaireVenteTTC;
+    //   this.changeCartItemQuantity(item,newQt);
+    // }
   }
 
-  removeEmpty(){
-      this.cartItemsHolder.splice(this.emptyHolderId,1);
-      if (this.cartItemsHolder.length > 0) {
-        this.emptyHolderId--;
-      }
-  }
+  // removeEmpty(){
+  //     this.cartItemsHolder.splice(this.emptyHolderId,1);
+  //     if (this.cartItemsHolder.length > 0) {
+  //       this.emptyHolderId--;
+  //     }
+  // }
 
   resetCart(){
-    this.isCartEmpty = true;
-    if (this.cartItems.length > 12) {
-      for (let index = 0; index < this.defaultRowCount; index++) {
-        const emptyItem = {
-            CartItemProduct:new Product(),
-            CartItemQuantity:0,
-            CartItemPrice:0,
-            CartItemMontant : 0,
-          }
-        this.cartItemsHolder.push(emptyItem)
-      }
-    }else{
-      for (let index = 0; index < this.cartItems.length; index++) {
-        const emptyItem = {
-          CartItemProduct:new Product(),
-          CartItemQuantity:0,
-          CartItemPrice:0,
-          CartItemMontant : 0,
-        }
-        this.cartItemsHolder.push(emptyItem)
-      }
-    }
+    // this.isCartEmpty = true;
+    // if (this.cartItems.length > 12) {
+    //   for (let index = 0; index < this.defaultRowCount; index++) {
+    //     const emptyItem = {
+    //         CartItemProduct:new Product(),
+    //         CartItemQuantity:0,
+    //         CartItemPrice:0,
+    //         CartItemMontant : 0,
+    //       }
+    //     this.cartItemsHolder.push(emptyItem)
+    //   }
+    // }else{
+    //   for (let index = 0; index < this.cartItems.length; index++) {
+    //     const emptyItem = {
+    //       CartItemProduct:new Product(),
+    //       CartItemQuantity:0,
+    //       CartItemPrice:0,
+    //       CartItemMontant : 0,
+    //     }
+    //     this.cartItemsHolder.push(emptyItem)
+    //   }
+    // }
     this.cartItems = [];
     this.CartItemPriceTotal = 0;
     this.montantTotal = 0;
   }
 
-  submit(){
+  
+
+  // insertQty(item : CartItem, itemCartItemQuantity : string){
+  //   const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
+  //   // console.log(itemCartItemQuantity)
+  //   let newCartItemPrice
+    
+  //   newCartItemPrice = item.depotItem.price  * intItemCartItemQuantity;
+  //   this.changeCartItemQuantity(item,intItemCartItemQuantity);
+  // }
+  insertPrice(item : CartItem, itemCartItemPrice : string){
+    const intItemCartItemPrice = parseInt(itemCartItemPrice);
+    // console.log(intItemCartItemPrice)
+    this.changeCartItemPrice(item,intItemCartItemPrice);
+    this.calculTotal();
+  }
+
+  calculTotal(){
+    let total : number = 0;
+    this.cartItems.forEach(item =>{
+      total += item.montant
+    })
+    this.montantTotal = total;
+  }
+
+  // ngOnDestroy(){
+  //   this.subscription.forEach(subscription => subscription.unsubscribe());
+  // }
+submit(){
     /** à remetter */
     // let transactionData={
     //   userId : this.currentUser._id,
@@ -402,9 +444,9 @@ export class ChoixProduitComponent implements OnInit {
     // }else{
       this.cartItems.forEach(cartItem=>{
         let depotItempData:DepotItem = {
-          productId : cartItem.CartItemProduct._id,
-          stock: cartItem.CartItemQuantity,
-          prix   : cartItem.CartItemPrice,
+          productId : cartItem.depotItem,
+          stock: cartItem.quantity,
+          price   : cartItem.price,
           lastUpdate : new Date(),
           currentDepotId : this.depotId,
         }
@@ -426,6 +468,12 @@ export class ChoixProduitComponent implements OnInit {
               this.router.navigateByUrl('user-products');
             })
             // Ajouter popup pour revenir à la liste de produit
+            this.notificationService.openNotificationDialog(
+              "Produit Stocké",
+              "Produit stocké avec succès",
+              'user-products',
+              false
+            )
             })
           }
           
@@ -480,32 +528,4 @@ export class ChoixProduitComponent implements OnInit {
     // this.router.navigateByUrl(`print/${this.numeroFactureVente}` )
     // this.router.navigateByUrl(`print/VE003` )
   }
-
-  insertQty(item : CartItem, itemCartItemQuantity : string){
-    const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
-    // console.log(itemCartItemQuantity)
-    let newCartItemPrice
-    
-    newCartItemPrice = item.CartItemProduct.prixUnitaireVenteTTC  * intItemCartItemQuantity;
-    this.changeCartItemQuantity(item,intItemCartItemQuantity);
-  }
-  insertPrice(item : CartItem, itemCartItemPrice : string){
-    const intItemCartItemPrice = parseInt(itemCartItemPrice);
-    // console.log(intItemCartItemPrice)
-    this.changeCartItemPrice(item,intItemCartItemPrice);
-    this.calculTotal();
-  }
-
-  calculTotal(){
-    let total : number = 0;
-    this.cartItems.forEach(item =>{
-      total += item.CartItemMontant
-    })
-    this.montantTotal = total;
-  }
-
-  // ngOnDestroy(){
-  //   this.subscription.forEach(subscription => subscription.unsubscribe());
-  // }
-
 }

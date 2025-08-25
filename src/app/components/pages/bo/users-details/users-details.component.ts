@@ -119,13 +119,12 @@ export class UsersDetailsComponent implements OnInit{
 
   ValidateRegistration(){
     this.userService.validateUser(this.theUser._id,).subscribe(_=>{
-      this.router.navigateByUrl('/users');
-      this.notificationService.openNotificationDialog(
-        "Utilisateur validé",
-        "Cette utilisateur a été approuvé et a accès à toutes les fonctionnalités de la plateforme",
-        "dashbroad",
-        false);
     })
+    this.notificationService.openNotificationDialog(
+      "Utilisateur validé",
+      "Cette utilisateur a été approuvé et a accès à toutes les fonctionnalités de la plateforme",
+      "dashboard",
+      false);
   }
 }
 

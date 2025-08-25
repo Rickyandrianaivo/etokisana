@@ -6,14 +6,15 @@
         </div>
         <div class="body-content">
           <h4 *ngIf="!productsList[0]">Aucun produits à afficher</h4>
-            <table *ngIf="productsList[0]" mat-table [dataSource]="productsList" class="mat-elevation-z8">
+          <!-- @if (productsList.length >1) { -->
+              <table *ngIf="productsList[0]" mat-table [dataSource]="productsList" class="mat-elevation-z8">
 
                 <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
               
                 <ng-container matColumnDef="Photo"><!--Aperçu Column -->
                   <th mat-header-cell *matHeaderCellDef> Aperçu </th>
-                  <td mat-cell *matCellDef="let element"><img src="{{element.productImage}}"/> </td>
+                  <td mat-cell *matCellDef="let element"><img src="{{element.productImage[0]}}"/> </td>
                 </ng-container>
             
             
@@ -88,20 +89,23 @@
                 <ng-container matColumnDef="Utilisateur"><!-- Utilisateur Column -->
                   <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
                   <td mat-cell *matCellDef="let element"> 
-                    <p>{{element.productOwnerId |uppercase}} - </p>
+                    <p>{{element.productOwnerId |uppercase}} </p>
                   </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="Action"><!-- Action Column -->
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element"> 
-                    <button matToolTip="Approuver le produit" style="background-color: rgb(135, 173, 255);" (click)="checkProduct(element._id)"> <mat-icon>visibility</mat-icon></button>
-                    <button matToolTip="Refuser le produit" style="background-color: rgb(66, 0, 0);" (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button></td>
+                    <button matToolTip="Approuver le produit" style="background-color: rgb(255, 255, 255);color:black;" (click)="checkProduct(element._id)"> <mat-icon>offline_pin</mat-icon></button>
+                    <button matToolTip="Voir" style="background-color: rgb(255, 255, 255);color:black;" (click)="checkProduct(element._id)"> <mat-icon>visibility</mat-icon></button>
+                    <button matToolTip="Refuser le produit" style="background-color: rgb(175, 0, 0);color:black;font-size: large;" (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button></td>
                 </ng-container>
               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
+          <!-- } -->
+            
         </div>
     </div>
 </div>

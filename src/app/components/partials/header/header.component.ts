@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit,OnChanges{
       console.log("no user connected !")
       this.router.navigateByUrl("login");
     }
-    if(this.isUser){
+    if(this.isUser.userEmail != null){
       this.userService.getUserByEmail(this.isUser.userEmail).subscribe(userReq => {
         this.user = userReq;
         if (!this.user) {
@@ -88,5 +88,6 @@ export class HeaderComponent implements OnInit,OnChanges{
   logOut(){
     this.isLoged = false;
     this.userService.logout();
+    this.router.navigateByUrl('login');
   }
 }

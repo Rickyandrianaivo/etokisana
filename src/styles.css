@@ -24,8 +24,12 @@ body{
  .mat-mdc-row{
     border-radius: 20px;
   }
+  .mat-mdc
   .row{
     width: 100%;
+  }
+  .row{
+    align-items: flex-start;
   }
   .container{
     margin: auto;
@@ -59,7 +63,7 @@ body{
   }
   
   .mat-mdc-text-field-wrapper{
-    background-color: #f1f1f1;
+    background-color: #ffffff;
 
   }
 
@@ -352,8 +356,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 ul{
   list-style: none;
 }
-.mat-stepper-vertical, .mat-stepper-horizontal{
+.mat-horizontal-stepper-wrapper, .mat-vertical-stepper-wrapper{
   width: 100%;
+  background-color: white;
 }
 form{
   display: flex;
@@ -393,4 +398,14 @@ input-validation{
 
 app-default-button{
   width: 100%;
+}
+:root{
+  --mdc-outline-tel-form-background: #ffffff;
+  --mdc-tel-form-placeholder-color:  #ccc;
+  --mdc-tel-form-icon-color: #fd0000;
+  --mdc-outlined-text-field-outline-color: #d1d1d1;
+  --mdc-outlined-text-field-outline-width: 2px;
+}
+.number-form-field{
+  border:none;
 }

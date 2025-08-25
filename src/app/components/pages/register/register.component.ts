@@ -33,19 +33,17 @@ import { Site } from 'src/app/shared/models/Sites';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import 'moment/locale/fr';
 import { AvatarModule } from 'ngx-avatars';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { InputValidationComponent } from '../../partials/input-validation/input-validation.component';
 import { DateInputComponent } from '../../partials/date-input/date-input.component';
 import { timestamp } from 'rxjs';
 import { NotificationDialogComponent } from '../../partials/notification-dialog/notification-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-
 import {MatStep, MatStepperModule} from '@angular/material/stepper';
 import { CommonService } from 'src/app/services/common.service';
 import { HttpEventType } from '@angular/common/http';
 import { NotificationService } from 'src/app/services/notification.service';
-
+import { NgxMaterialIntlTelInputComponent} from'ngx-material-intl-tel-input';
 
 const MY_DATE_FORMAT = {
   parse : {
@@ -63,6 +61,7 @@ const MY_DATE_FORMAT = {
   selector: 'app-register',
   standalone: true,
   imports: [
+    NgxMaterialIntlTelInputComponent,
     // RouterLink,
     FormsModule,
     AvatarModule,
@@ -83,7 +82,6 @@ const MY_DATE_FORMAT = {
     MatDatepickerModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
-    NgxIntlTelInputModule,
     // DefaultButtonComponent,
     PasswordInputComponent,
     InputContainerComponent,
@@ -111,7 +109,7 @@ const MY_DATE_FORMAT = {
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
-  
+  isSubmitDisable : boolean = false;
   isLinear = false;
   readonly dialog = inject(MatDialog);
   display : any;
@@ -178,6 +176,7 @@ export class RegisterComponent implements OnInit {
     private cd              : ChangeDetectorRef,
     private notificationService : NotificationService,
   ){
+    this.images['profile'] = "default.jpg";
     this.images['pdpHolder'] = "default.jpg";
     this.images['logo'] = "default.jpg";
     this.images['documentRecto'] = "placeholder_IDCard_Recto.png";
@@ -186,35 +185,7 @@ export class RegisterComponent implements OnInit {
     this.images['carteFiscaleVerso'] = "placeholder_IDCard_Verso.png";
   
   }
-  get formControl(){
-    return this.userType as FormControl;
-  }
-  french() {
-    this._locale.set('fr');
-    this._adapter.setLocale(this._locale());
-    this.updateCloseButtonLabel('Fermer le calendrier');
-  }
-  updateCloseButtonLabel(label: string) {
-    this._intl.closeCalendarLabel = label;
-    this._intl.changes.next();
-  }
-  customeEmailValidator(control:AbstractControl){
-    const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,20}$/;
-    const value = control.value;
-    if (!pattern.test(value) && control.touched)
-      return{
-        emailError:true
-      }
-      else return null;
-  }
-  getError(control:any):string{
-    if (control.errors?.required && control.touched)  
-      return 'Ce champ est obligatoire';
-    else if(control.errors?.emailError && control.touched)
-      return 'Please enter valid email address!';
-    else return '';
-  }
-
+  
   ngOnInit(): void {
     this.french();
     // this.updateCloseButtonLabel('カレンダーを閉じる');
@@ -255,6 +226,36 @@ export class RegisterComponent implements OnInit {
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     })
   }
+  get formControl(){
+    return this.userType as FormControl;
+  }
+  french() {
+    this._locale.set('fr');
+    this._adapter.setLocale(this._locale());
+    this.updateCloseButtonLabel('Fermer le calendrier');
+  }
+  updateCloseButtonLabel(label: string) {
+    this._intl.closeCalendarLabel = label;
+    this._intl.changes.next();
+  }
+  customeEmailValidator(control:AbstractControl){
+    const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,20}$/;
+    const value = control.value;
+    if (!pattern.test(value) && control.touched)
+      return{
+        emailError:true
+      }
+      else return null;
+  }
+  getError(control:any):string{
+    if (control.errors?.required && control.touched)  
+      return 'Ce champ est obligatoire';
+    else if(control.errors?.emailError && control.touched)
+      return 'Please enter valid email address!';
+    else return '';
+  }
+
+  
 
   toggleSellerForm(){
     this.showSellerForm.update(value =>!value)
@@ -267,6 +268,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submitUser(){
+    this.isSubmitDisable=true;
     this.isSubmitted =true;
     // console.log("submit = " + this.isSubmitted)
     const generatedID = Math.random().toString(36).slice(2,10)
@@ -274,7 +276,7 @@ export class RegisterComponent implements OnInit {
     if(this.showSellerForm()){ // Formulaire pour Entreprise
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
-          this.openNotificationDialog(
+          this.notificationService.openNotificationDialog(
             "Formulaire Entreprise incomplet",
             "Veuillez vérifier si tous les champs obligatoires sont remplis",
             null,
@@ -282,11 +284,12 @@ export class RegisterComponent implements OnInit {
           return;
       }
       if(!this.images['carteFiscaleRecto'] || !this.images['carteFiscaleVerso']){
-        this.openNotificationDialog(
+        this.notificationService.openNotificationDialog(
           "Formulaire incomplet",
           "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
           null,
           false);
+          this.isSubmitDisable = false;
         return;
       }else{
         this.identityDocument.push(this.images['carteFiscaleRecto']);
@@ -400,13 +403,15 @@ export class RegisterComponent implements OnInit {
         })
         return;
       }else{
-        this.userService.registerUser(this.user).subscribe(_=>{
-          this.simpleSb = this._snackBar.open("Inscritpion réussie","Se connecter",{duration : 5000})
-          this.simpleSb.onAction().subscribe(() =>{
-            this.SuccessRegister =true;
-            // this.router.navigateByUrl("login");
-          })
+        this.userService.registerUser(this.user).subscribe(registeredUser=>{
+          console.log(registeredUser);
         })
+        this.notificationService.openNotificationDialog(
+            "Inscription envoyée", 
+            "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
+            "login",
+            false
+          )
         if (this.latitude && this.longitude) {
           const mainSite :Site = {
             siteAddress     : this.user.userAddress,
@@ -417,21 +422,8 @@ export class RegisterComponent implements OnInit {
           };
           this.siteService.addSite(mainSite).subscribe(_=>{});
         }
-        
-        this.notificationService.openNotificationDialog(
-          "Inscription envoyée", 
-          "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
-          "login",
-          false
-        )
-        // this.openNotificationDialog(
-        //   "Inscription envoyée", 
-        //   "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
-        //   "login",
-        //   false)
       }
     })
-    
   }  
   /*------------------------------------------
    --------------------------------------------

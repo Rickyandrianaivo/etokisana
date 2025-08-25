@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../shared/models/Product';
-import { PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
+import { PRODUCT_ADD_TO_STOCK_URL, PRODUCT_ADD_URL, PRODUCT_BY_CATEGORY_URL, PRODUCT_BY_ID_URL, PRODUCT_BY_OWNER_URL, PRODUCT_BY_SEARCH_URL, PRODUCT_BY_SITE_ID_URL, PRODUCT_REMOVE_URL, PRODUCT_UPDATE_URL, PRODUCT_UPLOAD_IMAGE_URL, PRODUCT_URL } from '../shared/constant/urls';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { sample_products } from '../../../data';
@@ -46,7 +46,7 @@ export class ProductService {
   }
 
   getProductById(id:string) : Observable<Product>{
-    return this.http.get<Product>(PRODUCT_URL+id);
+    return this.http.get<Product>(PRODUCT_BY_ID_URL+id);
   }
   getProductByCategory(category:string):Observable<Product[]>{
     return this.http.get<Product[]>(PRODUCT_BY_CATEGORY_URL+category);

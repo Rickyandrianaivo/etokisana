@@ -22,7 +22,7 @@ button{
 .right-side{
     width: 40%;
 }
-td img{
+td img, img{
     max-width: 50px;
 }
 .depot-infos td,tr{

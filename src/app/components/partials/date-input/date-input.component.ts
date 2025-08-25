@@ -18,9 +18,9 @@ import { NgIf } from '@angular/common';
     MatFormFieldModule,
     MatDatepickerModule,
     NgIf,
-  ],
+],
   templateUrl: './date-input.component.html',
-  styleUrl: './date-input.component.css'
+  styleUrl: './date-input.component.css',
 })
 export class DateInputComponent implements OnInit{
   @Input()  control!:AbstractControl;

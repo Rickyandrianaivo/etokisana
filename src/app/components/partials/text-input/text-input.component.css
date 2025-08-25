@@ -14,3 +14,6 @@
 .mdc-text-field--outlined{
     padding: 0;
 }
+.mdc-notched-outline{
+    background-color: white;
+}

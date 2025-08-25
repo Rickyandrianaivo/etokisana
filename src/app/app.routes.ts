@@ -50,7 +50,7 @@ const routes: Routes = [
     {path : 'request-reset-password', component: RequestResetPasswordComponent},
     {path : 'client-profile', component: ClientProfileComponent},
     {path : 'product-page/:id', component: ProductPageComponent},
-    {path : 'product-details/:id', component: ProductDetailsComponent},
+    {path : 'product-details/:id/:depotItemId', component: ProductDetailsComponent},
     {path : 'user-products/add', component: AddProductComponent},
     {path : 'stock/:id', component: StockComponent},
     {path : 'user-site', component: UserSitesComponent},

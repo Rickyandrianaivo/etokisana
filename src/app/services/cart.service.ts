@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ICart } from '../shared/Interfaces/ICart';
 import { Cart } from '../shared/models/Cart';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../shared/models/Product';
 import { CartItem } from '../shared/models/CartItem';
+import { DepotItem } from '../shared/models/DepotItem';
+import { DepotItemService } from './depot-item.service';
 
 const CART_KEY = "Cart";
 
@@ -12,57 +14,139 @@ const CART_KEY = "Cart";
 })
 export class CartService {
   private cart:Cart = this.getCartFromLocalStorage();
-  private cartSubject:BehaviorSubject<Cart> = new BehaviorSubject(this.cart)
+  private cartSubject:BehaviorSubject<Cart> = new BehaviorSubject(this.cart);
   
-  addToCart(product:any):void{
-    let cartItem = this.cart.items.find(item => item.CartItemProduct.id === product._id);
+  constructor(
+    private depotItemService : DepotItemService,
+  ){
+
+  }
+
+  montantTotal : number = 0;
+  
+  addToCart(depotItemId:any):void{
+    // Si déjà dans le panier ajouter la quantité
+    let cartItem = this.cart.items.find(item => depotItemId === item.depotItem);
     if(cartItem){
-      this.changeQuantity(product._id, cartItem.CartItemQuantity + 1);
+      this.changeQuantity(depotItemId, cartItem.quantity + 1);
       this.setCartToLocalStorage();
       return;
     }
-    this.cart.items.push(new CartItem(product));
+
+    //Sinon ajouter au panier et stocker dans le localStorage
+    this.cart.items.push(depotItemId);
     this.setCartToLocalStorage();
   }
 
   removeFromCart(productId:string): void{
     this.cart.items =
-    this.cart.items.filter(item => item.CartItemProduct.id != productId);
+    this.cart.items.filter(item => item.depotItem != productId);
     this.setCartToLocalStorage();
   }
 
-  changeQuantity(productId:number, quantity:number){
-    let cartItem = this.cart.items.find(item => item.CartItemProduct.id === productId);
+  changeQuantity(depotItemId:string, quantity:number){
+    let cartItem = this.cart.items.find(item => item.depotItem === depotItemId);
     if(!cartItem) return;
-    cartItem.CartItemQuantity = quantity;
-    // cartItem.CartItemPrice = quantity * cartItem.CartItemProduct.productPrice;
+
+    cartItem.quantity = quantity;
     this.setCartToLocalStorage();
+  }
+
+  qtUp(item:CartItem,itemQte:number,currentCartItemPriceTotal:number){
+    const newQt = itemQte+1;
+    const newCartItemPriceTotal = currentCartItemPriceTotal + this.getTheDepotItem(item.depotItem).price;
+    this.changeCartItemQuantity(item,newQt);
+  }
+
+  qtDown(item:CartItem ,itemQte:number,currentCartItemPriceTotal:number){
+    if (itemQte > 1) {
+      const newQt = itemQte-1;
+      const newCartItemPriceTotal  = currentCartItemPriceTotal-item.price;
+      this.changeCartItemQuantity(item,newQt);
+    }
+  }
+
+  getTheDepotItem(depotItemId:string):DepotItem{
+    let depotItem = new DepotItem()
+    this.depotItemService.getById(depotItemId).subscribe((result:any)=>{
+      if (result) {
+        depotItem = result
+        return depotItem;
+      }else{
+        return new DepotItem();
+      }
+    })
+    return depotItem;
   }
 
   clearCart(){
     this.cart = new Cart();
-    this.setCartToLocalStorage();
+   localStorage.removeItem(CART_KEY);
+    // this.setCartToLocalStorage();
   }
 
   getCartObservable():Observable<Cart>{
     return this.cartSubject.asObservable();
   }
+
   getCart(): Cart{
     return this.cartSubject.value;
   }
-  private setCartToLocalStorage():void{
-    // this.cart.totalPrice = this.cart.items
-    // .reduce((prevSum,currentItem)=> prevSum + currentItem.CartItemPrice, 0);
-    // this.cart.totalCount = this.cart.items
-    // .reduce((prevSum,currentItem) => prevSum + currentItem.CartItemQuantity,0)
-    // const cartJson = JSON.stringify(this.cart);
-    // localStorage.setItem('Cart',cartJson);
 
-    // this.cartSubject.next(this.cart);
+  changeCartItemQuantity(item:CartItem , CartItemQuantity:number){
+    if (!item) return;
+
+    item.quantity = CartItemQuantity;
+    // console.log(item.prod.prixUnitaireVenteTTC)
+    // item.CartItemPrice = item.CartItemProduct.prixUnitaireVenteTTC * CartItemQuantity;
+    // item.montant = CartItemQuantity * item.price;
+    this.calculTotal();
+  }
+
+  changeCartItemPrice(item:CartItem , CartItemPrice:number){
+    if (!item) return;
+
+    item.price = CartItemPrice;
+    item.quantity = item.quantity;
+    this.calculTotal();
+  }
+
+  insertQty(item : CartItem, itemCartItemQuantity : string){
+    const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
+    
+    let newCartItemPrice
+    
+    newCartItemPrice = this.getTheDepotItem(item.depotItem).price  * intItemCartItemQuantity;
+    this.changeCartItemQuantity(item,intItemCartItemQuantity);
+  }
+
+  insertPrice(item : CartItem, itemCartItemPrice : string){
+    const intItemCartItemPrice = parseInt(itemCartItemPrice);
+    this.changeCartItemPrice(item,intItemCartItemPrice,);
+    this.calculTotal();
+  }
+
+  calculTotal(){
+    let total : number = 0;
+    this.cart.items.forEach(item =>{
+      total += item.montant
+    })
+    this.montantTotal = total;
+  }
+
+  private setCartToLocalStorage():void{
+    this.cart.totalPrice = this.cart.items
+    .reduce((prevSum,currentItem)=> prevSum + currentItem.price, 0);
+    this.cart.totalCount = this.cart.items
+    .reduce((prevSum,currentItem) => prevSum + currentItem.quantity,0)
+    const cartJson = JSON.stringify(this.cart);
+    localStorage.setItem(CART_KEY,cartJson);
+
+    this.cartSubject.next(this.cart);
   }
 
   private getCartFromLocalStorage():Cart{
-    const cartJson = localStorage.getItem('Cart');
+    const cartJson = localStorage.getItem(CART_KEY);
     return cartJson? JSON.parse(cartJson): new Cart();
   }
 }

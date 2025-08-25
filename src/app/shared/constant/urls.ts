@@ -6,7 +6,7 @@ const BASE_URL = 'https://etokisanabackend.onrender.com';
 
 
 export const PRODUCT_URL                                    = BASE_URL + '/api/product/';
-// export const PRODUCT_BY_ID_URL                              = PRODUCT_URL + 'id/';
+export const PRODUCT_BY_ID_URL                              = PRODUCT_URL + 'id/';
 export const PRODUCT_ADD_URL                                = PRODUCT_URL + 'add/';
 export const PRODUCT_UPDATE_URL                             = PRODUCT_URL + 'update/';
 export const PRODUCT_REMOVE_URL                             = PRODUCT_URL + 'delete/';
@@ -20,6 +20,7 @@ export const PRODUCT_ADD_TO_STOCK_URL                       = PRODUCT_URL + 'add
 export const PRODUCT_MODIFY_STOCK_URL                       = PRODUCT_URL + 'modififyStock/';
 
 export const DEPOTITEM_URL                                  = BASE_URL + '/api/depotItem/';
+export const DEPOTITEM_BY_ID_URL                            = DEPOTITEM_URL + 'id/';
 export const DEPOTITEM_BY_CATEGORY_URL                      = DEPOTITEM_URL + 'category/';
 export const DEPOTITEM_ADD_DEPOT_ITEM_URL                   = DEPOTITEM_URL + 'add/';
 export const DEPOTITEM_MODIFY_DEPOT_ITEM_URL                = DEPOTITEM_URL + 'update/';

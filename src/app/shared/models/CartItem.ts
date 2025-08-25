@@ -1,14 +1,15 @@
-import { Product } from "./Product";
+// import { Product } from "./Product";
+
+// import { DepotItem } from "./DepotItem";
 
 export class CartItem{
-    constructor(product:Product){
-        this.CartItemProduct = product;
-    }
-    CartItemProduct!:any;
-    CartItemQuantity:number = 0;
-    CartItemPrice:number = 0;
-    CartItemMontant : number = 0;
-    // get CartItemMontant():number{
-    //     return this.CartItemPrice * this.CartItemQuantity;
+    // constructor(depotItem:DepotItem){
+    //     this.CartItemProduct = depotItem;
     // }
+    depotItem!:string;
+    quantity:number = 0;
+    price:number = 0;
+    get montant():number{
+        return this.price * this.quantity;
+    }
 }

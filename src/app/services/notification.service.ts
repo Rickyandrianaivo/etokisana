@@ -36,19 +36,19 @@ export class NotificationService {
     }
     openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
       const dialogRef = this.dialog.open(NotificationDialogComponent,{
-              data : {
-                title,
-                message
-              }
-            })
-            dialogRef.afterClosed().subscribe(result=>{
-              if (result == true && !url && reload == true) {
-                window.location.reload();
-                return;
-              }
-              if(result == true && url && reload == false){
-                this.router.navigateByUrl(url);
-              }
-            })
+        data : {
+          title,
+          message
+        }
+      })
+      dialogRef.afterClosed().subscribe(result=>{
+        if (result == true && !url && reload == true) {
+          window.location.reload();
+          return;
+        }
+        if(result == true && url && reload == false){
+          this.router.navigateByUrl(url);
+        }
+      })
     }
 }

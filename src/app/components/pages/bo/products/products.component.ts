@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgIf, UpperCasePipe } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-products',
@@ -38,6 +39,7 @@ export class ProductsComponent {
     private productService: ProductService,
     private userService : UserService,
     private router : Router,
+    private notificationService : NotificationService,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
     this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
@@ -47,33 +49,18 @@ export class ProductsComponent {
     });
     this.productService.getAll().subscribe(productAll=>{
       this.productsList = productAll;
+      console.log(this.productsList[0])
     })
   }
   checkProduct(productId:string){
     this.router.navigateByUrl("product-details/"+productId);
   }
   validateProduct(productId:string){
-    this.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",null,true);
+    this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",null,true);
   }
   deleteProduct(productId:string){
     this.productService.deleteProduct(productId).subscribe(result =>{
     })
-    this.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
+    this.notificationService.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
   }
-  openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
-      const dialogRef = this.dialog.open(NotificationDialogComponent,{
-        data : {
-          title,
-          message
-        }
-      })
-      dialogRef.afterClosed().subscribe(result=>{
-        if (result == true && !url && reload == true) {
-          window.location.reload();
-        }
-        if(url){
-          this.router.navigateByUrl(url);
-        }
-      })
-    }
 }

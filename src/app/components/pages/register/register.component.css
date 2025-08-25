@@ -74,7 +74,7 @@ h5{
 }
 .row{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-wrap: nowrap;
     width: 100%;
@@ -82,7 +82,15 @@ h5{
 text-input, app-password-input, date-input{
     width: 100%;
 }
-
+[_nghost-ng-c734527743] section[_ngcontent-ng-c734527743] .tel-form[_ngcontent-ng-c734527743] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #d1d1d1;
+    background-color: #ffffff ! important;
+}
 /* .seller{
     width: 40%;
     display: flex;

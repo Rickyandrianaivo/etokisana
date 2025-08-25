@@ -17,15 +17,15 @@
       <mat-card-title>{{ item.productName}} </mat-card-title>
       <mat-card-subtitle>{{ item.codeCPC }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="item.productImage" alt="Photo of a Shiba Inu">
+    <img  class="card-image" mat-card-image [src]="item.productImage[0]" alt="Photo of a Shiba Inu">
     <mat-card-content>
       <p>
-        {{ item.productDescription }}
-        {{item.prix}}
+        {{ item.productDescription }} <br>
       </p>
+      <h4>{{item.prix}} Ar</h4>
     </mat-card-content>
     <mat-card-actions>
-      <button matButton>Voir</button>
+      <button matButton (click)="voirProduit(item.productId,item._id)">Voir</button>
       <button matButton>Ajouter au panier</button>
     </mat-card-actions>
   </mat-card>
