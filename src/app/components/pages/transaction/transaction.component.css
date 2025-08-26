@@ -10,9 +10,11 @@ at-drawer-container{
     min-width: 150px;
 }
 button{
-    width: 100%;
+    /* width: 100%; */
     /* border-bottom:1px solid; */
-    border-radius:0;
+    border-radius:0.5rem;
+    width: 130px;
+    margin: 5px;
 }
 button.icon,li button{
     width: 100%;

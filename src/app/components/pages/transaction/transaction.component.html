@@ -15,11 +15,13 @@
             <h1> Mes transactions</h1>
             <!-- <a routerLink="add"><button>Ajouter un produit</button></a> --> 
              <div class="container-operation">
+               <div class="boutonMenu">
                 <a routerLink="/choix-site/depot"><button >Acheter</button></a>
                 <a routerLink="/choix-site/retrait"><button >Vendre</button></a>
                 <!-- <a routerLink="/deposit"><button class="icon"><mat-icon class="icon-operation">swap_vert</mat-icon><br><p style="color: black;">Historique</p></button></a> -->
+               </div>
             </div>
-            
+
             <table mat-table #table [dataSource]="transactionList" class="mat-elevation-z8">
             
                 <!--- Note that these columns can be defined in any order.
