@@ -9,3 +9,6 @@ button:disabled{
     background-color: rgb(196, 196, 196);
     color: rgb(82, 82, 82);
 }
+.map{
+    width: 100%;
+}

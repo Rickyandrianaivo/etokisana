@@ -25,9 +25,9 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     GoogleMapsModule,
     MatTableModule,
-    RouterLink,
+    // RouterLink,
     MatIconModule,
-    NgIf
+    // NgIf
   ],
   templateUrl: './user-sites.component.html',
   styleUrl: './user-sites.component.css'

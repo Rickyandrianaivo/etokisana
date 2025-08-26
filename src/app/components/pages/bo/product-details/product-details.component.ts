@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -6,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DefaultButtonComponent } from 'src/app/components/partials/default-button/default-button.component';
 import { HeaderComponent } from 'src/app/components/partials/header/header.component';
 import { NotificationDialogComponent } from 'src/app/components/partials/notification-dialog/notification-dialog.component';
+import { CartService } from 'src/app/services/cart.service';
 import { DepotItemService } from 'src/app/services/depot-item.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -19,7 +19,6 @@ import { SiteService } from 'src/app/services/site.service';
   imports: [
     HeaderComponent,
     MatTabsModule,
-    NgIf,
     DefaultButtonComponent,
     MatDialogModule,
   ],
@@ -28,6 +27,7 @@ import { SiteService } from 'src/app/services/site.service';
 })
 export class ProductDetailsComponent {
   dialog = inject(MatDialog)
+  imageDisplayed: string = "";
   theProduct:any;
   productId!:string;
   productImage:any[]=[];
@@ -41,6 +41,7 @@ export class ProductDetailsComponent {
     private depotItemService : DepotItemService,
     private notificationService : NotificationService,
     private siteService:SiteService,
+    private cartService : CartService,
   ){
     this.activatedRoute.params.subscribe(params=>{
       this.productId = params['id'];
@@ -48,6 +49,7 @@ export class ProductDetailsComponent {
       this.productService.getProductById(params['id']).subscribe(productDist =>{
         this.theProduct=productDist;
         this.productImage=productDist.productImage;
+        this.imageDisplayed = this.productImage[0];
       })
       this.depotItemService.getById(this.depotItemId).subscribe(theDepotItem=>{
         if (theDepotItem) {
@@ -75,6 +77,16 @@ export class ProductDetailsComponent {
       false)
   }
   addToCart(depotItemId: string){
-    
+    console.log('clicked');
+    this.cartService.addToCart(depotItemId);
+    this.notificationService.openNotificationDialog(
+      "Produit ajouté au panier",
+      "Ce produit a été ajouté à votre panier.",
+      "home",
+      false
+    )
+  }
+  selectImage(image:string){
+    this.imageDisplayed = image;
   }
 }

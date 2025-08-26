@@ -12,6 +12,10 @@ h1{
     font-size: 3.5rem;
     margin: 5rem auto;
 }
+.inner-container{
+    width: 70%;
+    min-width: 640px;
+}
 .slider{
     /* background: url('/SplashscreenEtokisana.jpg') no-repeat; */
     background-size: cover;
@@ -21,4 +25,17 @@ h1{
 .card-image{
     max-width: 200px;
     align-self: center;
+}
+.border-title{
+    width: 100%;
+}
+mat-card{
+    max-width: 200px;
+    width: max-content;
+}
+.row{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+
 }

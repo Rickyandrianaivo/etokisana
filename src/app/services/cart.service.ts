@@ -26,7 +26,9 @@ export class CartService {
   
   addToCart(depotItemId:any):void{
     // Si déjà dans le panier ajouter la quantité
-    let cartItem = this.cart.items.find(item => depotItemId === item.depotItem);
+    console.log(depotItemId)
+    let cartItem = this.cart.items.find(item => item.depotItem === depotItemId);
+    console.log(cartItem);
     if(cartItem){
       this.changeQuantity(depotItemId, cartItem.quantity + 1);
       this.setCartToLocalStorage();
@@ -140,8 +142,8 @@ export class CartService {
     this.cart.totalCount = this.cart.items
     .reduce((prevSum,currentItem) => prevSum + currentItem.quantity,0)
     const cartJson = JSON.stringify(this.cart);
-    localStorage.setItem(CART_KEY,cartJson);
 
+    localStorage.setItem(CART_KEY,cartJson);
     this.cartSubject.next(this.cart);
   }
 
