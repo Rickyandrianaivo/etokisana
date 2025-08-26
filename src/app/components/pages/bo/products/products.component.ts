@@ -56,6 +56,11 @@ export class ProductsComponent {
     this.router.navigateByUrl("product-details/"+productId);
   }
   validateProduct(productId:string){
+    const updateData = {
+      productState : "Approuvé",
+      productValidation : true}
+    this.productService.updateProduct(productId, updateData).subscribe(result =>{
+    })
     this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",null,true);
   }
   deleteProduct(productId:string){

@@ -96,7 +96,7 @@
                 <ng-container matColumnDef="Action"><!-- Action Column -->
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element"> 
-                    <button matToolTip="Approuver le produit" style="background-color: rgb(255, 255, 255);color:black;" (click)="checkProduct(element._id)"> <mat-icon>offline_pin</mat-icon></button>
+                    <button matToolTip="Approuver le produit" style="background-color: rgb(255, 255, 255);color:black;" (click)="validateProduct(element._id)"> <mat-icon>offline_pin</mat-icon></button>
                     <button matToolTip="Voir" style="background-color: rgb(255, 255, 255);color:black;" (click)="checkProduct(element._id)"> <mat-icon>visibility</mat-icon></button>
                     <button matToolTip="Refuser le produit" style="background-color: rgb(175, 0, 0);color:black;font-size: large;" (click)="deleteProduct(element._id)"> <mat-icon>delete</mat-icon></button></td>
                 </ng-container>
