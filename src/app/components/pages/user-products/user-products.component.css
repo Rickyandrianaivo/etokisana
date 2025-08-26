@@ -12,4 +12,6 @@ button:disabled{
 button{
     width: 130px;
     margin: 5px;
+}.map{
+    width: 100%;
 }

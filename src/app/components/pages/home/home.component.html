@@ -9,33 +9,40 @@
 </div> -->
 <div class="container">
 <div class="inner-container">
+  <div class="row">
+    <div class="border-title">
+    <div class="title-border">
+      Choix de produit
+    </div>
   
-@for (item of productList; track $index) {
-  <mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{ item.productName}} </mat-card-title>
-      <mat-card-subtitle>{{ item.codeCPC }}</mat-card-subtitle>
-    </mat-card-header>
-    <img  class="card-image" mat-card-image [src]="item.productImage[0]" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        {{ item.productDescription }} <br>
-      </p>
-      <h4>{{item.prix}} Ar</h4>
-    </mat-card-content>
-    <mat-card-actions>
-      <button matButton (click)="voirProduit(item.productId,item._id)">Voir</button>
-      <button matButton>Ajouter au panier</button>
-    </mat-card-actions>
-  </mat-card>
-}
+    @for (item of productList; track $index) {
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{ item.productName}} </mat-card-title>
+          <mat-card-subtitle>{{ item.codeCPC }}</mat-card-subtitle>
+        </mat-card-header>
+        <img  class="card-image" mat-card-image [src]="item.productImage[0]" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>
+            {{ item.productDescription }} <br>
+          </p>
+          <h4>{{item.prix}} Ar</h4>
+        </mat-card-content>
+        <mat-card-actions>
+          <button matButton (click)="voirProduit(item.productId,item._id)">Voir</button>
+          <button matButton (click)="addToCart(item._id)">Ajouter au panier</button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+  <div class="border-title">
+    <div class="title-border">Panier</div>
+    @for (item of cart.items; track $index) {}
+  </div>
+  </div>
   
-
 </div>
-
-
-
   <!-- <div class="inner-container">
     <div class="main">
       <div class="border-title">
