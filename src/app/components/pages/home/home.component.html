@@ -27,7 +27,7 @@
           <p>
             {{ item.productDescription }} <br>
           </p>
-          <h4>{{item.prix}} Ar</h4>
+          <h4>{{item.price}} Ar</h4>
         </mat-card-content>
         <mat-card-actions>
           <button matButton (click)="voirProduit(item.productId,item._id)">Voir</button>
@@ -38,7 +38,8 @@
   </div>
   <div class="border-title">
     <div class="title-border">Panier</div>
-    @for (item of cart.items; track $index) {}
+    <!-- @for (item of cart.items; track $index) {} -->
+     
   </div>
   </div>
   

@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
 import { CartService } from 'src/app/services/cart.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { UserService } from 'src/app/services/user.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-product-page',
@@ -25,15 +26,21 @@ export class ProductPageComponent implements OnInit{
   productId!:string;
   productImage:any[]=[];
   currentuser : any;
+  userAccess !: string ;
   constructor(
     private productService:ProductService,
     private cartService : CartService,
     private activatedRoute:ActivatedRoute,
     private router : Router,
     private userService : UserService,
+    private notificationService : NotificationService,
   ){
     this.currentuser = this.userService.getUserFromLocalStorage();
-    console.log(this.currentuser)
+
+    this.userService.getUserById(this.currentuser._id).subscribe(userAccess =>{
+      this.userAccess = userAccess.userAccess;
+      console.log(this.userAccess);
+    })
     this.activatedRoute.params.subscribe(params=>{
       this.productId = params['id'];
       this.productService.getProductById(params['id']).subscribe(productDist =>{
@@ -70,5 +77,13 @@ export class ProductPageComponent implements OnInit{
   }
   back(){
     this.router.navigateByUrl('/user-products');
+  }
+  validateProduct(productId : string){
+    const updateData = {
+      productState : "Approuvé",
+      productValidation : true}
+    this.productService.updateProduct(productId, updateData).subscribe(result =>{
+    })
+    this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",'products',false);
   }
 }

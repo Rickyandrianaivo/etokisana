@@ -53,7 +53,7 @@ export class ProductsComponent {
     })
   }
   checkProduct(productId:string){
-    this.router.navigateByUrl("product-details/"+productId);
+    this.router.navigateByUrl("product-page/"+productId);
   }
   validateProduct(productId:string){
     const updateData = {

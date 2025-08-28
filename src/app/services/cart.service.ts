@@ -15,7 +15,7 @@ const CART_KEY = "Cart";
 export class CartService {
   private cart:Cart = this.getCartFromLocalStorage();
   private cartSubject:BehaviorSubject<Cart> = new BehaviorSubject(this.cart);
-  
+  cartActualItem :CartItem[]=[];
   constructor(
     private depotItemService : DepotItemService,
   ){
@@ -26,18 +26,29 @@ export class CartService {
   
   addToCart(depotItemId:any):void{
     // Si déjà dans le panier ajouter la quantité
-    console.log(depotItemId)
     let cartItem = this.cart.items.find(item => item.depotItem === depotItemId);
-    console.log(cartItem);
     if(cartItem){
       this.changeQuantity(depotItemId, cartItem.quantity + 1);
       this.setCartToLocalStorage();
       return;
     }
-
     //Sinon ajouter au panier et stocker dans le localStorage
-    this.cart.items.push(depotItemId);
-    this.setCartToLocalStorage();
+    this.depotItemService.getById(depotItemId).subscribe(depotItemFs =>{
+      if (depotItemFs) {
+        const newCartItem:CartItem = {
+        depotItem : depotItemId,
+        quantity : 1,
+        price : depotItemFs.price,
+        montant: depotItemFs.price * 1,
+      }
+      
+      this.cart.items.push(newCartItem);
+      this.setCartToLocalStorage();
+      }
+      
+    })
+    
+    
   }
 
   removeFromCart(productId:string): void{
@@ -138,12 +149,12 @@ export class CartService {
 
   private setCartToLocalStorage():void{
     this.cart.totalPrice = this.cart.items
-    .reduce((prevSum,currentItem)=> prevSum + currentItem.price, 0);
+    .reduce((prevSum,currentItem)=> prevSum + currentItem.montant,0);
     this.cart.totalCount = this.cart.items
     .reduce((prevSum,currentItem) => prevSum + currentItem.quantity,0)
     const cartJson = JSON.stringify(this.cart);
 
-    localStorage.setItem(CART_KEY,cartJson);
+    // localStorage.setItem(CART_KEY,cartJson);
     this.cartSubject.next(this.cart);
   }
 

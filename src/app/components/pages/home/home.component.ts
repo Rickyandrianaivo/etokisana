@@ -56,7 +56,6 @@ export class HomeComponent {
     this.router.navigateByUrl('/product-details/'+ productId + "/" + depotItemId )
   }
   addToCart(depotItemId:string){
-    console.log(depotItemId)
     this.cartService.addToCart(depotItemId)
     this.notificationService.openNotificationDialog(
       "Produit ajouté au panier",
