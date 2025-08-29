@@ -2,11 +2,13 @@
 <div class="container">
     <div class="row">
         <div class="image-container">
-            <img src="{{productImage[0]}}"/>
+            <img src="{{imageDisplayed}}"/>
             <div class="row">
-                <img *ngIf="productImage[1]" [src]="productImage[1]" height="50px" width="50px"><br>
-                <img *ngIf="productImage[2]" [src]="productImage[2]" height="50px" width="50px"><br>
-                <img *ngIf="productImage[3]" [src]="productImage[3]" height="50px" width="50px"><br>
+                @for (image of productImage; track $index) {
+                    <button class="imageSelection" (click)="selectImage(image)">
+                        <img [src]="image" height="150px" width="150px"><br>
+                    </button>
+                }
             </div>
         </div>
         

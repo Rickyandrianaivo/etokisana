@@ -22,7 +22,7 @@ button{
 .right-side{
     width: 40%;
 }
-td img, img{
+td img{
     max-width: 50px;
 }
 .depot-infos td,tr{
@@ -32,4 +32,31 @@ td img, img{
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+.imageSelection{
+    background: none;
+}
+button img{
+    object-fit: cover;
+}
+.imageSelection-container{
+    display: flex;
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+    border:1px solid rgb(216, 216, 216);
+    border-radius: 30px;
+}
+img.apercu{
+    width: 100%;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.image-container {
+    width: 100%;
+}
+.details-container{
+    width: 100%;
+    padding : 20px;
 }

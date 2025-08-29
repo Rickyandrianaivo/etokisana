@@ -56,8 +56,8 @@ export class ChoixProduitComponent implements OnInit {
   depotItemStock : any[] = [];
   currentItemStock : any;
   addDepot : boolean = false;
-
-
+  cartItemsHolder : any[]=[];
+  imageDisplayed : string = "";
 
 
   constructor(
@@ -75,39 +75,47 @@ export class ChoixProduitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
-    // this.currentUser = this.userService.getUserFromLocalStorage();
-    // this.productService.getAll().subscribe(productAll =>{
-    // this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
-    // this.articles = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
-    // });
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
+    this.currentUser = this.userService.getUserFromLocalStorage();
+    this.productService.getAll().subscribe(productAll =>{
+      this. productList = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
+      this.articles = productAll.filter(filteredProduct => filteredProduct.productValidation == true);
+    });
     
-    // this.activatedRoute.params.subscribe(params =>{
-    //   this.depotId=params['id'];
-    //   this.typeES= params['typeES'];
-    //   this.theProductId = params['productId'];
-    //   if (this.theProductId) {
-    //     this.addToCart(this.theProductId);
-    //     this.cartItemsHolder=[];
-    //     this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
-    //       if (currentItemStock) {
-    //         this.currentItemStock = currentItemStock[0];
-    //         this.addDepot = true;            
-    //       }else{
-    //         this.currentItemStock = 0;
-    //       }
-    //     })
-    //   }
-    //   this.productService.getProductById(this.theProductId).subscribe(theProduct=>{
-    //     this.theProduct=theProduct;
-    //   })
-    //   this.siteService.getSiteById(this.depotId).subscribe(currentSite =>{
-    //     this.currentSite = currentSite;
-    //     this.userService.getUserByUserId(this.currentSite.siteUserID).subscribe(result=>{
-    //       this.siteOwner = result;
-    //     })
-    //   })
-    // })
+    this.activatedRoute.params.subscribe(params =>{
+      this.depotId=params['id'];
+      this.typeES= params['typeES'];
+      this.theProductId = params['productId'];
+      if (this.theProductId) {
+        // const newCartItem:CartItem={
+        //   depotItem:this.theProduct,
+        //   quantity:this.theProduct.quantity,
+        //   price:this.theProduct.price,
+        //   montant: this.theProduct.price * this.theProduct.quantity,
+        // }
+        this.cartItemsHolder=[];
+        this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
+          if (currentItemStock) {
+            this.currentItemStock = currentItemStock[0];
+            this.addDepot = true; 
+            this.addToCart(this.currentItemStock);
+            console.log(this.currentItemStock)
+          }else{
+            this.currentItemStock = 0;
+          }
+        })
+      }
+      this.productService.getProductById(this.theProductId).subscribe(theProduct=>{
+        this.theProduct=theProduct;
+        this.imageDisplayed = this.theProduct.productImage[0];
+      })
+      this.siteService.getSiteById(this.depotId).subscribe(currentSite =>{
+        this.currentSite = currentSite;
+        this.userService.getUserByUserId(this.currentSite.siteUserID).subscribe(result=>{
+          this.siteOwner = result;
+        })
+      })
+    })
   }
 
   choixProduit(productId : string){
@@ -130,7 +138,7 @@ export class ChoixProduitComponent implements OnInit {
       const stockelement = {
         productId : productAdeposer._id,
         depotId : this.depotId,
-        prix : productAdeposer.prix,
+        price : productAdeposer.price,
         quantite : productAdeposer.quantite
       }
       // this.productService.depositProduct(stockelement).subscribe(_=>{
@@ -237,6 +245,9 @@ export class ChoixProduitComponent implements OnInit {
 
   showSuggestions:boolean = true;
 
+  selectImage(image:string){
+    this.imageDisplayed = image;
+  }
 
   GetIsEmpty(isEmpty : boolean){
     this.showSuggestions = isEmpty;

@@ -27,15 +27,17 @@
             <div class="title-border"> {{ theProduct.productName }} </div> 
             <div class="row">
               <div class="image-container">
-                  <img src="{{theProduct.productImage[0]}}"/>
-                  <div class="row">
-                      <img *ngIf="theProduct.productImage[1]" [src]="theProduct.productImage[1]" height="50px" width="50px"><br>
-                      <img *ngIf="theProduct.productImage[2]" [src]="theProduct.productImage[2]" height="50px" width="50px"><br>
-                      <img *ngIf="theProduct.productImage[3]" [src]="theProduct.productImage[3]" height="50px" width="50px"><br>
+                  <img class="apercu" src="{{imageDisplayed}}"/>
+                  <div class="row imageSelection-container">
+                    @for (image of theProduct.productImage; track $index) {
+                      <button class="imageSelection" (click)="selectImage(image)">
+                        <img   [src]="image" height="150px" width="150px"><br>
+                      </button>
+                    }
                   </div>
               </div>
               
-              <div class="content-container">
+              <div class="details-container">
                 <p>Code CPC : <span>{{theProduct.codeCPC}}</span></p>
                 <p>Categorie : <span>{{ theProduct.productCategory}}</span></p>
                 <p>Désignation : <span>{{theProduct.productName}}</span></p>
@@ -158,12 +160,12 @@
               <tr  class="tableRowCart tableRow" style="height:10px;" >
               <td>{{ theProduct.productName}}</td>
               <td style="text-align: right;">
-                {{ currentItemStock.prix }}
+                {{ currentItemStock.price }}
               </td>
               <td>
                 {{ currentItemStock.stock }}
               </td>
-              <td style="text-align: right;"> {{currentItemStock.prix * currentItemStock.stock}} </td>
+              <td style="text-align: right;"> {{currentItemStock.price * currentItemStock.stock}} </td>
             </tr>
           </table>
         </div>
@@ -189,7 +191,7 @@
               <!-- <td style="text-align: right;">{{ item.CartItemProduct.prixUnitaireVenteTTC}}</td> -->
               <td style="text-align: right;">
                 @if (currentItemStock) {
-                  {{ currentItemStock.prix }}
+                  {{ currentItemStock.price }}
                 }@else {
                   <input #p class="itemQty" type="text" [(ngModel)]="item.price" (keyup)="insertPrice(item,p.value)" [value]="item.price" [ngModelOptions]="{standalone:true}">
                 }

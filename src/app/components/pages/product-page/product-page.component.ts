@@ -15,7 +15,7 @@ import { NotificationService } from 'src/app/services/notification.service';
   imports: [
     DefaultButtonComponent,
     HeaderComponent,
-    NgIf,
+    // NgIf,
     MatTabsModule,
   ],
   templateUrl: './product-page.component.html',
@@ -27,6 +27,7 @@ export class ProductPageComponent implements OnInit{
   productImage:any[]=[];
   currentuser : any;
   userAccess !: string ;
+  imageDisplayed : string ="";
   constructor(
     private productService:ProductService,
     private cartService : CartService,
@@ -85,5 +86,8 @@ export class ProductPageComponent implements OnInit{
     this.productService.updateProduct(productId, updateData).subscribe(result =>{
     })
     this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",'products',false);
+  }
+  selectImage(image:string){
+    this.imageDisplayed = image;
   }
 }
