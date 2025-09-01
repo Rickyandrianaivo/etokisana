@@ -116,10 +116,11 @@
                                                 <ngx-material-intl-tel-input 
                                                 [fieldControl]="userPhone" 
                                                 [required]="false" 
-                                                [autoIpLookup]="false"
+                                                [autoIpLookup]="true"
                                                 appearance='fill'
                                                 [autoSelectCountry]="true"
-                                                autoSelectedCountry='+261'
+                                                forceSelectedCountryCode="+261"
+                                                autoSelectedCountry='+261'                                                
                                                 [textLabels]="{
                                                     mainLabel:'',
                                                     codePlaceholder : '+261',
@@ -389,14 +390,16 @@
                                         </ngx-intl-tel-input>               -->
                                     <!-- </mat-form-field>
                                 </input-container> -->
-                                <ngx-material-intl-tel-input 
+                            <ngx-material-intl-tel-input 
                                 [required]="false" 
-                                [autoIpLookup]="false"
+                                [autoIpLookup]="true"
                                 appearance='fill'
                                 [autoSelectCountry]="true"
                                 autoSelectedCountry='+261'
+                                [fieldControl]="userPhone"
+                                [preferredCountries]="['MDG']"
                                 [textLabels]="{
-                                    mainLabel:'',
+                                    mainLabel:'Téléphone',
                                     codePlaceholder : '+261',
                                     searchPlaceholderLabel:'rechercher',
                                     noEntriesFoundLabel:'Téléphone',
@@ -514,6 +517,7 @@
 
                                 <div class="back-forward">
                                     <button matButton matStepperPrevious type="button">Précédent</button>
+                                    <!-- <button type="submit" (click)="submitUser()" [disabled]="isSubmitDisable">S'inscrire</button> -->
                                     <button type="submit" (click)="submitUser()" [disabled]="isSubmitDisable">S'inscrire</button>
                                 </div>
                                 

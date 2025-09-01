@@ -10,6 +10,31 @@
     float: left;
 }
 .right-side{
+    display: flex;
+    justify-content: flex-end;
     width: 49%;
-    float: right;
+    align-items: center;
+    background: none;
+    color: black;
+}
+.modifIcon{
+    display: none;
+}
+button:hover{
+    mat-icon.modifIcon{
+    display: block;
+    }
+} 
+mat-icon{
+    height: fit-content;
+    padding: 0;
+}
+button.action{
+    background: none;
+    border: 1px solid gray;
+    color : black;
+    height: fit-content;
+}
+button.action:hover{
+    box-shadow: 1px 1px 2px;
 }

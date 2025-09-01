@@ -31,7 +31,7 @@
                   <div class="row imageSelection-container">
                     @for (image of theProduct.productImage; track $index) {
                       <button class="imageSelection" (click)="selectImage(image)">
-                        <img   [src]="image" height="150px" width="150px"><br>
+                        <img   [src]="image" height="100px" width="max-content"><br>
                       </button>
                     }
                   </div>
@@ -146,7 +146,7 @@
         <!-- <ul style="position:absolute;background-color: white;list-style: none; top: 157px;" *ngIf="showSuggestions">
           <li *ngFor="let item of clients"><a (click)="chooseClientFromeCodeClient(item.client_code)" style="font-size: small;">{{item.client_code}} - {{ item.client_raisonSociale}}</a>  </li>
         </ul> -->
-        @if(currentItemStock){
+        @if(currentItemStock && theProduct){
           <div class="border-title">
           <div class="title-border">Stock actuel</div>
 
@@ -184,17 +184,25 @@
                 <td>Actions</td>
                 }
               </tr>
-              
-              <tr  class="tableRowCart tableRow" style="height:10px;" *ngFor="let item of cartItems" >
+              @if (currentItemStock && theProduct) {
+                <tr>
+                  <td>{{ theProduct.productName }} </td>
+                  <td>{{ currentItemStock.price }}</td>
+                  <div class="itemQtyContainer">
+                    <!-- <input #s class="itemQty" type="text" *ngIf="item.CartItemQuantity" [(ngModel)]="item.CartItemQuantity" (keyup)="insertQty(item,s.value)" [value]="item.CartItemQuantity" [ngModelOptions]="{standalone:true}"> -->
+                    <div class="itemQuantityButton">
+                      <!-- <button class="changeQte" (click)="qtUp(currentItemStock,currentItemStock.quantity, montantTotal)">➕</button>
+                      <button class="changeQte" (click)="qtDown(currentItemStock,currentItemStock.quantity, montantTotal)">➖</button> -->
+                    </div>
+                  </div>
+                  <td>{{ currentItemStock.montant }}</td>
+                </tr>
+              }@else {
+                <tr  class="tableRowCart tableRow" style="height:10px;" *ngFor="let item of cartItems" >
               <!-- <h1 *ngIf="isCartEmpty">Vous pouvez choisir un client puis remplir le panier</h1> -->
-              <!-- <td>{{ item.CartItemProduct.productName}}</td> -->
-              <!-- <td style="text-align: right;">{{ item.CartItemProduct.prixUnitaireVenteTTC}}</td> -->
+              <td>{{ item.depotItem}}</td>
               <td style="text-align: right;">
-                @if (currentItemStock) {
-                  {{ currentItemStock.price }}
-                }@else {
                   <input #p class="itemQty" type="text" [(ngModel)]="item.price" (keyup)="insertPrice(item,p.value)" [value]="item.price" [ngModelOptions]="{standalone:true}">
-                }
               </td>
               <td>
                   <div class="itemQtyContainer">
@@ -213,23 +221,10 @@
                 </button>
               </td>}
             </tr>
+              }
 
 
-
-            <!-- Placeholder -->
-            <!-- <tr class="cart-content" *ngFor="let item of cartItemsHolder" >
-              <td >
-                  <div class="itemQtyContainer">
-                      <input  class="itemQty" type="text" valeur="item.quantity" >
-                  <div class="itemQuantityButton">
-                  </div>
-              </div>
-              </td>
-              <td></td>
-              <td style="width: 10%;text-align: center;">
-                -
-              </td>
-            </tr> -->
+              
           </table>
           </div>
           <div class="totalArea" *ngIf="!isCartEmpty">

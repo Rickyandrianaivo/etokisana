@@ -47,6 +47,7 @@ export class ProductPageComponent implements OnInit{
       this.productService.getProductById(params['id']).subscribe(productDist =>{
         this.theProduct=productDist;
         this.productImage=productDist.productImage;
+        this.imageDisplayed = this.productImage[0];
       })
     })
   }

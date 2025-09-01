@@ -26,12 +26,12 @@ export class CartService {
   
   addToCart(depotItemId:any):void{
     // Si déjà dans le panier ajouter la quantité
-    let cartItem = this.cart.items.find(item => item.depotItem === depotItemId);
-    if(cartItem){
-      this.changeQuantity(depotItemId, cartItem.quantity + 1);
-      this.setCartToLocalStorage();
-      return;
-    }
+    // let cartItem = this.cart.items.find(item => item.depotItem === depotItemId);
+    // if(cartItem){
+    //   this.changeQuantity(depotItemId, cartItem.quantity + 1);
+    //   this.setCartToLocalStorage();
+    //   return;
+    // }
     //Sinon ajouter au panier et stocker dans le localStorage
     this.depotItemService.getById(depotItemId).subscribe(depotItemFs =>{
       if (depotItemFs) {
@@ -41,9 +41,10 @@ export class CartService {
         price : depotItemFs.price,
         montant: depotItemFs.price * 1,
       }
-      
       this.cart.items.push(newCartItem);
       this.setCartToLocalStorage();
+      }else{
+        console.log("Not Found!")
       }
       
     })

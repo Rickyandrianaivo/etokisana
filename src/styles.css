@@ -419,3 +419,6 @@ button{
     /* width: 130px; */
     margin: 5px;
 }
+.mat-mdc-form-field-infix{
+    padding-top:  var(--mat-form-field-container-vertical-padding) !important ;
+}

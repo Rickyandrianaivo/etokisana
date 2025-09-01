@@ -115,6 +115,7 @@ export class RegisterComponent implements OnInit {
   display : any;
   type : string = "";
 
+
   //snackbar
   simpleSb !: MatSnackBarRef<SimpleSnackBar>;
 
@@ -267,6 +268,10 @@ export class RegisterComponent implements OnInit {
     return this.registerCorporateForm.controls;
   }
 
+  submittest(){
+    console.log(this.userPhone.value);
+  }
+
   submitUser(){
     this.isSubmitDisable=true;
     this.isSubmitted =true;
@@ -302,7 +307,8 @@ export class RegisterComponent implements OnInit {
         userFirstname       : "" ,  
         userPassword        : fv.userPassword ,  
         userEmail           : fv.contactEmail,     
-        userPhone           : fv.contactPhone.internationalNumber ,      
+        // userPhone           : fv.contactPhone.internationalNumber ,      
+        userPhone           : this.userPhone.value,
         userType            : "Entreprise",  
         userTotalSolde      : 0 ,  
         userValidated       : false ,  
@@ -367,7 +373,8 @@ export class RegisterComponent implements OnInit {
         userFirstname       : fv.userFirstname ,  
         userPassword        : fv.userPassword ,  
         userEmail           : fv.userEmail ,     
-        userPhone           : fv.userPhone.internationalNumber ,      
+        // userPhone           : fv.userPhone.internationalNumber ,  
+        userPhone           : this.userPhone.value,    
         userType            : "Particulier",  
         userTotalSolde      : 0 ,  
         userValidated       : false ,  

@@ -24,6 +24,8 @@ export class TextInputComponent implements OnInit{
   @Input()  showErrorsWhen:boolean = true;
   @Input()  label!: string;
   @Input()  type:'texte'|'password'|'email' ="texte" ;
+  @Input()  placeholder?:string;
+  @Input()  defaultValue?:string;
   
   get formControl(){
     return this.control as FormControl;

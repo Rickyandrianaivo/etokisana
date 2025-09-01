@@ -95,10 +95,11 @@ export class ChoixProduitComponent implements OnInit {
         // }
         this.cartItemsHolder=[];
         this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
+          console.log(currentItemStock);
           if (currentItemStock) {
-            this.currentItemStock = currentItemStock[0];
+            this.currentItemStock = currentItemStock;
             this.addDepot = true; 
-            this.addToCart(this.currentItemStock);
+            this.addToCart(this.currentItemStock._id);
             console.log(this.currentItemStock)
           }else{
             this.currentItemStock = 0;

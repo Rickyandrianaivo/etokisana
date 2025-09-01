@@ -219,3 +219,9 @@ img{
     width:100%;
     max-height: 50vh;
 }
+.mat-mdc-form-field-infix{
+    padding-top: 0 !important;
+}
+.tel-form{
+    width: 98%;
+}
