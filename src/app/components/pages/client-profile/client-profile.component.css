@@ -26,3 +26,9 @@
 app-profile-item{
     width: 100%;
 }
+.no-background{
+    background: none;
+}
+.file-input{
+    display: none;
+}

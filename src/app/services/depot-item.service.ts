@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DEPOTITEM_ADD_DEPOT_ITEM_URL, DEPOTITEM_BY_ID_URL, DEPOTITEM_BY_PRODUCT_ID_URL, DEPOTITEM_MODIFY_DEPOT_ITEM_URL, DEPOTITEM_URL } from '../shared/constant/urls';
+import { DEPOTITEM_ADD_DEPOT_ITEM_URL, DEPOTITEM_BY_ID_URL, DEPOTITEM_BY_PRODUCT_ID_URL, DEPOTITEM_DELETE_DEPOT_ITEM_URL, DEPOTITEM_MODIFY_DEPOT_ITEM_URL, DEPOTITEM_URL } from '../shared/constant/urls';
 import { HttpClient } from '@angular/common/http';
 import { DepotItem } from '../shared/models/DepotItem';
 import { Observable } from 'rxjs';
@@ -27,5 +27,8 @@ export class DepotItemService {
    }
    update(depotItemData : any,depotItemId : string ){
     return this.http.patch(DEPOTITEM_MODIFY_DEPOT_ITEM_URL + depotItemId,depotItemData);
+   }
+   deleteByProductId(productId : string ){
+    return this.http.delete(DEPOTITEM_DELETE_DEPOT_ITEM_URL + productId);
    }
 }

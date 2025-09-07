@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../shared/models/User';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,8 +8,10 @@ import { HeaderComponent } from '../../partials/header/header.component';
 import { AvatarModule } from 'ngx-avatars';
 import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from '../../partials/text-input/text-input.component';
+import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
+import { InputContainerComponent } from '../../partials/input-container/input-container.component';
 
 @Component({
   selector: 'app-client-profile',
@@ -23,51 +25,63 @@ import { TextInputComponent } from '../../partials/text-input/text-input.compone
     ReactiveFormsModule,
     FormsModule,
     TextInputComponent,
+    NgxMaterialIntlTelInputComponent,
+    InputContainerComponent,
   ],
   templateUrl: './client-profile.component.html',
   styleUrl: './client-profile.component.css'
 })
 export class ClientProfileComponent implements OnInit{
+  isSubmitted: boolean = false;
+  images : {[key: string]: string} = {};
   user !: User;
   profileImage!:string;
   userForm !: FormGroup;
   corporateForm !: FormGroup;
+  userPhone = new FormControl();
+  showSellerForm = signal(false);
+
   constructor(
     private formBuilder:FormBuilder,
     private userService:UserService,
   ){
+
   }
   ngOnInit() : void {
-    this.userForm = this.formBuilder.group({
-      userName:[''],
-      userFirstname:[''],
-      userPhone:[''],
-      userEmail:[''],
-    })
-
-    this.corporateForm = this.formBuilder.group({
-      userName:[''],
-      userFirstname:[''],
-      userPhone:[''],
-      userEmail:[''],
-      userStatus : [''],
-      userNif : [''],
-      userRCS : [''],
-      managerName : [''],
-      managerEmail : [''],
-      userType : [''],
-    })
-
     
 
     const userLocal = this.userService.getUserFromLocalStorage()
-    // this.user = this.userService.getUserFromLocalStorage()
 
     this.userService.getUserByEmail(userLocal.userEmail).subscribe(reqUser=>{
       console.log(this.user);
       this.user = reqUser;
       this.profileImage = this.user.userImage;
+      console.log(this.profileImage);
+
+      
     })
+    if (this.user) {
+      this.userForm = this.formBuilder.group({
+            // userNickName  : [this.user.userNickName],
+            userName      : [this.user.userName],
+            userFirstname : [this.user.userFirstname],
+            userEmail     : [this.user.userEmail],
+            userPhone     : [this.user.userPhone],
+            userAddress   : [this.user.userAddress],
+          })
+          this.corporateForm = this.formBuilder.group({
+            raisonSocial  : [''],
+            userNif       : [''],
+            userRCS       : [''],
+            managerName   : [''],
+            managerEmail  : [''],
+            contactName   : [''],
+            contactEmail  : [''],
+            userPhone     : [''],
+            userAddress   : [''],
+          })
+    }
+    
   }
   get fc(){
     return this.corporateForm.controls;
@@ -85,5 +99,14 @@ export class ClientProfileComponent implements OnInit{
 
   changeModifMode(){
     // this.modifmode = !this.modifmode;
+  }
+
+  onFileImageSelected(event:Event,imageName : string){    
+  }
+  get cfc(){
+    return this.corporateForm.controls;
+  }
+  submitUser(){
+
   }
 }

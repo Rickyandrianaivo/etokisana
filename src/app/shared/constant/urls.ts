@@ -24,7 +24,9 @@ export const DEPOTITEM_BY_ID_URL                            = DEPOTITEM_URL + 'i
 export const DEPOTITEM_BY_CATEGORY_URL                      = DEPOTITEM_URL + 'category/';
 export const DEPOTITEM_ADD_DEPOT_ITEM_URL                   = DEPOTITEM_URL + 'add/';
 export const DEPOTITEM_MODIFY_DEPOT_ITEM_URL                = DEPOTITEM_URL + 'update/';
-export const DEPOTITEM_BY_PRODUCT_ID_URL     = DEPOTITEM_URL + 'ByProductId/'
+export const DEPOTITEM_DELETE_DEPOT_ITEM_BY_PRODCUT_ID_URL  = DEPOTITEM_URL + 'deleteByProductId/';
+export const DEPOTITEM_DELETE_DEPOT_ITEM_URL                = DEPOTITEM_URL + 'delete/';
+export const DEPOTITEM_BY_PRODUCT_ID_URL                    = DEPOTITEM_URL + 'ByProductId/'
 
 export const UPLOAD_IMAGE_URL              = PRODUCT_URL + 'upload-image/';
 

@@ -12,6 +12,7 @@ import { NgIf, UpperCasePipe } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NotificationService } from 'src/app/services/notification.service';
+import { DepotItemService } from 'src/app/services/depot-item.service';
 
 @Component({
   selector: 'app-products',
@@ -37,6 +38,7 @@ export class ProductsComponent {
   logedUser : any;
   constructor(
     private productService: ProductService,
+    private depotItemService : DepotItemService,
     private userService : UserService,
     private router : Router,
     private notificationService : NotificationService,
@@ -65,6 +67,9 @@ export class ProductsComponent {
   }
   deleteProduct(productId:string){
     this.productService.deleteProduct(productId).subscribe(result =>{
+    })
+    this.depotItemService.deleteByProductId(productId).subscribe(result =>{
+
     })
     this.notificationService.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
   }

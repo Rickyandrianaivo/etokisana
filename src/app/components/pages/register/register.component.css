@@ -222,6 +222,10 @@ img{
 .mat-mdc-form-field-infix{
     padding-top: 0 !important;
 }
-.tel-form{
+/* .tel-form{
     width: 98%;
+} */
+ngx-material-intl-tel-input{
+    width: 98%;
+    padding: 0px 5px;
 }
