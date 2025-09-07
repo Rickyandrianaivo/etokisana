@@ -172,7 +172,7 @@
         }
         
         <div class="border-title">
-          <div class="title-bordre">Panier🛒</div>
+          <div class="title-bordre">Valorisation du produit</div>
           <div class="overflow">
             <table class="overflow">
               <tr class="tableRowCart tableHeader">
@@ -184,18 +184,26 @@
                 <td>Actions</td>
                 }
               </tr>
-              @if (currentItemStock && theProduct) {
+              @if (theProduct) {
                 <tr>
                   <td>{{ theProduct.productName }} </td>
-                  <td>{{ currentItemStock.price }}</td>
+                  @if (currentItemStock) {
+                    <td>{{ currentItemStock.price }}</td>
+
+                  }@else {
+
+                  }
+                  <td> 
+                    <input #s class="itemQty" type="text" [(ngModel)]="theProduct.CartItemQuantity" (keyup)="insertPrice(theProduct,s.value)" [value]="theProduct.CartItemQuantity" [ngModelOptions]="{standalone:true}"> 
+                  </td>
                   <div class="itemQtyContainer">
-                    <!-- <input #s class="itemQty" type="text" *ngIf="item.CartItemQuantity" [(ngModel)]="item.CartItemQuantity" (keyup)="insertQty(item,s.value)" [value]="item.CartItemQuantity" [ngModelOptions]="{standalone:true}"> -->
+                    <input #s class="itemQty" type="text" [(ngModel)]="theProduct.CartItemQuantity" (keyup)="insertQty(theProduct,s.value)" [value]="theProduct.CartItemQuantity" [ngModelOptions]="{standalone:true}">
                     <div class="itemQuantityButton">
-                      <!-- <button class="changeQte" (click)="qtUp(currentItemStock,currentItemStock.quantity, montantTotal)">➕</button>
-                      <button class="changeQte" (click)="qtDown(currentItemStock,currentItemStock.quantity, montantTotal)">➖</button> -->
+                      <button class="changeQte" (click)="qtUp(currentItemStock,currentItemStock.quantity, montantTotal)">➕</button>
+                      <button class="changeQte" (click)="qtDown(currentItemStock,currentItemStock.quantity, montantTotal)">➖</button>
                     </div>
                   </div>
-                  <td>{{ currentItemStock.montant }}</td>
+                  <td></td>
                 </tr>
               }@else {
                 <tr  class="tableRowCart tableRow" style="height:10px;" *ngFor="let item of cartItems" >

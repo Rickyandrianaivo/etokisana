@@ -64,7 +64,7 @@ export class DepotSitesComponent implements OnInit{
     }
     chooseSite(siteId:string){
       if (this.typeES == "depot") {
-        this.router.navigateByUrl("/choix-produit/"+this.typeES+"/"+siteId+"/"+this.productId)
+        this.router.navigateByUrl("/depot/"+siteId+"/"+this.productId)
       }
       
     }

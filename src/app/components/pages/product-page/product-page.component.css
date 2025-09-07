@@ -67,3 +67,13 @@ img{
 .imageSelection{
     background: none;
 }
+.image-container{
+    width: 50%;
+    height: 50vh;
+}
+.mainImage{
+    overflow: hidden;
+    object-fit:contain;
+    width: 100%;
+
+}

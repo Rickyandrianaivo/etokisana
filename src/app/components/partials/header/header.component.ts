@@ -90,4 +90,18 @@ export class HeaderComponent implements OnInit,OnChanges{
     this.userService.logout();
     this.router.navigateByUrl('login');
   }
+  opendialog(notificationId : string ){
+    this.notificationService.getNotificationById(notificationId).subscribe(selectedNotification =>{
+      this.notificationService.openNotificationDialog(
+        selectedNotification.title,
+        selectedNotification.message,
+        null,
+        false,
+      )
+    })
+    this.notificationService.updateNotification(notificationId,{
+      state: 'read',
+    })
+      
+  }
 }

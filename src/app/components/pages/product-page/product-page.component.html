@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="image-container">
-            <img src="{{imageDisplayed}}"/>
+            <img class=mainImage src="{{imageDisplayed}}"/>
             <div class="row">
                 @for (image of productImage; track $index) {
                     <button class="imageSelection" (click)="selectImage(image)">

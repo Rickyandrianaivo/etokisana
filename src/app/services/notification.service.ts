@@ -5,6 +5,7 @@ import { NOTIFICATION_ADD_URL, NOTIFICATION_BY_ID_URL, NOTIFICATION_BY_OWNER_URL
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationDialogComponent } from '../components/partials/notification-dialog/notification-dialog.component';
 import { Router } from '@angular/router';
+import { Notification } from '../shared/models/Notification';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class NotificationService {
     addNotification(NotificationData:Notification):Observable<Notification>{
       return this.http.post<Notification>(NOTIFICATION_ADD_URL,NotificationData);
     }
-    updateNotification( NotificationID:string,newNotificationData:Notification):Observable<Notification>{
+    updateNotification( NotificationID:string,newNotificationData:any){
       console.log(newNotificationData);
       return this.http.put<Notification>(NOTIFICATION_UPDATE_URL+NotificationID,newNotificationData);
     }

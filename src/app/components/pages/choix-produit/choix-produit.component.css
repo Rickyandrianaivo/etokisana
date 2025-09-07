@@ -49,6 +49,7 @@ button img{
 }
 img.apercu{
     max-width: 100%;
+    height: 30vh;
 }
 .row{
     display: flex;

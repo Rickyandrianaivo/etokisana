@@ -58,6 +58,7 @@ export class ChoixProduitComponent implements OnInit {
   addDepot : boolean = false;
   cartItemsHolder : any[]=[];
   imageDisplayed : string = "";
+  itemToStock : any;
 
 
   constructor(
@@ -75,6 +76,11 @@ export class ChoixProduitComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const currentItemToStock = {
+      stockItem : this.theProductId,
+      quantity : 0,
+      price : 0,
+    }
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
     this.currentUser = this.userService.getUserFromLocalStorage();
     this.productService.getAll().subscribe(productAll =>{
@@ -384,14 +390,14 @@ export class ChoixProduitComponent implements OnInit {
 
   
 
-  // insertQty(item : CartItem, itemCartItemQuantity : string){
-  //   const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
-  //   // console.log(itemCartItemQuantity)
-  //   let newCartItemPrice
+  insertQty(item : CartItem, itemCartItemQuantity : string){
+    const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
+    // console.log(itemCartItemQuantity)
+    // let newCartItemPrice
     
-  //   newCartItemPrice = item.depotItem.price  * intItemCartItemQuantity;
-  //   this.changeCartItemQuantity(item,intItemCartItemQuantity);
-  // }
+    // newCartItemPrice = item.depotItem.price  * intItemCartItemQuantity;
+    this.changeCartItemQuantity(item,intItemCartItemQuantity);
+  }
   insertPrice(item : CartItem, itemCartItemPrice : string){
     const intItemCartItemPrice = parseInt(itemCartItemPrice);
     // console.log(intItemCartItemPrice)
