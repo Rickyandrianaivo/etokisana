@@ -124,3 +124,9 @@ button:hover{
 mat-menu{
     width: 5rem;
 }
+button{
+    color:rgb(108, 146, 253);    
+}
+.material-icons{
+    font-size: 22px;
+}

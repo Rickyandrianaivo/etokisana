@@ -25,8 +25,8 @@ import { DepotItemService } from 'src/app/services/depot-item.service';
   standalone: true,
   imports: [
     HeaderComponent,
-    NgFor,
-    NgIf,
+    // NgFor,
+    // NgIf,
     // NgModel,
     FormsModule,
     ReactiveFormsModule,

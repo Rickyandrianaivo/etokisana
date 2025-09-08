@@ -9,6 +9,7 @@ import { AvatarModule } from 'ngx-avatars';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule }  from '@angular/material/badge';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     AvatarModule,
     MatMenuModule,
     MatButtonModule,
+    MatBadgeModule,
+
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -30,6 +33,7 @@ export class HeaderComponent implements OnInit,OnChanges{
   isLoged : boolean = false;
   isUser?:User;
   user : User = new User();
+  notificaitonTotal : number = 0;
   constructor(
     private userService : UserService,
     private router:Router,
@@ -48,8 +52,14 @@ export class HeaderComponent implements OnInit,OnChanges{
         }
 
         this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allNotif =>{
+          console.log(allNotif)
           this.notifications = allNotif;
+          this.notificaitonTotal = this.notifications.length;
         })
+        this.notificationService.getAll().subscribe(result =>{
+          this.notifications = result;
+        })
+        console.log("Notiifaction list : " + this.notifications[0])
       })
       this.isLoged = true;
        if (this.isUser.userEmail!=null) {
@@ -64,9 +74,6 @@ export class HeaderComponent implements OnInit,OnChanges{
     }else{
       this.isLoged = false;
     }
-
-    
-   
   }
 
   ngOnInit(): void {

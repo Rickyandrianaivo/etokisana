@@ -26,19 +26,32 @@
                             </a>
                         </li>
                         <li>
-                            <mat-menu #beforeMenu="matMenu" xPosition="before">
-                                @for (notification of notifications; track $index) {
-                                    <button mat-menu-item style="text-decoration: none;color:black;font-size: larger;background: none;" (click)="opendialog(notification._id)"></button>
+                            <button matButton [matMenuTriggerFor]="notificationMenu">
+                                @if (notificaitonTotal>0) {
+                                    <mat-icon class="icon-bell"  [matBadge]="notificaitonTotal">notifications_active</mat-icon>
+                                }@else {
+                                    <mat-icon class="icon-bell" >notifications</mat-icon>
                                 }
+                            </button>
+                            <mat-menu #notificationMenu="matMenu" xPosition="before">
+                                    @if (notificaitonTotal>0) {
+                                @for (notification of notifications; track $index) {
+                                    <button  mat-menu-item style="text-decoration: none;color:black;font-size: larger;background: none;" (click)="opendialog(notification._id)">
+                                        {{ notification.title }} <br>
+                                        {{ notification.message }}
+                                    </button>
+                                }
+                            }
                             </mat-menu>
+                            
                         </li>
 
-                        <button class="profil-btn" matButton [matMenuTriggerFor]="beforeMenu"><ngx-avatars size="30" [src]="user.userImage"></ngx-avatars></button>
-                            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                        <button class="profil-btn" matButton [matMenuTriggerFor]="profileMenu"><ngx-avatars size="30" [src]="user.userImage"></ngx-avatars></button>
+                            <mat-menu #profileMenu="matMenu" xPosition="before">
                                 <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/client-area">
-                                            <ngx-avatars size="50" [src]="user.userImage"></ngx-avatars> <br>
-                                            {{user.userName}} {{user.userFirstname}}
-                                        </a>
+                                    <ngx-avatars size="50" [src]="user.userImage"></ngx-avatars> <br>
+                                    {{user.userName}} {{user.userFirstname}}
+                                </a>
                                 <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/client-profile">Mon compte</a>
                                 @if (user.userValidated) {
                                     <a mat-menu-item style="text-decoration: none;color:black;font-size: larger;" routerLink="/user-products">Mes produits</a>
