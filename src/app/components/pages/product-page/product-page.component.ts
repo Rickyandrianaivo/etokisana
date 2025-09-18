@@ -8,6 +8,10 @@ import { CartService } from 'src/app/services/cart.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { DepotItemService } from 'src/app/services/depot-item.service';
+import { DepotItem } from 'src/app/shared/models/DepotItem';
+import { SiteService } from 'src/app/services/site.service';
+import { Site } from 'src/app/shared/models/Sites';
 
 @Component({
   selector: 'app-product-page',
@@ -28,6 +32,8 @@ export class ProductPageComponent implements OnInit{
   currentuser : any;
   userAccess !: string ;
   imageDisplayed : string ="";
+  currentStock ?: DepotItem[];
+  userDepotList : any[] = [];
   constructor(
     private productService:ProductService,
     private cartService : CartService,
@@ -35,6 +41,8 @@ export class ProductPageComponent implements OnInit{
     private router : Router,
     private userService : UserService,
     private notificationService : NotificationService,
+    private depotItemService : DepotItemService,
+    private siteService : SiteService,
   ){
     this.currentuser = this.userService.getUserFromLocalStorage();
 
@@ -49,6 +57,10 @@ export class ProductPageComponent implements OnInit{
         this.productImage=productDist.productImage;
         this.imageDisplayed = this.productImage[0];
       })
+    })
+    this.getUserDepot(this.currentuser.userId);
+    this.userDepotList.forEach(site =>{
+      this.getStock(this.productId,site._id);
     })
   }
 
@@ -77,6 +89,20 @@ export class ProductPageComponent implements OnInit{
   stockerDansDepot(productId:string){
     this.router.navigateByUrl('/depot-sites/depot/'+this.currentuser.userId+"/"+productId)
   }
+  getUserDepot(userId : string ){
+    this.siteService.getSiteByUserId(userId).subscribe(listDepot=>{
+      this.userDepotList = listDepot;
+    })
+  }
+
+  getStock(productId : string , depotId : string ){
+    this.depotItemService.getStock(productId,depotId).subscribe(currentStock =>{
+      if (currentStock) {
+        this.currentStock?.push(currentStock);
+      }
+    })
+  }
+
   back(){
     this.router.navigateByUrl('/user-products');
   }
