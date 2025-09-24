@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../../../shared/models/User';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
@@ -10,6 +10,9 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule }  from '@angular/material/badge';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationDialogComponent } from '../notification-dialog/notification-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -22,12 +25,14 @@ import { MatBadgeModule }  from '@angular/material/badge';
     MatMenuModule,
     MatButtonModule,
     MatBadgeModule,
+    TruncatePipe,
 
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit,OnChanges{
+  readonly dialog = inject(MatDialog);
 // subscriptions : Subscription[] = [];
   notifications : any[]=[];
   isLoged : boolean = false;
@@ -56,10 +61,6 @@ export class HeaderComponent implements OnInit,OnChanges{
           this.notifications = allNotif;
           this.notificaitonTotal = this.notifications.length;
         })
-        this.notificationService.getAll().subscribe(result =>{
-          this.notifications = result;
-        })
-        console.log("Notiifaction list : " + this.notifications[0])
       })
       this.isLoged = true;
        if (this.isUser.userEmail!=null) {
@@ -97,18 +98,38 @@ export class HeaderComponent implements OnInit,OnChanges{
     this.userService.logout();
     this.router.navigateByUrl('login');
   }
-  opendialog(notificationId : string ){
-    this.notificationService.getNotificationById(notificationId).subscribe(selectedNotification =>{
-      this.notificationService.openNotificationDialog(
-        selectedNotification.title,
-        selectedNotification.message,
+  opendialog(notificationTitle : string,notificationMessage : string,notificationId:string ){
+      
+    this.notificationService.openNotificationDialog(
+        notificationTitle,
+        notificationMessage,
         null,
         false,
       )
-    })
-    this.notificationService.updateNotification(notificationId,{
-      state: 'read',
-    })
+    
       
   }
+
+  openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false , notificationId:string){
+      const dialogRef = this.dialog.open(NotificationDialogComponent,{
+        data : {
+          title,
+          message
+        }
+      })
+      dialogRef.afterClosed().subscribe(result=>{
+        if (result == true && !url && reload == true) {
+          this.notificationService.updateNotification(notificationId,{
+          states: "read",
+        }).subscribe(result=>{
+          console.log(result)
+        })
+          // window.location.reload();
+          return;
+        }
+        if(result == true && url && reload == false){
+          this.router.navigateByUrl(url);
+        }
+      })
+    }
 }

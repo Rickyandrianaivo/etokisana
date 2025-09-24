@@ -35,24 +35,27 @@
             <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
         </div>
     </div>
-    @if (currentStock) {
+    @if (currentStock && currentStock.length > 0) {
         <h2>Informations de stock</h2>
-        <div class="row">
-            <table>
-                <tr>
-                    <td>Stock : </td>
-                    <td> {{ currentStock.stock }} </td>
-                </tr>
-                <tr>
-                    <td>Prix unitaire : </td>
-                    <td> {{ currentStock.price }} </td>
-                </tr>
-                <tr>
-                    <td>Depot : </td>
-                    <td> {{ currentStock.currentDepotId }} </td>
-                </tr>
-            </table>
-        </div>
+        @for (depotItem of currentStock; track $index) {
+            <div class="row">
+                <table>
+                    <tr>
+                        <td>Stock : </td>
+                        <td> {{ depotItem.stock }} </td>
+                    </tr>
+                    <tr>
+                        <td>Prix unitaire : </td>
+                        <td> {{ depotItem.price }} </td>
+                    </tr>
+                    <tr>
+                        <td>Depot : </td>
+                        <td> {{ depotItem.currentDepotId }} </td>
+                    </tr>
+                </table>
+            </div>
+        }
+        
     }
     
     <div class="row">

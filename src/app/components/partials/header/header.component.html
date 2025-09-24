@@ -36,9 +36,9 @@
                             <mat-menu #notificationMenu="matMenu" xPosition="before">
                                     @if (notificaitonTotal>0) {
                                 @for (notification of notifications; track $index) {
-                                    <button  mat-menu-item style="text-decoration: none;color:black;font-size: larger;background: none;" (click)="opendialog(notification._id)">
-                                        {{ notification.title }} <br>
-                                        {{ notification.message }}
+                                    <button mat-menu-item style="text-decoration: none;background: none;" (click)="openNotificationDialog(notification.title,notification.message,null,false,notification._id)">
+                                        <span class="notif-title">{{ notification.title }}@if (notification.states == "new") {<span class="new">new</span>  }</span><br>
+                                        <span class="notif-text">{{ notification.message | truncate:50}}</span>                                        
                                     </button>
                                 }
                             }

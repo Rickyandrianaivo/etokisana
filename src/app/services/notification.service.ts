@@ -30,7 +30,7 @@ export class NotificationService {
   }
   updateNotification( NotificationID:string,newNotificationData:any){
     console.log(newNotificationData);
-    return this.http.put<Notification>(NOTIFICATION_UPDATE_URL+NotificationID,newNotificationData);
+    return this.http.patch<Notification>(NOTIFICATION_UPDATE_URL+NotificationID,newNotificationData);
   }
   deleteNotification(NotificationId:string){
     return this.http.delete(NOTIFICATION_REMOVE_URL+NotificationId);

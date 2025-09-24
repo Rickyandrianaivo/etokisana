@@ -130,3 +130,19 @@ button{
 .material-icons{
     font-size: 22px;
 }
+.notif-title{
+    color: rgb(108, 146, 253);
+    font-size: small;
+}
+.notif-text{
+    color: rgb(0, 0, 0);
+    font-size: x-small;
+}
+.new{
+    border-radius: 50%;
+    background-color: rgb(153, 0, 0);
+    color: white;
+    font-size: xx-small;
+    position: absolute;
+    padding: 0px 3px;
+}
