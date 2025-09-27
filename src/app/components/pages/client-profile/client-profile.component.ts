@@ -60,27 +60,27 @@ export class ClientProfileComponent implements OnInit{
 
       
     })
-    if (this.user) {
-      this.userForm = this.formBuilder.group({
-            // userNickName  : [this.user.userNickName],
-            userName      : [this.user.userName],
-            userFirstname : [this.user.userFirstname],
-            userEmail     : [this.user.userEmail],
-            userPhone     : [this.user.userPhone],
-            userAddress   : [this.user.userAddress],
-          })
-          this.corporateForm = this.formBuilder.group({
-            raisonSocial  : [''],
-            userNif       : [''],
-            userRCS       : [''],
-            managerName   : [''],
-            managerEmail  : [''],
-            contactName   : [''],
-            contactEmail  : [''],
-            userPhone     : [''],
-            userAddress   : [''],
-          })
-    }
+    // if (this.user) {
+    //   this.userForm = this.formBuilder.group({
+    //         // userNickName  : [this.user.userNickName],
+    //         userName      : [this.user.userName],
+    //         userFirstname : [this.user.userFirstname],
+    //         userEmail     : [this.user.userEmail],
+    //         userPhone     : [this.user.userPhone],
+    //         userAddress   : [this.user.userAddress],
+    //       })
+    //       this.corporateForm = this.formBuilder.group({
+    //         raisonSocial  : [''],
+    //         userNif       : [''],
+    //         userRCS       : [''],
+    //         managerName   : [''],
+    //         managerEmail  : [''],
+    //         contactName   : [''],
+    //         contactEmail  : [''],
+    //         userPhone     : [''],
+    //         userAddress   : [''],
+    //       })
+    // }
     
   }
   get fc(){

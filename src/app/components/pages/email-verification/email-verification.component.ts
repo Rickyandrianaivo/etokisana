@@ -61,6 +61,7 @@ export class EmailVerificationComponent implements OnInit{
           alert("Confirmation successfull!")
         })
       })
+  
 }
   ngOnInit(): void {
       

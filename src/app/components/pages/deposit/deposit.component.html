@@ -33,6 +33,7 @@
                     </div>
                 </mat-tab>
                 </mat-tab-group> 
+                <app-default-button text="Changer de produit" type="submit" (click)="changeProduct()"></app-default-button>
               </div>
             </div>
           </div>
@@ -125,13 +126,13 @@
                         <td> 
                             <input #s class="itemQty" type="text" [(ngModel)]="itemToStock.price" (keyup)="insertPrice(s.value)" [value]="itemToStock.price " [ngModelOptions]="{standalone:true}"> 
                         </td>
-                        <div class="itemQtyContainer">
+                        <td class="itemQtyContainer">
                             <input #s class="itemQty" type="text" [(ngModel)]="itemToStock.quantity" (keyup)="insertQty(s.value)" [value]="itemToStock.quantity" [ngModelOptions]="{standalone:true}">
                             <div class="itemQuantityButton">
                             <button class="changeQte" (click)="qtUp()">➕</button>
                             <button class="changeQte" (click)="qtDown(itemToStock.quantity)">➖</button>
                             </div>
-                        </div>
+                        </td>
                         <td> {{montantTotal}}</td>
                         </tr>
                     }@else {

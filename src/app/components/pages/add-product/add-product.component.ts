@@ -18,6 +18,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { map, Observable, startWith } from 'rxjs';
 import { NotificationDialogComponent } from '../../partials/notification-dialog/notification-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification.service';
 // import {MatStepperModule} from '@angular/material/stepper';
 
 export interface Category{
@@ -70,7 +71,8 @@ export class AddProductComponent implements OnInit {
     private productService:ProductService,
     private formBuilder:FormBuilder,
     private router:Router,
-    private userService:UserService
+    private userService:UserService,
+    private notificationService : NotificationService,
   ){
     this.currentUser  = this.userService.getUserFromLocalStorage();
     this.filteredCat = this.catCtrl.valueChanges.pipe(
@@ -168,35 +170,45 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.controls;
   }
   submit(){
-    this.isSubmitted =true;
-    if (this.addProductForm.invalid){ 
-        console.log(this.addProductForm.getError);
-        alert("Veuillez remplir correctement les champs obligatoires!");
-        return;
-      }
+    // this.isSubmitted =true;
+    // if (this.addProductForm.invalid){ 
+    //     console.log(this.addProductForm.getError);
+    //     alert("Veuillez remplir correctement les champs obligatoires!");
+    //     return;
+    //   }
     
-    const fv = this.addProductForm.value;
-    console.log(fv.userName);
-    this.product = {
-      _id               :"",
-      codeCPC           : this.selectedCode,
-      productName       : fv.productName,
-      productDescription: fv.productDescription,
-      productCategory   : this.selectedCat,
-      productState      : "En attente",
-      productValidation : false,
-      productImage      : this.productImage,
-      productHauteur    : fv.productHauteur,
-      productLargeur    : fv.productLargeur,
-      productLongueur   : fv.productLongueur,
-      productPoids      : fv.productPoids,
-      productVolume     : fv.productVolume,
-      productOwnerId    : this.currentUser.userId, 
-      isStocker         : false,
-    };
-    this.productService.addProduct(this.product).subscribe(_ => {
-      this.openNotificationDialog("Produit en attente de validation","Un email vous sera envoyé dès que le produit sera approuvé, merci de votre patience.","user-products",false,)
-      this.router.navigateByUrl("user-products");
+    // const fv = this.addProductForm.value;
+    // console.log(fv.userName);
+    // this.product = {
+    //   _id               :"",
+    //   codeCPC           : this.selectedCode,
+    //   productName       : fv.productName,
+    //   productDescription: fv.productDescription,
+    //   productCategory   : this.selectedCat,
+    //   productState      : "En attente",
+    //   productValidation : false,
+    //   productImage      : this.productImage,
+    //   productHauteur    : fv.productHauteur,
+    //   productLargeur    : fv.productLargeur,
+    //   productLongueur   : fv.productLongueur,
+    //   productPoids      : fv.productPoids,
+    //   productVolume     : fv.productVolume,
+    //   productOwnerId    : this.currentUser.userId, 
+    //   isStocker         : false,
+    // };
+    // this.productService.addProduct(this.product).subscribe(_ => {
+    //   this.openNotificationDialog("Produit en attente de validation","Un email vous sera envoyé dès que le produit sera approuvé, merci de votre patience.","user-products",false,)
+    //   this.router.navigateByUrl("user-products");
+    // })
+    const notifCreationProduit = {
+      userId : this.currentUser.userId,
+      title : "Produit créé",
+      message : "Votre produit est en cours de validation",
+      state : "new",
+    }
+    console.log(notifCreationProduit);
+    this.notificationService.addNotification(notifCreationProduit).subscribe(result=>{
+      console.log(result);
     })
   }
   openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){

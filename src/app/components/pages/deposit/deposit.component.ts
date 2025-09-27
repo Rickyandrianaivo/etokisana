@@ -25,13 +25,9 @@ import { DepotItemService } from 'src/app/services/depot-item.service';
   standalone: true,
   imports: [
     HeaderComponent,
-    // NgFor,
-    // NgIf,
-    // NgModel,
     FormsModule,
     ReactiveFormsModule,
     DefaultButtonComponent,
-    // TextInputComponent,
     UpperCasePipe,
     RouterLink,
     MatTabsModule,
@@ -139,7 +135,8 @@ export class DepositComponent {
 
   insertQty(itemCartItemQuantity : string){
     const intItemCartItemQuantity = parseInt(itemCartItemQuantity);
-    this.changeCartItemQuantity(intItemCartItemQuantity);
+    console.log(intItemCartItemQuantity)
+    // this.changeCartItemQuantity(intItemCartItemQuantity);
   }
   insertPrice(itemCartItemPrice : string){
     const intItemCartItemPrice = parseInt(itemCartItemPrice);
@@ -150,11 +147,15 @@ export class DepositComponent {
     console.log(this.montantTotal);
   }
   
+  changeProduct(){
+    this.router.navigateByUrl('/user-products')
+  }
+
   submit(){
     let depotItemData:DepotItem = {
       productId : this.theProductId,
       stock: this.itemToStock.quantity,
-      price   : this.itemToStock.price,
+      prix   : this.itemToStock.price,
       lastUpdate : new Date(),
       currentDepotId : this.depotId,
     }
@@ -170,6 +171,15 @@ export class DepositComponent {
         'user-products',
         false
       )
+    })
+    const NotifProductdeleted ={
+      userId: this.currentUser.userId,
+      title : "Nouveau produit stocké",
+      message : "Produit stocké avec avec succès !",
+      state : "new",
+    }
+    this.notificationService.addNotification(NotifProductdeleted).subscribe(result =>{
+      console.log(result)
     })
   }
 }

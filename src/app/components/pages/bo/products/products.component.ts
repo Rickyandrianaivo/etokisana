@@ -36,6 +36,7 @@ export class ProductsComponent {
   productsList:any[] = [];
   displayedColumns: string[] = ['Photo','CPC','Category','Nom', 'Description', 'Statut','Poids','Volume','Largeur','Longueur','Hauteur','Utilisateur','Action'];
   logedUser : any;
+  ownerUser : any;
   constructor(
     private productService: ProductService,
     private depotItemService : DepotItemService,
@@ -49,6 +50,7 @@ export class ProductsComponent {
         this.router.navigateByUrl('home')
       }
     });
+    
     this.productService.getAll().subscribe(productAll=>{
       this.productsList = productAll;
       console.log(this.productsList[0])
@@ -64,6 +66,21 @@ export class ProductsComponent {
     this.productService.updateProduct(productId, updateData).subscribe(result =>{
     })
     this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",null,true);
+    this.productService.getProductById(productId).subscribe(theproduct=>{
+      this.userService.getUserByUserId(theproduct.productOwnerId).subscribe(OwnerUser =>{
+        const NotifProductdeleted ={
+          userId: OwnerUser.userId,
+          title : "Produit validé",
+          message : "Produit ajouter au système, vous pouver le stocker et le valoriser",
+          state : "new",
+        }
+        this.notificationService.addNotification(NotifProductdeleted).subscribe(result =>{
+          console.log(result)
+        })
+      })
+      
+    })
+    
   }
   deleteProduct(productId:string){
     this.productService.deleteProduct(productId).subscribe(result =>{
@@ -71,6 +88,16 @@ export class ProductsComponent {
     this.depotItemService.deleteByProductId(productId).subscribe(result =>{
 
     })
+    const NotifProductdeleted ={
+      userId: this.ownerUser.userId,
+      title : "Produit supprimé",
+      message : "Produit retiré du marché avec succès !",
+      state : "new",
+    }
+    this.notificationService.addNotification(NotifProductdeleted).subscribe(result =>{
+      console.log(result)
+    })
     this.notificationService.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
+    
   }
 }

@@ -464,7 +464,7 @@ submit(){
         let depotItempData:DepotItem = {
           productId : cartItem.depotItem,
           stock: cartItem.quantity,
-          price   : cartItem.price,
+          prix   : cartItem.price,
           lastUpdate : new Date(),
           currentDepotId : this.depotId,
         }

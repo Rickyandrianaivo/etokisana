@@ -27,7 +27,7 @@ export const DEPOTITEM_MODIFY_DEPOT_ITEM_URL                = DEPOTITEM_URL + 'u
 export const DEPOTITEM_DELETE_DEPOT_ITEM_BY_PRODCUT_ID_URL  = DEPOTITEM_URL + 'deleteByProductId/';
 export const DEPOTITEM_DELETE_DEPOT_ITEM_URL                = DEPOTITEM_URL + 'delete/';
 export const DEPOTITEM_BY_PRODUCT_ID_URL                    = DEPOTITEM_URL + 'ByProductId/'
-export const DEPOTITEM_GET_STOCK_URL                        = DEPOTITEM_URL + 'stock/'
+export const DEPOTITEM_GET_STOCK_URL                        = DEPOTITEM_URL + 'getStock/'
 
 export const UPLOAD_IMAGE_URL              = PRODUCT_URL + 'upload-image/';
 

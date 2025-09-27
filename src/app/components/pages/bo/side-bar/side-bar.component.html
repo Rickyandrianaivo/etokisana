@@ -1,15 +1,11 @@
 <div class="side-bar">
     <ul>
         <li><a routerLink="/"><div class="logo"><img src="newlogo.png" alt="Logo etokisana"></div></a></li>
-        <!-- <li style="display: flex;"><h3 style="margin: 0;">{{ user.userFirstname }}</h3><button (click)="logout()" style="background: none;"><mat-icon>input</mat-icon></button></li> -->
         <li style="display: flex;"><h3 style="margin: 0;">{{ user.userFirstname }}</h3></li>
-        <!-- <li><a routerLink="/transactions"><h4>{{adminBalance}}</h4></a></li> -->
         <li><a routerLink="/dashboard" routerLinkActive="active"><mat-icon>account_circle</mat-icon>Tableau de bord</a></li> 
         <li><a routerLink="/users" routerLinkActive="active"><mat-icon>account_circle</mat-icon>Users</a></li>
         <li><a routerLink="/products" routerLinkActive="active"><mat-icon>important_devices</mat-icon>Produits</a></li>
         <li><a routerLink="/categories" routerLinkActive="active"><mat-icon>list</mat-icon>Catégories</a></li>
-        <li><a routerLink="/login" routerLinkActive="active"><mat-icon>input</mat-icon>Se déconnecter</a><button (click)="logout()" style="background: none;"></button></li>
-        <!-- <li><a routerLink="/transactions" routerLinkActive="active"><mat-icon>cached</mat-icon>Transactions</a></li> -->
-        <!-- <a onclick="logout()"><li>Déconnexion</li></a> -->
+        <li><a routerLink="/login" routerLinkActive="active" (click)="logout()"><mat-icon>input</mat-icon>Se déconnecter</a></li>
     </ul>
 </div>

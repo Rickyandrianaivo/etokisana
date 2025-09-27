@@ -12,6 +12,7 @@ import { AvatarModule } from 'ngx-avatars';
 import { ValidationDialogComponent } from 'src/app/components/partials/validation-dialog/validation-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NotificationDialogComponent } from 'src/app/components/partials/notification-dialog/notification-dialog.component';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-users',
@@ -41,7 +42,8 @@ export class UsersComponent implements OnInit{
 
   constructor(
     private userService:UserService,
-    private router : Router
+    private router : Router,
+    private notificationService:NotificationService,
   ){
     this.logedUser = this.userService.getUserFromLocalStorage();
     this.userService.getUserByEmail(this.logedUser.userEmail).subscribe(userCurrent =>{
@@ -75,9 +77,18 @@ export class UsersComponent implements OnInit{
     })
   }
   onCheckBoxValidationChange(dbId:string){
-    this.userService.getUserById(dbId).subscribe(_=>{
+    this.userService.getUserById(dbId).subscribe(userDb=>{
       this.userService.validateUser(dbId).subscribe(_=>{
         this.openNotificationDialog("Validation réussie","L'utilisateur est approuvé. Un email lui a été envoyé")
+        const NotfiUserValidate ={
+          userId: userDb.userId,
+          title : "Inscription validée",
+          message : "Votre inscription est terminée !",
+          state : "new",
+        }
+        this.notificationService.addNotification(NotfiUserValidate).subscribe(result =>{
+          console.log(result)
+        })
       })
     })
   }

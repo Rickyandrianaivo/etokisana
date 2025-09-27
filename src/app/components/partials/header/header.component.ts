@@ -56,10 +56,13 @@ export class HeaderComponent implements OnInit,OnChanges{
           this.userService.checkUserDeleted();
         }
 
-        this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allNotif =>{
-          console.log(allNotif)
-          this.notifications = allNotif;
-          this.notificaitonTotal = this.notifications.length;
+        this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allOwnerNotif =>{
+          this.notifications = allOwnerNotif;
+          this.notifications.forEach(notif =>{
+            if(notif.state == "new"){
+              this.notificaitonTotal++;
+            }
+          })
         })
       })
       this.isLoged = true;
@@ -98,19 +101,22 @@ export class HeaderComponent implements OnInit,OnChanges{
     this.userService.logout();
     this.router.navigateByUrl('login');
   }
-  opendialog(notificationTitle : string,notificationMessage : string,notificationId:string ){
+  // opendialog(notificationTitle : string,notificationMessage : string,notificationId:string ){
       
-    this.notificationService.openNotificationDialog(
-        notificationTitle,
-        notificationMessage,
-        null,
-        false,
-      )
+  //   this.notificationService.openNotificationDialog(
+  //       notificationTitle,
+  //       notificationMessage,
+  //       null,
+  //       false,
+  //     )
     
       
-  }
+  // }
 
-  openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false , notificationId:string){
+  openNotificationDialog(title:string , message:string, url : string | null = null,reload:boolean =true , notificationId:string){
+      this.notificationService.updateNotification(notificationId,{state: "read",}).subscribe(result=>{
+        console.log(result)
+      })
       const dialogRef = this.dialog.open(NotificationDialogComponent,{
         data : {
           title,
@@ -118,13 +124,10 @@ export class HeaderComponent implements OnInit,OnChanges{
         }
       })
       dialogRef.afterClosed().subscribe(result=>{
+        
         if (result == true && !url && reload == true) {
-          this.notificationService.updateNotification(notificationId,{
-          states: "read",
-        }).subscribe(result=>{
-          console.log(result)
-        })
-          // window.location.reload();
+          
+          window.location.reload();
           return;
         }
         if(result == true && url && reload == false){

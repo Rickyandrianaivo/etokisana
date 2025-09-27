@@ -1,9 +1,10 @@
 import { Product } from "./Product";
 
 export class DepotItem{
+    _id             ?:string;
     productId       !: string;
     stock           !: number;
-    price           !: number;
+    prix           !: number;
     lastUpdate      !: Date;
     currentDepotId  !: string;
 }

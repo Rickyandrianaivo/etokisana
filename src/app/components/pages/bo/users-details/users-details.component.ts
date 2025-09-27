@@ -120,11 +120,21 @@ export class UsersDetailsComponent implements OnInit{
   ValidateRegistration(){
     this.userService.validateUser(this.theUser._id,).subscribe(_=>{
     })
+    const NotfiUserValidate ={
+          userId: this.theUser.userId,
+          title : "Inscription validée",
+          message : "Votre inscription est terminée !",
+          state : "new",
+        }
+    this.notificationService.addNotification(NotfiUserValidate).subscribe(result =>{
+      console.log(result)
+    })
     this.notificationService.openNotificationDialog(
       "Utilisateur validé",
       "Cette utilisateur a été approuvé et a accès à toutes les fonctionnalités de la plateforme",
       "dashboard",
       false);
+    
   }
 }
 

@@ -38,8 +38,8 @@ export class CartService {
         const newCartItem:CartItem = {
         depotItem : depotItemId,
         quantity : 1,
-        price : depotItemFs.price,
-        montant: depotItemFs.price * 1,
+        price : depotItemFs.prix,
+        montant: depotItemFs.prix * 1,
       }
       this.cart.items.push(newCartItem);
       this.setCartToLocalStorage();
@@ -68,7 +68,7 @@ export class CartService {
 
   qtUp(item:CartItem,itemQte:number,currentCartItemPriceTotal:number){
     const newQt = itemQte+1;
-    const newCartItemPriceTotal = currentCartItemPriceTotal + this.getTheDepotItem(item.depotItem).price;
+    const newCartItemPriceTotal = currentCartItemPriceTotal + this.getTheDepotItem(item.depotItem).prix;
     this.changeCartItemQuantity(item,newQt);
   }
 
@@ -130,7 +130,7 @@ export class CartService {
     
     let newCartItemPrice
     
-    newCartItemPrice = this.getTheDepotItem(item.depotItem).price  * intItemCartItemQuantity;
+    newCartItemPrice = this.getTheDepotItem(item.depotItem).prix  * intItemCartItemQuantity;
     this.changeCartItemQuantity(item,intItemCartItemQuantity);
   }
 

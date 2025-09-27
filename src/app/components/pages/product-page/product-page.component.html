@@ -11,7 +11,6 @@
                 }
             </div>
         </div>
-        
         <div class="content-container">
             @if (theProduct) {
                 <p>Code CPC : <span>{{theProduct.codeCPC}}</span></p>
@@ -31,10 +30,29 @@
             </mat-tab>
         </mat-tab-group> 
             }
-            
             <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
         </div>
     </div>
+    @if (userDepotList) {
+        <table style="margin : 0px;">
+            <tr>
+                <td>Site</td>
+                <td>Stock</td>
+                <td>Prix</td>
+                <td>Valeur Totale</td>
+                <td>Actions</td>
+            </tr>
+        @for (site of depotItemData; track $index) {
+            <tr>
+                <td>{{ site.site }}</td>
+                <td> {{site.stock}} </td>
+                <td> {{site.price}} </td>
+                <td> {{site.stock * site.price}} </td>
+                <td> @if(site.stock != 0){<button (click)="deleteDepotItem(site.depotItemId)"> <mat-icon>delete</mat-icon> </button> } </td>
+            </tr>
+            }
+        </table>
+    }
     @if (currentStock && currentStock.length > 0) {
         <h2>Informations de stock</h2>
         @for (depotItem of currentStock; track $index) {
@@ -46,7 +64,7 @@
                     </tr>
                     <tr>
                         <td>Prix unitaire : </td>
-                        <td> {{ depotItem.price }} </td>
+                        <td> {{ depotItem.prix }} </td>
                     </tr>
                     <tr>
                         <td>Depot : </td>
@@ -55,7 +73,6 @@
                 </table>
             </div>
         }
-        
     }
     
     <div class="row">

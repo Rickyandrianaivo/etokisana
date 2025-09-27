@@ -10,6 +10,7 @@ import { DepotItemService } from 'src/app/services/depot-item.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 import { SiteService } from 'src/app/services/site.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -34,6 +35,7 @@ export class ProductDetailsComponent {
   depotItemId : string  = "";
   theDepotItem : any;
   depotInfos:any;
+  ownerUser : any ;
   constructor(
     private productService:ProductService,
     private activatedRoute:ActivatedRoute,
@@ -42,7 +44,9 @@ export class ProductDetailsComponent {
     private notificationService : NotificationService,
     private siteService:SiteService,
     private cartService : CartService,
+    private userService : UserService,
   ){
+    this.ownerUser = this.userService.getUserFromLocalStorage();
     this.activatedRoute.params.subscribe(params=>{
       this.productId = params['id'];
       this.depotItemId = params['depotItemId'];
@@ -69,6 +73,15 @@ export class ProductDetailsComponent {
   validateProduct(productId : string){
     this.productService.updateProduct(productId,{productValidation:true,productState:"Approuvé"}).subscribe(_=>{
 
+    })
+    const NotifValidateProduct={
+      userId: this.ownerUser.userId,
+      title : "Produit validé",
+      message : "Produit ajouter au système, vous pouver le stocker et le valoriser",
+      state : "new",
+    }
+    this.notificationService.addNotification(NotifValidateProduct).subscribe(result=>{
+      console.log(result);
     })
     this.notificationService.openNotificationDialog(
       "Produit approuvé !",

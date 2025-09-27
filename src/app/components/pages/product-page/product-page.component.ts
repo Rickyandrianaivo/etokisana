@@ -12,6 +12,7 @@ import { DepotItemService } from 'src/app/services/depot-item.service';
 import { DepotItem } from 'src/app/shared/models/DepotItem';
 import { SiteService } from 'src/app/services/site.service';
 import { Site } from 'src/app/shared/models/Sites';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-page',
@@ -19,8 +20,8 @@ import { Site } from 'src/app/shared/models/Sites';
   imports: [
     DefaultButtonComponent,
     HeaderComponent,
-    // NgIf,
     MatTabsModule,
+    MatIconModule,
   ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
@@ -34,6 +35,7 @@ export class ProductPageComponent implements OnInit{
   imageDisplayed : string ="";
   currentStock ?: DepotItem[];
   userDepotList : any[] = [];
+  depotItemData : any[] = [];
   constructor(
     private productService:ProductService,
     private cartService : CartService,
@@ -58,9 +60,32 @@ export class ProductPageComponent implements OnInit{
         this.imageDisplayed = this.productImage[0];
       })
     })
-    this.getUserDepot(this.currentuser.userId);
-    this.userDepotList.forEach(site =>{
-      this.getStock(this.productId,site._id);
+    this.siteService.getSiteByUserId(this.currentuser.userId).subscribe(allDepot =>{
+      this.userDepotList = allDepot;
+      console.log(this.userDepotList)
+      this.userDepotList.forEach(site =>{
+        this.depotItemService.getStock(this.productId,site._id).subscribe(depotItemSelected=>{
+          let newDepotItemStock
+          console.log(depotItemSelected);
+          if (depotItemSelected) {
+            newDepotItemStock = {
+              site : site.siteName+ site.siteAddress,
+              price : depotItemSelected.prix,
+              stock : depotItemSelected.stock,
+              depotItemId : depotItemSelected._id,
+            }
+            
+          }else{
+              newDepotItemStock = {
+              site : site.siteName+ site.siteAddress,
+              price : 0,
+              stock : 0,
+              depotItemId : 0,
+            }
+          }
+          this.depotItemData.push(newDepotItemStock);
+        })
+      })
     })
   }
 
@@ -89,19 +114,6 @@ export class ProductPageComponent implements OnInit{
   stockerDansDepot(productId:string){
     this.router.navigateByUrl('/depot-sites/depot/'+this.currentuser.userId+"/"+productId)
   }
-  getUserDepot(userId : string ){
-    this.siteService.getSiteByUserId(userId).subscribe(listDepot=>{
-      this.userDepotList = listDepot;
-    })
-  }
-
-  getStock(productId : string , depotId : string ){
-    this.depotItemService.getStock(productId,depotId).subscribe(currentStock =>{
-      if (currentStock) {
-        this.currentStock?.push(currentStock);
-      }
-    })
-  }
 
   back(){
     this.router.navigateByUrl('/user-products');
@@ -116,5 +128,11 @@ export class ProductPageComponent implements OnInit{
   }
   selectImage(image:string){
     this.imageDisplayed = image;
+  }
+  deleteDepotItem(depotItemId :string){
+    this.depotItemService.deleteByProductId(depotItemId).subscribe(result=>{
+      console.log(result);
+    })
+
   }
 }

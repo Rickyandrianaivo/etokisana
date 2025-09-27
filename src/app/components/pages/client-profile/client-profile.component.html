@@ -36,12 +36,12 @@
                     <app-profile-item label="Adresse" value="{{user.userAddress}}" placeholder="{{user.userAddress}}"></app-profile-item>
                 </div>
             }
-            @if (!showSellerForm().valueOf()) {
+            <!-- @if (!showSellerForm().valueOf()) {
                 <form class="register-form-style" [formGroup]="userForm"  (ngSubmit)="submitUser()">
                     <div class="wrapper">
-                        <div class="client-register">
+                        <div class="client-register"> -->
                             <!-- Champ photo de profil-->
-                            <div class="file-upload">
+                            <!-- <div class="file-upload">
                                 <input type="file" class="file-input" (change)="onFileImageSelected($event,'profile')" #pdpUpload>
                                 <button class="upload-btn no-background" (click)="pdpUpload.click()" type="button">
                                     @if ( profileImage != null) {
@@ -49,7 +49,7 @@
                                     }
                                 </button>
                                 <h5 style="text-align: center;">upload photo 10MB max.</h5>
-                            </div>      
+                            </div>       -->
                             <!-- Champ Surnom-->
                             <!-- <div class="row">
                                 <text-input
@@ -58,23 +58,23 @@
                                     label="Pseudo">
                                 </text-input>
                             </div> -->
-                            <div class="row">
+                            <!-- <div class="row"> -->
                                 <!-- Champ Nom-->
-                                <text-input
+                                <!-- <text-input
                                     [control]="fc.userName"
                                     [showErrorsWhen]="isSubmitted"
                                     label="Nom">
-                                </text-input>
+                                </text-input> -->
                                 <!-- Champ prénoms-->
-                                <text-input
+                                <!-- <text-input
                                     [control]="fc.userFirstname"
                                     [showErrorsWhen]="isSubmitted"
                                     label="Prénoms">
                                 </text-input>
                             </div>
-                            <div class="row">
+                            <div class="row"> -->
                                 <!-- Champ email-->
-                                <text-input
+                                <!-- <text-input
                                     [control]="fc.userEmail"
                                     [showErrorsWhen]="isSubmitted"
                                     label="Email"
@@ -113,9 +113,9 @@
                         </div>
                     </div>
                 </form>
-            }
+            } -->
             <!-- Formulaire pour les entreprise-->
-             @if (showSellerForm().valueOf()) {
+             <!-- @if (showSellerForm().valueOf()) {
                 <form class="register-form-style" [formGroup]="corporateForm"  (ngSubmit)="submitUser()">
                 <div class="wrapper">
                     <div class="client-register">
@@ -126,9 +126,9 @@
                             <input type="file" class="file-input" (change)="onFileImageSelected($event,'logo')" #logoUpload>
                             <h5 style="text-align: center;">Upload 10MB maximum</h5>
                         </div>  
-                        <div class="row">
+                        <div class="row"> -->
                             <!-- Champ raison social -->
-                            <text-input
+                            <!-- <text-input
                                 [control]="cfc.raisonSocial"
                                 [showErrorsWhen]="isSubmitted"
                                 label="Raison Sociale">
@@ -190,9 +190,9 @@
                                 invalidNumberError:'Numéro invalide',
                                 requiredError: 'Champ obligatoire',
                                 }"> 
-                        </ngx-material-intl-tel-input>
+                        </ngx-material-intl-tel-input> -->
                         <!-- Champ adresse du siège -->
-                        <text-input
+                        <!-- <text-input
                             [control]="cfc.userAddress"
                             [showErrorsWhen]="isSubmitted"
                             label="Siège">
@@ -202,8 +202,8 @@
                         <button matButton matStepperNext type="button">Suivant</button>
                     </div>
                 </div>
-                </form>
-            }
+            </form>
+            } -->
         </div>
     </div>
 </div>

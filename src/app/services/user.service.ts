@@ -55,9 +55,9 @@ export class UserService {
   }
 
   logout(){
-    this.userSubject.next(new User());
+    // this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
-    // this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');
   }
 
   registerUser(registerUserData : IUserRegister){
