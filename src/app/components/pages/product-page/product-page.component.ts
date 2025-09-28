@@ -72,9 +72,9 @@ export class ProductPageComponent implements OnInit{
               site : site.siteName+ site.siteAddress,
               price : depotItemSelected.prix,
               stock : depotItemSelected.stock,
+              total : depotItemSelected.prix * depotItemSelected.stock,
               depotItemId : depotItemSelected._id,
             }
-            
           }else{
               newDepotItemStock = {
               site : site.siteName+ site.siteAddress,

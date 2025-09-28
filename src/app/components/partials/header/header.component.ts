@@ -26,7 +26,6 @@ import { NotificationDialogComponent } from '../notification-dialog/notification
     MatButtonModule,
     MatBadgeModule,
     TruncatePipe,
-
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -43,7 +42,7 @@ export class HeaderComponent implements OnInit,OnChanges{
     private userService : UserService,
     private router:Router,
     private notificationService : NotificationService,
-    ) { 
+  ){ 
     this.isUser = this.userService.getUserFromLocalStorage();
     if (!this.userService.checkUserConnection()) {
       console.log("no user connected !")
@@ -55,7 +54,6 @@ export class HeaderComponent implements OnInit,OnChanges{
         if (!this.user) {
           this.userService.checkUserDeleted();
         }
-
         this.notificationService.getNotificationByOwner(this.user.userId).subscribe(allOwnerNotif =>{
           this.notifications = allOwnerNotif;
           this.notifications.forEach(notif =>{
@@ -66,7 +64,7 @@ export class HeaderComponent implements OnInit,OnChanges{
         })
       })
       this.isLoged = true;
-       if (this.isUser.userEmail!=null) {
+      if (this.isUser.userEmail!=null) {
       this.userService.getUserByEmail(this.user.userEmail).subscribe(user=>{
       if (this.user.userType=="admin") {
         this.router.navigateByUrl("/dashboard")
@@ -87,6 +85,7 @@ export class HeaderComponent implements OnInit,OnChanges{
       this.isLoged = false;
     }
   }
+  
   ngOnChanges(changes: SimpleChanges): void {
     this.isUser = this.userService.getUserFromLocalStorage()
     if(this.isUser?.userName){
@@ -114,25 +113,28 @@ export class HeaderComponent implements OnInit,OnChanges{
   // }
 
   openNotificationDialog(title:string , message:string, url : string | null = null,reload:boolean =true , notificationId:string){
-      this.notificationService.updateNotification(notificationId,{state: "read",}).subscribe(result=>{
-        console.log(result)
-      })
-      const dialogRef = this.dialog.open(NotificationDialogComponent,{
-        data : {
-          title,
-          message
-        }
-      })
-      dialogRef.afterClosed().subscribe(result=>{
-        
-        if (result == true && !url && reload == true) {
-          
-          window.location.reload();
-          return;
-        }
-        if(result == true && url && reload == false){
-          this.router.navigateByUrl(url);
-        }
-      })
+    if (this.notificaitonTotal>0) {
+      this.notificaitonTotal--;      
     }
+    this.notificationService.updateNotification(notificationId,{state: "read",}).subscribe(result=>{
+      console.log(result)
+    })
+    const dialogRef = this.dialog.open(NotificationDialogComponent,{
+      data : {
+        title,
+        message
+      }
+    })
+    dialogRef.afterClosed().subscribe(result=>{
+      
+      if (result == true && !url && reload == true) {
+        
+        window.location.reload();
+        return;
+      }
+      if(result == true && url && reload == false){
+        this.router.navigateByUrl(url);
+      }
+    })
+  }
 }

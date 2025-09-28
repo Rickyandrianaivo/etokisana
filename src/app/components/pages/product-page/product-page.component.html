@@ -47,7 +47,7 @@
                 <td>{{ site.site }}</td>
                 <td> {{site.stock}} </td>
                 <td> {{site.price}} </td>
-                <td> {{site.stock * site.price}} </td>
+                <td> @if(site.stock !=0){ {{site.total}} }@else{0} </td>
                 <td> @if(site.stock != 0){<button (click)="deleteDepotItem(site.depotItemId)"> <mat-icon>delete</mat-icon> </button> } </td>
             </tr>
             }
