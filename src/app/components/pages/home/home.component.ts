@@ -14,8 +14,6 @@ import { Cart } from 'src/app/shared/models/Cart';
   selector: 'app-home',
   standalone: true,
   imports: [
-    // DefaultButtonComponent,
-    // RouterLink,
     HeaderComponent,
     MatCardModule,
   ],
@@ -25,6 +23,7 @@ import { Cart } from 'src/app/shared/models/Cart';
 export class HomeComponent {
   cart:Cart  = new Cart();
   depotItems:any[] = [];
+  depotItemList : any [] = [];
   productList: any[]=[];
   constructor(
     private router:Router,
@@ -33,17 +32,22 @@ export class HomeComponent {
     private cartService : CartService,
     private notificationService : NotificationService,
   ){
-    // this.cart = this.cartService.getCartObservable();
     this.depotItemService.getAll().subscribe(allproduct=>{
-      // this.productList =allproduct.filter(filteredProduct=> filteredProduct.productValidation == true && filteredProduct.isStocker == true )
-      this.productList=allproduct;
+      this.depotItemList = allproduct;
       console.log(this.productList);
-      this.productList.forEach(item => {
+      this.depotItemList.forEach(item => {
         this.productservice.getProductById(item.productId).subscribe(product => {
-          item.productName = product.productName;
-          item.productDescription = product.productDescription;
-          item.codeCPC = product.codeCPC;
-          item.productImage = product.productImage;
+          let productItem ={
+            itemId : item._id,
+            productId : product._id,
+            depotId : item.currentDepotId,
+            productName : product.productName,
+            productDescription : product.productDescription,
+            codeCPC : product.codeCPC,
+            prix : item.prix,
+            productImage : product.productImage,
+          }
+          this.productList.push(productItem)
         })
       })
     })
