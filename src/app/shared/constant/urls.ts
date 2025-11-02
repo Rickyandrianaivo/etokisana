@@ -38,6 +38,7 @@ export const NOTIFICATION_ADD_URL               = NOTIFICATION_URL + 'add/';
 export const NOTIFICATION_UPDATE_URL            = NOTIFICATION_URL + 'update/';
 export const NOTIFICATION_REMOVE_URL            = NOTIFICATION_URL + 'delete/';
 export const NOTIFICATION_BY_OWNER_URL          = NOTIFICATION_URL + 'userId/';
+export const NOTIFICATION_NEW_URL               = NOTIFICATION_URL + 'new/';
 
 
 export const SITE_URL                      = BASE_URL + '/api/site/';

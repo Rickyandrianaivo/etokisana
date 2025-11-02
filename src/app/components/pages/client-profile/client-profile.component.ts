@@ -34,12 +34,13 @@ import { InputContainerComponent } from '../../partials/input-container/input-co
 export class ClientProfileComponent implements OnInit{
   isSubmitted: boolean = false;
   images : {[key: string]: string} = {};
-  user !: User;
+  user !: any;
   profileImage!:string;
   userForm !: FormGroup;
   corporateForm !: FormGroup;
   userPhone = new FormControl();
   showSellerForm = signal(false);
+  dbIdUser : string = "";
 
   constructor(
     private formBuilder:FormBuilder,
@@ -53,8 +54,9 @@ export class ClientProfileComponent implements OnInit{
     const userLocal = this.userService.getUserFromLocalStorage()
 
     this.userService.getUserByEmail(userLocal.userEmail).subscribe(reqUser=>{
-      console.log(this.user);
       this.user = reqUser;
+      this.dbIdUser = this.user._id;
+      console.log(this.user);
       this.profileImage = this.user.userImage;
       console.log(this.profileImage);
 

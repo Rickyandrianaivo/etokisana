@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NOTIFICATION_ADD_URL, NOTIFICATION_BY_ID_URL, NOTIFICATION_BY_OWNER_URL, NOTIFICATION_REMOVE_URL, NOTIFICATION_UPDATE_URL, NOTIFICATION_URL } from '../shared/constant/urls';
+import { NOTIFICATION_ADD_URL, NOTIFICATION_BY_ID_URL, NOTIFICATION_BY_OWNER_URL, NOTIFICATION_NEW_URL, NOTIFICATION_REMOVE_URL, NOTIFICATION_UPDATE_URL, NOTIFICATION_URL } from '../shared/constant/urls';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationDialogComponent } from '../components/partials/notification-dialog/notification-dialog.component';
 import { Router } from '@angular/router';
@@ -24,6 +24,9 @@ export class NotificationService {
   }
   getNotificationByOwner(userId:string) : Observable<Notification[]>{
     return this.http.get<Notification[]>(NOTIFICATION_BY_OWNER_URL+userId);
+  }
+  getNotificationNew(userId:string) : Observable<Notification[]>{
+    return this.http.get<Notification[]>(NOTIFICATION_NEW_URL+userId);
   }
   addNotification(NotificationData:Notification):Observable<Notification>{
     return this.http.post<Notification>(NOTIFICATION_ADD_URL,NotificationData);

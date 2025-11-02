@@ -17,23 +17,23 @@
             </div>
             @if (user && user.userType == 'Entreprise') {
             <div  class="body-content">
-                <app-profile-item label="Email" value="{{user.userEmail}}" placeholder="Email"></app-profile-item>
-                <app-profile-item label="Téléphone" value="{{user.userPhone}}" placeholder="userPhone"></app-profile-item>
-                <app-profile-item label="Adresse" value="{{user.userAddress}}" placeholder="{{user.userAddress}}"></app-profile-item>
-                <app-profile-item label="Manager" value="{{user.managerName}}" placeholder="{{user.managerName}}"></app-profile-item>
-                <app-profile-item label="Email du manager" value="{{user.managerEmail}}" placeholder="{{user.managerEmail}}"></app-profile-item>
-                <app-profile-item label="Statut" value="{{user.type}}" placeholder="{{user.type}}"></app-profile-item>
-                <app-profile-item label="NIF" value="{{user.nif}}" placeholder="{{user.nif}}"></app-profile-item>
-                <app-profile-item label="RC" value="{{user.rcs}}" placeholder="{{user.rcs}}"></app-profile-item>
+                <app-profile-item label="Email" value="{{user.userEmail}}" placeholder="{{ user.userEmail }}" dbFieldName="userEmail" userId="{{dbIdUser}}"></app-profile-item>
+                <app-profile-item label="Téléphone" value="{{user.userPhone}}" placeholder="{{ user.userPhone }}" dbFieldName="userPhone" userId="{{dbIdUser}}"></app-profile-item>
+                <app-profile-item label="Adresse" value="{{user.userAddress}}" placeholder="{{user.userAddress}}" dbFieldName="userAddress" userId="{{dbIdUser}}"></app-profile-item>
+                <app-profile-item label="Manager" value="{{user.managerName}}" placeholder="{{user.managerName}}" dbFieldName="managerName" userId="{{dbIdUser}}"> </app-profile-item>
+                <app-profile-item label="Email du manager" value="{{user.managerEmail}}" placeholder="{{user.managerEmail}}" dbFieldName="managerEmail" userId="{{dbIdUser}}"></app-profile-item>
+                <app-profile-item label="Statut" value="{{user.type}}" placeholder="{{user.type}}" dbFieldName="userType"></app-profile-item>
+                <app-profile-item label="NIF" value="{{user.nif}}" placeholder="{{user.nif}}" dbFieldName="nif"></app-profile-item>
+                <app-profile-item label="RC" value="{{user.rcs}}" placeholder="{{user.rcs}}" dbFieldName="rcs"></app-profile-item>
             </div>
             }
             @if(user && user.userType == 'Particulier') {
                 <div class="body-content">
-                    <app-profile-item label="Nom" value="{{user.userName}}" placeholder="{{user.userName}}" ></app-profile-item>
-                    <app-profile-item label="Prénoms" value="{{user.userFirstname}}" placeholder="{{user.userFirstname}}"></app-profile-item>
-                    <app-profile-item label="Email" value="{{user.userEmail}}" placeholder="{{user.userEmail}}"></app-profile-item>
-                    <app-profile-item label="Téléphone" value="{{user.userPhone}}" placeholder="{{user.userPhone}}"></app-profile-item>
-                    <app-profile-item label="Adresse" value="{{user.userAddress}}" placeholder="{{user.userAddress}}"></app-profile-item>
+                    <app-profile-item label="Nom" value="{{user.userName}}" placeholder="{{user.userName}}" dbFieldName="userName" userId="{{dbIdUser}}"></app-profile-item>
+                    <app-profile-item label="Prénoms" value="{{user.userFirstname}}" placeholder="{{user.userFirstname}}" dbFieldName="userFirstname" userId="{{dbIdUser}}"></app-profile-item>
+                    <app-profile-item label="Email" value="{{user.userEmail}}" placeholder="{{user.userEmail}}" dbFieldName="userEmail" userId="{{dbIdUser}}"></app-profile-item>
+                    <app-profile-item label="Téléphone" value="{{user.userPhone}}" placeholder="{{user.userPhone}}" dbFieldName="userPhone" userId="{{dbIdUser}}"></app-profile-item>
+                    <app-profile-item label="Adresse" value="{{user.userAddress}}" placeholder="{{user.userAddress}}" dbFieldName="userAddress" userId="{{dbIdUser}}"></app-profile-item>
                 </div>
             }
             <!-- @if (!showSellerForm().valueOf()) {

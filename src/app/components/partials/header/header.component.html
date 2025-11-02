@@ -26,7 +26,7 @@
                             </a>
                         </li>
                         <li>
-                            <button matButton [matMenuTriggerFor]="notificationMenu">
+                            <button matButton [matMenuTriggerFor]="notificationMenu" (click)="resestNotificationBadge()">
                                 @if (notificaitonTotal>0) {
                                     <mat-icon class="icon-bell"  [matBadge]="notificaitonTotal">notifications_active</mat-icon>
                                 }@else {
@@ -34,14 +34,28 @@
                                 }
                             </button>
                             <mat-menu #notificationMenu="matMenu" xPosition="before">
-                                    @if (notificaitonTotal>0) {
+                            <!-- @if (notificaitonTotal>0) { -->
+                            <div class="row">
+                                <div class="part"><button (click)="changeTag('Tout')">Tout</button></div>
+                                <div class="part"><button (click)="changeTag('Non lues')">Non lues</button></div>
+                            </div> 
+                            @if(tag ==  'Tout'){
                                 @for (notification of notifications; track $index) {
                                     <button mat-menu-item style="text-decoration: none;background: none;" (click)="openNotificationDialog(notification.title,notification.message,null,false,notification._id)">
-                                        <span class="notif-title">{{ notification.title }}@if (notification.states == "new") {<span class="new">new</span>  }</span><br>
+                                        <span class="notif-title">{{ notification.title }}@if (notification.state == "new") {<span class="new">new</span>  }</span><br>
+                                        <span class="notif-text">{{ notification.message | truncate:50}}</span>                                        
+                                    </button>
+                                }
+                            }@else{
+                                @for (notification of notifications; track $index) {
+                                    <button mat-menu-item style="text-decoration: none;background: none;" (click)="openNotificationDialog(notification.title,notification.message,null,false,notification._id)">
+                                        <span class="notif-title">{{ notification.title }}</span><br>
                                         <span class="notif-text">{{ notification.message | truncate:50}}</span>                                        
                                     </button>
                                 }
                             }
+                                
+                            <!-- } -->
                             </mat-menu>
                             
                         </li>

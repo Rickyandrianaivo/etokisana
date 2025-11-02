@@ -33,11 +33,13 @@ import { NotificationDialogComponent } from '../notification-dialog/notification
 export class HeaderComponent implements OnInit,OnChanges{
   readonly dialog = inject(MatDialog);
 // subscriptions : Subscription[] = [];
+  tag : string ='Tout';
   notifications : any[]=[];
   isLoged : boolean = false;
   isUser?:User;
   user : User = new User();
   notificaitonTotal : number = 0;
+  newNotifications : any[]=[];
   constructor(
     private userService : UserService,
     private router:Router,
@@ -61,6 +63,9 @@ export class HeaderComponent implements OnInit,OnChanges{
               this.notificaitonTotal++;
             }
           })
+        this.notificationService.getNotificationNew(this.user.userId).subscribe(allNewNotif=>{
+          this.newNotifications = allNewNotif;
+        })
         })
       })
       this.isLoged = true;
@@ -94,6 +99,9 @@ export class HeaderComponent implements OnInit,OnChanges{
       this.isLoged = false;
     }
   }
+  changeTag(clickedTag : string){
+    this.tag = clickedTag;
+  }
 
   logOut(){
     this.isLoged = false;
@@ -114,11 +122,11 @@ export class HeaderComponent implements OnInit,OnChanges{
 
   openNotificationDialog(title:string , message:string, url : string | null = null,reload:boolean =true , notificationId:string){
     if (this.notificaitonTotal>0) {
-      this.notificaitonTotal--;      
+      this.notificationService.updateNotification(notificationId,{state: 'read',}).subscribe(result=>{
+        console.log(result)
+        this.notificaitonTotal--;      
+      })
     }
-    this.notificationService.updateNotification(notificationId,{state: "read",}).subscribe(result=>{
-      console.log(result)
-    })
     const dialogRef = this.dialog.open(NotificationDialogComponent,{
       data : {
         title,
@@ -136,5 +144,8 @@ export class HeaderComponent implements OnInit,OnChanges{
         this.router.navigateByUrl(url);
       }
     })
+  }
+  resestNotificationBadge(){
+    this.notificaitonTotal = 0;
   }
 }

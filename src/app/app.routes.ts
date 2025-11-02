@@ -34,6 +34,7 @@ import { UsersDetailsComponent } from './components/pages/bo/users-details/users
 import { StockComponent } from './components/pages/stock/stock.component';
 import { ProductDetailsComponent } from './components/pages/bo/product-details/product-details.component';
 import { TransactionDetailsComponent } from './components/pages/transaction-details/transaction-details.component';
+import { NotificationsComponent } from './components/pages/notifications/notifications.component';
 
 const routes: Routes = [
     {path : '', component: LoginComponent},
@@ -54,6 +55,7 @@ const routes: Routes = [
     {path : 'user-products/add', component: AddProductComponent},
     {path : 'stock/:id', component: StockComponent},
     {path : 'user-site', component: UserSitesComponent},
+    {path : 'notifications', component: NotificationsComponent},
     {path : 'cart-page', component: CartPageComponent},
     {path : 'dashboard', component: DashboardComponent},
     {path : 'users', component: UsersComponent},
