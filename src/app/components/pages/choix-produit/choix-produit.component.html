@@ -224,9 +224,12 @@
               <td style="text-align: right;"> {{item.montant}}</td>
              @if(!theProductId){ 
               <td style="width: 10%;text-align: center;">
-                <button style="background: none;border: none;" (click)="removeFromCart(item.depotItem)">
+                @if(item.depotItem._id){
+                  <button style="background: none;border: none;" (click)="removeFromCart(item.depotItem._id)">
                   <span style="font-size: .2rem;">🗑</span>
                 </button>
+                }
+                
               </td>}
             </tr>
               }

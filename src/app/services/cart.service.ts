@@ -42,6 +42,7 @@ export class CartService {
         montant: depotItemFs.prix * 1,
       }
       this.cart.items.push(newCartItem);
+      console.log(this.cart)
       this.setCartToLocalStorage();
       }else{
         console.log("Not Found!")
@@ -54,12 +55,12 @@ export class CartService {
 
   removeFromCart(productId:string): void{
     this.cart.items =
-    this.cart.items.filter(item => item.depotItem != productId);
+    this.cart.items.filter(item => item.depotItem._id != productId);
     this.setCartToLocalStorage();
   }
 
   changeQuantity(depotItemId:string, quantity:number){
-    let cartItem = this.cart.items.find(item => item.depotItem === depotItemId);
+    let cartItem = this.cart.items.find(item => item.depotItem._id === depotItemId);
     if(!cartItem) return;
 
     cartItem.quantity = quantity;
@@ -68,7 +69,8 @@ export class CartService {
 
   qtUp(item:CartItem,itemQte:number,currentCartItemPriceTotal:number){
     const newQt = itemQte+1;
-    const newCartItemPriceTotal = currentCartItemPriceTotal + this.getTheDepotItem(item.depotItem).prix;
+    // const newCartItemPriceTotal = currentCartItemPriceTotal + this.getTheDepotItem(item.depotItem).prix;
+    const newCartItemPriceTotal = currentCartItemPriceTotal + item.depotItem.prix;
     this.changeCartItemQuantity(item,newQt);
   }
 
@@ -130,7 +132,8 @@ export class CartService {
     
     let newCartItemPrice
     
-    newCartItemPrice = this.getTheDepotItem(item.depotItem).prix  * intItemCartItemQuantity;
+    // newCartItemPrice = this.getTheDepotItem(item.depotItem).prix  * intItemCartItemQuantity;
+    newCartItemPrice = item.depotItem.prix  * intItemCartItemQuantity;
     this.changeCartItemQuantity(item,intItemCartItemQuantity);
   }
 
@@ -155,7 +158,7 @@ export class CartService {
     .reduce((prevSum,currentItem) => prevSum + currentItem.quantity,0)
     const cartJson = JSON.stringify(this.cart);
 
-    // localStorage.setItem(CART_KEY,cartJson);
+    localStorage.setItem(CART_KEY,cartJson);
     this.cartSubject.next(this.cart);
   }
 

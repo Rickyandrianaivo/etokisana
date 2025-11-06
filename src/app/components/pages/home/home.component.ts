@@ -25,6 +25,7 @@ export class HomeComponent {
   depotItems:any[] = [];
   depotItemList : any [] = [];
   productList: any[]=[];
+  cartList : any[] = [];
   constructor(
     private router:Router,
     private productservice:ProductService,
@@ -32,10 +33,21 @@ export class HomeComponent {
     private cartService : CartService,
     private notificationService : NotificationService,
   ){
+    this.cart = this.cartService.getCart();
+    this.cart.items.forEach(cartItem=>{
+      if (cartItem.depotItem._id) {
+        this.depotItemService.getDepotItemWithProductInfo(cartItem.depotItem._id).subscribe(result=>{
+        console.log(result);
+      })
+      }
+      
+    })
     this.depotItemService.getAll().subscribe(allproduct=>{
       this.depotItemList = allproduct;
-      console.log(this.productList);
       this.depotItemList.forEach(item => {
+        if (item.productId) {
+          
+        }
         this.productservice.getProductById(item.productId).subscribe(product => {
           let productItem ={
             itemId : item._id,

@@ -310,8 +310,8 @@ export class ChoixProduitComponent implements OnInit {
       console.log(this.cartItems.length)
       this.isCartEmpty = true;
     }
-    const itemIndex = this.cartItems.findIndex(items => items.depotItem === productByRef);
-    const item = this.cartItems.find(items => items.depotItem === productByRef);
+    const itemIndex = this.cartItems.findIndex(items => items.depotItem._id === productByRef);
+    const item = this.cartItems.find(items => items.depotItem._id === productByRef);
     if (item) {
       const newCartItemPriceTotal = this.CartItemPriceTotal - item.price;
       this.CartItemPriceTotal = newCartItemPriceTotal;
@@ -462,7 +462,7 @@ submit(){
     // }else{
       this.cartItems.forEach(cartItem=>{
         let depotItempData:DepotItem = {
-          productId : cartItem.depotItem,
+          productId : cartItem.depotItem.productId,
           stock: cartItem.quantity,
           prix   : cartItem.price,
           lastUpdate : new Date(),

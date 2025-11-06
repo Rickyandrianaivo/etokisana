@@ -39,7 +39,11 @@
   </div>
   <div class="border-title">
     <div class="title-border">Panier</div>
-    <!-- @for (item of cart.items; track $index) {} -->
+    @for (item of cart.items; track $index) {
+      <div class="row" style="border:1px solid black;border-radius: 20px;">
+        <h3>{{item.depotItem.productId}}</h3>
+      </div>
+    }
      
   </div>
   </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DEPOTITEM_ADD_DEPOT_ITEM_URL, DEPOTITEM_BY_ID_URL, DEPOTITEM_BY_PRODUCT_ID_URL, DEPOTITEM_DELETE_DEPOT_ITEM_URL, DEPOTITEM_GET_STOCK_URL, DEPOTITEM_MODIFY_DEPOT_ITEM_URL, DEPOTITEM_URL } from '../shared/constant/urls';
+import { DEPOT_ITEM_WITH_PRODUCT_INFO_URL, DEPOTITEM_ADD_DEPOT_ITEM_URL, DEPOTITEM_BY_ID_URL, DEPOTITEM_BY_PRODUCT_ID_URL, DEPOTITEM_DELETE_DEPOT_ITEM_URL, DEPOTITEM_GET_STOCK_URL, DEPOTITEM_MODIFY_DEPOT_ITEM_URL, DEPOTITEM_URL } from '../shared/constant/urls';
 import { HttpClient } from '@angular/common/http';
 import { DepotItem } from '../shared/models/DepotItem';
 import { Observable } from 'rxjs';
@@ -33,5 +33,8 @@ export class DepotItemService {
    }
    getStock(productId :string , depotId:string){
     return this.http.get<DepotItem>(DEPOTITEM_GET_STOCK_URL + productId + "/" + depotId);
+   }
+   getDepotItemWithProductInfo(depotItemId : string):Observable<DepotItem>{
+    return this.http.get<DepotItem>(DEPOT_ITEM_WITH_PRODUCT_INFO_URL + depotItemId);
    }
 }

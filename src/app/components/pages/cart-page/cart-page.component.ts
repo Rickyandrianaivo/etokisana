@@ -29,12 +29,16 @@ export class CartPageComponent implements OnInit{
     this.cart = this.cartService.getCart();
   }
   removeFromCart(cartItem:CartItem){
-    this.cartService.removeFromCart(cartItem.depotItem);
-    this.setCart();
+    if (cartItem.depotItem._id) {
+      this.cartService.removeFromCart(cartItem.depotItem._id);
+      this.setCart();
+    }
   }
   changeQuantity(cartItem:CartItem,quantityInString:string){
     const quantity = parseInt(quantityInString);
-    this.cartService.changeQuantity(cartItem.depotItem,quantity);
-    this.setCart();
+    if (cartItem.depotItem._id) {
+      this.cartService.changeQuantity(cartItem.depotItem._id,quantity);
+      this.setCart();      
+    }
   }
 }
