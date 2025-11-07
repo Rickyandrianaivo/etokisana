@@ -9,9 +9,9 @@ export class CartItem{
     //     this.CartItemProduct = depotItem;
     // }
     depotItem!:DepotItem;
+    productName !: string;
+    productImage !:string;
     quantity:number = 0;
     price:number = 0;
-    get montant():number{
-        return this.price * this.quantity;
-    }
+    montant:number = 0;
 }

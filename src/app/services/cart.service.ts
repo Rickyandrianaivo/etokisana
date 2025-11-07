@@ -6,6 +6,7 @@ import { Product } from '../shared/models/Product';
 import { CartItem } from '../shared/models/CartItem';
 import { DepotItem } from '../shared/models/DepotItem';
 import { DepotItemService } from './depot-item.service';
+import { ProductService } from './product.service';
 
 const CART_KEY = "Cart";
 
@@ -18,6 +19,7 @@ export class CartService {
   cartActualItem :CartItem[]=[];
   constructor(
     private depotItemService : DepotItemService,
+    private productService : ProductService,
   ){
 
   }
@@ -34,9 +36,12 @@ export class CartService {
     // }
     //Sinon ajouter au panier et stocker dans le localStorage
     this.depotItemService.getById(depotItemId).subscribe(depotItemFs =>{
-      if (depotItemFs) {
+      this.productService.getProductById(depotItemFs.productId).subscribe(productFs =>{
+        if (depotItemFs) {
         const newCartItem:CartItem = {
         depotItem : depotItemId,
+        productName : productFs.productName,
+        productImage : productFs.productImage[0],
         quantity : 1,
         price : depotItemFs.prix,
         montant: depotItemFs.prix * 1,
@@ -47,6 +52,8 @@ export class CartService {
       }else{
         console.log("Not Found!")
       }
+      })
+      
       
     })
     

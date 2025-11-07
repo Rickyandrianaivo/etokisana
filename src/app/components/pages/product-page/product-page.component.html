@@ -81,6 +81,8 @@
         }
         @if (theProduct && theProduct.productOwnerId == currentuser.userId ) {
             <app-default-button (click)="stockerDansDepot(theProduct._id)" text="Ajouter à un dépôt"></app-default-button>
+        }@else {
+            <app-default-button (click)="stockerDansDepot(theProduct._id)" text="Acheter"></app-default-button>
         }
         <app-default-button (click)="back()" text="Retour"></app-default-button>
     </div>

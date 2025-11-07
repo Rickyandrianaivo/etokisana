@@ -69,9 +69,13 @@ export class HomeComponent {
       console.log("hit the button")
   }
   voirProduit(productId : string,depotItemId : string){
-    this.router.navigateByUrl('/product-details/'+ productId + "/" + depotItemId )
+    // this.router.navigateByUrl('/product-details/'+ productId + "/" + depotItemId )
+    this.router.navigateByUrl('/product-page/'+productId)
   }
-  addToCart(depotItemId:string){
+  addToCart(depotItemId:string,productId : string){
+    this.productservice.getProductById(productId).subscribe(()=>{
+      
+    })
     this.cartService.addToCart(depotItemId)
     this.notificationService.openNotificationDialog(
       "Produit ajouté au panier",
@@ -79,5 +83,12 @@ export class HomeComponent {
       "",
       false,
     )
+  }
+  clearCart(){
+    this.cartService.clearCart();
+    window.location.reload();
+  }
+  acheter(){
+
   }
 }

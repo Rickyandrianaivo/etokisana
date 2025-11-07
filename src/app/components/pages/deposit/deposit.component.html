@@ -90,12 +90,12 @@
               <tr  class="tableRowCart tableRow" style="height:10px;" >
               <td>{{ theProduct.productName}}</td>
               <td style="text-align: right;">
-                {{ currentItemStock.price }}
+                {{ currentItemStock.prix }}
               </td>
               <td>
                 {{ currentItemStock.stock }}
               </td>
-              <td style="text-align: right;"> {{currentItemStock.price * currentItemStock.stock}} </td>
+              <td style="text-align: right;"> {{currentItemStock.prix * currentItemStock.stock}} </td>
             </tr>
           </table>
         </div>
@@ -107,8 +107,8 @@
                     <table class="overflow">
                     <tr class="tableRowCart tableHeader">
                         <td>Désignation</td>
-                        <td>Prix Unitaire</td>
-                        <td>Quantité</td>
+                        <td>P.U</td>
+                        <td>Qté</td>
                         <td>Montant</td>
                         @if(!theProduct){
                         <td>Actions</td>
@@ -118,14 +118,14 @@
                         <tr>
                         <td>{{ theProduct.productName }} </td>
                         @if (currentItemStock) {
-                            <td>{{ currentItemStock.price }}</td>
+                            <td>{{ currentItemStock.prix }}</td>
 
                         }@else {
-
-                        }
                         <td> 
-                            <input #s class="itemQty" type="text" [(ngModel)]="itemToStock.price" (keyup)="insertPrice(s.value)" [value]="itemToStock.price " [ngModelOptions]="{standalone:true}"> 
+                            <input #s class="itemQty" type="text" [(ngModel)]="itemToStock.prix" (keyup)="insertPrice(s.value)" [value]="itemToStock.prix " [ngModelOptions]="{standalone:true}"> 
                         </td>
+                        }
+                       
                         <td class="itemQtyContainer">
                             <input #s class="itemQty" type="text" [(ngModel)]="itemToStock.quantity" (keyup)="insertQty(s.value)" [value]="itemToStock.quantity" [ngModelOptions]="{standalone:true}">
                             <div class="itemQuantityButton">

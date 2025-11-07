@@ -22,6 +22,7 @@
           <!-- <mat-card-title>{{ item.productName }} </mat-card-title> -->
           <!-- <mat-card-subtitle>{{ item.prix }}</mat-card-subtitle> -->
         </mat-card-header>
+        
         <img  class="card-image" mat-card-image [src]="item.productImage[0]" alt="Photo of a Shiba Inu">
         <mat-card-content>
           <p>
@@ -31,21 +32,48 @@
           <h4>{{item.prix}} Ar</h4>
         </mat-card-content>
         <mat-card-actions>
-          <button matButton (click)="voirProduit(item.productId,item.depotId)">Voir</button>
-          <button matButton (click)="addToCart(item.itemId)">Ajouter au panier</button>
+          <!-- <button matButton (click)="voirProduit(item.productId,item.depotId)">Voir</button>-->
+           <button matButton (click)="voirProduit(item.productId,item.depotId)">Voir</button>
+          <!-- <button matButton (click)="acheter(item.itemId,item.productId)">Acheter</button> -->
         </mat-card-actions>
       </mat-card>
     }
   </div>
-  <div class="border-title">
+  <!-- <div class="border-title">
     <div class="title-border">Panier</div>
-    @for (item of cart.items; track $index) {
-      <div class="row" style="border:1px solid black;border-radius: 20px;">
-        <h3>{{item.depotItem.productId}}</h3>
-      </div>
+    @if (cart.items.length>0) {
+      <table>
+        <tr>
+          <td>Aperçu</td>
+          <td>Libellé</td>
+          <td>P.U</td>
+          <td>Qté</td>
+          <td>Montant</td>
+        </tr>
+      
+      @for (item of cart.items; track $index) { -->
+        <!-- <div class="row item" style="border:1px solid rgb(168, 168, 168);border-radius: 20px;"> -->
+          <!-- <tr>
+            <td><img class="miniature" [src]="item.productImage" alt=""></td>
+            <td><p>{{item.productName}}</p></td>
+            <td><p>{{item.price}}</p></td>
+            <td><p>{{item.quantity}}  -->
+              <!-- <button class="changeQte" (click)="qtUp(item.quantity)">➕</button>
+              <button class="changeQte" (click)="qtDown(item.quantity)">➖</button></p> -->
+            <!-- </td>
+            <td><p>{{item.montant}}</p></td>
+          </tr> -->
+          
+        <!-- </div> -->
+        
+      <!-- }</table>
+      <button (click)="clearCart()" >Vider</button>
+    }@else {
+      <h5>Panier vide</h5>
     }
+    
      
-  </div>
+  </div> -->
   </div>
   
 </div>

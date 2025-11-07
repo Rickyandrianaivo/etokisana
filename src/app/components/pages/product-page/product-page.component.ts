@@ -135,4 +135,7 @@ export class ProductPageComponent implements OnInit{
     })
 
   }
+  acheterDepot(productId:string){
+    this.router.navigateByUrl('/depot-sites/achat/'+this.currentuser.userId+"/"+productId)
+  }
 }

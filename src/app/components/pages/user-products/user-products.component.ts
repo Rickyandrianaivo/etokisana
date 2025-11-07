@@ -39,6 +39,7 @@ export class UserProductsComponent implements OnInit{
       this.productService.getProductByOwner(this.OwnerId).subscribe(productFromServer=>{
         this.dataSource = productFromServer;
       })
+      
     })
   }
   ngOnInit(){

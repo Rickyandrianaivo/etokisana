@@ -69,12 +69,7 @@ export class DepositComponent {
   ){}
 
   ngOnInit(): void {
-    this.itemToStock = {
-      productId : this.theProductId,
-      quantity : 0,
-      price : 0,
-      currentDepotId : this.depotId,      
-    }
+    
 
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || 'home';
@@ -86,6 +81,13 @@ export class DepositComponent {
         this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
           if (currentItemStock) {
             this.currentItemStock = currentItemStock;
+            this.itemToStock = {
+              productId : this.theProductId,
+              quantity : 1,
+              prix : this.currentItemStock.prix,
+              currentDepotId : this.depotId,      
+            }
+            this.montantTotal = this.currentItemStock.prix * 1;
           }else{
             this.currentItemStock = 0;
           }
@@ -116,8 +118,8 @@ export class DepositComponent {
     this.itemToStock.quantity = CartItemQuantity;
     this.calculTotal();
   }
-  changeCartItemPrice(CartItemPrice:number){
-    this.itemToStock.price = CartItemPrice;
+  changeCartItemPrice(CartItemPrix:number){
+    this.itemToStock.prix = CartItemPrix;
     this.calculTotal();
   }
 
@@ -143,8 +145,10 @@ export class DepositComponent {
     this.changeCartItemPrice(intItemCartItemPrice);
   }
   calculTotal(){
-    this.montantTotal = this.itemToStock.price * this.itemToStock.quantity;
-    console.log(this.montantTotal);
+    this.montantTotal = this.itemToStock.prix * this.itemToStock.quantity;
+    // console.log("Le montant total est = " + this.montantTotal);
+    // console.log("Le prix de l'élément est  = " + this.itemToStock.prix);
+    // console.log("La quantité de l'élément est = " + this.itemToStock.quantity);
   }
   
   changeProduct(){
@@ -155,31 +159,51 @@ export class DepositComponent {
     let depotItemData:DepotItem = {
       productId : this.theProductId,
       stock: this.itemToStock.quantity,
-      prix   : this.itemToStock.price,
+      prix   : this.itemToStock.prix,
       lastUpdate : new Date(),
       currentDepotId : this.depotId,
     }
     this.depotItemService.add(depotItemData).subscribe(_=>{
       console.log("Produit Stocker !")
-      this.productService.updateProduct(depotItemData.productId,{isStocker:true}).subscribe(_=>{
+      this.productService.updateProduct(depotItemData.productId,{isStocker:true,productOwnerId:this.currentUser.userId}).subscribe(_=>{
         this.router.navigateByUrl('user-products');
       })
-      // Ajouter popup pour revenir à la liste de produit
-      this.notificationService.openNotificationDialog(
-        "Produit Stocké",
-        "Produit stocké avec succès",
-        'user-products',
-        false
-      )
+      if (this.theProduct.productOwnerId == this.currentUser.userId) {
+        // Ajouter popup pour revenir à la liste de produit
+        this.notificationService.openNotificationDialog(
+          "Produit Stocké",
+          "Produit stocké avec succès",
+          'user-products',
+          false
+        )
+        const NotifProductStock ={
+        userId: this.currentUser.userId,
+          title : "Nouveau produit stocké",
+          message : "Produit stocké avec avec succès !",
+          state : "new",
+        }
+        this.notificationService.addNotification(NotifProductStock).subscribe(result =>{
+          console.log(result)
+        })
+      }else{
+        // Ajouter popup pour revenir à la liste de produit
+        this.notificationService.openNotificationDialog(
+          "Aquisition d'un nouveau produit",
+          "Votre achat a bien été effectué",
+          'user-products',
+          false
+        )
+        const NotifProductachete ={
+        userId: this.currentUser.userId,
+          title : "Nouveau produit stocké",
+          message : "Produit acheté avec avec succès !",
+          state : "new",
+        }
+        this.notificationService.addNotification(NotifProductachete).subscribe(result =>{
+          console.log(result)
+        })
+      }
     })
-    const NotifProductdeleted ={
-      userId: this.currentUser.userId,
-      title : "Nouveau produit stocké",
-      message : "Produit stocké avec avec succès !",
-      state : "new",
-    }
-    this.notificationService.addNotification(NotifProductdeleted).subscribe(result =>{
-      console.log(result)
-    })
+    
   }
 }
