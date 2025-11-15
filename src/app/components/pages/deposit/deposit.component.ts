@@ -78,7 +78,7 @@ export class DepositComponent {
       this.depotId=params['depotId'];
       this.theProductId = params['productId'];
       if (this.theProductId) {
-        this.depotItemService.getAllByProductId(this.theProductId).subscribe(currentItemStock=>{
+        this.depotItemService.getById(this.theProductId).subscribe(currentItemStock=>{
           if (currentItemStock) {
             this.currentItemStock = currentItemStock;
             this.itemToStock = {
@@ -89,7 +89,13 @@ export class DepositComponent {
             }
             this.montantTotal = this.currentItemStock.prix * 1;
           }else{
-            this.currentItemStock = 0;
+            this.currentItemStock = null;
+            this.itemToStock = {
+              productId : this.theProductId,
+              quantity : 1,
+              prix : 0,
+              currentDepotId : this.depotId,      
+            }
           }
         })
       }
@@ -183,7 +189,7 @@ export class DepositComponent {
           state : "new",
         }
         this.notificationService.addNotification(NotifProductStock).subscribe(result =>{
-          console.log(result)
+          // console.log(result)
         })
       }else{
         // Ajouter popup pour revenir à la liste de produit

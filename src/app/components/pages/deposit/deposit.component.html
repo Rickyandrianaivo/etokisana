@@ -119,7 +119,6 @@
                         <td>{{ theProduct.productName }} </td>
                         @if (currentItemStock) {
                             <td>{{ currentItemStock.prix }}</td>
-
                         }@else {
                         <td> 
                             <input #s class="itemQty" type="text" [(ngModel)]="itemToStock.prix" (keyup)="insertPrice(s.value)" [value]="itemToStock.prix " [ngModelOptions]="{standalone:true}"> 
