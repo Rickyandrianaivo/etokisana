@@ -19,6 +19,8 @@ export const PRODUCT_BY_SITE_ID_URL                         = PRODUCT_URL + 'sto
 export const PRODUCT_ADD_TO_STOCK_URL                       = PRODUCT_URL + 'addStock/';
 export const PRODUCT_MODIFY_STOCK_URL                       = PRODUCT_URL + 'modififyStock/';
 
+export const UPLOAD_IMAGE_URL                               = PRODUCT_URL + 'upload-image/';
+
 export const DEPOTITEM_URL                                  = BASE_URL + '/api/depotItem/';
 export const DEPOTITEM_BY_ID_URL                            = DEPOTITEM_URL + 'id/';
 export const DEPOTITEM_BY_CATEGORY_URL                      = DEPOTITEM_URL + 'category/';
@@ -30,7 +32,6 @@ export const DEPOTITEM_BY_PRODUCT_ID_URL                    = DEPOTITEM_URL + 'B
 export const DEPOTITEM_GET_STOCK_URL                        = DEPOTITEM_URL + 'getStock/'
 export const DEPOT_ITEM_WITH_PRODUCT_INFO_URL               = DEPOTITEM_URL + 'productinfos/'
 
-export const UPLOAD_IMAGE_URL              = PRODUCT_URL + 'upload-image/';
 
 export const NOTIFICATION_URL                   = BASE_URL + '/api/notification/';
 export const NOTIFICATION_BY_ID_URL             = NOTIFICATION_URL + 'id/';

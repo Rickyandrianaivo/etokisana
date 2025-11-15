@@ -60,6 +60,27 @@ export class UsersComponent implements OnInit{
   ngOnInit(): void {
     
   }
+
+  DeleteOrNotDialog(userId:string,title:string , message:string, url:string|null = null,reload:boolean=false){
+    const dialogRef = this.dialog.open(NotificationDialogComponent,{
+      data : {
+        title,
+        message
+      }
+    })
+    dialogRef.afterClosed().subscribe(result=>{
+      if (result == true && url == null && reload == true) {
+        this.userService.deleteUser(userId).subscribe(_=>{
+          window.location.reload();
+        });
+      }
+      if(url){
+        this.router.navigateByUrl(url);
+      }
+    })
+  }
+
+
   openNotificationDialog(title:string , message:string, url:string|null = null,reload:boolean=false){
     const dialogRef = this.dialog.open(NotificationDialogComponent,{
       data : {
@@ -96,8 +117,8 @@ export class UsersComponent implements OnInit{
     this.openNotificationDialog("Vérification d'email","Un email est envoyé à l'utilisateur dès son inscription pour qu'il puisse vérifier son email",null,true)
   }
   deleteUser(userId:string){
-    this.userService.deleteUser(userId).subscribe(_=>{});
-    this.openNotificationDialog("Suppression d'un utilisateur","L'utilisateur a été supprimé !")
+    // this.userService.deleteUser(userId).subscribe(_=>{});
+    this.DeleteOrNotDialog(userId,"Suppression d'un utilisateur","L'utilisateur a été supprimé !",null,true)
   }
   userToAdmin(userId : string){
     const adminProperty ={
