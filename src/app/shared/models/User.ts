@@ -11,7 +11,7 @@ export class User{
     userValidated       : boolean = false;
     userEmailVerified   : boolean = false;
     userAccess          : string = "Utilisateur";
-    userParainId        : string ="";
+    userparrainId        : string ="";
     userId              !: string;
     userImage           !: string;
     userAddress         !: string;

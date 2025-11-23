@@ -210,6 +210,5 @@ export class DepositComponent {
         })
       }
     })
-    
   }
 }

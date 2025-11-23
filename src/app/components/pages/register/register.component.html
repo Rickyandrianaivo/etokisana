@@ -35,7 +35,7 @@
                     </mat-checkbox>
                 </div>
             </div> -->
-            <form *ngIf="!showSellerForm().valueOf()" class="register-form-style" [formGroup]="registerForm"  (ngSubmit)="submitUser()">
+            <form *ngIf="!showSellerForm().valueOf()" class="register-form-style" [formGroup]="registerForm">
                 <div class="wrapper">
                     <div class="client-register">
 
@@ -161,6 +161,19 @@
                                             label="Adresse">
                                         </text-input>
                                     </div>
+                                    <div class="row">
+                                    <text-input
+                                        [control]="fc.parrain1ID"
+                                        [showErrorsWhen]="isSubmitted"
+                                        label="ID parrain N°1">
+                                    </text-input>
+                                    <text-input
+                                        [control]="fc.parrain2ID"
+                                        [showErrorsWhen]="isSubmitted"
+                                        label="ID parrain N°2"
+                                        [type]="'email'">
+                                    </text-input>
+                                </div>
                                 <div class="row end">
                                     <button matButton matStepperNext type="button">Suivant</button>
                                 </div>
@@ -284,6 +297,7 @@
                                 <div class="back-forward">
                                     <button matButton matStepperPrevious>Précédent</button>
                                         <button type="submit" (click)="submitUser()">S'inscrire</button>
+                                        <!-- <button type="submit" (click)="submittest()" [disabled]="isSubmitDisable">Test</button> -->
                                 </div>
                                 
                                 <!-- <button matButton (click)="stepper.reset()">Reset</button> -->
@@ -294,7 +308,7 @@
                 </div>
             </form>
             <!-- Formulaire pour les entreprise-->
-            <form *ngIf="showSellerForm().valueOf()" class="register-form-style" [formGroup]="registerCorporateForm"  (ngSubmit)="submitUser()">
+            <form *ngIf="showSellerForm().valueOf()" class="register-form-style" [formGroup]="registerCorporateForm">
                 <div class="wrapper">
                     <div class="client-register">
                         <mat-stepper>
@@ -430,6 +444,19 @@
                                         label="Confirmation mot de passe">
                                     </app-password-input>
                                 </div> 
+                                <div class="row">
+                                    <text-input
+                                        [control]="cfc.parrain1ID"
+                                        [showErrorsWhen]="isSubmitted"
+                                        label="ID parrain N°1">
+                                    </text-input>
+                                    <text-input
+                                        [control]="cfc.parrain2ID"
+                                        [showErrorsWhen]="isSubmitted"
+                                        label="ID parrain N°2"
+                                        [type]="'email'">
+                                    </text-input>
+                                </div>
                                 <div class="row end">
                                     <button matButton matStepperNext type="button">Suivant</button>
                                 </div>
@@ -517,10 +544,9 @@
 
                                 <div class="back-forward">
                                     <button matButton matStepperPrevious type="button">Précédent</button>
-                                    <!-- <button type="submit" (click)="submitUser()" [disabled]="isSubmitDisable">S'inscrire</button> -->
                                     <button type="submit" (click)="submitUser()" [disabled]="isSubmitDisable">S'inscrire</button>
+                                    <!-- <button type="submit" (click)="submittest()" [disabled]="isSubmitDisable">Test</button> -->
                                 </div>
-                                
                                 <!-- <button matButton (click)="stepper.reset()">Reset</button> -->
                             </div>
                             </mat-step>

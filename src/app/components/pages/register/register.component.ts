@@ -140,7 +140,8 @@ export class RegisterComponent implements OnInit {
   user : any;
   identityDocument : any[] = [];
   SuccessRegister :boolean = false;
-  
+  parrain1ID : string ="";
+  parrain2ID : string ="";
   
   // Upload variables
   fileName:any;
@@ -154,6 +155,7 @@ export class RegisterComponent implements OnInit {
   contactPhone = new FormControl();
   corporateUser : boolean = false;
   corporateType : string = "";
+
 
   private readonly _adapter = inject<DateAdapter<unknown, unknown>>(DateAdapter);
   private readonly _intl = inject(MatDatepickerIntl);
@@ -205,6 +207,8 @@ export class RegisterComponent implements OnInit {
       userMainLng : [''],
       // userDateOfBirth:['',[Validators.required]],
       identityCardNumber:['',[Validators.required]],
+      parrain1ID : [''],
+      parrain2ID : [''],
     },{
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     }
@@ -223,6 +227,8 @@ export class RegisterComponent implements OnInit {
       siegeAddress: [''],
       userPassword:['',Validators.required],
       confirmPassword:['',[Validators.required,PasswordMatchValidator]],
+      parrain1ID : [''],
+      parrain2ID : [''],
     },{
       validators : PasswordMatchValidator("userPassword","confirmPassword"),
     })
@@ -269,7 +275,8 @@ export class RegisterComponent implements OnInit {
   }
 
   submittest(){
-    console.log(this.userPhone.value);
+    const fv = this.registerForm.value;
+    console.log(`ID parraint 1 = ${fv.parrain1ID} ; ID parrain 2 = ${fv.parrain2ID}`);
   }
 
   submitUser(){
@@ -306,15 +313,14 @@ export class RegisterComponent implements OnInit {
         userName            : fv.contactName ,         
         userFirstname       : "" ,  
         userPassword        : fv.userPassword ,  
-        userEmail           : fv.contactEmail,     
-        // userPhone           : fv.contactPhone.internationalNumber ,      
+        userEmail           : fv.contactEmail,        
         userPhone           : this.userPhone.value,
         userType            : "Entreprise",  
         userTotalSolde      : 0 ,  
         userValidated       : false ,  
         userAccess          : "Utilisateur" ,
         userEmailVerified   : false,
-        userParainId        : "",
+        userparrainId        : "",
         userDateOfBirth     : "",  
         userMainLat         : this.latitude,
         userMainLng         : this.longitude,
@@ -333,6 +339,33 @@ export class RegisterComponent implements OnInit {
         logo                : this.images['logo'],
         managerName         : fv.managerName,
         managerEmail        : fv.managerEmail,
+        parrain1ID           : fv.parrain1ID,
+        parrain2ID           : fv.parrain2ID
+      }
+      if (fv.parrain1ID) {
+        const parrain1IdNotif = {
+          userId : fv.parrain1ID,
+          title : "Demande de parrainage",
+          message : `L'utilisateur ${generatedID} vous demande de le parrainer pour la validation de son inscription`,
+          state : "new",
+        }
+        this.notificationService.addNotification(parrain1IdNotif).subscribe(response =>{
+          console.log(`notification créer pour ${fv.parrain2ID}`);
+          console.log(response);
+        })
+      }
+      if (fv.parrain2ID) {
+        const parrain2IdNotif = {
+          userId : fv.parrain2ID,
+          title : "Demande de parrainage",
+          message : `L'utilisateur ${generatedID} vous demande de le parrainer pour la validation de son inscription`,
+          state : "new",
+        }
+      
+        this.notificationService.addNotification(parrain2IdNotif).subscribe(response =>{
+          console.log(`notification créer pour ${fv.parrain2ID}`);
+          console.log(response);
+        })
       }
     }
     if(!this.showSellerForm()){ // Formulaire pour Particulier
@@ -350,6 +383,7 @@ export class RegisterComponent implements OnInit {
             //   false);
             return;
       }
+      
       if(!this.images['documentRecto'] || !this.images['documentVerso']){ //Les documents d'identificaiton sont incomplets
         this.notificationService.openNotificationDialog(
               "Formulaire incomplet",
@@ -380,7 +414,7 @@ export class RegisterComponent implements OnInit {
         userValidated       : false ,  
         userAccess          : "Utilisateur" ,
         userEmailVerified   : false,
-        userParainId        : "",
+        userparrainId        : "",
         userMainLat         : this.latitude,
         userMainLng         : this.longitude,
         userDateOfBirth     : this.dateOfBirth.value._d,  
@@ -399,7 +433,34 @@ export class RegisterComponent implements OnInit {
         logo                : "",
         managerName         : "",
         managerEmail        : "",
+        parrain1ID           : fv.parrain1ID,
+        parrain2ID           : fv.parrain2ID,
       }
+      if (fv.parrain1ID) {
+          const parrain1IdNotif = {
+            userId : fv.parrain1ID,
+            title : "Demande de parrainage",
+            message : `L'utilisateur ${generatedID} vous demande de le parrainer pour la validation de son inscription`,
+            state : "new",
+          }
+          this.notificationService.addNotification(parrain1IdNotif).subscribe(response =>{
+            console.log(`notification créer pour ${fv.parrain2ID}`);
+            console.log(response);
+          })
+        }
+        if (fv.parrain2ID) {
+          const parrain2IdNotif = {
+            userId : fv.parrain2ID,
+            title : "Demande de parrainage",
+            message : `L'utilisateur ${generatedID} vous demande de le parrainer pour la validation de son inscription`,
+            state : "new",
+          }
+        
+          this.notificationService.addNotification(parrain2IdNotif).subscribe(response =>{
+            console.log(`notification créer pour ${fv.parrain2ID}`);
+            console.log(response);
+          })
+        }
     }
 
     this.userService.getUserByEmail(this.user.userEmail).subscribe(userEmailAlreadyExist =>{
@@ -412,13 +473,14 @@ export class RegisterComponent implements OnInit {
       }else{
         this.userService.registerUser(this.user).subscribe(registeredUser=>{
           console.log(registeredUser);
-        })
-        this.notificationService.openNotificationDialog(
+          this.notificationService.openNotificationDialog(
             "Inscription envoyée", 
             "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
             "login",
             false
           )
+        })
+        
         if (this.latitude && this.longitude) {
           const mainSite :Site = {
             siteAddress     : this.user.userAddress,

@@ -25,6 +25,8 @@
                 <app-profile-item label="Statut" value="{{user.type}}" placeholder="{{user.type}}" dbFieldName="userType"></app-profile-item>
                 <app-profile-item label="NIF" value="{{user.nif}}" placeholder="{{user.nif}}" dbFieldName="nif"></app-profile-item>
                 <app-profile-item label="RC" value="{{user.rcs}}" placeholder="{{user.rcs}}" dbFieldName="rcs"></app-profile-item>
+                <app-profile-item label="parrain 1" value="{{user.parrain1ID}}" placeholder="{{user.parrain1ID}}" dbFieldName="parrain1ID"></app-profile-item>
+                <app-profile-item label="parrain 2" value="{{user.parrain2ID}}" placeholder="{{user.parrain2ID}}" dbFieldName="parrain2ID"></app-profile-item>
             </div>
             }
             @if(user && user.userType == 'Particulier') {
@@ -34,6 +36,8 @@
                     <app-profile-item label="Email" value="{{user.userEmail}}" placeholder="{{user.userEmail}}" dbFieldName="userEmail" userId="{{dbIdUser}}"></app-profile-item>
                     <app-profile-item label="Téléphone" value="{{user.userPhone}}" placeholder="{{user.userPhone}}" dbFieldName="userPhone" userId="{{dbIdUser}}"></app-profile-item>
                     <app-profile-item label="Adresse" value="{{user.userAddress}}" placeholder="{{user.userAddress}}" dbFieldName="userAddress" userId="{{dbIdUser}}"></app-profile-item>
+                    <app-profile-item label="parrain 1" value="{{user.parrain1ID}}" placeholder="{{user.parrain1ID}}" dbFieldName="parrain1ID"></app-profile-item>
+                <app-profile-item label="parrain 2" value="{{user.parrain2ID}}" placeholder="{{user.parrain2ID}}" dbFieldName="parrain2ID"></app-profile-item>
                 </div>
             }
             <!-- @if (!showSellerForm().valueOf()) {
