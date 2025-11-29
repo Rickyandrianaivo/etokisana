@@ -65,7 +65,7 @@ export class ProductsComponent {
       productValidation : true}
     this.productService.updateProduct(productId, updateData).subscribe(result =>{
     })
-    this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",null,true);
+    this.notificationService.openNotificationDialog(false,"Produit approuvé","Le produit a été créé avec succès !",null,true);
     this.productService.getProductById(productId).subscribe(theproduct=>{
       this.userService.getUserByUserId(theproduct.productOwnerId).subscribe(OwnerUser =>{
         const NotifProductdeleted ={
@@ -97,7 +97,7 @@ export class ProductsComponent {
     this.notificationService.addNotification(NotifProductdeleted).subscribe(result =>{
       console.log(result)
     })
-    this.notificationService.openNotificationDialog("Produit supprimé","La suppression du produit a été effectué",null,true);
+    this.notificationService.openNotificationDialog(false,"Produit supprimé","La suppression du produit a été effectué",null,true);
     
   }
 }

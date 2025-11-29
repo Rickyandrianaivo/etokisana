@@ -59,7 +59,7 @@ export class ProfileItemComponent {
       this.validationButton.emit([this.control.value,this.dbFieldName]);
       
     })
-    this.notifactionService.openNotificationDialog(`La modification de votre ${this.label}`,`Modification effectuée !`,null,true)
+    this.notifactionService.openNotificationDialog(false,`La modification de votre ${this.label}`,`Modification effectuée !`,null,true)
   }
 
   changeModifMode(){

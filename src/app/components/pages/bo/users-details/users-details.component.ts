@@ -130,6 +130,7 @@ export class UsersDetailsComponent implements OnInit{
       console.log(result)
     })
     this.notificationService.openNotificationDialog(
+      false,
       "Utilisateur validé",
       "Cette utilisateur a été approuvé et a accès à toutes les fonctionnalités de la plateforme",
       "dashboard",

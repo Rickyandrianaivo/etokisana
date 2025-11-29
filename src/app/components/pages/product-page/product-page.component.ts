@@ -124,7 +124,12 @@ export class ProductPageComponent implements OnInit{
       productValidation : true}
     this.productService.updateProduct(productId, updateData).subscribe(result =>{
     })
-    this.notificationService.openNotificationDialog("Produit approuvé","Le produit a été créé avec succès !",'products',false);
+    this.notificationService.openNotificationDialog(
+      false,
+      "Produit approuvé",
+      "Le produit a été créé avec succès !",
+      'products',
+      false);
   }
   selectImage(image:string){
     this.imageDisplayed = image;

@@ -18,7 +18,7 @@ import { HeaderComponent } from '../../partials/header/header.component';
     MatSidenavModule,
     MatDrawerContainer, MatDrawerContent, MatDrawer,
     NgFor,
-    NgIf,
+    // NgIf,
     RouterLink,
     ProductItemComponent,
     HeaderComponent

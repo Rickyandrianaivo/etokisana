@@ -289,6 +289,7 @@ export class RegisterComponent implements OnInit {
       if (!this.registerCorporateForm.valid){ 
           console.log(this.registerCorporateForm.getError);
           this.notificationService.openNotificationDialog(
+            false,
             "Formulaire Entreprise incomplet",
             "Veuillez vérifier si tous les champs obligatoires sont remplis",
             null,
@@ -297,6 +298,7 @@ export class RegisterComponent implements OnInit {
       }
       if(!this.images['carteFiscaleRecto'] || !this.images['carteFiscaleVerso']){
         this.notificationService.openNotificationDialog(
+          false,
           "Formulaire incomplet",
           "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
           null,
@@ -372,6 +374,7 @@ export class RegisterComponent implements OnInit {
       if (!this.registerForm.valid && !this.dateOfBirth.value._d){  //Champ obligatoire incomplet
             console.log(this.registerForm.getError);
             this.notificationService.openNotificationDialog(
+              false,
               "Formulaire incomplet",
               "Veuillez vérifier si tous les champs obligatoires sont remplis",
               null,
@@ -386,6 +389,7 @@ export class RegisterComponent implements OnInit {
       
       if(!this.images['documentRecto'] || !this.images['documentVerso']){ //Les documents d'identificaiton sont incomplets
         this.notificationService.openNotificationDialog(
+          false,
               "Formulaire incomplet",
               "Les photos du document d'identification sont obligatoire pour la validation de votre inscription",
               null,
@@ -474,6 +478,7 @@ export class RegisterComponent implements OnInit {
         this.userService.registerUser(this.user).subscribe(registeredUser=>{
           console.log(registeredUser);
           this.notificationService.openNotificationDialog(
+            false,
             "Inscription envoyée", 
             "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
             "login",

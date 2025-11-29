@@ -78,6 +78,7 @@ export class HomeComponent {
     })
     this.cartService.addToCart(depotItemId)
     this.notificationService.openNotificationDialog(
+      false,
       "Produit ajouté au panier",
       "Ce produit a été ajouté à votre panier.",
       "",

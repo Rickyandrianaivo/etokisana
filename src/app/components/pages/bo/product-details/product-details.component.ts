@@ -84,6 +84,7 @@ export class ProductDetailsComponent {
       console.log(result);
     })
     this.notificationService.openNotificationDialog(
+      false,
       "Produit approuvé !",
       "Le produit a été approuvé et sera disponible pour échange sur la plateforme",
       'products',
@@ -93,6 +94,7 @@ export class ProductDetailsComponent {
     console.log('clicked');
     this.cartService.addToCart(depotItemId);
     this.notificationService.openNotificationDialog(
+      false,
       "Produit ajouté au panier",
       "Ce produit a été ajouté à votre panier.",
       "home",

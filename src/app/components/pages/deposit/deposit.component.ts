@@ -177,6 +177,7 @@ export class DepositComponent {
       if (this.theProduct.productOwnerId == this.currentUser.userId) {
         // Ajouter popup pour revenir à la liste de produit
         this.notificationService.openNotificationDialog(
+          false,
           "Produit Stocké",
           "Produit stocké avec succès",
           'user-products',
@@ -194,6 +195,7 @@ export class DepositComponent {
       }else{
         // Ajouter popup pour revenir à la liste de produit
         this.notificationService.openNotificationDialog(
+          false,
           "Aquisition d'un nouveau produit",
           "Votre achat a bien été effectué",
           'user-products',

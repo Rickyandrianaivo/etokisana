@@ -487,6 +487,7 @@ submit(){
             })
             // Ajouter popup pour revenir à la liste de produit
             this.notificationService.openNotificationDialog(
+              false,
               "Produit Stocké",
               "Produit stocké avec succès",
               'user-products',

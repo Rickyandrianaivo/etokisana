@@ -38,9 +38,10 @@ export class NotificationService {
   deleteNotification(NotificationId:string){
     return this.http.delete(NOTIFICATION_REMOVE_URL+NotificationId);
   }
-  openNotificationDialog(title:string , message:string, url : string | null,reload:boolean =false){
+  openNotificationDialog( yn:boolean =false,title:string , message:string, url : string | null,reload:boolean =false){
     const dialogRef = this.dialog.open(NotificationDialogComponent,{
       data : {
+        yn,
         title,
         message
       }
