@@ -501,7 +501,9 @@ export class RegisterComponent implements OnInit {
     })
   }  
   /*------------------------------------------
+   --------------------------------------------
    moveMap()
+   --------------------------------------------
    --------------------------------------------*/
    moveMap(event: google.maps.MapMouseEvent) {
       if (event.latLng != null) 
