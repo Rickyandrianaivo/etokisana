@@ -352,7 +352,7 @@ export class RegisterComponent implements OnInit {
           state : "new",
         }
         this.notificationService.addNotification(parrain1IdNotif).subscribe(response =>{
-          console.log(`notification créer pour ${fv.parrain2ID}`);
+          console.log(`notification créer pour ${fv.parrain1ID}`);
           console.log(response);
         })
       }
@@ -475,17 +475,17 @@ export class RegisterComponent implements OnInit {
         })
         return;
       }else{
-        // this.userService.registerUser(this.user).subscribe(registeredUser=>{
-        //   console.log(registeredUser);
-        //   this.notificationService.openNotificationDialog(
-        //     false,
-        //     "Inscription envoyée", 
-        //     "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
-        //     "login",
-        //     false
-        //   )
-        // }
-        // )
+        this.userService.registerUser(this.user).subscribe(registeredUser=>{
+          console.log(registeredUser);
+          this.notificationService.openNotificationDialog(
+            false,
+            "Inscription envoyée", 
+            "Un email vous a été envoyé pour vérification de votre adresse-mail. Une notification vous parviendra dès que votre compte sera opérationnel",
+            "login",
+            false
+          )
+        }
+        )
         
         if (this.latitude && this.longitude) {
           const mainSite :Site = {
